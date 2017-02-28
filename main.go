@@ -3,9 +3,18 @@ package main
 import (
 	"log"
 	"net/http"
+	"html/template"
+	"path/filepath"
+	"os"
 )
 
 func main() {
+	pattern := filepath.Join("/template/", "*.tpl")
+	tpl := template.Must(template.ParseGlob(pattern))
+	err := tpl.Execute(os.Stdout, nil)
+	if err != nil {
+		log.Fatalf("template execution: %s", err)
+	}
 	log.Fatal(http.ListenAndServe(":8080", http.FileServer(http.Dir("."))))
 }
 

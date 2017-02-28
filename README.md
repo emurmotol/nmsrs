@@ -3,7 +3,9 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 
 ### Tasks
 * Set `mongod --journal --directoryperdb --dbpath=C:\Users\Public\nmsrs-lookup\mongo\db --storageEngine=mmapv1` on windows service
-* Create authentication with jwt
+* Add FontAwesome
+* Render templates
+* Create authentication with JWT
 * Create application forms and backend logic
 * Populate database
 
