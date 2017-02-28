@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row align-items-center">
         <div class="col-lg-3 mx-lg-auto">
-            <a href="/template/home.html">
+            <a href="/template/home.tpl">
                 <img src="/static/img/logo/dole-logo.png" height="192" class="mx-auto d-block logo" alt="Dole Logo">
             </a>
             <form>

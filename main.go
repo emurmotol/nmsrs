@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	pattern := filepath.Join("/template/", "*.tpl")
+	pattern := filepath.Join("template", "*.tpl")
 	tpl := template.Must(template.ParseGlob(pattern))
 	err := tpl.Execute(os.Stdout, nil)
 	if err != nil {

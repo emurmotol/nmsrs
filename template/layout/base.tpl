@@ -16,7 +16,7 @@
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/template/home.html">
+        <a class="navbar-brand" href="/template/home.tpl">
             <img src="/static/img/logo/dole-logo.png" height="30" class="d-inline-block align-top" alt="Dole Logo">&nbsp;Applicant
             Lookup
         </a>
@@ -25,8 +25,8 @@
                 <input class="form-control" type="text" placeholder="Search">
             </form>
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="/template/login.html" class="nav-link">Login</a></li>
-                <li class="nav-item"><a href="/template/register.html" class="nav-link">Register</a></li>
+                <li class="nav-item"><a href="/template/login.tpl" class="nav-link">Login</a></li>
+                <li class="nav-item"><a href="/template/register.tpl" class="nav-link">Register</a></li>
             </ul>
         </div>
     </div>
