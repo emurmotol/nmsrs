@@ -7,6 +7,7 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 * Create authentication with JWT
 * Create application forms and backend logic
 * Populate database
+* Add struct annotations
 
 ### Done
 * Add FontAwesome
