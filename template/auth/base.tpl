@@ -1,11 +1,11 @@
 {{define "base"}}
 <html lang="en">
 <head>
-    {{template "_head"}}
+    {{template "head"}}
 </head>
 <body>
 {{template "content"}}
-{{template "_scripts"}}
+{{template "scripts"}}
 </body>
 </html>
 {{end}}

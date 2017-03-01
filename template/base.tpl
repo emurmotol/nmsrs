@@ -1,7 +1,7 @@
 {{define "base"}}
 <html lang="en">
 <head>
-    {{template "_head"}}
+    {{template "head"}}
 </head>
 <body>
 <nav class="navbar navbar-toggleable-md navbar-light">
@@ -20,14 +20,14 @@
                 <input class="form-control" type="text" placeholder="Search">
             </form>
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="/template/login.tpl" class="nav-link">Login</a></li>
-                <li class="nav-item"><a href="/template/register.tpl" class="nav-link">Register</a></li>
+                <li class="nav-item"><a href="/template/auth/login.tpl" class="nav-link">Login</a></li>
+                <li class="nav-item"><a href="/template/auth/register.tpl" class="nav-link">Register</a></li>
             </ul>
         </div>
     </div>
 </nav>
 {{template "content"}}
-{{template "_scripts"}}
+{{template "scripts"}}
 </body>
 </html>
 {{end}}
