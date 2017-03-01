@@ -15,6 +15,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("template execution: %s", err)
 	}
+	log.Print("Server started!")
 	log.Fatal(http.ListenAndServe(":8080", http.FileServer(http.Dir("."))))
 }
 

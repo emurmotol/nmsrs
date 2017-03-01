@@ -1,3 +1,5 @@
+{{define "title"}}Search{{end}}
+
 {{define "content"}}
 <div class="container">
     <div class="row align-items-center">

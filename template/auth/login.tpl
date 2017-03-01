@@ -1,3 +1,5 @@
+{{define "title"}}Login{{end}}
+
 {{define "content"}}
 <div class="container">
     <div class="row align-items-center">

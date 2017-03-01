@@ -1,0 +1,1 @@
+{{define "title"}}Search Results{{end}}
