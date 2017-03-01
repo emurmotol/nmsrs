@@ -9,7 +9,7 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 * Populate database
 * Add struct annotations
 
-### Done
+### Completed
 * Add FontAwesome
 * Use [Negroni](https://github.com/urfave/negroni)
 
