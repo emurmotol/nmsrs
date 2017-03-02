@@ -17,11 +17,13 @@ func main() {
 	http.ListenAndServe(":8080", n)
 }
 
-var sex = []string{"Male", "Female"}
-var civilStatus = []string{"Single", "Married", "Widowed", "Separated"}
-var employmentStatus = []string{"Employed", "Unemployed"}
-var unemployed = []string{"Actively looking for work", "Resigned", "Terminated/Laid off, local", "Terminated/Laid off, abroad"}
-var disability = []string{"Visual impairment", "Hearing impairment", "Speech impairment", "Physically handicapped"}
+var (
+	sex = []string{"Male", "Female"}
+	civilStatus = []string{"Single", "Married", "Widowed", "Separated"}
+	employmentStatus = []string{"Employed", "Unemployed"}
+	unemployed = []string{"Actively looking for work", "Resigned", "Terminated/Laid off, local", "Terminated/Laid off, abroad"}
+	disability = []string{"Visual impairment", "Hearing impairment", "Speech impairment", "Physically handicapped"}
+)
 
 type Applicant struct {
 	PersonalInformation           PersonalInformation `json:"personal_information"`
