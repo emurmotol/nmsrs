@@ -1,7 +1,7 @@
 ### NMSRS Lookup
 National Manpower Skills Registration System Lookup For The Municipality Of Gasan Marinduque Philippines
 
-### Tasks
+### Tasks On Server
 * Clean your Google Chrome account
 * [Run MongoDB server as a service](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#configure-a-windows-service-for-mongodb-community-edition). Set `mongod --config "C:\Program Files\MongoDB\Server\3.2\bin\mongod.cfg" --journal --directoryperdb --dbpath=C:\Users\Public\nmsrs-lookup\mongo\db --storageEngine=mmapv1 --install`
 * Parse templates
