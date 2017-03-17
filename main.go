@@ -15,19 +15,19 @@ func layout(l string) *render.Render {
 	})
 }
 
-func home(w http.ResponseWriter, r *http.Request) {
+func homeHandler(w http.ResponseWriter, r *http.Request) {
 	layout("main").HTML(w, http.StatusOK, "home/index", map[string]interface{}{
 		"title": "Home",
 	})
 }
 
-func login(w http.ResponseWriter, r *http.Request) {
+func loginHandler(w http.ResponseWriter, r *http.Request) {
 	layout("auth").HTML(w, http.StatusOK, "auth/login", map[string]interface{}{
 		"title": "Login",
 	})
 }
 
-func register(w http.ResponseWriter, r *http.Request) {
+func registerHandler(w http.ResponseWriter, r *http.Request) {
 	layout("auth").HTML(w, http.StatusOK, "auth/register", map[string]interface{}{
 		"title": "Register",
 	})
@@ -37,9 +37,9 @@ func main() {
 	m := http.NewServeMux()
 
 	m.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("static"))))
-	m.HandleFunc("/", home)
-	m.HandleFunc("/login", login)
-	m.HandleFunc("/register", register)
+	m.HandleFunc("/", homeHandler)
+	m.HandleFunc("/login", loginHandler)
+	m.HandleFunc("/register", registerHandler)
 
 	n := negroni.Classic()
 	n.UseHandler(m)
