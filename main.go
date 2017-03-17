@@ -7,18 +7,41 @@ import (
 	"gopkg.in/unrolled/render.v1"
 )
 
-func main() {
-	r := render.New(render.Options{
-		Directory:  "templates",
+var (
+	rnd = render.New(render.Options{
+		Directory:  "views",
+		Layout:     "layouts/main",
 		Extensions: []string{".gohtml", ".html"},
 	})
-	mux := http.NewServeMux()
+)
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		r.HTML(w, http.StatusOK, "example", "World")
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	rnd.HTML(w, http.StatusOK, "home/index", map[string]interface{}{
+		"title": "Home",
 	})
+}
+
+func loginHandler(w http.ResponseWriter, r *http.Request) {
+	rnd.HTML(w, http.StatusOK, "auth/login", map[string]interface{}{
+		"title": "Login",
+	})
+}
+
+func registerHandler(w http.ResponseWriter, r *http.Request) {
+	rnd.HTML(w, http.StatusOK, "auth/register", map[string]interface{}{
+		"title": "Register",
+	})
+}
+
+func main() {
+	m := http.NewServeMux()
+
+	m.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("static"))))
+	m.HandleFunc("/", homeHandler)
+	m.HandleFunc("/login", loginHandler)
+	m.HandleFunc("/register", registerHandler)
 
 	n := negroni.Classic()
-	n.UseHandler(mux)
+	n.UseHandler(m)
 	n.Run(":8080")
 }
