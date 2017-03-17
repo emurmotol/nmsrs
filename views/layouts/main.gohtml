@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{.title}}</title>
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/assets/css/app.css" rel="stylesheet"> {{partial "style"}}
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/app.css" rel="stylesheet"> {{partial "style"}}
 </head>
 
 <body>
@@ -19,7 +19,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="/">
-                <img src="/assets/img/logo/dole-logo.png" height="30" class="d-inline-block align-top" alt="Dole Logo">&nbsp;Applicant
+                <img src="/static/img/logo/dole-logo.png" height="30" class="d-inline-block align-top" alt="Dole Logo">&nbsp;Applicant
                 Lookup
             </a>
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -34,10 +34,10 @@
         </div>
     </nav>
     {{yield}}
-    <script src="/assets/js/jquery-3.1.1.slim.min.js"></script>
-    <script src="/assets/js/tether.min.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/app.js"></script>
+    <script src="/static/js/jquery-3.1.1.slim.min.js"></script>
+    <script src="/static/js/tether.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/app.js"></script>
     {{partial "script"}}
 </body>
 

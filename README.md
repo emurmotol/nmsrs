@@ -15,6 +15,7 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 * Use [Negroni](https://github.com/urfave/negroni)
 
 ### Notes
+* go build ; ./nmsrs-lookup.exe
 * Server architecture is 32-bit must be 64-bit
 * Max DB size 2GB
 

@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/gorilla/pat"
 	"github.com/urfave/negroni"
 	"gopkg.in/unrolled/render.v1"
 )
@@ -53,17 +53,17 @@ func resultsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	r := mux.NewRouter()
+	r := pat.New()
 
-	r.HandleFunc("/", homeHandler).Methods("GET")
-	r.HandleFunc("/welcome", welcomeHandler).Methods("GET")
-	r.HandleFunc("/login", loginHandler).Methods("GET")
-	r.HandleFunc("/register", registerHandler).Methods("GET")
-	r.HandleFunc("/search", searchHandler).Methods("GET")
-	r.HandleFunc("/results", resultsHandler).Methods("GET")
+	h := http.StripPrefix("/static/", http.FileServer(http.Dir("static")))
+	r.Handle("/static/", h)
 
-	h := http.StripPrefix("/static/", http.FileServer(http.Dir("./static/")))
-	r.PathPrefix("/static/").Handler(h).Methods("GET")
+	r.Get("/", homeHandler)
+	r.Get("/welcome", welcomeHandler)
+	r.Get("/login", loginHandler)
+	r.Get("/register", registerHandler)
+	r.Get("/search", searchHandler)
+	r.Get("/results", resultsHandler)
 
 	n := negroni.Classic()
 	n.UseHandler(r)
