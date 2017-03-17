@@ -2,63 +2,68 @@ package main
 
 import (
 	"net/http"
-	"fmt"
+
 	"github.com/urfave/negroni"
+	"gopkg.in/unrolled/render.v1"
+)
+
+var (
+	sex              = []string{"Male", "Female"}
+	civilStatus      = []string{"Single", "Married", "Widowed", "Separated"}
+	employmentStatus = []string{"Employed", "Unemployed"}
+	unemployed       = []string{"Actively looking for work", "Resigned", "Terminated/Laid off, local", "Terminated/Laid off, abroad"}
+	disability       = []string{"Visual impairment", "Hearing impairment", "Speech impairment", "Physically handicapped"}
 )
 
 func main() {
+	r := render.New()
 	mux := http.NewServeMux()
+
 	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		fmt.Fprintf(w, "Welcome to the home page!")
+		// Assumes you have a template in ./templates called "example.tmpl"
+		// $ mkdir -p templates && echo "<h1>Hello {{.}}.</h1>" > templates/example.tmpl
+		r.HTML(w, http.StatusOK, "example", "World")
 	})
-	n := negroni.New()
-	n.Use(negroni.NewLogger())
+
+	n := negroni.Classic()
 	n.UseHandler(mux)
-	http.ListenAndServe(":8080", n)
+	n.Run(":8080")
 }
 
-var (
-	sex = []string{"Male", "Female"}
-	civilStatus = []string{"Single", "Married", "Widowed", "Separated"}
-	employmentStatus = []string{"Employed", "Unemployed"}
-	unemployed = []string{"Actively looking for work", "Resigned", "Terminated/Laid off, local", "Terminated/Laid off, abroad"}
-	disability = []string{"Visual impairment", "Hearing impairment", "Speech impairment", "Physically handicapped"}
-)
-
 type Applicant struct {
-	PersonalInformation           PersonalInformation `json:"personal_information"`
-	FormalEducation               []FormalEducation `json:"formal_education"`
-	ProfessionalLicence           []ProfessionalLicence `json:"professional_licence"`
-	Eligibility                   []Eligibility `json:"eligibility"`
+	PersonalInformation           PersonalInformation             `json:"personal_information"`
+	FormalEducation               []FormalEducation               `json:"formal_education"`
+	ProfessionalLicence           []ProfessionalLicence           `json:"professional_licence"`
+	Eligibility                   []Eligibility                   `json:"eligibility"`
 	TrainingAndRelevantExperience []TrainingAndRelevantExperience `json:"training_and_relevant_experience"`
-	CertificateOfCompetence       []CertificateOfCompetence `json:"certificate_of_competence"`
-	WorkExperience                WorkExperience `json:"work_experience"`
-	OtherSkills                   []string `json:"other_skills"`
-	CreatedAt                     string `json:"created_at"`
-	UpdatedAt                     string `json:"updated_at"`
+	CertificateOfCompetence       []CertificateOfCompetence       `json:"certificate_of_competence"`
+	WorkExperience                WorkExperience                  `json:"work_experience"`
+	OtherSkills                   []string                        `json:"other_skills"`
+	CreatedAt                     string                          `json:"created_at"`
+	UpdatedAt                     string                          `json:"updated_at"`
 }
 
 type PersonalInformation struct {
-	FamilyName            string `json:"family_name"`
-	GivenName             string `json:"given_name"`
-	MiddleName            string `json:"middle_name"`
-	PresentAddress        PresentAddress `json:"present_address"`
-	Birthdate             string `json:"birthdate"`
-	PlaceOfBirth          string `json:"place_of_birth"`
-	Age                   int `json:"age"`
-	Sex                   string `json:"sex"`
-	Height                float32 `json:"height"`
-	Weight                float32 `json:"weight"`
-	Religion              string `json:"religion"`
-	CivilStatus           string `json:"civil_status"`
-	LandlineNumber        string `json:"landline_number"`
-	MobileNumber          string `json:"mobile_number"`
-	EmailAddress          string `json:"email_address"`
-	EmploymentStatus      EmploymentStatus `json:"employment_status"`
-	PreferredOccupation   []string `json:"preferred_occupation"`
+	FamilyName            string                `json:"family_name"`
+	GivenName             string                `json:"given_name"`
+	MiddleName            string                `json:"middle_name"`
+	PresentAddress        PresentAddress        `json:"present_address"`
+	Birthdate             string                `json:"birthdate"`
+	PlaceOfBirth          string                `json:"place_of_birth"`
+	Age                   int                   `json:"age"`
+	Sex                   string                `json:"sex"`
+	Height                float32               `json:"height"`
+	Weight                float32               `json:"weight"`
+	Religion              string                `json:"religion"`
+	CivilStatus           string                `json:"civil_status"`
+	LandlineNumber        string                `json:"landline_number"`
+	MobileNumber          string                `json:"mobile_number"`
+	EmailAddress          string                `json:"email_address"`
+	EmploymentStatus      EmploymentStatus      `json:"employment_status"`
+	PreferredOccupation   []string              `json:"preferred_occupation"`
 	PreferredWorkLocation PreferredWorkLocation `json:"preferred_work_location"`
-	Disability            []string `json:"disability"`
-	Language              Language `json:"language"`
+	Disability            []string              `json:"disability"`
+	Language              Language              `json:"language"`
 }
 
 type PresentAddress struct {
@@ -71,8 +76,8 @@ type PresentAddress struct {
 }
 
 type EmploymentStatus struct {
-	IsEmployed bool `json:"is_employed"`
-	Unemployed string `json:"unemployed"`
+	IsEmployed bool       `json:"is_employed"`
+	Unemployed string     `json:"unemployed"`
 	Terminated Terminated `json:"terminated"`
 }
 
@@ -96,10 +101,10 @@ type Language struct {
 
 type FormalEducation struct {
 	Grade         float32 `json:"grade"`
-	Course        string `json:"course"`
-	School        string `json:"school"`
-	YearGraduated int `json:"year_graduated"`
-	LastAttended  int `jaon:"last_attended"`
+	Course        string  `json:"course"`
+	School        string  `json:"school"`
+	YearGraduated int     `json:"year_graduated"`
+	LastAttended  int     `jaon:"last_attended"`
 }
 
 type ProfessionalLicence struct {
@@ -115,20 +120,20 @@ type Eligibility struct {
 type TrainingAndRelevantExperience struct {
 	Name                string `json:"name"`
 	SkillsAcquired      string `json:"skills_acquired"`
-	YearsOfExperience   int `json:"years_of_experience"`
+	YearsOfExperience   int    `json:"years_of_experience"`
 	CertificateReceived string `json:"certificate_received"`
 	IssuedBy            string `json:"issued_by"`
 }
 
 type CertificateOfCompetence struct {
-	Certificate string `json:"certificate"`
+	Certificate string  `json:"certificate"`
 	Rating      float32 `json:"rating"`
-	IssuedBy    string `json:"issued_by"`
-	DateIssued  string `json:"date_issued"`
+	IssuedBy    string  `json:"issued_by"`
+	DateIssued  string  `json:"date_issued"`
 }
 
 type WorkExperience struct {
-	Local    []Local `json:"local"`
+	Local    []Local    `json:"local"`
 	Overseas []Overseas `json:"overseas"`
 }
 
@@ -138,7 +143,7 @@ type Local struct {
 	From                       string `json:"from"`
 	To                         string `json:"to"`
 	PositionHead               string `json:"position_head"`
-	IsRelatedToFormalEducation bool `json:"is_related_to_formal_education"`
+	IsRelatedToFormalEducation bool   `json:"is_related_to_formal_education"`
 }
 
 type Overseas struct {
