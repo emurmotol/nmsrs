@@ -88,3 +88,9 @@ func main() {
 	n.UseHandler(r)
 	n.Run(":8080")
 }
+
+// Password Reset Routes Used By Laravel...
+// $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+// $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+// $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+// $this->post('password/reset', 'Auth\ResetPasswordController@reset');
