@@ -81,8 +81,8 @@ func main() {
 
 	r.HandleFunc("/results", showResultsPage).Methods("GET")
 
-	h := http.StripPrefix("/static/", http.FileServer(http.Dir("./static/")))
-	r.PathPrefix("/static/").Handler(h).Methods("GET")
+	h := http.StripPrefix("/assets/", http.FileServer(http.Dir("./static/")))
+	r.PathPrefix("/assets/").Handler(h).Methods("GET")
 
 	n := negroni.Classic()
 	n.UseHandler(r)
