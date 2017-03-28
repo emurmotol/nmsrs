@@ -12,6 +12,6 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Static("./static"))
 
-	e = routes.Web(e)
+	e = routes.Web(e) // TODO
 	e.Logger.Fatal(e.Start(":1323"))
 }
