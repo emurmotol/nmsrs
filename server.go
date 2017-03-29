@@ -10,7 +10,7 @@ func main() {
 	e := echo.New()
 
 	e.Use(middleware.Logger())
-	e.Use(middleware.Static("./static"))
+	e.Use(middleware.Static("static"))
 
 	e = routes.Web(e) // TODO
 	e.Logger.Fatal(e.Start(":1323"))
