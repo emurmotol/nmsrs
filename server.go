@@ -1,21 +1,32 @@
 package main
 
 import (
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
-	"github.com/zneyrl/nmsrs-lookup/routes"
-	"github.com/zneyrl/nmsrs-lookup/shared/templates"
+	"html/template"
+	"log"
+	"net/http"
+
+	"github.com/gorilla/pat"
+	"github.com/urfave/negroni"
 )
 
 func main() {
-	e := echo.New()
+	p := pat.New()
+	p.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		// tmpl.Render(w, "main:home.index", nil)
 
-	e.Use(middleware.Logger())
-	e.Use(middleware.Static("static"))
+		// t := template.Must(template.New("main").ParseFiles(`views\layouts\main.gohtml`, `views\home\index.gohtml`))
+		// err := t.ExecuteTemplate(w, "main", nil)
 
-	e.Renderer = &templates.Template{}
-	templates.Load()
+		t := template.Must(template.New("main:home.index").ParseFiles(`views\layouts\main.gohtml`, `views\home\index.gohtml`))
+		err := t.ExecuteTemplate(w, "main:home.index", nil)
 
-	e = routes.Web(e) // TODO
-	e.Logger.Fatal(e.Start(":1323"))
+		if err != nil {
+			log.Fatal(err)
+		}
+	})
+
+	n := negroni.New()
+	n.Use(negroni.NewLogger())
+	n.UseHandler(p)
+	http.ListenAndServe(":8080", n)
 }

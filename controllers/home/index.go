@@ -3,9 +3,9 @@ package home
 import (
 	"net/http"
 
-	"github.com/labstack/echo"
+	"github.com/zneyrl/nmsrs-lookup/shared/templates"
 )
 
-func Index(c echo.Context) error {
-	return c.Render(http.StatusOK, "main:home.index", nil)
+func Index(w http.ResponseWriter, r *http.Request) {
+	templates.Render(w, "main:home.index", nil)
 }

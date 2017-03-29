@@ -1,35 +1,52 @@
-package templates
+package tmpl
 
 import (
 	"fmt"
 	"html/template"
-	"io"
+	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/labstack/echo"
 )
 
-var templates map[string]*template.Template
+var (
+	templates map[string]*template.Template
+	// bufpool   *bpool.BufferPool
+)
 
-type Template struct {
-	templates *template.Template
-}
-
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	tmpl, ok := templates[name]
-	if !ok {
-		return fmt.Errorf("The template %s does not exist.", name)
-	}
-	return tmpl.ExecuteTemplate(w, name, data)
-}
-
-func Load() {
+func init() {
 	if templates == nil {
 		templates = make(map[string]*template.Template)
 	}
-	parseTemplateDir("views")
+	parseTemplateDir("views") // TODO: Add to config
+	// bufpool = bpool.NewBufferPool(64)
+}
+
+func check(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func Render(w http.ResponseWriter, name string, data interface{}) error {
+	tmpl, ok := templates[name]
+	if !ok {
+		return fmt.Errorf("The template %s does not exist", name)
+	}
+
+	// buf := bufpool.Get()
+	// defer bufpool.Put(buf)
+
+	err := tmpl.ExecuteTemplate(w, name, data)
+	// err := tmpl.ExecuteTemplate(buf, name, data)
+	if err != nil {
+		return err
+	}
+
+	w.Header().Set("Content-Type", "text/html")
+	// buf.WriteTo(w)
+	return nil
 }
 
 func paths(root string) ([]string, []string, error) {
@@ -39,7 +56,7 @@ func paths(root string) ([]string, []string, error) {
 			return err
 		}
 		if !info.IsDir() {
-			if removeRootInPath(path, root) == "layouts" {
+			if removeRootInPath(path, root) == "layouts" { // TODO: Add to config
 				layouts = append(layouts, path)
 			} else {
 				pages = append(pages, path)
@@ -60,18 +77,22 @@ func parseTemplateDir(root string) error {
 		return err
 	}
 
-	var files []string
-
 	for _, layout := range layouts {
 		for _, page := range pages {
-			files := append(files, layout, page)
+			files := []string{layout, page}
 			layoutWithExt := filepath.Base(layout)
 			layoutNoExt := strings.TrimSuffix(layoutWithExt, filepath.Ext(layoutWithExt))
 			pageDir := strings.Replace(removeRootInPath(page, root), string(os.PathSeparator), ".", -1)
 			pageWithExt := filepath.Base(page)
 			pageNoExt := strings.TrimSuffix(pageWithExt, filepath.Ext(pageWithExt))
-			name := layoutNoExt + ":" + pageDir + "." + pageNoExt
-			templates[name] = template.Must(template.New(pageNoExt).ParseFiles(files...))
+
+			var name string
+			if pageDir != root {
+				name = layoutNoExt + ":" + pageDir + "." + pageNoExt
+			} else {
+				name = layoutNoExt + ":" + pageNoExt
+			}
+			templates[name] = template.Must(template.New(name).ParseFiles(files...))
 		}
 	}
 	return nil
