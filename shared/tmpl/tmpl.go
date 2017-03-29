@@ -3,7 +3,6 @@ package tmpl
 import (
 	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -17,12 +16,6 @@ func init() {
 		templates = make(map[string]*template.Template)
 	}
 	parseTemplateDir("views") // TODO: Add to config
-}
-
-func check(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
 }
 
 func Render(w http.ResponseWriter, layout string, name string, data interface{}) error {
@@ -46,7 +39,8 @@ func paths(root string) ([]string, []string, error) {
 			return err
 		}
 		if !info.IsDir() {
-			if removeRootInPath(path, root) == "layouts" { // TODO: Add to config
+			p := strings.TrimPrefix(filepath.Dir(path), root+string(os.PathSeparator))
+			if p == "layouts" { // TODO: Add to config
 				layouts = append(layouts, path)
 			} else {
 				pages = append(pages, path)
@@ -72,7 +66,8 @@ func parseTemplateDir(root string) error {
 			files := []string{layout, page}
 			layoutWithExt := filepath.Base(layout)
 			layoutNoExt := strings.TrimSuffix(layoutWithExt, filepath.Ext(layoutWithExt))
-			pageDir := strings.Replace(removeRootInPath(page, root), string(os.PathSeparator), ".", -1)
+			p := strings.TrimPrefix(filepath.Dir(page), root+string(os.PathSeparator))
+			pageDir := strings.Replace(p, string(os.PathSeparator), ".", -1)
 			pageWithExt := filepath.Base(page)
 			pageNoExt := strings.TrimSuffix(pageWithExt, filepath.Ext(pageWithExt))
 
@@ -86,8 +81,4 @@ func parseTemplateDir(root string) error {
 		}
 	}
 	return nil
-}
-
-func removeRootInPath(path string, root string) string {
-	return strings.TrimPrefix(filepath.Dir(path), root+string(os.PathSeparator))
 }
