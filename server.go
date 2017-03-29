@@ -3,19 +3,15 @@ package main
 import (
 	"net/http"
 
-	"github.com/gorilla/pat"
 	"github.com/urfave/negroni"
-	"github.com/zneyrl/nmsrs-lookup/shared/tmpl"
+	"github.com/zneyrl/nmsrs-lookup/routes"
 )
 
 func main() {
-	p := pat.New()
-	p.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.Render(w, "search", "search.index", nil)
-	})
+	r := routes.Web()
 
 	n := negroni.New()
 	n.Use(negroni.NewLogger())
-	n.UseHandler(p)
+	n.UseHandler(r)
 	http.ListenAndServe(":8080", n)
 }

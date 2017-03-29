@@ -3,13 +3,9 @@ package auth
 import (
 	"net/http"
 
-	"github.com/labstack/echo"
+	"github.com/zneyrl/nmsrs-lookup/shared/tmpl"
 )
 
-func ShowLoginForm(c echo.Context) error {
-	return c.String(http.StatusOK, "Login GET")
-}
-
-func Login(c echo.Context) error {
-	return c.String(http.StatusOK, "Login POST")
+func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
+	tmpl.Render(w, "auth", "auth.login", nil)
 }

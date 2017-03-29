@@ -1,16 +1,22 @@
 package routes
 
 import (
-	"github.com/labstack/echo"
+	"net/http"
+
+	"github.com/gorilla/mux"
 	"github.com/zneyrl/nmsrs-lookup/controllers/auth"
 	"github.com/zneyrl/nmsrs-lookup/controllers/home"
+	"github.com/zneyrl/nmsrs-lookup/controllers/search"
 )
 
-func Web(e *echo.Echo) *echo.Echo {
-	e.GET("/", home.Index)
-
-	e.GET("/login", auth.ShowLoginForm)
-	e.POST("/login", auth.Login)
-
-	return e
+func Web() *mux.Router {
+	r := mux.NewRouter()
+	r.Path("/").Methods("GET").HandlerFunc(home.Index)
+	r.Path("/welcome").Methods("GET").HandlerFunc(home.Welcome)
+	r.Path("/login").Methods("GET").HandlerFunc(auth.ShowLoginForm)
+	r.Path("/register").Methods("GET").HandlerFunc(auth.ShowRegisterForm)
+	r.Path("/search").Methods("GET").HandlerFunc(search.Index)
+	r.Path("/results").Methods("GET").HandlerFunc(search.Results)
+	r.PathPrefix("/").Handler(http.FileServer(http.Dir("static")))
+	return r
 }

@@ -35,7 +35,6 @@ func Render(w http.ResponseWriter, layout string, name string, data interface{})
 	if err != nil {
 		return err
 	}
-
 	w.Header().Set("Content-Type", "text/html")
 	return nil
 }
