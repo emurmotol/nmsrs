@@ -1,3 +1,4 @@
+{{define "search"}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,20 +6,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{.title}}</title>
+    <title>{{block "title" .}}{{end}}</title>
     <link rel="icon" type="image/x-icon" href="/img/logo/dole/1144x1024.png">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/css/app.css" rel="stylesheet"> {{partial "style"}}
+    <link href="/css/app.css" rel="stylesheet">
+    {{block "style" .}}{{end}}
 </head>
 
 <body>
-    {{yield}}
+    {{template "content" .}}
     <script src="/js/jquery-3.1.1.slim.min.js"></script>
     <script src="/js/tether.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/app.js"></script>
-    {{partial "script"}}
+    {{block "script" .}}{{end}}
 </body>
 
 </html>
+{{end}}
