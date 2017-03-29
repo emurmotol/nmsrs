@@ -10,17 +10,13 @@ import (
 	"strings"
 )
 
-var (
-	templates map[string]*template.Template
-	// bufpool   *bpool.BufferPool
-)
+var templates map[string]*template.Template
 
 func init() {
 	if templates == nil {
 		templates = make(map[string]*template.Template)
 	}
 	parseTemplateDir("views") // TODO: Add to config
-	// bufpool = bpool.NewBufferPool(64)
 }
 
 func check(err error) {
@@ -29,23 +25,18 @@ func check(err error) {
 	}
 }
 
-func Render(w http.ResponseWriter, name string, data interface{}) error {
-	tmpl, ok := templates[name]
+func Render(w http.ResponseWriter, layout string, name string, data interface{}) error {
+	tmpl, ok := templates[layout+":"+name]
 	if !ok {
 		return fmt.Errorf("The template %s does not exist", name)
 	}
 
-	// buf := bufpool.Get()
-	// defer bufpool.Put(buf)
-
-	err := tmpl.ExecuteTemplate(w, name, data)
-	// err := tmpl.ExecuteTemplate(buf, name, data)
+	err := tmpl.ExecuteTemplate(w, layout, data)
 	if err != nil {
 		return err
 	}
 
 	w.Header().Set("Content-Type", "text/html")
-	// buf.WriteTo(w)
 	return nil
 }
 
