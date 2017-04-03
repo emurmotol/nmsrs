@@ -2,7 +2,6 @@ package middlewares
 
 import (
 	"crypto/rsa"
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -15,13 +14,13 @@ import (
 )
 
 var (
-	privKeyPath = home() + "/.ssh/id_rsa"
-	pubKeyPath  = home() + "/.ssh/id_rsa.pub"
+	privKeyPath = homeDir() + "/.ssh/id_rsa"
+	pubKeyPath  = homeDir() + "/.ssh/id_rsa.manual.pub" // TODO: File manually added
 	SignKey     *rsa.PrivateKey
 	VerifyKey   *rsa.PublicKey
 )
 
-func home() string {
+func homeDir() string {
 	usr, err := user.Current()
 	Fatal(err)
 	return usr.HomeDir
@@ -44,24 +43,7 @@ func InitKeys() {
 	Fatal(err)
 
 	VerifyKey, err = jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
-	fmt.Println(VerifyKey)
 	Fatal(err)
-}
-
-type UserCredentials struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
-type User struct {
-	ID       int    `json:"id"`
-	Name     string `json:"name"`
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
-type Response struct {
-	Data string `json:"data"`
 }
 
 type Token struct {
@@ -84,22 +66,6 @@ func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 		w.WriteHeader(http.StatusUnauthorized)
 		fmt.Fprint(w, "Unauthorized access to this resource")
 	}
-}
-
-func Protected(w http.ResponseWriter, r *http.Request) {
-	response := Response{"Gained access to protected resource"}
-	JsonResponse(response, w)
-}
-
-func JsonResponse(response interface{}, w http.ResponseWriter) {
-	json, err := json.Marshal(response)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	w.WriteHeader(http.StatusOK)
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(json)
 }
 
 func Secure(handler http.HandlerFunc) *negroni.Negroni {

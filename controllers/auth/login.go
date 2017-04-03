@@ -1,14 +1,14 @@
 package auth
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"strings"
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/zneyrl/nmsrs-lookup/middlewares"
+	mw "github.com/zneyrl/nmsrs-lookup/middlewares"
+	"github.com/zneyrl/nmsrs-lookup/shared/response"
 	"github.com/zneyrl/nmsrs-lookup/shared/tmpl"
 )
 
@@ -20,17 +20,32 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	var user middlewares.UserCredentials
-	err := json.NewDecoder(r.Body).Decode(&user)
+	r.ParseForm() // TODO: Must handle error
 
-	if err != nil {
-		w.WriteHeader(http.StatusForbidden)
-		fmt.Fprint(w, "Error in request")
-		return
-	}
+	// var user models.UserCredentials
 
-	if strings.ToLower(user.Username) != "someone" {
-		if user.Password != "p@ssword" {
+	// err := json.NewDecoder(r.Body).Decode(&user)
+
+	// decoder := schema.NewDecoder()
+	// err := decoder.Decode(user, r.PostForm)
+
+	// if err != nil {
+	// 	w.WriteHeader(http.StatusForbidden)
+	// 	fmt.Fprint(w, "Error in request")
+	// 	return
+	// }
+
+	// if strings.ToLower(user.Username) != "user" {
+	// 	if user.Password != "pass" {
+	// 		w.WriteHeader(http.StatusForbidden)
+	// 		fmt.Println("Error logging in")
+	// 		fmt.Fprint(w, "Invalid credentials")
+	// 		return
+	// 	}
+	// }
+
+	if strings.ToLower(r.FormValue("username")) != "user" {
+		if r.FormValue("password") != "pass" {
 			w.WriteHeader(http.StatusForbidden)
 			fmt.Println("Error logging in")
 			fmt.Fprint(w, "Invalid credentials")
@@ -43,18 +58,18 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	claims["iat"] = time.Now().Unix()
 	token.Claims = claims
 
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintln(w, "Error extracting the key")
-		middlewares.Fatal(err)
-	}
-	tokenString, err := token.SignedString(middlewares.SignKey)
+	// TODO: Missing error definition, comment instead
+	// if err != nil {
+	// 	w.WriteHeader(http.StatusInternalServerError)
+	// 	fmt.Fprintln(w, "Error extracting the key")
+	// 	mw.Fatal(err)
+	// }
+	tokenString, err := token.SignedString(mw.SignKey)
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprintln(w, "Error while signing the token")
-		middlewares.Fatal(err)
+		mw.Fatal(err)
 	}
-	response := middlewares.Token{tokenString}
-	middlewares.JsonResponse(response, w)
+	response.Json(mw.Token{tokenString}, w)
 }

@@ -5,9 +5,10 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/zneyrl/nmsrs-lookup/controllers/auth"
+	"github.com/zneyrl/nmsrs-lookup/controllers/dashboard"
 	"github.com/zneyrl/nmsrs-lookup/controllers/home"
 	"github.com/zneyrl/nmsrs-lookup/controllers/search"
-	"github.com/zneyrl/nmsrs-lookup/middlewares"
+	mw "github.com/zneyrl/nmsrs-lookup/middlewares"
 )
 
 func Web() *mux.Router {
@@ -23,7 +24,7 @@ func Web() *mux.Router {
 	register.Methods("GET").HandlerFunc(auth.ShowRegisterForm)
 	register.Methods("POST").HandlerFunc(auth.Register)
 
-	r.Handle("/dashboard", middlewares.Secure(middlewares.Protected))
+	r.Path("/dashboard").Methods("GET").Handler(mw.Secure(dashboard.Index))
 
 	r.Path("/search").Methods("GET").HandlerFunc(search.Index)
 	r.Path("/results").Methods("GET").HandlerFunc(search.Results)
