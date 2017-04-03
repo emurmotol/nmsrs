@@ -12,3 +12,7 @@ func ShowRegisterForm(w http.ResponseWriter, r *http.Request) {
 	}
 	tmpl.Render(w, "auth", "auth.register", data)
 }
+
+func Register(w http.ResponseWriter, r *http.Request) {
+	
+}
