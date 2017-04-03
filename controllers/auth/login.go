@@ -58,12 +58,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	claims["iat"] = time.Now().Unix()
 	token.Claims = claims
 
-	// TODO: Missing error definition, comment instead
 	// if err != nil {
 	// 	w.WriteHeader(http.StatusInternalServerError)
 	// 	fmt.Fprintln(w, "Error extracting the key")
 	// 	mw.Fatal(err)
-	// }
+	// } // TODO: Missing error definition, comment instead
 	tokenString, err := token.SignedString(mw.SignKey)
 
 	if err != nil {
