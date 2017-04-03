@@ -7,5 +7,8 @@ import (
 )
 
 func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
-	tmpl.Render(w, "auth", "auth.login", nil)
+	data := map[string]string{
+		"Title": "Login",
+	}
+	tmpl.Render(w, "auth", "auth.login", data)
 }

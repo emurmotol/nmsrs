@@ -7,5 +7,8 @@ import (
 )
 
 func ShowRegisterForm(w http.ResponseWriter, r *http.Request) {
-	tmpl.Render(w, "auth", "auth.register", nil)
+	data := map[string]string{
+		"Title": "Register",
+	}
+	tmpl.Render(w, "auth", "auth.register", data)
 }

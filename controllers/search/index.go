@@ -7,5 +7,8 @@ import (
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	tmpl.Render(w, "search", "search.index", nil)
+	data := map[string]string{
+		"Title": "Search",
+	}
+	tmpl.Render(w, "search", "search.index", data)
 }
