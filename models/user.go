@@ -11,6 +11,6 @@ type User struct {
 }
 
 type UserCredentials struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Username string `schema:"username"`
+	Password string `schema:"password"`
 }
