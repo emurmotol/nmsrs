@@ -64,8 +64,8 @@ func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 		}
 	} else {
 		w.WriteHeader(http.StatusUnauthorized)
-		// fmt.Fprint(w, "Unauthorized access to this resource")
-		http.Redirect(w, r, "/login", http.StatusFound)
+		fmt.Fprint(w, "Unauthorized access to this resource")
+		// http.Redirect(w, r, "/login", http.StatusFound)
 	}
 }
 

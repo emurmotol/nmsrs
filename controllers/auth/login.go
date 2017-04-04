@@ -12,9 +12,11 @@ import (
 	"github.com/zneyrl/nmsrs-lookup/models"
 	"github.com/zneyrl/nmsrs-lookup/shared/response"
 	"github.com/zneyrl/nmsrs-lookup/shared/tmpl"
+	"gopkg.in/go-playground/validator.v9"
 )
 
 var decoder = schema.NewDecoder()
+var validate *validator.Validate
 
 func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 	data := map[string]string{
@@ -24,13 +26,15 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm() // TODO: Must handle error
-<<<<<<< HEAD
+	err := r.ParseForm()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, "Error parsing form")
+		return
+	}
+
 	var user models.AuthCredentials
-=======
-	var user models.UserCredentials
->>>>>>> 8e4ec4c41d89c9406d3c186dddc3e1129455dab6
-	err := decoder.Decode(&user, r.PostForm)
+	err = decoder.Decode(&user, r.PostForm)
 
 	if err != nil {
 		w.WriteHeader(http.StatusForbidden)
@@ -38,11 +42,23 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-<<<<<<< HEAD
+	validate = validator.New()
+	err = validate.Struct(user)
+
+	if err != nil {
+		if _, ok := err.(*validator.InvalidValidationError); ok {
+			fmt.Fprintln(w, err)
+			return
+		}
+
+		for _, err := range err.(validator.ValidationErrors) {
+			fmt.Fprintln(w, err.Field()+": "+err.Tag())
+		}
+		// TODO: Redirect back
+		return
+	}
+
 	if strings.ToLower(user.Username) != "user" || user.Password != "pass" {
-=======
-	if strings.ToLower(strings.TrimSpace(user.Username)) != "user" && user.Password != "pass" {
->>>>>>> 8e4ec4c41d89c9406d3c186dddc3e1129455dab6
 		w.WriteHeader(http.StatusForbidden)
 		fmt.Println("Error logging in")
 		fmt.Fprint(w, "Invalid credentials")
@@ -53,12 +69,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
 	claims["iat"] = time.Now().Unix()
 	token.Claims = claims
-
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintln(w, "Error extracting the key")
-		mw.Fatal(err)
-	} // TODO: Missing error definition
 	tokenString, err := token.SignedString(mw.SignKey)
 
 	if err != nil {

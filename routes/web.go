@@ -13,7 +13,7 @@ import (
 
 func Web() *mux.Router {
 	r := mux.NewRouter()
-	r.Path("/").Methods("GET").Handler(mw.Secure(home.Index))
+	r.Path("/").Methods("GET").HandlerFunc(home.Index)
 	r.Path("/welcome").Methods("GET").HandlerFunc(home.Welcome)
 
 	login := r.Path("/login").Subrouter()
