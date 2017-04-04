@@ -28,8 +28,7 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 func Login(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, "Error parsing form")
+		response.JSON(response.Status{http.StatusInternalServerError, "Error parsing form"}, w)
 		return
 	}
 
@@ -37,8 +36,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	err = decoder.Decode(&user, r.PostForm)
 
 	if err != nil {
-		w.WriteHeader(http.StatusForbidden)
-		fmt.Fprint(w, "Error in request")
+		response.JSON(response.Status{http.StatusInternalServerError, "Error in request"}, w)
 		return
 	}
 
@@ -59,9 +57,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if strings.ToLower(user.Username) != "user" || user.Password != "pass" {
-		w.WriteHeader(http.StatusForbidden)
-		fmt.Println("Error logging in")
-		fmt.Fprint(w, "Invalid credentials")
+		response.JSON(response.Status{http.StatusForbidden, "Invalid credentials"}, w)
 		return
 	}
 	token := jwt.New(jwt.SigningMethodRS256)
@@ -72,9 +68,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	tokenString, err := token.SignedString(mw.SignKey)
 
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintln(w, "Error while signing the token")
+		response.JSON(response.Status{http.StatusInternalServerError, "Error while signing the token"}, w)
 		mw.Fatal(err)
 	}
-	response.JSON(mw.Token{tokenString}, w)
+	response.JSON(response.Status{http.StatusOK, tokenString}, w)
+	return
 }

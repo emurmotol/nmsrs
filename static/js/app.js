@@ -1,3 +1,3 @@
 $(function () {
-    console.log("Testing lang...")
+    // console.log("Testing lang...")
 });

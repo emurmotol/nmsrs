@@ -10,6 +10,6 @@ type User struct {
 }
 
 type AuthCredentials struct {
-	Username string `schema:"username" validate:"required,email"`
+	Username string `schema:"username" validate:"required"`
 	Password string `schema:"password" validate:"required"`
 }

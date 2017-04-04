@@ -16,6 +16,7 @@ func JSON(response interface{}, w http.ResponseWriter) {
 	w.Write(json)
 }
 
-type Data struct {
-	Data string `json:"data"`
+type Status struct {
+	Status int    `json:"status"`
+	Data   string `json:"data"`
 }

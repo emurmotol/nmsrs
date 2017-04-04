@@ -46,10 +46,6 @@ func InitKeys() {
 	Fatal(err)
 }
 
-type Token struct {
-	Token string `json:"token"`
-}
-
 func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	token, err := request.ParseFromRequest(r, request.AuthorizationHeaderExtractor, func(token *jwt.Token) (interface{}, error) {
 		return VerifyKey, nil
