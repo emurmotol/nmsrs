@@ -10,7 +10,11 @@ type User struct {
 	UpdatedAt string `json:"updated_at"`
 }
 
+<<<<<<< HEAD
+type AuthCredentials struct {
+=======
 type UserCredentials struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+>>>>>>> 8e4ec4c41d89c9406d3c186dddc3e1129455dab6
+	Username string `schema:"username"`
+	Password string `schema:"password"`
 }

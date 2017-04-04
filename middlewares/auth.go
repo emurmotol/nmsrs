@@ -15,7 +15,7 @@ import (
 
 var (
 	privKeyPath = homeDir() + "/.ssh/id_rsa"
-	pubKeyPath  = homeDir() + "/.ssh/id_rsa.manual.pub" // TODO: File manually added
+	pubKeyPath  = homeDir() + "/.ssh/id_rsa.test.pub" // TODO: File manually added
 	SignKey     *rsa.PrivateKey
 	VerifyKey   *rsa.PublicKey
 )
@@ -64,7 +64,8 @@ func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 		}
 	} else {
 		w.WriteHeader(http.StatusUnauthorized)
-		fmt.Fprint(w, "Unauthorized access to this resource")
+		// fmt.Fprint(w, "Unauthorized access to this resource")
+		http.Redirect(w, r, "/login", http.StatusFound)
 	}
 }
 
