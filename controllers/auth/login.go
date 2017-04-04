@@ -28,7 +28,7 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 func Login(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
-		response.JSON(response.Status{http.StatusInternalServerError, "Error parsing form"}, w)
+		response.JSON(response.Make{http.StatusInternalServerError, "", "Error parsing form"}, w)
 		return
 	}
 
@@ -36,7 +36,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	err = decoder.Decode(&user, r.PostForm)
 
 	if err != nil {
-		response.JSON(response.Status{http.StatusInternalServerError, "Error in request"}, w)
+		response.JSON(response.Make{http.StatusInternalServerError, "", "Error in request"}, w)
 		return
 	}
 
@@ -48,16 +48,18 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintln(w, err)
 			return
 		}
+		ers := make(map[string]string)
 
 		for _, err := range err.(validator.ValidationErrors) {
-			fmt.Fprintln(w, err.Field()+": "+err.Tag())
+			ers[strings.ToLower(err.Field())] = err.Field() + " is " + err.Tag()
 		}
 		// TODO: Redirect back and display errors
+		response.JSON(response.Make{http.StatusForbidden, "", ers}, w)
 		return
 	}
 
 	if strings.ToLower(user.Username) != "user" || user.Password != "pass" {
-		response.JSON(response.Status{http.StatusForbidden, "Invalid credentials"}, w)
+		response.JSON(response.Make{http.StatusForbidden, "", "Invalid credentials"}, w)
 		return
 	}
 	token := jwt.New(jwt.SigningMethodRS256)
@@ -68,9 +70,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	tokenString, err := token.SignedString(mw.SignKey)
 
 	if err != nil {
-		response.JSON(response.Status{http.StatusInternalServerError, "Error while signing the token"}, w)
+		response.JSON(response.Make{http.StatusInternalServerError, "", "Error while signing the token"}, w)
 		mw.Fatal(err)
 	}
-	response.JSON(response.Status{http.StatusOK, tokenString}, w)
+	response.JSON(response.Make{http.StatusOK, map[string]string{
+		"token": tokenString,
+	}, ""}, w)
 	return
 }

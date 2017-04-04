@@ -7,5 +7,5 @@ import (
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	response.JSON(response.Data{"Gained access to protected resource"}, w)
+	response.JSON(response.Make{http.StatusOK, "Gained access to protected resource", ""}, w)
 }
