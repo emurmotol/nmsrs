@@ -15,7 +15,7 @@ func init() {
 	if templates == nil {
 		templates = make(map[string]*template.Template)
 	}
-	parseTemplateDir("views") // TODO: Add to config
+	parseTemplateDir("views") // TODO: Add to config for custom folder name
 }
 
 func Render(w http.ResponseWriter, layout string, name string, data interface{}) error {
@@ -40,7 +40,7 @@ func paths(root string) ([]string, []string, error) {
 		}
 		if !info.IsDir() {
 			p := strings.TrimPrefix(filepath.Dir(path), root+string(os.PathSeparator))
-			if p == "layouts" { // TODO: Add to config | No layout page template
+			if p == "layouts" { // TODO: Add to config for custom folder name | What if there are no layout page template
 				layouts = append(layouts, path)
 			} else {
 				pages = append(pages, path)

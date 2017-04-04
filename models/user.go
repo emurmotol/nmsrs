@@ -1,12 +1,12 @@
 package models
 
 type User struct {
-	ID        string `json:"id"`
-	Name      string `json:"name"`
-	Username  string `json:"username"`
-	Password  string `json:"password"`
-	CreatedAt string `json:"created_at"`
-	UpdatedAt string `json:"updated_at"`
+	ID        string `schema:"id"`
+	Name      string `schema:"name"`
+	Username  string `schema:"username"`
+	Password  string `schema:"password"`
+	CreatedAt string `schema:"created_at"`
+	UpdatedAt string `schema:"updated_at"`
 }
 
 type AuthCredentials struct {

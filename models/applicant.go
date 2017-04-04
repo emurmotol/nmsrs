@@ -3,7 +3,7 @@ package models
 var (
 	Sex            = []string{"Male", "Female"}
 	CivilStatus    = []string{"Single", "Married", "Widowed", "Separated"}
-	EmploymentType = []string{"Employed", "Unemployed"} // TODO: EmploymentType? Lol
+	EmploymentType = []string{"Employed", "Unemployed"} // TODO: Duiplicate in struct EmploymentType must be EmploymentStatus
 	Unemployed     = []string{"Actively looking for work", "Resigned", "Terminated/Laid off, local", "Terminated/Laid off, abroad"}
 	Disability     = []string{"Visual impairment", "Hearing impairment", "Speech impairment", "Physically handicapped"}
 )

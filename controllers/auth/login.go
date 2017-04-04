@@ -54,7 +54,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		for _, err := range err.(validator.ValidationErrors) {
 			fmt.Fprintln(w, err.Field()+": "+err.Tag())
 		}
-		// TODO: Redirect back
+		// TODO: Redirect back and display errors
 		return
 	}
 
