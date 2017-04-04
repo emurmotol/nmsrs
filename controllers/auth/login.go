@@ -16,7 +16,10 @@ import (
 )
 
 var decoder = schema.NewDecoder()
+<<<<<<< HEAD
 var validate *validator.Validate
+=======
+>>>>>>> 8e4ec4c41d89c9406d3c186dddc3e1129455dab6
 
 func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 	data := map[string]string{
@@ -26,6 +29,7 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
+<<<<<<< HEAD
 	err := r.ParseForm()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -35,12 +39,18 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	var user models.AuthCredentials
 	err = decoder.Decode(&user, r.PostForm)
+=======
+	r.ParseForm() // TODO: Must handle error
+	var user models.UserCredentials
+	err := decoder.Decode(&user, r.PostForm)
+>>>>>>> 8e4ec4c41d89c9406d3c186dddc3e1129455dab6
 
 	if err != nil {
 		w.WriteHeader(http.StatusForbidden)
 		fmt.Fprint(w, "Error in request")
 		return
 	}
+<<<<<<< HEAD
 
 	validate = validator.New()
 	err = validate.Struct(user)
@@ -59,6 +69,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if strings.ToLower(user.Username) != "user" || user.Password != "pass" {
+=======
+
+	if strings.ToLower(strings.TrimSpace(user.Username)) != "user" && user.Password != "pass" {
+>>>>>>> 8e4ec4c41d89c9406d3c186dddc3e1129455dab6
 		w.WriteHeader(http.StatusForbidden)
 		fmt.Println("Error logging in")
 		fmt.Fprint(w, "Invalid credentials")
@@ -69,6 +83,15 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
 	claims["iat"] = time.Now().Unix()
 	token.Claims = claims
+<<<<<<< HEAD
+=======
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintln(w, "Error extracting the key")
+		mw.Fatal(err)
+	} // TODO: Missing error definition
+>>>>>>> 8e4ec4c41d89c9406d3c186dddc3e1129455dab6
 	tokenString, err := token.SignedString(mw.SignKey)
 
 	if err != nil {
