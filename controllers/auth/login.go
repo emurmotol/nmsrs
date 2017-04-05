@@ -19,13 +19,8 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseForm()
-
-	if err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", "Error parsing form"}, w)
-		return
-	}
 	var user models.AuthCredentials
+	err := r.ParseForm()
 	err = decoder.Decode(&user, r.PostForm)
 
 	if err != nil {

@@ -17,13 +17,8 @@ func ShowRegisterForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func Register(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseForm()
-
-	if err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", "Error parsing form"}, w)
-		return
-	}
 	var user models.User
+	err := r.ParseForm()
 	err = decoder.Decode(&user, r.PostForm)
 
 	if err != nil {

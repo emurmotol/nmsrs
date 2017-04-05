@@ -1,5 +1,10 @@
 package models
 
+type AuthCredentials struct {
+	Email    string `schema:"email" validate:"required,email"`
+	Password string `schema:"password" validate:"required"`
+}
+
 type User struct {
 	Id              string `schema:"id"`
 	Name            string `schema:"name" validate:"required,min=2"`
@@ -10,7 +15,18 @@ type User struct {
 	UpdatedAt       string `schema:"updated_at"`
 }
 
-type AuthCredentials struct {
-	Email    string `schema:"email" validate:"required,email"`
-	Password string `schema:"password" validate:"required"`
+func (u *User) Insert() {
+
+}
+
+func (u *User) Find() {
+
+}
+
+func (u *User) Update() {
+
+}
+
+func (u *User) Delete() {
+
 }

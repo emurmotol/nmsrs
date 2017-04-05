@@ -4,7 +4,6 @@ import (
 	"crypto/rsa"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os/user"
 	"time"
@@ -25,12 +24,6 @@ func homeDir() string {
 	usr, err := user.Current()
 	Fatal(err)
 	return usr.HomeDir
-}
-
-func Fatal(err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
 }
 
 func InitKeys() {
