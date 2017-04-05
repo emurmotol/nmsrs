@@ -64,7 +64,7 @@ func Secure(handler http.HandlerFunc) *negroni.Negroni {
 	return negroni.New(
 		negroni.HandlerFunc(validateToken),
 		negroni.Wrap(handler),
-	)
+	) // TODO: Understand how this works
 }
 
 func GetToken() string {

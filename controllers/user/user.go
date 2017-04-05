@@ -1,29 +1,47 @@
 package user
 
-func Index() {
-	// List all users
+import (
+	"net/http"
+
+	"github.com/zneyrl/nmsrs-lookup/shared/tmpl"
+)
+
+func Index(w http.ResponseWriter, r *http.Request) {
+	data := map[string]string{
+		"Title": "Users",
+	}
+	tmpl.Render(w, "main", "user.index", data)
 }
 
-func Create() {
-	// Create user form
+func Create(w http.ResponseWriter, r *http.Request) {
+	data := map[string]string{
+		"Title": "Create User",
+	}
+	tmpl.Render(w, "main", "user.create", data)
 }
 
-func Store() {
+func Store(w http.ResponseWriter, r *http.Request) {
 	// models.User.Insert()
 }
 
-func Show() {
-	// models.User.Find()
+func Show(w http.ResponseWriter, r *http.Request) {
+	data := map[string]string{
+		"Title": "Show User",
+	}
+	tmpl.Render(w, "main", "user.show", data)
 }
 
-func Edit() {
-	// Edit user form
+func Edit(w http.ResponseWriter, r *http.Request) {
+	data := map[string]string{
+		"Title": "Edit User",
+	}
+	tmpl.Render(w, "main", "user.edit", data)
 }
 
-func Update() {
+func Update(w http.ResponseWriter, r *http.Request) {
 	// models.User.Update()
 }
 
-func Destroy() {
+func Destroy(w http.ResponseWriter, r *http.Request) {
 	// models.User.Delete()
 }
