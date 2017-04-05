@@ -44,17 +44,7 @@ $(function () {
                         }
                     });
                 } else {
-                    // TODO: Success logic
-                    var markup = `
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            `+r.data.message+`
-                        </div>`;
-                    err.html(markup);
-                    // TODO: Process jwt token
-                    console.log(r.data.token);
+                    window.location.href = r.data.redirect
                 }
             } catch (e) {
                 var markup = `

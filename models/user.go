@@ -1,7 +1,7 @@
 package models
 
 type User struct {
-	ID              string `schema:"id"`
+	Id              string `schema:"id"`
 	Name            string `schema:"name" validate:"required,min=2"`
 	Email           string `schema:"email" validate:"required,email"`
 	Password        string `schema:"password" validate:"required,min=6"`
