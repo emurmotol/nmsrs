@@ -8,16 +8,25 @@ import (
 	validator "gopkg.in/go-playground/validator.v9"
 
 	jwt "github.com/dgrijalva/jwt-go"
+	ut "github.com/go-playground/universal-translator"
 	"github.com/gorilla/schema"
 	mw "github.com/zneyrl/nmsrs-lookup/middlewares"
 	"github.com/zneyrl/nmsrs-lookup/models"
-	"github.com/zneyrl/nmsrs-lookup/shared/response"
+	"github.com/zneyrl/nmsrs-lookup/shared/res"
 	"github.com/zneyrl/nmsrs-lookup/shared/str"
 	"github.com/zneyrl/nmsrs-lookup/shared/tmpl"
+	"github.com/zneyrl/nmsrs-lookup/shared/trans"
 )
 
-var decoder = schema.NewDecoder()
-var validate *validator.Validate
+var (
+	decoder  = schema.NewDecoder()
+	validate *validator.Validate
+	uni      *ut.UniversalTranslator
+)
+
+func init() {
+	en, _ := uni.GetTranslator("en")
+}
 
 func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 	data := map[string]string{
@@ -30,14 +39,14 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 
 	if err != nil {
-		response.JSON(response.Make{http.StatusInternalServerError, "", "Error parsing form"}, w)
+		res.JSON(res.Make{http.StatusInternalServerError, "", "Error parsing form"}, w)
 		return
 	}
 	var user models.AuthCredentials
 	err = decoder.Decode(&user, r.PostForm)
 
 	if err != nil {
-		response.JSON(response.Make{http.StatusInternalServerError, "", "Error in request"}, w)
+		res.JSON(res.Make{http.StatusInternalServerError, "", "Error in request"}, w)
 		return
 	}
 	validate = validator.New()
@@ -45,23 +54,20 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		if _, ok := err.(*validator.InvalidValidationError); ok {
-			response.JSON(response.Make{http.StatusInternalServerError, "", err}, w)
+			res.JSON(res.Make{http.StatusInternalServerError, "", err}, w)
 			return
 		}
 		errs := make(map[string]string)
 
 		for _, err := range err.(validator.ValidationErrors) {
-			// TODO: Make translation of messages
-			// TODO: Convert title case to sentence case
-			errs[str.LowerCaseFirstChar(err.Field())] = err.Field() + " is " + err.Tag()
+			errs[str.LowerCaseFirstChar(err.Field())] = trans.GetEq(str.CamelCaseToSentenceCase(err.Field()), err.Tag())
 		}
-		// TODO: Redirect back and display errors
-		response.JSON(response.Make{http.StatusForbidden, "", errs}, w)
+		res.JSON(res.Make{http.StatusForbidden, "", errs}, w)
 		return
 	} // TODO: Create a package for this
 
 	if strings.ToLower(user.Username) != "user" || user.Password != "pass" {
-		response.JSON(response.Make{http.StatusForbidden, "", "Invalid credentials"}, w)
+		res.JSON(res.Make{http.StatusForbidden, "", "Invalid credentials"}, w)
 		return
 	}
 	token := jwt.New(jwt.SigningMethodRS256)
@@ -72,10 +78,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	tokenString, err := token.SignedString(mw.SignKey)
 
 	if err != nil {
-		response.JSON(response.Make{http.StatusInternalServerError, "", "Error while signing the token"}, w)
+		res.JSON(res.Make{http.StatusInternalServerError, "", "Error while signing the token"}, w)
 		mw.Fatal(err)
 	}
-	response.JSON(response.Make{http.StatusOK, map[string]string{
+	// TODO: Redirect to dashboard
+	res.JSON(res.Make{http.StatusOK, map[string]string{
 		"token":   tokenString,
 		"message": "Success login!",
 	}, ""}, w)

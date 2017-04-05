@@ -3,9 +3,9 @@ package dashboard
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs-lookup/shared/response"
+	"github.com/zneyrl/nmsrs-lookup/shared/res"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	response.JSON(response.Make{http.StatusOK, "Gained access to protected resource", ""}, w)
+	res.JSON(res.Make{http.StatusOK, "Gained access to protected resource", ""}, w)
 }

@@ -3,7 +3,7 @@ package models
 type User struct {
 	ID              string `schema:"id"`
 	Name            string `schema:"name" validate:"required"`
-	Username        string `schema:"username" validate:"required"`
+	Username        string `schema:"username" validate:"required,min=10"`
 	Password        string `schema:"password" validate:"required"`
 	ConfirmPassword string `schema:"confirmPassword" validate:"required"`
 	CreatedAt       string `schema:"created_at"`

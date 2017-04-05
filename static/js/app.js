@@ -3,9 +3,9 @@ $(function () {
         var err = $("#error");
 
         $.post(url, d, function (r) {
-            err.empty();
             console.log(r)
-
+            err.empty();
+            
             $.each(f, function (i, v) {
                 var field = $("#" + v);
                 var fc = field.parent();
