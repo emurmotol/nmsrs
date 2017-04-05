@@ -7,7 +7,6 @@ import (
 	"github.com/zneyrl/nmsrs-lookup/shared/res"
 	"github.com/zneyrl/nmsrs-lookup/shared/str"
 	"github.com/zneyrl/nmsrs-lookup/shared/tmpl"
-	"github.com/zneyrl/nmsrs-lookup/shared/trans"
 	validator "gopkg.in/go-playground/validator.v9"
 )
 
@@ -32,7 +31,6 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		res.JSON(res.Make{http.StatusInternalServerError, "", "Error in request"}, w)
 		return
 	}
-	validate = validator.New()
 	err = validate.Struct(user)
 
 	if err != nil {
@@ -42,19 +40,12 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		}
 		errs := make(map[string]string)
 
-		for _, err := range err.(validator.ValidationErrors) {
-			errs[str.LowerCaseFirstChar(err.Field())] = trans.GetEq(str.CamelCaseToSentenceCase(err.Field()), err.Tag())
+		for _, e := range err.(validator.ValidationErrors) {
+			errs[str.LowerCaseFirstChar(e.Field())] = str.CamelCaseToSentenceCase(e.Translate(trans))
 		}
 		res.JSON(res.Make{http.StatusForbidden, "", errs}, w)
 		return
 	} // TODO: Create a package for this
-
-	if r.PostFormValue("password") != r.PostFormValue("confirmPassword") {
-		res.JSON(res.Make{http.StatusForbidden, "", map[string]string{
-			"confirmPassword": "Confirm password did not match",
-		}}, w)
-		return
-	}
 	// TODO: Do registration logic
 	res.JSON(res.Make{http.StatusOK, map[string]string{
 		"message": "Success register!",

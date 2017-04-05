@@ -2,7 +2,7 @@
 <div id="error"></div>
 <form>
     <div class="form-group">
-        <input type="text" class="form-control" name="username" id="username" placeholder="Username">
+        <input type="text" class="form-control" name="email" id="email" placeholder="Email address">
     </div>
     <div class="form-group">
         <input type="password" class="form-control" name="password" id="password" placeholder="Password">
@@ -13,13 +13,13 @@
 <script>
     $(function () {
         var fields = [
-            "username",
+            "email",
             "password"
         ];
 
         $("#formLoginSubmit").on("click", function () {
             validateForm("/login", fields, {
-                "username": $("#" + fields[0]).val(),
+                "email": $("#" + fields[0]).val(),
                 "password": $("#" + fields[1]).val()
             });
         });

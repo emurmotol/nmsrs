@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os/user"
+	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/dgrijalva/jwt-go/request"
@@ -16,8 +17,8 @@ import (
 var (
 	privKeyPath = homeDir() + "/.ssh/id_rsa"
 	pubKeyPath  = homeDir() + "/.ssh/id_rsa.test.pub" // TODO: File manually added original .pub file is incompatible
-	SignKey     *rsa.PrivateKey
-	VerifyKey   *rsa.PublicKey
+	signKey     *rsa.PrivateKey
+	verifyKey   *rsa.PublicKey
 )
 
 func homeDir() string {
@@ -36,29 +37,31 @@ func InitKeys() {
 	signBytes, err := ioutil.ReadFile(privKeyPath)
 	Fatal(err)
 
-	SignKey, err = jwt.ParseRSAPrivateKeyFromPEM(signBytes)
+	signKey, err = jwt.ParseRSAPrivateKeyFromPEM(signBytes)
 	Fatal(err)
 
 	verifyBytes, err := ioutil.ReadFile(pubKeyPath)
 	Fatal(err)
 
-	VerifyKey, err = jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
+	verifyKey, err = jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
 	Fatal(err)
 }
 
 func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	token, err := request.ParseFromRequest(r, request.AuthorizationHeaderExtractor, func(token *jwt.Token) (interface{}, error) {
-		return VerifyKey, nil
+		return verifyKey, nil
 	})
 
 	if err == nil {
 		if token.Valid {
 			next(w, r)
 		} else {
+			// TODO: Redirect to logout
 			w.WriteHeader(http.StatusUnauthorized)
 			fmt.Fprint(w, "Token is not valid")
 		}
 	} else {
+		// TODO: Redirect to login
 		w.WriteHeader(http.StatusUnauthorized)
 		fmt.Fprint(w, "Unauthorized access to this resource")
 	}
@@ -69,4 +72,15 @@ func Secure(handler http.HandlerFunc) *negroni.Negroni {
 		negroni.HandlerFunc(validateToken),
 		negroni.Wrap(handler),
 	)
+}
+
+func GetToken() string {
+	token := jwt.New(jwt.SigningMethodRS256)
+	claims := make(jwt.MapClaims)
+	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
+	claims["iat"] = time.Now().Unix()
+	token.Claims = claims
+	tokenString, err := token.SignedString(signKey)
+	Fatal(err)
+	return tokenString
 }
