@@ -1,4 +1,4 @@
-package response
+package response // TODO: Rename to res
 
 import (
 	"encoding/json"

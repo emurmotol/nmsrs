@@ -1,10 +1,11 @@
 package auth
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 	"time"
+
+	validator "gopkg.in/go-playground/validator.v9"
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/schema"
@@ -12,7 +13,6 @@ import (
 	"github.com/zneyrl/nmsrs-lookup/models"
 	"github.com/zneyrl/nmsrs-lookup/shared/response"
 	"github.com/zneyrl/nmsrs-lookup/shared/tmpl"
-	"gopkg.in/go-playground/validator.v9"
 )
 
 var decoder = schema.NewDecoder()
@@ -45,18 +45,20 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		if _, ok := err.(*validator.InvalidValidationError); ok {
-			fmt.Fprintln(w, err)
+			response.JSON(response.Make{http.StatusInternalServerError, "", err}, w)
 			return
 		}
-		ers := make(map[string]string)
+		errs := make(map[string]string)
 
 		for _, err := range err.(validator.ValidationErrors) {
-			ers[strings.ToLower(err.Field())] = err.Field() + " is " + err.Tag()
+			// TODO: Fix validation message for other tags
+			// TODO: Convert camel case to snake case
+			errs[strings.ToLower(err.Field())] = err.Field() + " is " + err.Tag()
 		}
 		// TODO: Redirect back and display errors
-		response.JSON(response.Make{http.StatusForbidden, "", ers}, w)
+		response.JSON(response.Make{http.StatusForbidden, "", errs}, w)
 		return
-	}
+	} // TODO: Create a package for this
 
 	if strings.ToLower(user.Username) != "user" || user.Password != "pass" {
 		response.JSON(response.Make{http.StatusForbidden, "", "Invalid credentials"}, w)

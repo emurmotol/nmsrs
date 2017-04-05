@@ -7,51 +7,21 @@
     <div class="form-group">
         <input type="password" class="form-control" name="password" id="password" placeholder="Password">
     </div>
-    <button type="button" id="login-form" class="btn btn-outline-primary btn-block">Login</button>
+    <button type="button" id="form-login-submit" class="btn btn-outline-primary btn-block">Login</button>
 </form>
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        var usr = $("#username");
-        var pwd = $("#password");
-        var err = $("#error");
+        var fields = [
+            "username",
+            "password"
+        ];
 
-        $("#login-form").on("click", function () {
-            var d = {
-                "username": usr.val(),
-                "password": pwd.val()
-            }
-            $.post("/login", d, function (r) {
-                try {
-                    e = r.errors;
-                    if (e.length != 0) {
-                        $.each(e, function (i, v) {
-                            if (i == "username") {
-                                usr.parent().addClass("has-danger")
-                                usr.addClass("form-control-danger")
-                                usr.parent().append(`<div class="form-control-feedback">`+v+`</div>`)
-                            }
-
-                            if (i == "password") {
-                                pwd.parent().addClass("has-danger")
-                                pwd.addClass("form-control-danger")
-                                pwd.parent().append(`<div class="form-control-feedback">`+v+`</div>`)
-                            }
-                        });
-                    } else {
-                        console.log(r.data.token)
-                    }
-                } catch (e) {
-                    var markup = `
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        `+ r.errors + `
-                    </div>`
-                    err.html(markup)
-                }
-            }, "json");
+        $("#form-login-submit").on("click", function () {
+            validateForm("/login", fields, {
+                "username": $("#" + fields[0]).val(),
+                "password": $("#" + fields[1]).val()
+            });
         });
     });
 

@@ -40,7 +40,9 @@ func paths(root string) ([]string, []string, error) {
 		}
 		if !info.IsDir() {
 			p := strings.TrimPrefix(filepath.Dir(path), root+string(os.PathSeparator))
-			if p == "layouts" { // TODO: Add to config for custom folder name | What if there are no layout page template
+			// TODO: Add to config for custom folder name
+			// TODO: What if there are no layout page template
+			if p == "layouts" {
 				layouts = append(layouts, path)
 			} else {
 				pages = append(pages, path)
