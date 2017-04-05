@@ -12,6 +12,7 @@ import (
 	mw "github.com/zneyrl/nmsrs-lookup/middlewares"
 	"github.com/zneyrl/nmsrs-lookup/models"
 	"github.com/zneyrl/nmsrs-lookup/shared/response"
+	"github.com/zneyrl/nmsrs-lookup/shared/str"
 	"github.com/zneyrl/nmsrs-lookup/shared/tmpl"
 )
 
@@ -27,11 +28,11 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 
 func Login(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
+
 	if err != nil {
 		response.JSON(response.Make{http.StatusInternalServerError, "", "Error parsing form"}, w)
 		return
 	}
-
 	var user models.AuthCredentials
 	err = decoder.Decode(&user, r.PostForm)
 
@@ -39,7 +40,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		response.JSON(response.Make{http.StatusInternalServerError, "", "Error in request"}, w)
 		return
 	}
-
 	validate = validator.New()
 	err = validate.Struct(user)
 
@@ -51,9 +51,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		errs := make(map[string]string)
 
 		for _, err := range err.(validator.ValidationErrors) {
-			// TODO: Fix validation message for other tags
-			// TODO: Convert camel case to snake case
-			errs[strings.ToLower(err.Field())] = err.Field() + " is " + err.Tag()
+			// TODO: Make translation of messages
+			// TODO: Convert title case to sentence case
+			errs[str.LowerCaseFirstChar(err.Field())] = err.Field() + " is " + err.Tag()
 		}
 		// TODO: Redirect back and display errors
 		response.JSON(response.Make{http.StatusForbidden, "", errs}, w)
@@ -76,7 +76,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		mw.Fatal(err)
 	}
 	response.JSON(response.Make{http.StatusOK, map[string]string{
-		"token": tokenString,
+		"token":   tokenString,
+		"message": "Success login!",
 	}, ""}, w)
 	return
 }

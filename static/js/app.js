@@ -4,6 +4,7 @@ $(function () {
 
         $.post(url, d, function (r) {
             err.empty();
+            console.log(r)
 
             $.each(f, function (i, v) {
                 var field = $("#" + v);
@@ -43,17 +44,17 @@ $(function () {
                         }
                     });
                 } else {
-                    // TODO: Process jwt token
                     // TODO: Success logic
-                    alert(r.data.token);
                     var markup = `
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            Success!
+                            `+r.data.message+`
                         </div>`;
                     err.html(markup);
+                    // TODO: Process jwt token
+                    console.log(r.data.token);
                 }
             } catch (e) {
                 var markup = `
