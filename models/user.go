@@ -11,8 +11,8 @@ type User struct {
 	Email           string `schema:"email" validate:"required,email"`
 	Password        string `schema:"password" validate:"required,min=6"`
 	ConfirmPassword string `schema:"confirmPassword" validate:"required,eqfield=Password"` // TODO: Lol
-	CreatedAt       string `schema:"created_at"`
-	UpdatedAt       string `schema:"updated_at"`
+	CreatedAt       string `schema:"createdAt"`
+	UpdatedAt       string `schema:"updatedAt"`
 }
 
 func (u *User) Insert() {
