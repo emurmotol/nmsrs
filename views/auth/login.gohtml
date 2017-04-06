@@ -21,7 +21,7 @@
             validateForm("/login", fields, {
                 "email": $("#" + fields[0]).val(),
                 "password": $("#" + fields[1]).val()
-            });
+            }, "POST");
         });
     });
 

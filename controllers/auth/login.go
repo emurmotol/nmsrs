@@ -4,26 +4,29 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/zneyrl/nmsrs-lookup/helpers/res"
+	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
+	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
 	mw "github.com/zneyrl/nmsrs-lookup/middlewares"
 	"github.com/zneyrl/nmsrs-lookup/models"
-	"github.com/zneyrl/nmsrs-lookup/shared/res"
-	"github.com/zneyrl/nmsrs-lookup/shared/tmpl"
-	"github.com/zneyrl/nmsrs-lookup/shared/trans"
 )
 
 func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 	data := map[string]string{
 		"Title": "Login",
 	}
-	tmpl.Render(w, "auth", "auth.login", data)
+	tmpl.RenderWithFunc(w, "auth", "auth.login", data, nil)
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
 	var user models.AuthCredentials
-	err := r.ParseForm()
-	err = decoder.Decode(&user, r.PostForm)
 
-	if err != nil {
+	if err := r.ParseForm(); err != nil {
+		res.JSON(res.Make{http.StatusInternalServerError, "", "Error parsing form"}, w)
+		return
+	}
+
+	if err := decoder.Decode(&user, r.PostForm); err != nil {
 		res.JSON(res.Make{http.StatusInternalServerError, "", "Error in request"}, w)
 		return
 	}
@@ -42,7 +45,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	res.JSON(res.Make{http.StatusOK, map[string]string{
 		"redirect": "/",
 		"token":    mw.GetToken(),
-		"message":  "Success login!",
+		"message":  "Success login",
 	}, ""}, w)
 	return
 }

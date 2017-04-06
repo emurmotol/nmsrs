@@ -3,6 +3,13 @@
     padding-bottom: 1.5rem;
 }
 
-.navbar-light {
+.navbar-light,
+.card-header,
+.table-hover thead tr:hover th,
+.table-hover tbody tr:hover td {
     background-color: #e3f2fd;
+}
+
+.table th  {
+    border-top: none !important;
 }

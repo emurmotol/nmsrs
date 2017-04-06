@@ -9,43 +9,43 @@ var (
 )
 
 type Applicant struct {
-	PersonalInformation           PersonalInformation             `json:"personalInformation"`
-	FormalEducation               []FormalEducation               `json:"formalEducation"`
-	ProfessionalLicence           []ProfessionalLicence           `json:"professionalLicence"`
+	PersonalInformation           PersonalInformation             `json:"personal_information"`
+	FormalEducation               []FormalEducation               `json:"formal_education"`
+	ProfessionalLicence           []ProfessionalLicence           `json:"professional_licence"`
 	Eligibility                   []Eligibility                   `json:"eligibility"`
-	TrainingAndRelevantExperience []TrainingAndRelevantExperience `json:"trainingAndRelevantExperience"`
-	CertificateOfCompetence       []CertificateOfCompetence       `json:"certificateOfCompetence"`
-	WorkExperience                WorkExperience                  `json:"workExperience"`
-	OtherSkills                   []string                        `json:"otherSkills"`
-	CreatedAt                     string                          `json:"createdAt"`
-	UpdatedAt                     string                          `json:"updatedAt"`
+	TrainingAndRelevantExperience []TrainingAndRelevantExperience `json:"training_and_relevant_experience"`
+	CertificateOfCompetence       []CertificateOfCompetence       `json:"certificate_of_competence"`
+	WorkExperience                WorkExperience                  `json:"work_experience"`
+	OtherSkills                   []string                        `json:"other_skills"`
+	CreatedAt                     string                          `json:"created_at"`
+	UpdatedAt                     string                          `json:"updated_at"`
 }
 
 type PersonalInformation struct {
-	FamilyName            string                `json:"familyName"`
-	GivenName             string                `json:"givenName"`
-	MiddleName            string                `json:"middleName"`
-	PresentAddress        PresentAddress        `json:"presentAddress"`
+	FamilyName            string                `json:"family_name"`
+	GivenName             string                `json:"given_name"`
+	MiddleName            string                `json:"middle_name"`
+	PresentAddress        PresentAddress        `json:"present_address"`
 	Birthdate             string                `json:"birthdate"`
-	PlaceOfBirth          string                `json:"placeOfBirth"`
+	PlaceOfBirth          string                `json:"place_of_birth"`
 	Age                   int                   `json:"age"`
 	Sex                   string                `json:"sex"`
 	Height                float32               `json:"height"`
 	Weight                float32               `json:"weight"`
 	Religion              string                `json:"religion"`
-	CivilStatus           string                `json:"civilStatus"`
-	LandlineNumber        string                `json:"landlineNumber"`
-	MobileNumber          string                `json:"mobileNumber"`
-	EmailAddress          string                `json:"emailAddress"`
-	EmploymentStatus      EmploymentStatus      `json:"employmentStatus"`
-	PreferredOccupation   []string              `json:"preferredOccupation"`
-	PreferredWorkLocation PreferredWorkLocation `json:"preferredWorkLocation"`
+	CivilStatus           string                `json:"civil_status"`
+	LandlineNumber        string                `json:"landline_number"`
+	MobileNumber          string                `json:"mobile_number"`
+	EmailAddress          string                `json:"email_address"`
+	EmploymentStatus      EmploymentStatus      `json:"employment_status"`
+	PreferredOccupation   []string              `json:"preferred_occupation"`
+	PreferredWorkLocation PreferredWorkLocation `json:"preferred_work_location"`
 	Disability            []string              `json:"disability"`
 	Language              Language              `json:"language"`
 }
 
 type PresentAddress struct {
-	HouseNumber  string `json:"houseNumber"`
+	HouseNumber  string `json:"house_number"`
 	Street       string `json:"street"`
 	Subdivision  string `json:"subdivision"`
 	Barangay     string `json:"barangay"`
@@ -54,7 +54,7 @@ type PresentAddress struct {
 }
 
 type EmploymentStatus struct {
-	IsEmployed bool       `json:"isEmployed"`
+	IsEmployed bool       `json:"is_employed"`
 	Unemployed string     `json:"unemployed"`
 	Terminated Terminated `json:"terminated"`
 }
@@ -68,8 +68,8 @@ type Terminated struct {
 type PreferredWorkLocation struct {
 	Local          string `json:"local"`
 	Overseas       string `json:"overseas"`
-	PassportNumber string `json:"passportNumber"`
-	ExpiryDate     string `json:"expiryDate"`
+	PassportNumber string `json:"passport_number"`
+	ExpiryDate     string `json:"expiry_date"`
 }
 
 type Language struct {
@@ -81,33 +81,33 @@ type FormalEducation struct {
 	Grade         float32 `json:"grade"`
 	Course        string  `json:"course"`
 	School        string  `json:"school"`
-	YearGraduated int     `json:"yearGraduated"`
-	LastAttended  int     `jaon:"lastAttended"`
+	YearGraduated int     `json:"year_graduated"`
+	LastAttended  int     `jaon:"last_attended"`
 }
 
 type ProfessionalLicence struct {
 	Title      string `json:"title"`
-	ExpiryDate string `json:"expiryDate"`
+	ExpiryDate string `json:"expiry_date"`
 }
 
 type Eligibility struct {
 	Title     string `json:"title"`
-	YearTaken string `json:"yearTaken"`
+	YearTaken string `json:"year_taken"`
 }
 
 type TrainingAndRelevantExperience struct {
 	Name                string `json:"name"`
-	SkillsAcquired      string `json:"skillsAcquired"`
-	YearsOfExperience   int    `json:"yearsOfExperience"`
-	CertificateReceived string `json:"certificateReceived"`
-	IssuedBy            string `json:"issuedBy"`
+	SkillsAcquired      string `json:"skills_acquired"`
+	YearsOfExperience   int    `json:"years_of_experience"`
+	CertificateReceived string `json:"certificate_received"`
+	IssuedBy            string `json:"issued_by"`
 }
 
 type CertificateOfCompetence struct {
 	Certificate string  `json:"certificate"`
 	Rating      float32 `json:"rating"`
-	IssuedBy    string  `json:"issuedBy"`
-	DateIssued  string  `json:"dateIssued"`
+	IssuedBy    string  `json:"issued_by"`
+	DateIssued  string  `json:"date_issued"`
 }
 
 type WorkExperience struct {
@@ -116,17 +116,17 @@ type WorkExperience struct {
 }
 
 type Local struct {
-	CompanyName                string `json:"companyName"`
+	CompanyName                string `json:"company_name"`
 	Address                    string `json:"address"`
 	From                       string `json:"from"`
 	To                         string `json:"to"`
-	PositionHead               string `json:"positionHead"`
-	IsRelatedToFormalEducation bool   `json:"isRelatedToFormalEducation"`
+	PositionHead               string `json:"position_head"`
+	IsRelatedToFormalEducation bool   `json:"is_related_to_formal_education"`
 }
 
 type Overseas struct {
 	Position    string `json:"position"`
-	CompanyName string `json:"companyName"`
+	CompanyName string `json:"company_name"`
 	Type        string `json:"type"`
 	From        string `json:"from"`
 	To          string `json:"to"`

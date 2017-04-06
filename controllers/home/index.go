@@ -3,19 +3,19 @@ package home
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs-lookup/shared/tmpl"
+	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
 	data := map[string]string{
 		"Title": "Home",
 	}
-	tmpl.Render(w, "main", "home.index", data)
+	tmpl.RenderWithFunc(w, "main", "home.index", data, nil)
 }
 
 func Welcome(w http.ResponseWriter, r *http.Request) {
 	data := map[string]string{
 		"Title": "Welcome",
 	}
-	tmpl.Render(w, "main", "home.welcome", data)
+	tmpl.RenderWithFunc(w, "main", "home.welcome", data, nil)
 }

@@ -1,61 +1,71 @@
 $(function () {
-    validateForm = function(url, f, d) {
+    validateForm = function (url, f, d, m) {
         var err = $("#error");
 
-        $.post(url, d, function (r) {
-            console.log(r)
-            err.empty();
-            
-            $.each(f, function (i, v) {
-                var field = $("#" + v);
-                var fc = field.parent();
+        $.ajax({
+            url: url,
+            type: m,
+            dataType: "json",
+            data: d,
+            success: function (r) {
+                err.empty();
 
-                if (fc.hasClass("has-danger")) {
-                    fc.removeClass("has-danger");
-                }
+                $.each(f, function (i, v) {
+                    var field = $("#" + v);
+                    var fc = field.parent();
 
-                if (field.hasClass("form-control-danger")) {
-                    field.removeClass("form-control-danger");
-                }
+                    if (fc.hasClass("has-danger")) {
+                        fc.removeClass("has-danger");
+                    }
 
-                if (fc.find("div.form-control-feedback").get().length == 1) {
-                    fc.find("div.form-control-feedback").remove();
-                }
-            });
+                    if (field.hasClass("form-control-danger")) {
+                        field.removeClass("form-control-danger");
+                    }
 
-            try {
-                e = r.errors;
+                    if (fc.find("div.form-control-feedback").get().length == 1) {
+                        fc.find("div.form-control-feedback").remove();
+                    }
+                });
 
-                if (e.length != 0) {
-                    $.each(e, function (i, v) {
-                        var field = $("#" + i);
-                        var fc = field.parent();
+                try {
+                    e = r.errors;
 
-                        if (!fc.hasClass("has-danger")) {
-                            fc.addClass("has-danger");
+                    if (e.length != 0) {
+                        $.each(e, function (i, v) {
+                            var field = $("#" + i);
+                            var fc = field.parent();
+
+                            if (!fc.hasClass("has-danger")) {
+                                fc.addClass("has-danger");
+                            }
+
+                            if (!field.hasClass("form-control-danger")) {
+                                field.addClass("form-control-danger");
+                            }
+
+                            if (fc.find("div.form-control-feedback").get().length == 0) {
+                                fc.append(`<div class="form-control-feedback">` + v + `</div>`);
+                            }
+                        });
+                    } else {
+                        if (r.data.redirect != "") {
+                            window.location.href = r.data.redirect
                         }
-
-                        if (!field.hasClass("form-control-danger")) {
-                            field.addClass("form-control-danger");
-                        }
-
-                        if (fc.find("div.form-control-feedback").get().length == 0) {
-                            fc.append(`<div class="form-control-feedback">` + v + `</div>`);
-                        }
-                    });
-                } else {
-                    window.location.href = r.data.redirect
-                }
-            } catch (e) {
-                var markup = `
+                    }
+                } catch (e) {
+                    var markup = `
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         `+ r.errors + `
                     </div>`;
-                err.html(markup);
+                    err.html(markup);
+                }
+                console.log(r)
+            }, error: function (r) {
+                console.log(r)
             }
-        }, "json");
+        });
     }
 });

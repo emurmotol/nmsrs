@@ -9,13 +9,19 @@ import (
 	"strings"
 )
 
-var templates map[string]*template.Template
+var (
+	templates        map[string]*template.Template
+	layoutsParentDir = "views"
+	layoutsDir       = "layouts"
+	tmplExt          = ".gohtml"
+	pathSeparator    = string(os.PathSeparator)
+)
 
 func init() {
 	if templates == nil {
 		templates = make(map[string]*template.Template)
 	}
-	parseTemplateDir("views") // TODO: Add to config for custom folder name
+	// parseTemplateDir(layoutsParentDir)
 }
 
 func Render(w http.ResponseWriter, layout string, name string, data interface{}) error {
@@ -24,8 +30,20 @@ func Render(w http.ResponseWriter, layout string, name string, data interface{})
 		return fmt.Errorf("The template %s does not exist", name)
 	}
 
-	err := tmpl.ExecuteTemplate(w, layout, data)
-	if err != nil {
+	if err := tmpl.ExecuteTemplate(w, layout, data); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "text/html")
+	return nil
+}
+
+func RenderWithFunc(w http.ResponseWriter, layout string, name string, data interface{}, funcMap template.FuncMap) error {
+	tmplFile := layoutsParentDir + pathSeparator + strings.Replace(name, ".", pathSeparator, -1) + tmplExt
+	layoutFile := layoutsParentDir + pathSeparator + layoutsDir + pathSeparator + layout + tmplExt
+	t := template.New(fmt.Sprintf("%s:%s", layout, name)).Funcs(funcMap)
+	tmpl := template.Must(t.ParseFiles(layoutFile, tmplFile))
+
+	if err := tmpl.ExecuteTemplate(w, layout, data); err != nil {
 		return err
 	}
 	w.Header().Set("Content-Type", "text/html")
@@ -39,10 +57,9 @@ func paths(root string) ([]string, []string, error) {
 			return err
 		}
 		if !info.IsDir() {
-			p := strings.TrimPrefix(filepath.Dir(path), root+string(os.PathSeparator))
-			// TODO: Add to config for custom folder name
+			p := strings.TrimPrefix(filepath.Dir(path), root+pathSeparator)
 			// TODO: What if there are no layout page template
-			if p == "layouts" {
+			if p == layoutsDir {
 				layouts = append(layouts, path)
 			} else {
 				pages = append(pages, path)
@@ -68,8 +85,8 @@ func parseTemplateDir(root string) error {
 			files := []string{layout, page}
 			layoutWithExt := filepath.Base(layout)
 			layoutNoExt := strings.TrimSuffix(layoutWithExt, filepath.Ext(layoutWithExt))
-			p := strings.TrimPrefix(filepath.Dir(page), root+string(os.PathSeparator))
-			pageDir := strings.Replace(p, string(os.PathSeparator), ".", -1)
+			p := strings.TrimPrefix(filepath.Dir(page), root+pathSeparator)
+			pageDir := strings.Replace(p, pathSeparator, ".", -1)
 			pageWithExt := filepath.Base(page)
 			pageNoExt := strings.TrimSuffix(pageWithExt, filepath.Ext(pageWithExt))
 

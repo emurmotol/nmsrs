@@ -5,7 +5,7 @@ import (
 
 	en "github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
-	"github.com/zneyrl/nmsrs-lookup/shared/str"
+	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	validator "gopkg.in/go-playground/validator.v9"
 	en_trans "gopkg.in/go-playground/validator.v9/translations/en"
 )

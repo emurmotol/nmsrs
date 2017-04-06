@@ -4,6 +4,7 @@ import (
 	"crypto/rsa"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os/user"
 	"time"
@@ -22,22 +23,33 @@ var (
 
 func homeDir() string {
 	usr, err := user.Current()
-	Fatal(err)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 	return usr.HomeDir
 }
 
 func InitKeys() {
 	signBytes, err := ioutil.ReadFile(privKeyPath)
-	Fatal(err)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	signKey, err = jwt.ParseRSAPrivateKeyFromPEM(signBytes)
-	Fatal(err)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	verifyBytes, err := ioutil.ReadFile(pubKeyPath)
-	Fatal(err)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	verifyKey, err = jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
-	Fatal(err)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
@@ -74,6 +86,9 @@ func GetToken() string {
 	claims["iat"] = time.Now().Unix()
 	token.Claims = claims
 	tokenString, err := token.SignedString(signKey)
-	Fatal(err)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 	return tokenString
 }

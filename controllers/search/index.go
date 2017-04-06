@@ -3,12 +3,12 @@ package search
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs-lookup/shared/tmpl"
+	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
 	data := map[string]string{
 		"Title": "Search",
 	}
-	tmpl.Render(w, "search", "search.index", data)
+	tmpl.RenderWithFunc(w, "search", "search.index", data, nil)
 }

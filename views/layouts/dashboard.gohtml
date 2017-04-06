@@ -1,4 +1,4 @@
-{{define "main"}}
+{{define "dashboard"}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,20 +37,40 @@
                             <input class="form-control" type="text" placeholder="Search">
                         </form>
                     </li>
-                    <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
-                    <li class="nav-item"><a href="/register" class="nav-link">Register</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container" id="content">
-        {{template "content" .}}
-    </div>
-    <script src="/js/jquery-3.1.1.min.js"></script>
-    <script src="/js/tether.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/app.js"></script>
-    {{block "script" .}}{{end}}
+        <div class="row">
+            <div class="col-lg-2">
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link{{if eq .R.URL.Path `/users`}} active{{end}}" href="/users">
+                            Users <span class="badge badge-info">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{{if eq .R.URL.Path `/applicants`}} active{{end}}" href="/applicants">
+                            Applicants <span class="badge badge-info">4</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{{if eq .R.URL.Path `/reports`}} active{{end}}" href="/reports">
+                            Reports <span class="badge badge-info">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-10">
+                {{template "content" .}}
+            </div>
+        </div>
+        <script src="/js/jquery-3.1.1.min.js"></script>
+        <script src="/js/tether.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/app.js"></script>
+        {{block "script" .}}{{end}}
 </body>
 
 </html>
