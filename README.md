@@ -6,6 +6,7 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 * Create application forms and backend logic
 * Populate database
 * Implement mgo usage
+* last file env.go tmpl.go
 
 ### Completed
 * Add struct annotations
