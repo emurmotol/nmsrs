@@ -45,7 +45,7 @@ func RenderWithFunc(w http.ResponseWriter, layout string, name string, data map[
 	t := template.New(fmt.Sprintf("%s:%s", layout, name)).Funcs(funcMap)
 	tmpl := template.Must(t.ParseFiles(layoutFile, tmplFile))
 
-	data["Config"] = env.Get()
+	data["Config"] = env.Get() // TODO: Temporary
 
 	if err := tmpl.ExecuteTemplate(w, layout, data); err != nil {
 		return err
