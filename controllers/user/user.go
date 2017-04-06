@@ -90,8 +90,8 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	}
 	// TODO: models.User.Update()
 	res.JSON(res.Make{http.StatusOK, map[string]string{
-		"redirect": "", // TODO: Redirect value?
-		"message":  "User created",
+		"redirect": "", // TODO: Redirect back?
+		"message":  "User updated",
 	}, ""}, w)
 	return
 }

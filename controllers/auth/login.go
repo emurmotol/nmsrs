@@ -12,7 +12,7 @@ import (
 )
 
 func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
-	data := map[string]string{
+	data := map[string]interface{}{
 		"Title": "Login",
 	}
 	tmpl.RenderWithFunc(w, "auth", "auth.login", data, nil)

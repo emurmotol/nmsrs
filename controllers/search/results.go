@@ -7,7 +7,7 @@ import (
 )
 
 func Results(w http.ResponseWriter, r *http.Request) {
-	data := map[string]string{
+	data := map[string]interface{}{
 		"Title": "Results",
 	}
 	tmpl.RenderWithFunc(w, "search", "search.results", data, nil)

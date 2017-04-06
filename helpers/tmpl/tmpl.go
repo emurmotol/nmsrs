@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/zneyrl/nmsrs-lookup/env"
 )
 
 var (
@@ -24,7 +26,7 @@ func init() {
 	// parseTemplateDir(layoutsParentDir)
 }
 
-func Render(w http.ResponseWriter, layout string, name string, data interface{}) error {
+func Render(w http.ResponseWriter, layout string, name string, data map[string]interface{}) error {
 	tmpl, ok := templates[layout+":"+name]
 	if !ok {
 		return fmt.Errorf("The template %s does not exist", name)
@@ -37,11 +39,13 @@ func Render(w http.ResponseWriter, layout string, name string, data interface{})
 	return nil
 }
 
-func RenderWithFunc(w http.ResponseWriter, layout string, name string, data interface{}, funcMap template.FuncMap) error {
+func RenderWithFunc(w http.ResponseWriter, layout string, name string, data map[string]interface{}, funcMap template.FuncMap) error {
 	tmplFile := layoutsParentDir + pathSeparator + strings.Replace(name, ".", pathSeparator, -1) + tmplExt
 	layoutFile := layoutsParentDir + pathSeparator + layoutsDir + pathSeparator + layout + tmplExt
 	t := template.New(fmt.Sprintf("%s:%s", layout, name)).Funcs(funcMap)
 	tmpl := template.Must(t.ParseFiles(layoutFile, tmplFile))
+
+	data["Config"] = env.Get()
 
 	if err := tmpl.ExecuteTemplate(w, layout, data); err != nil {
 		return err

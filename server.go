@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/urfave/negroni"
-	"github.com/zneyrl/nmsrs-lookup/middlewares"
+	mw "github.com/zneyrl/nmsrs-lookup/middlewares"
 	"github.com/zneyrl/nmsrs-lookup/routes"
 )
 
 func main() {
-	middlewares.InitKeys()
+	mw.InitKeys()
 	n := negroni.New()
 	n.Use(negroni.NewLogger())
 	n.Use(negroni.NewRecovery())
