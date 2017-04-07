@@ -18,5 +18,5 @@ func main() {
 	n.Use(negroni.NewRecovery())
 	r := routes.Web()
 	n.UseHandler(r)
-	http.ListenAndServe(fmt.Sprintf("%s:%d", env.HostName, env.Port), n)
+	http.ListenAndServe(fmt.Sprintf("%s:%d", env.SvrHost, env.SvrPort), n)
 }
