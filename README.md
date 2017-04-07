@@ -29,5 +29,5 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 * Always push source to remote
 
 ### Useful Links
-* https://github.com/go-playground/validator
-* https://github.com/rhinoman/couchdb-go
+* [validator](https://github.com/go-playground/validator)
+* [couchdb-go](https://github.com/rhinoman/couchdb-go)
