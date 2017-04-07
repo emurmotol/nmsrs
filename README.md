@@ -2,14 +2,14 @@
 National Manpower Skills Registration System Lookup For The Municipality Of Gasan Marinduque Philippines
 
 ### Tasks On Server
-* Clean your Google Chrome account
 * Create application forms and backend logic
 * Populate database
-* Implement mgo usage
 * Migrate to CouchDB to support 32-bit host pc
 * Fix VSCode extension "Go" not reloading (Delete package dir)
 
 ### Completed
+* ~~Clean your Google Chrome account~~
+* ~~Implement mgo usage~~
 * Add struct annotations
 * Process login
 * Create authentication with JWT
@@ -21,12 +21,13 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 ### Notes
 * go build & nmsrs-lookup.exe
 * go build ; ./nmsrs-lookup.exe
-* Server architecture is 32-bit must be 64-bit
-* Max DB size 2GB
-* VSCode debugger only works on 64-bit
+* ~~Server architecture is 32-bit must be 64-bit~~
+* ~~Max DB size 2GB~~
+* ~~VSCode debugger only works on 64-bit~~
 
 ### Important
 * Always push source to remote
 
 ### Useful Links
 * https://github.com/go-playground/validator
+* https://github.com/rhinoman/couchdb-go
