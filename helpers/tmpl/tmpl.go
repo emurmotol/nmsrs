@@ -37,7 +37,7 @@ func Render(w http.ResponseWriter, layout string, name string, data map[string]i
 	}
 	w.Header().Set("Content-Type", "text/html")
 	return nil
-}
+} // TODO: Unused
 
 func RenderWithFunc(w http.ResponseWriter, layout string, name string, data map[string]interface{}, funcMap template.FuncMap) error {
 	tmplFile := layoutsParentDir + pathSeparator + strings.Replace(name, ".", pathSeparator, -1) + tmplExt
@@ -45,7 +45,7 @@ func RenderWithFunc(w http.ResponseWriter, layout string, name string, data map[
 	t := template.New(fmt.Sprintf("%s:%s", layout, name)).Funcs(funcMap)
 	tmpl := template.Must(t.ParseFiles(layoutFile, tmplFile))
 
-	data["Config"] = env.Get() // TODO: Temporary
+	data["Config"] = env.Config()
 
 	if err := tmpl.ExecuteTemplate(w, layout, data); err != nil {
 		return err
@@ -76,7 +76,7 @@ func paths(root string) ([]string, []string, error) {
 		return nil, nil, err
 	}
 	return layouts, pages, nil
-}
+} // TODO: Unused
 
 func parseTemplateDir(root string) error {
 	layouts, pages, err := paths(root)
@@ -104,4 +104,4 @@ func parseTemplateDir(root string) error {
 		}
 	}
 	return nil
-}
+} // TODO: Unused

@@ -3,7 +3,10 @@ package main
 import (
 	"net/http"
 
+	"fmt"
+
 	"github.com/urfave/negroni"
+	"github.com/zneyrl/nmsrs-lookup/env"
 	mw "github.com/zneyrl/nmsrs-lookup/middlewares"
 	"github.com/zneyrl/nmsrs-lookup/routes"
 )
@@ -15,5 +18,5 @@ func main() {
 	n.Use(negroni.NewRecovery())
 	r := routes.Web()
 	n.UseHandler(r)
-	http.ListenAndServe(":8080", n)
+	http.ListenAndServe(fmt.Sprintf("%s:%d", env.HostName, env.Port), n)
 }

@@ -5,6 +5,7 @@ import (
 
 	en "github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
+	"github.com/zneyrl/nmsrs-lookup/env"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	validator "gopkg.in/go-playground/validator.v9"
 	en_trans "gopkg.in/go-playground/validator.v9/translations/en"
@@ -19,7 +20,7 @@ var (
 func init() {
 	en := en.New()
 	uni = ut.New(en, en)
-	trans, _ = uni.GetTranslator("en")
+	trans, _ = uni.GetTranslator(env.Locale)
 	validate = validator.New()
 	en_trans.RegisterDefaultTranslations(validate, trans)
 }
