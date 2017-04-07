@@ -1,8 +1,11 @@
 package str
 
 import (
+	"log"
 	"regexp"
 	"strings"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 var camel = regexp.MustCompile("(^[^A-Z]*|[A-Z]*)([A-Z][^A-Z]+|$)")
@@ -41,4 +44,20 @@ func CamelCaseToSnakeCase(s string) string {
 		}
 	}
 	return strings.ToLower(strings.Join(a, "_"))
+}
+
+func Bcrypt(pwd string) string {
+	hashedPwd, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	return string(hashedPwd)
+}
+
+func IsPasswordMatched(hashedPwd string, pwd string) bool {
+	if err := bcrypt.CompareHashAndPassword([]byte(hashedPwd), []byte(pwd)); err != nil {
+		return false
+	}
+	return true
 }

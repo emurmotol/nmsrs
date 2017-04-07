@@ -3,8 +3,6 @@ package user
 import (
 	"net/http"
 
-	"fmt"
-
 	"github.com/gorilla/schema"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
@@ -34,12 +32,12 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 
 	if err := r.ParseForm(); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", "Error parsing form"}, w)
+		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
 		return
 	}
 
 	if err := decoder.Decode(&user, r.PostForm); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", "Error in request"}, w)
+		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
 		return
 	}
 	hasErr, errs := trans.ValidationHasError(user)
@@ -48,7 +46,11 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		res.JSON(res.Make{http.StatusForbidden, "", errs}, w)
 		return
 	}
-	fmt.Println(user.Insert())
+
+	if err := user.Insert(); err != nil {
+		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
+		return
+	}
 	res.JSON(res.Make{http.StatusOK, map[string]string{
 		"redirect": "/users",
 		"message":  "User created",
@@ -76,12 +78,12 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 
 	if err := r.ParseForm(); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", "Error parsing form"}, w)
+		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
 		return
 	}
 
 	if err := decoder.Decode(&user, r.PostForm); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", "Error in request"}, w)
+		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
 		return
 	}
 	hasErr, errs := trans.ValidationHasError(user)

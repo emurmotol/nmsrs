@@ -20,12 +20,12 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 
 	if err := r.ParseForm(); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", "Error parsing form"}, w)
+		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
 		return
 	}
 
 	if err := decoder.Decode(&user, r.PostForm); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", "Error in request"}, w)
+		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
 		return
 	}
 	hasErr, errs := trans.ValidationHasError(user)
