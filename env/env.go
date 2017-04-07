@@ -14,12 +14,12 @@ var (
 	SvrHost string
 	SvrPort int
 
-	// Db
-	DbUser     string
-	DbPassword string
-	DbName     string
-	DbHost     string
-	DbPort     int
+	// DB
+	DBUser     string
+	DBPassword string
+	DBName     string
+	DBHost     string
+	DBPort     int
 )
 
 func init() {
@@ -32,12 +32,12 @@ func init() {
 	flag.StringVar(&SvrHost, "SvrHost", "localhost", "Server host name")
 	flag.IntVar(&SvrPort, "SvrPort", 8080, "Server port number")
 
-	// Db
-	flag.StringVar(&DbUser, "DbUser", "admin", "Db user")
-	flag.StringVar(&DbPassword, "DbPassword", "secret", "Db password")
-	flag.StringVar(&DbName, "DbName", "nmsrsLookup", "Db name")
-	flag.StringVar(&DbHost, "DbHost", "localhost", "Db host name")
-	flag.IntVar(&DbPort, "DbPort", 5984, "Db port number")
+	// DB
+	flag.StringVar(&DBUser, "DBUser", "admin", "DB user")
+	flag.StringVar(&DBPassword, "DBPassword", "secret", "DB password")
+	flag.StringVar(&DBName, "DBName", "nmsrs_lookup", "DB name")
+	flag.StringVar(&DBHost, "DBHost", "localhost", "DB host name")
+	flag.IntVar(&DBPort, "DBPort", 5984, "DB port number")
 
 	// Parse flags
 	flag.Parse()
@@ -54,12 +54,12 @@ func Config() interface{} {
 			"Host": SvrHost,
 			"Port": string(SvrPort),
 		},
-		"Db": map[string]string{
-			"User":     DbUser,
-			"Password": DbPassword,
-			"Name":     DbName,
-			"Host":     DbHost,
-			"Port":     string(DbPort),
+		"DB": map[string]string{
+			"User":     DBUser,
+			"Password": DBPassword,
+			"Name":     DBName,
+			"Host":     DBHost,
+			"Port":     string(DBPort),
 		},
 	}
 } // TODO: Used for template access

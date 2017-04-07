@@ -35,7 +35,7 @@ func ValidationHasError(s interface{}) (bool, map[string]string) {
 		errs := make(map[string]string)
 
 		for _, e := range err.(validator.ValidationErrors) {
-			errs[str.LowerCaseFirstChar(e.Field())] = str.CamelCaseToSentenceCase(e.Translate(trans)) // TODO: Must parse only the key not the value
+			errs[str.CamelCaseToSnakeCase(e.Field())] = str.CamelCaseToSentenceCase(e.Translate(trans)) // TODO: Must parse only the key not the value
 		}
 		return true, errs
 	}

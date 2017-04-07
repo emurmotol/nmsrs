@@ -6,11 +6,11 @@ type AuthCredentials struct {
 }
 
 type User struct {
-	Id              string `schema:"id"`
+	ID              string `schema:"_id"`
 	Name            string `schema:"name" validate:"required,min=2"`
 	Email           string `schema:"email" validate:"required,email"`
 	Password        string `schema:"password" validate:"required,min=6"`
-	ConfirmPassword string `schema:"confirmPassword" validate:"required,eqfield=Password"` // TODO: Lol
+	ConfirmPassword string `schema:"confirm_password" validate:"required,eqfield=password"` // TODO: Lol
 	CreatedAt       string `schema:"created_at"`
 	UpdatedAt       string `schema:"updated_at"`
 }

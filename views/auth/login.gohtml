@@ -7,7 +7,7 @@
     <div class="form-group">
         <input type="password" class="form-control" name="password" id="password" placeholder="Password">
     </div>
-    <button type="button" id="formLoginSubmit" class="btn btn-outline-primary btn-block">Login</button>
+    <button type="button" id="form_login_submit" class="btn btn-outline-primary btn-block">Login</button>
 </form>
 {{end}} {{define "script"}}
 <script>
@@ -17,7 +17,7 @@
             "password"
         ];
 
-        $("#formLoginSubmit").on("click", function () {
+        $("#form_login_submit").on("click", function () {
             validateForm("/login", fields, {
                 "email": $("#" + fields[0]).val(),
                 "password": $("#" + fields[1]).val()

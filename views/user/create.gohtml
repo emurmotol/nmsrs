@@ -19,12 +19,12 @@
                         <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                     </div>
                     <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm password">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm password">
                     </div>
                 </div>
             </div>
-            <button type="button" id="formCreateSubmit" class="btn btn-outline-primary">Create</button>
+            <button type="button" id="form_create_submit" class="btn btn-outline-primary">Create</button>
         </form>
     </div>
 </div>
@@ -35,15 +35,15 @@
             "name",
             "email",
             "password",
-            "confirmPassword"
+            "confirm_password"
         ];
 
-        $("#formCreateSubmit").on("click", function () {
+        $("#form_create_submit").on("click", function () {
             validateForm("/users", fields, {
                 "name": $("#" + fields[0]).val(),
                 "email": $("#" + fields[1]).val(),
                 "password": $("#" + fields[2]).val(),
-                "confirmPassword": $("#" + fields[3]).val()
+                "confirm_password": $("#" + fields[3]).val()
             }, "POST");
         });
     });

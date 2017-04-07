@@ -11,9 +11,9 @@
         <input type="password" class="form-control" name="password" id="password" placeholder="Password">
     </div>
     <div class="form-group">
-        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm password">
+        <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm password">
     </div>
-    <button type="button" id="formRegisterSubmit" class="btn btn-outline-primary btn-block">Register</button>
+    <button type="button" id="form_register_submit" class="btn btn-outline-primary btn-block">Register</button>
 </form>
 {{end}} {{define "script"}}
 <script>
@@ -22,15 +22,15 @@
             "name",
             "email",
             "password",
-            "confirmPassword"
+            "confirm_password"
         ];
 
-        $("#formRegisterSubmit").on("click", function () {
+        $("#form_register_submit").on("click", function () {
             validateForm("/register", fields, {
                 "name": $("#" + fields[0]).val(),
                 "email": $("#" + fields[1]).val(),
                 "password": $("#" + fields[2]).val(),
-                "confirmPassword": $("#" + fields[3]).val()
+                "confirm_password": $("#" + fields[3]).val()
             }, "POST");
         });
     });
