@@ -2,6 +2,7 @@ package env
 
 import (
 	"flag"
+	"time"
 )
 
 var (
@@ -20,6 +21,7 @@ var (
 	DBName     string
 	DBHost     string
 	DBPort     int
+	DBTimeout  time.Duration
 )
 
 func init() {
@@ -38,6 +40,7 @@ func init() {
 	flag.StringVar(&DBName, "DBName", "nmsrs_lookup", "DB name")
 	flag.StringVar(&DBHost, "DBHost", "localhost", "DB host name")
 	flag.IntVar(&DBPort, "DBPort", 5984, "DB port number")
+	flag.DurationVar(&DBTimeout, "DBTimeout", time.Duration(500*time.Millisecond), "DB timeout")
 
 	// Parse flags
 	flag.Parse()
@@ -60,6 +63,7 @@ func Config() interface{} {
 			"Name":     DBName,
 			"Host":     DBHost,
 			"Port":     string(DBPort),
+			"Timeout":  string(DBTimeout),
 		},
 	}
 } // TODO: Used for template access

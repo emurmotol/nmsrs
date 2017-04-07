@@ -3,6 +3,8 @@ package user
 import (
 	"net/http"
 
+	"fmt"
+
 	"github.com/gorilla/schema"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
@@ -46,7 +48,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		res.JSON(res.Make{http.StatusForbidden, "", errs}, w)
 		return
 	}
-	// TODO: models.User.Insert()
+	fmt.Println(user.Insert())
 	res.JSON(res.Make{http.StatusOK, map[string]string{
 		"redirect": "/users",
 		"message":  "User created",

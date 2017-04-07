@@ -1,5 +1,11 @@
 package models
 
+import (
+	"log"
+
+	"github.com/zneyrl/nmsrs-lookup/db"
+)
+
 type AuthCredentials struct {
 	Email    string `schema:"email" validate:"required,email"`
 	Password string `schema:"password" validate:"required"`
@@ -15,8 +21,13 @@ type User struct {
 	UpdatedAt       string `schema:"updated_at"`
 }
 
-func (u *User) Insert() {
+func (u *User) Insert() string {
+	rev, err := db.Con.Save(u, "001", "")
 
+	if err != nil {
+		log.Fatal(err)
+	}
+	return rev
 }
 
 func (u *User) Find() {
