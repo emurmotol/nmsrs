@@ -2,7 +2,7 @@
 <div class="card">
     <div class="card-header">{{.Title}}</div>
     <div class="card-block">
-        <form>
+        <form id="edit_user_form">
             <div class="row">
                 <div class="col-lg-6">
                     <div id="error"></div>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <button type="button" id="form_edit_submit" class="btn btn-outline-primary">Save</button>
+            <input type="submit" class="btn btn-outline-primary" value="Save">
         </form>
     </div>
 </div>
@@ -38,7 +38,8 @@
             "confirm_password"
         ];
 
-        $("#form_edit_submit").on("click", function () {
+        $("#edit_user_form").on("submit", function (e) {
+            e.preventDefault();
             validateForm("/users/id", fields, { // TODO: Id value?
                 "name": $("#" + fields[0]).val(),
                 "email": $("#" + fields[1]).val(),

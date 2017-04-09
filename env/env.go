@@ -39,7 +39,7 @@ func init() {
 	flag.StringVar(&DBPassword, "DBPassword", "secret", "DB password")
 	flag.StringVar(&DBName, "DBName", "nmsrs_lookup", "DB name")
 	flag.StringVar(&DBHost, "DBHost", "localhost", "DB host name")
-	flag.IntVar(&DBPort, "DBPort", 5984, "DB port number")
+	flag.IntVar(&DBPort, "DBPort", 27017, "DB port number")
 	flag.DurationVar(&DBTimeout, "DBTimeout", time.Duration(500*time.Millisecond), "DB timeout")
 
 	// Parse flags

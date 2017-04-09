@@ -10,12 +10,22 @@ import (
 	"github.com/zneyrl/nmsrs-lookup/models"
 )
 
-var decoder = schema.NewDecoder()
+var (
+	decoder = schema.NewDecoder()
+	usr     models.User
+)
 
 func Index(w http.ResponseWriter, r *http.Request) {
+	users, err := usr.All()
+
+	if err != nil {
+		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
+		return
+	}
 	data := map[string]interface{}{
 		"Title": "Users",
 		"R":     r,
+		"Users": users,
 	}
 	tmpl.RenderWithFunc(w, "dashboard", "user.index", data, nil)
 }
@@ -29,25 +39,23 @@ func Create(w http.ResponseWriter, r *http.Request) {
 }
 
 func Store(w http.ResponseWriter, r *http.Request) {
-	var user models.User
-
 	if err := r.ParseForm(); err != nil {
 		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
 		return
 	}
 
-	if err := decoder.Decode(&user, r.PostForm); err != nil {
+	if err := decoder.Decode(&usr, r.PostForm); err != nil {
 		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
 		return
 	}
-	hasErr, errs := trans.ValidationHasError(user)
+	hasErr, errs := trans.ValidationHasError(usr)
 
 	if hasErr {
 		res.JSON(res.Make{http.StatusForbidden, "", errs}, w)
 		return
 	}
 
-	if err := user.Insert(); err != nil {
+	if err := usr.Insert(); err != nil {
 		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
 		return
 	}
@@ -75,18 +83,16 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 }
 
 func Update(w http.ResponseWriter, r *http.Request) {
-	var user models.User
-
 	if err := r.ParseForm(); err != nil {
 		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
 		return
 	}
 
-	if err := decoder.Decode(&user, r.PostForm); err != nil {
+	if err := decoder.Decode(&usr, r.PostForm); err != nil {
 		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
 		return
 	}
-	hasErr, errs := trans.ValidationHasError(user)
+	hasErr, errs := trans.ValidationHasError(usr)
 
 	if hasErr {
 		res.JSON(res.Make{http.StatusForbidden, "", errs}, w)

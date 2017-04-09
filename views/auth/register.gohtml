@@ -1,5 +1,5 @@
 {{define "content"}}
-<form>
+<form id="register_form">
     <div id="error"></div>
     <div class="form-group">
         <input type="text" class="form-control" name="name" id="name" placeholder="Name">
@@ -13,7 +13,7 @@
     <div class="form-group">
         <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm password">
     </div>
-    <button type="button" id="form_register_submit" class="btn btn-outline-primary btn-block">Register</button>
+    <input type="submit" class="btn btn-outline-primary" value="Register">
 </form>
 {{end}} {{define "script"}}
 <script>
@@ -25,7 +25,8 @@
             "confirm_password"
         ];
 
-        $("#form_register_submit").on("click", function () {
+        $("#register_form").on("submit", function (e) {
+            e.preventDefault();
             validateForm("/register", fields, {
                 "name": $("#" + fields[0]).val(),
                 "email": $("#" + fields[1]).val(),
