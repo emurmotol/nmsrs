@@ -1,17 +1,10 @@
 package models
 
 import (
-	"log"
 	"time"
 
-	uuid "github.com/satori/go.uuid"
 	"github.com/zneyrl/nmsrs-lookup/db"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
-)
-
-var (
-	ID  = "_design/users"
-	Rev string
 )
 
 type AuthCredentials struct {
@@ -28,17 +21,6 @@ type User struct {
 	UpdatedAt       int64  `schema:"updated_at" json:"updated_at"`
 }
 
-func init() {
-	// TODO: Check if view exsist then do
-	// WTF
-	rev, err := db.Con.Save(map[string]interface{}{"testing": "Testing"}, ID, "")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-	Rev = rev
-}
-
 // func (u *User) All() []User {
 // 	// db.Con.
 // }
@@ -48,10 +30,8 @@ func (u *User) Insert() error {
 	now := time.Now().Unix()
 	u.CreatedAt = now
 	u.UpdatedAt = now
-	// WTF
-	_, err := db.Con.Save(u, uuid.NewV4().String(), Rev) // TODO: Revision not used
 
-	if err != nil {
+	if err := db.Users.Insert(u); err != nil {
 		return err
 	}
 	return nil

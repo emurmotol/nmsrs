@@ -1,20 +1,28 @@
 package db
 
 import (
+	"fmt"
 	"log"
 
-	couchdb "github.com/rhinoman/couchdb-go"
 	"github.com/zneyrl/nmsrs-lookup/env"
+	mgo "gopkg.in/mgo.v2"
 )
 
-var Con *couchdb.Database
+var (
+	DB    *mgo.Database
+	Users *mgo.Collection
+)
 
 func init() {
-	c, err := couchdb.NewConnection(env.DBHost, env.DBPort, env.DBTimeout)
+	session, err := mgo.Dial(fmt.Sprintf("mongodb://%s:%d", env.DBHost, env.DBPort))
 
 	if err != nil {
 		log.Fatal(err)
 	}
-	auth := couchdb.BasicAuth{env.DBUser, env.DBPassword}
-	Con = c.SelectDB(env.DBName, &auth)
+
+	if err := session.Ping(); err != nil {
+		log.Fatal(err)
+	}
+	DB = session.DB(env.DBName)
+	Users = DB.C("users")
 }

@@ -36,6 +36,7 @@ func Render(w http.ResponseWriter, layout string, name string, data map[string]i
 		return err
 	}
 	w.Header().Set("Content-Type", "text/html")
+	w.WriteHeader(http.StatusOK)
 	return nil
 } // TODO: Unused
 
