@@ -10,12 +10,12 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 
 ### Completed
 * ~~Clean your Google Chrome account~~
-* ~~Implement mgo usage~~
+* Implement mgo usage
 * Add struct annotations
 * Process login
 * Create authentication with JWT
 * Parse templates
-* ~~[Run MongoDB server as a service](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#configure-a-windows-service-for-mongodb-community-edition). Set `mongod --config "C:\Program Files\MongoDB\Server\3.2\bin\mongod.cfg" --journal --directoryperdb --dbpath=C:\Users\Public\OJT\MongoDB\db --storageEngine=mmapv1 --install`~~
+* [Run MongoDB server as a service](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#configure-a-windows-service-for-mongodb-community-edition). Set `mongod --config "C:\Program Files\MongoDB\Server\3.2\bin\mongod.cfg" --journal --directoryperdb --dbpath=C:\Users\Public\OJT\MongoDB\db --storageEngine=mmapv1 --install`
 * Add FontAwesome
 * Use [Negroni](https://github.com/urfave/negroni)
 
