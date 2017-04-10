@@ -9,6 +9,7 @@ import (
 	"github.com/zneyrl/nmsrs-lookup/models"
 )
 
+// ShowRegisterForm ...
 func ShowRegisterForm(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Register",
@@ -16,6 +17,7 @@ func ShowRegisterForm(w http.ResponseWriter, r *http.Request) {
 	tmpl.Render(w, r, "auth", "auth.register", data, nil)
 }
 
+// Register ...
 func Register(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 
