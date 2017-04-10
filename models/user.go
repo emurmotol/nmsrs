@@ -60,13 +60,14 @@ func (usr *User) Find(id string) (User, error) {
 }
 
 func (usr *User) Update(id string) error {
-	u, err := usr.Find(id)
+	var u User
+	_, err := u.Find(id)
 
 	if err != nil {
 		return err
 	}
 
-	if err := db.Users.UpdateId(u.ID, usr); err != nil {
+	if err := db.Users.UpdateId(bson.ObjectIdHex(id), usr); err != nil {
 		return err
 	}
 	return nil
