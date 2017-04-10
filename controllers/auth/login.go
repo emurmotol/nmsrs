@@ -22,30 +22,49 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var user models.AuthCredentials
 
 	if err := r.ParseForm(); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
 		return
 	}
 
 	if err := decoder.Decode(&user, r.PostForm); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "", Errors: err.Error(),
+		})
 		return
 	}
 	hasErr, errs := trans.ValidationHasError(user)
 
 	if hasErr {
-		res.JSON(res.Make{http.StatusForbidden, "", errs}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusForbidden,
+			Data:   "",
+			Errors: errs,
+		})
 		return
 	}
 
 	if strings.ToLower(user.Email) != "admin@example.com" || user.Password != "secret" {
-		res.JSON(res.Make{http.StatusForbidden, "", "Invalid credentials"}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusForbidden,
+			Data:   "",
+			Errors: "Invalid credentials",
+		})
 		return
 	}
 	// TODO: Redirect to dashboard
-	res.JSON(res.Make{http.StatusOK, map[string]string{
-		"redirect": "/",
-		"token":    mw.GetToken(),
-		"message":  "success login",
-	}, ""}, w)
+	res.JSON(w, res.Make{
+		Status: http.StatusOK,
+		Data: map[string]string{
+			"redirect": "/",
+			"token":    mw.GetToken(),
+			"message":  "success login",
+		},
+		Errors: "",
+	})
 	return
 }

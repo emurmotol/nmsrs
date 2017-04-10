@@ -19,15 +19,19 @@ var (
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	users, err := usr.All()
+	usrs, err := usr.All()
 
 	if err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
 		return
 	}
 	data := map[string]interface{}{
 		"Title": "Users",
-		"Users": users,
+		"Users": usrs,
 	}
 	funcMap := template.FuncMap{
 		"DateForHuman": str.DateForHuman,
@@ -44,43 +48,67 @@ func Create(w http.ResponseWriter, r *http.Request) {
 
 func Store(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
 		return
 	}
 
 	if err := decoder.Decode(&usr, r.PostForm); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
 		return
 	}
 	hasErr, errs := trans.ValidationHasError(usr)
 
 	if hasErr {
-		res.JSON(res.Make{http.StatusForbidden, "", errs}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusForbidden,
+			Data:   "",
+			Errors: errs,
+		})
 		return
 	}
 
 	if err := usr.Insert(); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
 		return
 	}
-	res.JSON(res.Make{http.StatusOK, map[string]string{
-		"redirect": "/users",
-		"message":  "user created",
-	}, ""}, w)
+	res.JSON(w, res.Make{
+		Status: http.StatusOK,
+		Data: map[string]string{
+			"redirect": "/users",
+			"message":  "user created",
+		},
+		Errors: "",
+	})
 	return
 }
 
 func Show(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
-	user, err := usr.Find(v["id"])
+	u, err := usr.Find(v["id"])
 
 	if err != nil {
-		res.JSON(res.Make{http.StatusNotFound, "", err.Error()}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusNotFound,
+			Data:   "",
+			Errors: err.Error(),
+		})
 		return
 	}
 	data := map[string]interface{}{
 		"Title": "Show User",
-		"User":  user,
+		"User":  u,
 	}
 	tmpl.Render(w, r, "dashboard", "user.show", data, nil)
 }
@@ -94,41 +122,65 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 
 func Update(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
 		return
 	}
 
 	if err := decoder.Decode(&usr, r.PostForm); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
 		return
 	}
 	hasErr, errs := trans.ValidationHasError(usr)
 
 	if hasErr {
-		res.JSON(res.Make{http.StatusForbidden, "", errs}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusForbidden,
+			Data:   "",
+			Errors: errs,
+		})
 		return
 	}
 	v := mux.Vars(r)
 	usr.Update(v["id"])
-	res.JSON(res.Make{http.StatusOK, map[string]string{
-		"redirect": "", // TODO: Redirect back
-		"message":  "user updated",
-	}, ""}, w)
+	res.JSON(w, res.Make{
+		Status: http.StatusOK,
+		Data: map[string]string{
+			"redirect": "", // TODO: Redirect back
+			"message":  "user updated",
+		},
+		Errors: "",
+	})
 	return
 }
 
 func Destroy(w http.ResponseWriter, r *http.Request) {
 	v := mux.Vars(r)
-	user, err := usr.Find(v["id"])
+	u, err := usr.Find(v["id"])
 
 	if err != nil {
-		res.JSON(res.Make{http.StatusNotFound, "", err.Error()}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusNotFound,
+			Data:   "",
+			Errors: err.Error(),
+		})
 		return
 	}
-	user.Delete()
-	res.JSON(res.Make{http.StatusOK, map[string]string{
-		"redirect": "/users",
-		"message":  "user deleted",
-	}, ""}, w)
+	u.Delete()
+	res.JSON(w, res.Make{
+		Status: http.StatusOK,
+		Data: map[string]string{
+			"redirect": "/users",
+			"message":  "user deleted",
+		},
+		Errors: "",
+	})
 	return
 }

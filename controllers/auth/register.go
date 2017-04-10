@@ -20,24 +20,40 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 
 	if err := r.ParseForm(); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
 		return
 	}
 
 	if err := decoder.Decode(&user, r.PostForm); err != nil {
-		res.JSON(res.Make{http.StatusInternalServerError, "", err.Error()}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
 		return
 	}
 	hasErr, errs := trans.ValidationHasError(user)
 
 	if hasErr {
-		res.JSON(res.Make{http.StatusForbidden, "", errs}, w)
+		res.JSON(w, res.Make{
+			Status: http.StatusForbidden,
+			Data:   "",
+			Errors: errs,
+		})
 		return
 	}
 	// TODO: Do registration logic
-	res.JSON(res.Make{http.StatusOK, map[string]string{
-		"redirect": "/login",
-		"message":  "success register",
-	}, ""}, w)
+	res.JSON(w, res.Make{
+		Status: http.StatusOK,
+		Data: map[string]string{
+			"redirect": "/login",
+			"message":  "success register",
+		},
+		Errors: "",
+	})
 	return
 }
