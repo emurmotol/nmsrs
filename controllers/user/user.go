@@ -24,18 +24,16 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	}
 	data := map[string]interface{}{
 		"Title": "Users",
-		"R":     r,
 		"Users": users,
 	}
-	tmpl.RenderWithFunc(w, "dashboard", "user.index", data, nil)
+	tmpl.Render(w, r, "dashboard", "user.index", data, nil)
 }
 
 func Create(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Create User",
-		"R":     r,
 	}
-	tmpl.RenderWithFunc(w, "dashboard", "user.create", data, nil)
+	tmpl.Render(w, r, "dashboard", "user.create", data, nil)
 }
 
 func Store(w http.ResponseWriter, r *http.Request) {
@@ -69,17 +67,15 @@ func Store(w http.ResponseWriter, r *http.Request) {
 func Show(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Show User",
-		"R":     r,
 	}
-	tmpl.RenderWithFunc(w, "dashboard", "user.show", data, nil)
+	tmpl.Render(w, r, "dashboard", "user.show", data, nil)
 }
 
 func Edit(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Edit User",
-		"R":     r,
 	}
-	tmpl.RenderWithFunc(w, "dashboard", "user.edit", data, nil)
+	tmpl.Render(w, r, "dashboard", "user.edit", data, nil)
 }
 
 func Update(w http.ResponseWriter, r *http.Request) {

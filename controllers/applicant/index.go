@@ -11,5 +11,5 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		"Title": "Applicants",
 		"R":     r,
 	}
-	tmpl.RenderWithFunc(w, "dashboard", "applicant.index", data, nil)
+	tmpl.Render(w, r, "dashboard", "applicant.index", data, nil)
 }

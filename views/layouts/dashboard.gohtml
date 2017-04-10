@@ -46,7 +46,7 @@
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
                         <a class="nav-link{{if eq .R.URL.Path `/users`}} active{{end}}" href="/users">
-                            Users <span class="badge badge-info">3</span>
+                            Users <span class="badge badge-info">{{len .Users}}</span>
                         </a>
                     </li>
                     <li class="nav-item">

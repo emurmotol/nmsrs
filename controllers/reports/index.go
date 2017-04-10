@@ -9,7 +9,6 @@ import (
 func Index(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Reports",
-		"R":     r,
 	}
-	tmpl.RenderWithFunc(w, "dashboard", "reports.index", data, nil)
+	tmpl.Render(w, r, "dashboard", "reports.index", data, nil)
 }

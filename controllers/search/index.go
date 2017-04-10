@@ -10,5 +10,5 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Search",
 	}
-	tmpl.RenderWithFunc(w, "search", "search.index", data, nil)
+	tmpl.Render(w, r, "search", "search.index", data, nil)
 }

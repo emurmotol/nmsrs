@@ -10,12 +10,12 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Home",
 	}
-	tmpl.RenderWithFunc(w, "main", "home.index", data, nil)
+	tmpl.Render(w, r, "main", "home.index", data, nil)
 }
 
 func Welcome(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Welcome",
 	}
-	tmpl.RenderWithFunc(w, "main", "home.welcome", data, nil)
+	tmpl.Render(w, r, "main", "home.welcome", data, nil)
 }

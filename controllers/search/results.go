@@ -10,5 +10,5 @@ func Results(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Results",
 	}
-	tmpl.RenderWithFunc(w, "search", "search.results", data, nil)
+	tmpl.Render(w, r, "search", "search.results", data, nil)
 }
