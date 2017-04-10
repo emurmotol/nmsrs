@@ -53,16 +53,28 @@ func (usr *User) Find(id string) (User, error) {
 		return u, errors.New("invalid object id")
 	}
 
-	if err := db.Users.Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&u); err != nil {
+	if err := db.Users.FindId(bson.ObjectIdHex(id)).One(&u); err != nil {
 		return u, err
 	}
 	return u, nil
 }
 
-func (usr *User) Update() {
+func (usr *User) Update(id string) error {
+	u, err := usr.Find(id)
 
+	if err != nil {
+		return err
+	}
+
+	if err := db.Users.UpdateId(u.ID, usr); err != nil {
+		return err
+	}
+	return nil
 }
 
-func (usr *User) Delete() {
-
+func (usr *User) Delete() error {
+	if err := db.Users.RemoveId(usr.ID); err != nil {
+		return err
+	}
+	return nil
 }

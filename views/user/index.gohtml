@@ -17,7 +17,7 @@
                 <tr>
                     <td><a href="/users/{{.ID.Hex}}">{{.Name}}</a></td>
                     <td>{{.Email}}</td>
-                    <td>{{ToHumanDateFormat .CreatedAt}}</td>
+                    <td>{{DateForHuman .CreatedAt}}</td>
                 </tr>
                 {{end}}
             </tbody>

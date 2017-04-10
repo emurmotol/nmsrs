@@ -30,7 +30,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		"Users": users,
 	}
 	funcMap := template.FuncMap{
-		"ToHumanDateFormat": str.ToHumanDateFormat,
+		"DateForHuman": str.DateForHuman,
 	}
 	tmpl.Render(w, r, "dashboard", "user.index", data, funcMap)
 }
@@ -71,8 +71,8 @@ func Store(w http.ResponseWriter, r *http.Request) {
 }
 
 func Show(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	user, err := usr.Find(vars["id"])
+	v := mux.Vars(r)
+	user, err := usr.Find(v["id"])
 
 	if err != nil {
 		res.JSON(res.Make{http.StatusNotFound, "", err.Error()}, w)
@@ -108,14 +108,27 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		res.JSON(res.Make{http.StatusForbidden, "", errs}, w)
 		return
 	}
-	// TODO: models.User.Update()
+	v := mux.Vars(r)
+	usr.Update(v["id"])
 	res.JSON(res.Make{http.StatusOK, map[string]string{
-		"redirect": "", // TODO: Redirect back?
+		"redirect": "", // TODO: Redirect back
 		"message":  "user updated",
 	}, ""}, w)
 	return
 }
 
 func Destroy(w http.ResponseWriter, r *http.Request) {
-	// TODO: models.User.Delete()
+	v := mux.Vars(r)
+	user, err := usr.Find(v["id"])
+
+	if err != nil {
+		res.JSON(res.Make{http.StatusNotFound, "", err.Error()}, w)
+		return
+	}
+	user.Delete()
+	res.JSON(res.Make{http.StatusOK, map[string]string{
+		"redirect": "/users",
+		"message":  "user deleted",
+	}, ""}, w)
+	return
 }
