@@ -15,9 +15,9 @@
             <tbody>
                 {{range .Users}}
                 <tr>
-                    <td>{{.Name}}</td>
+                    <td><a href="/users/{{.ID.Hex}}">{{.Name}}</a></td>
                     <td>{{.Email}}</td>
-                    <td>{{.CreatedAt}}</td>
+                    <td>{{ToHumanDateFormat .CreatedAt}}</td>
                 </tr>
                 {{end}}
             </tbody>

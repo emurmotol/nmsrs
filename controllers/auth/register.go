@@ -37,7 +37,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	// TODO: Do registration logic
 	res.JSON(res.Make{http.StatusOK, map[string]string{
 		"redirect": "/login",
-		"message":  "Success register",
+		"message":  "success register",
 	}, ""}, w)
 	return
 }

@@ -45,7 +45,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	res.JSON(res.Make{http.StatusOK, map[string]string{
 		"redirect": "/",
 		"token":    mw.GetToken(),
-		"message":  "Success login",
+		"message":  "success login",
 	}, ""}, w)
 	return
 }

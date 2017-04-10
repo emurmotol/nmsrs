@@ -1,10 +1,13 @@
 package user
 
 import (
+	"html/template"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"github.com/gorilla/schema"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
+	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
 	"github.com/zneyrl/nmsrs-lookup/models"
@@ -26,7 +29,10 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		"Title": "Users",
 		"Users": users,
 	}
-	tmpl.Render(w, r, "dashboard", "user.index", data, nil)
+	funcMap := template.FuncMap{
+		"ToHumanDateFormat": str.ToHumanDateFormat,
+	}
+	tmpl.Render(w, r, "dashboard", "user.index", data, funcMap)
 }
 
 func Create(w http.ResponseWriter, r *http.Request) {
@@ -59,14 +65,22 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	}
 	res.JSON(res.Make{http.StatusOK, map[string]string{
 		"redirect": "/users",
-		"message":  "User created",
+		"message":  "user created",
 	}, ""}, w)
 	return
 }
 
 func Show(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	user, err := usr.Find(vars["id"])
+
+	if err != nil {
+		res.JSON(res.Make{http.StatusNotFound, "", err.Error()}, w)
+		return
+	}
 	data := map[string]interface{}{
 		"Title": "Show User",
+		"User":  user,
 	}
 	tmpl.Render(w, r, "dashboard", "user.show", data, nil)
 }
@@ -97,7 +111,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	// TODO: models.User.Update()
 	res.JSON(res.Make{http.StatusOK, map[string]string{
 		"redirect": "", // TODO: Redirect back?
-		"message":  "User updated",
+		"message":  "user updated",
 	}, ""}, w)
 	return
 }

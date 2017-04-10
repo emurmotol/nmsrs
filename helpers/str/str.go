@@ -5,6 +5,8 @@ import (
 	"regexp"
 	"strings"
 
+	"time"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -60,4 +62,8 @@ func IsPasswordMatched(hashedPwd string, pwd string) bool {
 		return false
 	}
 	return true
+}
+
+func ToHumanDateFormat(sec int64) string {
+	return time.Unix(sec, 0).Format("January 2, 2006")
 }

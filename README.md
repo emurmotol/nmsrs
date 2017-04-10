@@ -7,6 +7,7 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 * Migrate to CouchDB to support 32-bit host pc
 * Fix VSCode extension "Go" not reloading (Delete package dir)
 * Check laptop for virus, temp files, or whatever
+* Missing on server Installing gomodifytags FAILED and Installing dlv FAILED
 
 ### Completed
 * ~~Clean your Google Chrome account~~

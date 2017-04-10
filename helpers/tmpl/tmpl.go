@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"log"
+
 	"github.com/zneyrl/nmsrs-lookup/env"
 )
 
@@ -40,7 +42,7 @@ func ParseAllAndRender(w http.ResponseWriter, layout string, name string, data m
 	return nil
 } // TODO: Unused
 
-func Render(w http.ResponseWriter, r *http.Request, layout string, name string, data map[string]interface{}, funcMap template.FuncMap) error {
+func Render(w http.ResponseWriter, r *http.Request, layout string, name string, data map[string]interface{}, funcMap template.FuncMap) {
 	tmplFile := layoutsParentDir + pathSeparator + strings.Replace(name, ".", pathSeparator, -1) + tmplExt
 	layoutFile := layoutsParentDir + pathSeparator + layoutsDir + pathSeparator + layout + tmplExt
 	t := template.New(fmt.Sprintf("%s:%s", layout, name)).Funcs(funcMap)
@@ -50,10 +52,9 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 	data["R"] = r
 
 	if err := tmpl.ExecuteTemplate(w, layout, data); err != nil {
-		return err
+		log.Fatal(err)
 	}
 	w.Header().Set("Content-Type", "text/html")
-	return nil
 }
 
 func paths(root string) ([]string, []string, error) {

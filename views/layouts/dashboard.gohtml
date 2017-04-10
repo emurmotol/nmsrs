@@ -45,19 +45,13 @@
             <div class="col-lg-2">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a class="nav-link{{if eq .R.URL.Path `/users`}} active{{end}}" href="/users">
-                            Users <span class="badge badge-info">{{len .Users}}</span>
-                        </a>
+                        <a class="nav-link{{if eq .R.URL.Path `/users`}} active{{end}}" href="/users">Users</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link{{if eq .R.URL.Path `/applicants`}} active{{end}}" href="/applicants">
-                            Applicants <span class="badge badge-info">4</span>
-                        </a>
+                        <a class="nav-link{{if eq .R.URL.Path `/applicants`}} active{{end}}" href="/applicants">Applicants</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link{{if eq .R.URL.Path `/reports`}} active{{end}}" href="/reports">
-                            Reports <span class="badge badge-info">0</span>
-                        </a>
+                        <a class="nav-link{{if eq .R.URL.Path `/reports`}} active{{end}}" href="/reports">Reports</a>
                     </li>
                 </ul>
             </div>
