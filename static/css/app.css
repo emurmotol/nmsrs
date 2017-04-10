@@ -13,3 +13,7 @@
 .table th  {
     border-top: none !important;
 }
+
+a {
+    text-decoration: none !important;
+}

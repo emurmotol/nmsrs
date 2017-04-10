@@ -73,6 +73,13 @@ func (usr *User) Update(id string) error {
 }
 
 func (usr *User) Delete() error {
+	var u User
+	_, err := u.Find(usr.ID.Hex())
+
+	if err != nil {
+		return err
+	}
+
 	if err := db.Users.RemoveId(usr.ID); err != nil {
 		return err
 	}
