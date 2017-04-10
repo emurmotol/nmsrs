@@ -15,10 +15,10 @@ import (
 
 var (
 	decoder = schema.NewDecoder()
-	usr     models.User
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
+	var usr models.User
 	usrs, err := usr.All()
 
 	if err != nil {
@@ -55,6 +55,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+	var usr models.User
 
 	if err := decoder.Decode(&usr, r.PostForm); err != nil {
 		res.JSON(w, res.Make{
@@ -95,6 +96,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 }
 
 func Show(w http.ResponseWriter, r *http.Request) {
+	var usr models.User
 	v := mux.Vars(r)
 	u, err := usr.Find(v["id"])
 
@@ -114,6 +116,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 }
 
 func Edit(w http.ResponseWriter, r *http.Request) {
+	var usr models.User
 	v := mux.Vars(r)
 	u, err := usr.Find(v["id"])
 
@@ -141,6 +144,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+	var usr models.User
 
 	if err := decoder.Decode(&usr, r.PostForm); err != nil {
 		res.JSON(w, res.Make{
@@ -174,6 +178,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 }
 
 func Destroy(w http.ResponseWriter, r *http.Request) {
+	var usr models.User
 	v := mux.Vars(r)
 	u, err := usr.Find(v["id"])
 
