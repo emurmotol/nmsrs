@@ -13,7 +13,8 @@ func ShowRegisterForm(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Register",
 	}
-	tmpl.Render(w, r, "auth", "auth.register", data, nil)
+	funcMap := map[string]interface{}{}
+	tmpl.Render(w, r, "auth", "auth.register", data, funcMap)
 }
 
 func Register(w http.ResponseWriter, r *http.Request) {

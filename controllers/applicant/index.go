@@ -10,5 +10,6 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Applicants",
 	}
-	tmpl.Render(w, r, "dashboard", "applicant.index", data, nil)
+	funcMap := map[string]interface{}{}
+	tmpl.Render(w, r, "dashboard", "applicant.index", data, funcMap)
 }

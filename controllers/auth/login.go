@@ -15,7 +15,8 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Login",
 	}
-	tmpl.Render(w, r, "auth", "auth.login", data, nil)
+	funcMap := map[string]interface{}{}
+	tmpl.Render(w, r, "auth", "auth.login", data, funcMap)
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {

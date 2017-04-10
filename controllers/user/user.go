@@ -1,13 +1,11 @@
 package user
 
 import (
-	"html/template"
 	"net/http"
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/schema"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
-	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
 	"github.com/zneyrl/nmsrs-lookup/models"
@@ -33,9 +31,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		"Title": "Users",
 		"Users": usrs,
 	}
-	funcMap := template.FuncMap{
-		"DateForHuman": str.DateForHuman,
-	}
+	funcMap := map[string]interface{}{}
 	tmpl.Render(w, r, "dashboard", "user.index", data, funcMap)
 }
 
@@ -43,7 +39,8 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Create User",
 	}
-	tmpl.Render(w, r, "dashboard", "user.create", data, nil)
+	funcMap := map[string]interface{}{}
+	tmpl.Render(w, r, "dashboard", "user.create", data, funcMap)
 }
 
 func Store(w http.ResponseWriter, r *http.Request) {
@@ -112,7 +109,8 @@ func Show(w http.ResponseWriter, r *http.Request) {
 		"Title": "Show User",
 		"User":  u,
 	}
-	tmpl.Render(w, r, "dashboard", "user.show", data, nil)
+	funcMap := map[string]interface{}{}
+	tmpl.Render(w, r, "dashboard", "user.show", data, funcMap)
 }
 
 func Edit(w http.ResponseWriter, r *http.Request) {
@@ -132,7 +130,8 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 		"Title": "Edit User",
 		"User":  u,
 	}
-	tmpl.Render(w, r, "dashboard", "user.edit", data, nil)
+	funcMap := map[string]interface{}{}
+	tmpl.Render(w, r, "dashboard", "user.edit", data, funcMap)
 }
 
 func Update(w http.ResponseWriter, r *http.Request) {

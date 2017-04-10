@@ -10,5 +10,6 @@ func Results(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Results",
 	}
-	tmpl.Render(w, r, "search", "search.results", data, nil)
+	funcMap := map[string]interface{}{}
+	tmpl.Render(w, r, "search", "search.results", data, funcMap)
 }
