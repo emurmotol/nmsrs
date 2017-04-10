@@ -1,5 +1,5 @@
 {{define "content"}}
-<form id="login_form">
+<form action="/login" method="POST" id="login_form">
     <div id="error"></div>
     <div class="form-group">
         <input type="text" class="form-control" name="email" id="email" placeholder="Email address">
@@ -19,10 +19,15 @@
 
         $("#login_form").on("submit", function (e) {
             e.preventDefault();
-            validateForm("/login", fields, {
-                "email": $("#" + fields[0]).val(),
-                "password": $("#" + fields[1]).val()
-            }, "POST");
+            validateForm(
+                $(this).attr("action"),
+                $(this).attr("method"),
+                fields,
+                {
+                    "email": $("#" + fields[0]).val(),
+                    "password": $("#" + fields[1]).val()
+                }
+            );
         });
     });
 

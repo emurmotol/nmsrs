@@ -40,7 +40,7 @@ func ParseAllAndRender(w http.ResponseWriter, layout string, name string, data m
 	w.Header().Set("Content-Type", "text/html")
 	w.WriteHeader(http.StatusOK)
 	return nil
-} // TODO: Unused
+} // TODO: Not used
 
 func Render(w http.ResponseWriter, r *http.Request, layout string, name string, data map[string]interface{}, funcMap template.FuncMap) {
 	tmplFile := layoutsParentDir + pathSeparator + strings.Replace(name, ".", pathSeparator, -1) + tmplExt
@@ -79,7 +79,7 @@ func paths(root string) ([]string, []string, error) {
 		return nil, nil, err
 	}
 	return layouts, pages, nil
-} // TODO: Unused
+} // TODO: Not used
 
 func parseTemplateDir(root string) error {
 	layouts, pages, err := paths(root)
@@ -107,4 +107,4 @@ func parseTemplateDir(root string) error {
 		}
 	}
 	return nil
-} // TODO: Unused
+} // TODO: Not used

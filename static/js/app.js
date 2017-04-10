@@ -1,9 +1,9 @@
 $(function () {
-    validateForm = function (url, f, d, m) {
+    validateForm = function (a, m, f, d) {
         var err = $("#error");
 
         $.ajax({
-            url: url,
+            url: a,
             type: m,
             dataType: "json",
             data: d,

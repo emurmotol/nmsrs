@@ -1,5 +1,5 @@
 {{define "content"}}
-<form id="register_form">
+<form action="/register" method="POST" id="register_form">
     <div id="error"></div>
     <div class="form-group">
         <input type="text" class="form-control" name="name" id="name" placeholder="Name">
@@ -27,12 +27,16 @@
 
         $("#register_form").on("submit", function (e) {
             e.preventDefault();
-            validateForm("/register", fields, {
-                "name": $("#" + fields[0]).val(),
-                "email": $("#" + fields[1]).val(),
-                "password": $("#" + fields[2]).val(),
-                "confirm_password": $("#" + fields[3]).val()
-            }, "POST");
+            validateForm(
+                $(this).attr("action"),
+                $(this).attr("method"),
+                fields, {
+                    "name": $("#" + fields[0]).val(),
+                    "email": $("#" + fields[1]).val(),
+                    "password": $("#" + fields[2]).val(),
+                    "confirm_password": $("#" + fields[3]).val()
+                }
+            );
         });
     });
 

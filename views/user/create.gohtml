@@ -2,7 +2,7 @@
 <div class="card">
     <div class="card-header">{{.Title}}</div>
     <div class="card-block">
-        <form id="create_user_form">
+        <form action="/users" method="POST" id="create_user_form">
             <div class="row">
                 <div class="col-lg-6">
                     <div id="error"></div>
@@ -40,12 +40,17 @@
 
         $("#create_user_form").on("submit", function (e) {
             e.preventDefault();
-            validateForm("/users", fields, {
-                "name": $("#" + fields[0]).val(),
-                "email": $("#" + fields[1]).val(),
-                "password": $("#" + fields[2]).val(),
-                "confirm_password": $("#" + fields[3]).val()
-            }, "POST");
+            validateForm(
+                $(this).attr("action"),
+                $(this).attr("method"),
+                fields,
+                {
+                    "name": $("#" + fields[0]).val(),
+                    "email": $("#" + fields[1]).val(),
+                    "password": $("#" + fields[2]).val(),
+                    "confirm_password": $("#" + fields[3]).val()
+                }
+            );
         });
     });
 

@@ -1,6 +1,11 @@
 {{define "content"}}
 <div class="card">
-    <div class="card-header">{{.Title}}</div>
+    <div class="card-header">
+        <span class="pull-left">{{.Title}}</span>
+        <span class="pull-right">
+            <a href="/users/{{.User.ID.Hex}}/edit">Edit</a>
+        </span>
+    </div>
     <div class="card-block">
         <h1>{{.User.Name}}</h1>
     </div>

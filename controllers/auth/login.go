@@ -11,7 +11,6 @@ import (
 	"github.com/zneyrl/nmsrs-lookup/models"
 )
 
-// ShowLoginForm ...
 func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"Title": "Login",
@@ -19,7 +18,6 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 	tmpl.Render(w, r, "auth", "auth.login", data, nil)
 }
 
-// Login ...
 func Login(w http.ResponseWriter, r *http.Request) {
 	var user models.AuthCredentials
 

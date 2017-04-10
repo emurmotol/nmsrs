@@ -114,8 +114,20 @@ func Show(w http.ResponseWriter, r *http.Request) {
 }
 
 func Edit(w http.ResponseWriter, r *http.Request) {
+	v := mux.Vars(r)
+	u, err := usr.Find(v["id"])
+
+	if err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusNotFound,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
 	data := map[string]interface{}{
 		"Title": "Edit User",
+		"User":  u,
 	}
 	tmpl.Render(w, r, "dashboard", "user.edit", data, nil)
 }
@@ -153,7 +165,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"redirect": "", // TODO: Redirect back
+			"redirect": r.URL.Path,
 			"message":  "user updated",
 		},
 		Errors: "",
