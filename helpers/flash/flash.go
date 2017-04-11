@@ -4,9 +4,10 @@ import (
 	"net/http"
 
 	"github.com/gorilla/sessions"
+	"github.com/zneyrl/nmsrs-lookup/env"
 )
 
-var Store = sessions.NewCookieStore([]byte("secret")) // TODO: Add more secure
+var Store = sessions.NewCookieStore([]byte(env.AppKey))
 
 func Set(r *http.Request, w http.ResponseWriter, m string) error {
 	s, err := Store.Get(r, "flash-session")

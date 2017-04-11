@@ -15,10 +15,10 @@ import (
 )
 
 var (
-	privKeyPath = homeDir() + "/.ssh/id_rsa"
-	pubKeyPath  = homeDir() + "/.ssh/id_rsa.test.pub" // TODO: File manually added original .pub file is incompatible
-	signKey     *rsa.PrivateKey
-	verifyKey   *rsa.PublicKey
+	privateKeyPath = homeDir() + "/.ssh/id_rsa"
+	publicKeyPath  = homeDir() + "/.ssh/id_rsa.test.pub" // TODO: File manually added original .pub file is incompatible
+	signKey        *rsa.PrivateKey
+	verifyKey      *rsa.PublicKey
 )
 
 func homeDir() string {
@@ -31,7 +31,7 @@ func homeDir() string {
 }
 
 func init() {
-	signBytes, err := ioutil.ReadFile(privKeyPath)
+	signBytes, err := ioutil.ReadFile(privateKeyPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -41,7 +41,7 @@ func init() {
 		log.Fatal(err)
 	}
 
-	verifyBytes, err := ioutil.ReadFile(pubKeyPath)
+	verifyBytes, err := ioutil.ReadFile(publicKeyPath)
 	if err != nil {
 		log.Fatal(err)
 	}

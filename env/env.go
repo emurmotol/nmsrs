@@ -7,6 +7,7 @@ import (
 
 var (
 	// App
+	AppKey  string
 	AppName string
 	Locale  string
 	CharSet string
@@ -26,6 +27,7 @@ var (
 
 func init() {
 	// App
+	flag.StringVar(&AppKey, "AppKey", "secret", "Application secret key")
 	flag.StringVar(&AppName, "AppName", "Applicant Lookup", "Application name")
 	flag.StringVar(&Locale, "Locale", "en", "Language")
 	flag.StringVar(&CharSet, "CharSet", "UTF-8", "Character set")
@@ -49,6 +51,7 @@ func init() {
 func Config() interface{} {
 	return map[string]interface{}{
 		"App": map[string]string{
+			"Key":     AppKey,
 			"Name":    AppName,
 			"Locale":  Locale,
 			"CharSet": CharSet,
