@@ -14,15 +14,15 @@ var (
 )
 
 func init() {
-	session, err := mgo.Dial(fmt.Sprintf("mongodb://%s:%d", env.DBHost, env.DBPort))
+	s, err := mgo.Dial(fmt.Sprintf("mongodb://%s:%d", env.DBHost, env.DBPort))
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := session.Ping(); err != nil {
+	if err := s.Ping(); err != nil {
 		log.Fatal(err)
 	}
-	DB = session.DB(env.DBName)
+	DB = s.DB(env.DBName)
 	Users = DB.C("users")
 }
