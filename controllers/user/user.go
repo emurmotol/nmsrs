@@ -82,11 +82,19 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+
+	if err := flash.Set(r, w, "User created"); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
 			"redirect": "/users",
-			"message":  "user created",
 		},
 		Errors: "",
 	})
@@ -114,7 +122,6 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	tmpl.Render(w, r, "dashboard", "user.show", data, funcMap)
 }
 
-// TODO: Change edit card layout
 func Edit(w http.ResponseWriter, r *http.Request) {
 	var usr models.User
 	v := mux.Vars(r)
@@ -156,16 +163,16 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	// yes, errs := trans.StructHasError(usr)
+	yes, errs := trans.StructHasError(usr)
 
-	// if yes {
-	// 	res.JSON(w, res.Make{
-	// 		Status: http.StatusForbidden,
-	// 		Data:   "",
-	// 		Errors: errs,
-	// 	})
-	// 	return
-	// }
+	if yes {
+		res.JSON(w, res.Make{
+			Status: http.StatusForbidden,
+			Data:   "",
+			Errors: errs,
+		})
+		return
+	}
 	v := mux.Vars(r)
 
 	if err := usr.Update(v["id"]); err != nil {
@@ -209,12 +216,28 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	u.Delete()
+
+	if err := u.Delete(); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+
+	if err := flash.Set(r, w, "User deleted"); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
 			"redirect": "/users",
-			"message":  "user deleted",
 		},
 		Errors: "",
 	})

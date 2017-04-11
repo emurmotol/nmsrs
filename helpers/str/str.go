@@ -64,6 +64,6 @@ func IsPasswordMatched(hashedPwd string, pwd string) bool {
 	return true
 }
 
-func DateForHuman(sec int64) string {
+func DateForHumans(sec int64) string {
 	return time.Unix(sec, 0).Format("January 2, 2006")
 }

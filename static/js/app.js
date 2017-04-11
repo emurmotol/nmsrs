@@ -1,4 +1,20 @@
 $(function () {
+    ajaxCall = function (a, m) {
+        $.ajax({
+            url: a,
+            type: m,
+            dataType: "json",
+            success: function (r) {
+                if (r.data.redirect != "") {
+                    window.location.href = r.data.redirect
+                }
+                console.log(r)
+            }, error: function (r) {
+                console.log(r)
+            }
+        });
+    }
+
     validateForm = function (a, m, f, d) {
         var err = $("#error");
 

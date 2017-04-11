@@ -1,13 +1,26 @@
 {{define "content"}}
 <div class="card">
     <div class="card-header">
-        <span class="pull-left">{{.Title}}</span>
+        <span class="pull-left">Profile</span>
         <span class="pull-right">
             <a href="/users/{{.User.ID.Hex}}/edit">Edit</a>
+            <form action="/users/{{.User.ID.Hex}}" method="DELETE" id="delete_user_form">
+                <input type="submit" value="Delete">
+            </form>
         </span>
     </div>
     <div class="card-block">
         <h1>{{.User.Name}}</h1>
     </div>
 </div>
+{{end}} {{define "script"}}
+<script>
+    $(function () {
+        $("#delete_user_form").on("submit", function (e) {
+            e.preventDefault();
+            ajaxCall($(this).attr("action"), $(this).attr("method"))
+        });
+    });
+
+</script>
 {{end}}

@@ -47,7 +47,7 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 	tmplFile := layoutsParentDir + pathSeparator + strings.Replace(name, ".", pathSeparator, -1) + tmplExt
 	layoutFile := layoutsParentDir + pathSeparator + layoutsDir + pathSeparator + layout + tmplExt
 
-	funcMap["DateForHuman"] = str.DateForHuman
+	funcMap["DateForHumans"] = str.DateForHumans
 	t := template.New(fmt.Sprintf("%s:%s", layout, name)).Funcs(funcMap)
 	tmpl := template.Must(t.ParseFiles(layoutFile, tmplFile))
 
