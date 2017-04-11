@@ -5,6 +5,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/schema"
+	"github.com/zneyrl/nmsrs-lookup/helpers/flash"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
@@ -99,7 +100,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		res.JSON(w, res.Make{
-			Status: http.StatusNotFound,
+			Status: http.StatusInternalServerError,
 			Data:   "",
 			Errors: err.Error(),
 		})
@@ -121,7 +122,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		res.JSON(w, res.Make{
-			Status: http.StatusNotFound,
+			Status: http.StatusInternalServerError,
 			Data:   "",
 			Errors: err.Error(),
 		})
@@ -155,23 +156,40 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	yes, errs := trans.StructHasError(usr)
+	// yes, errs := trans.StructHasError(usr)
 
-	if yes {
+	// if yes {
+	// 	res.JSON(w, res.Make{
+	// 		Status: http.StatusForbidden,
+	// 		Data:   "",
+	// 		Errors: errs,
+	// 	})
+	// 	return
+	// }
+	v := mux.Vars(r)
+
+	if err := usr.Update(v["id"]); err != nil {
 		res.JSON(w, res.Make{
-			Status: http.StatusForbidden,
+			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: errs,
+			Errors: err.Error(),
 		})
 		return
 	}
-	v := mux.Vars(r)
-	usr.Update(v["id"])
+
+	if err := flash.Set(r, w, "User updated"); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"redirect": r.URL.Path,
-			"message":  "user updated",
+			"redirect": "/users/" + v["id"] + "/edit" + r.URL.Fragment,
 		},
 		Errors: "",
 	})
@@ -185,7 +203,7 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		res.JSON(w, res.Make{
-			Status: http.StatusNotFound,
+			Status: http.StatusInternalServerError,
 			Data:   "",
 			Errors: err.Error(),
 		})

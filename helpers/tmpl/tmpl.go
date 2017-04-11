@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/zneyrl/nmsrs-lookup/env"
+	"github.com/zneyrl/nmsrs-lookup/helpers/flash"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 )
 
@@ -51,7 +52,16 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 	tmpl := template.Must(t.ParseFiles(layoutFile, tmplFile))
 
 	data["Config"] = env.Config()
-	data["R"] = r
+	data["Request"] = r
+	f, err := flash.Get(r, w)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if f != nil {
+		data["FlashMessage"] = f
+	}
 
 	if err := tmpl.ExecuteTemplate(w, layout, data); err != nil {
 		log.Fatal(err)

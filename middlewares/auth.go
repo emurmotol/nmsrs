@@ -30,7 +30,7 @@ func homeDir() string {
 	return usr.HomeDir
 }
 
-func InitKeys() {
+func init() {
 	signBytes, err := ioutil.ReadFile(privKeyPath)
 	if err != nil {
 		log.Fatal(err)

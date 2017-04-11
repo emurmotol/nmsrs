@@ -67,7 +67,13 @@ func (usr *User) Update(id string) error {
 		return err
 	}
 
-	if err := db.Users.UpdateId(bson.ObjectIdHex(id), usr); err != nil {
+	if !bson.IsObjectIdHex(id) {
+		return errors.New("invalid object id")
+	}
+	usr.ID = bson.ObjectIdHex(id)
+	usr.UpdatedAt = time.Now().Unix()
+
+	if err := db.Users.UpdateId(usr.ID, usr); err != nil {
 		return err
 	}
 	return nil
