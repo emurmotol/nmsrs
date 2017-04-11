@@ -25,8 +25,25 @@ func init() {
 	en_trans.RegisterDefaultTranslations(validate, trans)
 }
 
-func ValidationHasError(s interface{}) (bool, map[string]string) {
+func StructHasError(s interface{}) (bool, map[string]string) {
 	err := validate.Struct(s)
+
+	if err != nil {
+		if _, ok := err.(*validator.InvalidValidationError); ok {
+			log.Fatal(err)
+		}
+		errs := make(map[string]string)
+
+		for _, e := range err.(validator.ValidationErrors) {
+			errs[str.CamelCaseToSnakeCase(e.Field())] = str.CamelCaseToSentenceCase(e.Translate(trans)) // TODO: Must parse only the key not the value
+		}
+		return true, errs
+	}
+	return false, nil
+}
+
+func VarHasError(s interface{}, t string) (bool, map[string]string) {
+	err := validate.Var(s, t)
 
 	if err != nil {
 		if _, ok := err.(*validator.InvalidValidationError); ok {

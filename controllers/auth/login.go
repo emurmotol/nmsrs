@@ -38,9 +38,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	hasErr, errs := trans.ValidationHasError(user)
+	yes, errs := trans.StructHasError(user)
 
-	if hasErr {
+	if yes {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",

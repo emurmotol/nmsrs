@@ -62,9 +62,9 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	hasErr, errs := trans.ValidationHasError(usr)
+	yes, errs := trans.StructHasError(usr)
 
-	if hasErr {
+	if yes {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
@@ -155,9 +155,9 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	hasErr, errs := trans.ValidationHasError(usr)
+	yes, errs := trans.StructHasError(usr)
 
-	if hasErr {
+	if yes {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
