@@ -36,6 +36,7 @@ func Web() *mux.Router {
 	r.Path("/users/{id}/edit").Methods("GET").HandlerFunc(user.Edit)
 	r.Path("/users/{id}").Methods("PUT").HandlerFunc(user.Update)
 	r.Path("/users/{id}").Methods("DELETE").HandlerFunc(user.Destroy)
+	r.Path("/users/{id}/reset-password").Methods("POST").HandlerFunc(user.ResetPassword)
 
 	r.Path("/applicants").Methods("GET").HandlerFunc(applicant.Index)
 	r.Path("/reports").Methods("GET").HandlerFunc(reports.Index)

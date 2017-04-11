@@ -113,6 +113,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	tmpl.Render(w, r, "dashboard", "user.show", data, funcMap)
 }
 
+// TODO: Change edit card layout
 func Edit(w http.ResponseWriter, r *http.Request) {
 	var usr models.User
 	v := mux.Vars(r)
@@ -144,6 +145,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var usr models.User
+	// TODO: Create temp struct
 
 	if err := decoder.Decode(&usr, r.PostForm); err != nil {
 		res.JSON(w, res.Make{
@@ -199,4 +201,8 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 		Errors: "",
 	})
 	return
+}
+
+func ResetPassword(w http.ResponseWriter, r *http.Request) {
+	// TODO: Create temp struct
 }
