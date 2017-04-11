@@ -92,3 +92,12 @@ func (usr *User) Delete() error {
 	}
 	return nil
 }
+
+func (usr *User) CheckEmail() error {
+	c, _ := db.Users.Find(bson.M{"email": usr.Email}).Count()
+
+	if c != 0 {
+		return errors.New("Email already taken")
+	}
+	return nil
+}

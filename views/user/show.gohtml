@@ -10,7 +10,11 @@
         </span>
     </div>
     <div class="card-block">
-        <h1>{{.User.Name}}</h1>
+        <h4>Name: {{.User.Name}}</h4>
+        <h4>Email address: <a href="mailto:{{.User.Email}}">{{.User.Email}}</a></h4>
+        <h4>Created at: {{DateForHumans .User.CreatedAt}}</h4>
+        <!--Updated at must be diff for humans-->
+        <h4>Updated at: {{DateForHumans .User.UpdatedAt}}</h4>
     </div>
 </div>
 {{end}} {{define "script"}}

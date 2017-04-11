@@ -65,6 +65,17 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	}
 	yes, errs := trans.StructHasError(usr)
 
+	if err := usr.CheckEmail(); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusForbidden,
+			Data:   "",
+			Errors: map[string]interface{}{
+				"email": err.Error(),
+			},
+		})
+		return
+	}
+
 	if yes {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
@@ -153,7 +164,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var usr models.User
-	// TODO: Create temp struct
+	// TODO: Create temp struct to update spacific fields
 
 	if err := decoder.Decode(&usr, r.PostForm); err != nil {
 		res.JSON(w, res.Make{
@@ -164,6 +175,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	yes, errs := trans.StructHasError(usr)
+	// TODO: Check if email exsist, ignore if same with old
 
 	if yes {
 		res.JSON(w, res.Make{
@@ -244,6 +256,4 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func ResetPassword(w http.ResponseWriter, r *http.Request) {
-	// TODO: Create temp struct
-}
+func ResetPassword(w http.ResponseWriter, r *http.Request) {}
