@@ -65,6 +65,15 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	}
 	yes, errs := trans.StructHasError(usr)
 
+	if yes {
+		res.JSON(w, res.Make{
+			Status: http.StatusForbidden,
+			Data:   "",
+			Errors: errs,
+		})
+		return
+	}
+
 	if err := usr.CheckEmail(); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
@@ -72,15 +81,6 @@ func Store(w http.ResponseWriter, r *http.Request) {
 			Errors: map[string]interface{}{
 				"email": err.Error(),
 			},
-		})
-		return
-	}
-
-	if yes {
-		res.JSON(w, res.Make{
-			Status: http.StatusForbidden,
-			Data:   "",
-			Errors: errs,
 		})
 		return
 	}
@@ -175,7 +175,6 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	yes, errs := trans.StructHasError(usr)
-	// TODO: Check if email exsist, ignore if same with old
 
 	if yes {
 		res.JSON(w, res.Make{
@@ -185,6 +184,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+	// TODO: Check if email exsist, ignore if same with old
 	v := mux.Vars(r)
 
 	if err := usr.Update(v["id"]); err != nil {

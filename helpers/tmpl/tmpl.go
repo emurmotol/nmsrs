@@ -58,10 +58,7 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	if f != nil {
-		data["FlashMessage"] = f
-	}
+	data["Flash"] = f
 
 	if err := tmpl.ExecuteTemplate(w, layout, data); err != nil {
 		log.Fatal(err)

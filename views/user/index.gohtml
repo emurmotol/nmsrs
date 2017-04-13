@@ -1,10 +1,10 @@
-{{define "content"}} {{if .FlashMessage}}
+{{define "content"}} {{with .Flash}}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
-    </button> {{.FlashMessage}}
+    </button> {{.}}
 </div>
-{{end}} {{$userCount := len .Users}} {{if ne $userCount 0 }}
+{{end}} {{with .Users}}
 <div class="card card-outline-info">
     <div class="card-block">
         <div class="card-title">
@@ -15,7 +15,7 @@
                 <i class="fa fa-trash"></i> Delete
             </button>
         </div>
-        <table class="table table-hover mb-0">
+        <table class="table table-hover mb-0" id="users_table">
             <thead>
                 <tr>
                     <th><input type="checkbox" id="select_all_users"></th>
@@ -25,10 +25,10 @@
                 </tr>
             </thead>
             <tbody>
-                {{range .Users}}
-                <tr>
-                    <td><input type="checkbox" data-id="{{.ID.Hex}}"></td>
-                    <td><a href="/users/{{.ID.Hex}}">{{.Name}}</a></td>
+                {{range .}} {{$id := .ID.Hex}}
+                <tr id="{{$id}}">
+                    <td><input type="checkbox"></td>
+                    <td><a href="/users/{{$id}}">{{.Name}}</a></td>
                     <td><a href="mailto:{{.Email}}">{{.Email}}</a></td>
                     <td>{{DateForHumans .CreatedAt}}</td>
                 </tr>

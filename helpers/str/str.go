@@ -1,6 +1,7 @@
 package str
 
 import (
+	"encoding/json"
 	"log"
 	"regexp"
 	"strings"
@@ -66,4 +67,13 @@ func IsPasswordMatched(hashedPwd string, pwd string) bool {
 
 func DateForHumans(sec int64) string {
 	return time.Unix(sec, 0).Format("January 2, 2006")
+}
+
+func ToJSONString(in interface{}) string {
+	json, err := json.Marshal(in)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	return string(json)
 }

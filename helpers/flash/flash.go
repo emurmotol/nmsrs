@@ -7,28 +7,33 @@ import (
 	"github.com/zneyrl/nmsrs-lookup/env"
 )
 
-var Store = sessions.NewCookieStore([]byte(env.AppKey))
+var (
+	Store        = sessions.NewCookieStore([]byte(env.AppKey))
+	sessionName  = "flash-session"
+	alertVarName = "flash-alert"
+)
 
-func Set(r *http.Request, w http.ResponseWriter, m string) error {
-	s, err := Store.Get(r, "flash-session")
+func Set(r *http.Request, w http.ResponseWriter, txt string) error {
+	s, err := Store.Get(r, sessionName)
 
 	if err != nil {
 		return err
 	}
-	s.AddFlash(m, "flash-message")
+
+	s.AddFlash(txt, alertVarName)
 	s.Save(r, w)
 	return nil
 }
 
 func Get(r *http.Request, w http.ResponseWriter) (interface{}, error) {
-	s, err := Store.Get(r, "flash-session")
+	s, err := Store.Get(r, sessionName)
 
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	flashes := s.Flashes("flash-message")
+	flashes := s.Flashes(alertVarName)
 
-	if flashes == nil {
+	if len(flashes) == 0 {
 		return nil, nil
 	}
 	s.Save(r, w)
