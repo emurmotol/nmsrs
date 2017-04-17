@@ -37,12 +37,12 @@ func init() {
 	flag.IntVar(&SvrPort, "SvrPort", 8080, "Server port number")
 
 	// DB
-	flag.StringVar(&DBUser, "DBUser", "admin", "DB user")
-	flag.StringVar(&DBPassword, "DBPassword", "secret", "DB password")
-	flag.StringVar(&DBName, "DBName", "nmsrs_lookup", "DB name")
-	flag.StringVar(&DBHost, "DBHost", "localhost", "DB host name")
-	flag.IntVar(&DBPort, "DBPort", 27017, "DB port number")
-	flag.DurationVar(&DBTimeout, "DBTimeout", time.Duration(500*time.Millisecond), "DB timeout")
+	flag.StringVar(&DBUser, "DBUser", "admin", "Database user")
+	flag.StringVar(&DBPassword, "DBPassword", "secret", "Database password")
+	flag.StringVar(&DBName, "DBName", "nmsrs_lookup", "Database name")
+	flag.StringVar(&DBHost, "DBHost", "localhost", "Database host name")
+	flag.IntVar(&DBPort, "DBPort", 27017, "Database port number")
+	flag.DurationVar(&DBTimeout, "DBTimeout", time.Duration(500*time.Millisecond), "Database timeout")
 
 	// Parse flags
 	flag.Parse()
