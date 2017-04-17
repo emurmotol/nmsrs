@@ -25,10 +25,10 @@
                 </tr>
             </thead>
             <tbody>
-                {{range .}} {{$id := .ID.Hex}}
-                <tr id="{{$id}}">
+                {{range .}}
+                <tr id="{{.ID.Hex}}">
                     <td><input type="checkbox"></td>
-                    <td><a href="/users/{{$id}}">{{.Name}}</a></td>
+                    <td><a href="/users/{{.ID.Hex}}">{{.Name}}</a></td>
                     <td><a href="mailto:{{.Email}}">{{.Email}}</a></td>
                     <td>{{DateForHumans .CreatedAt}}</td>
                 </tr>
@@ -39,8 +39,7 @@
 </div>
 {{else}}
 <div class="alert alert-info mb-0" role="alert">
-    <h4 class="alert-heading">Nothing to show here.</h4>
-    <p class="mb-0">Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that
-        you can see how spacing within an alert works with this kind of content.</p>
+    <h4 class="alert-heading">Collection is empty</h4>
+    <p class="mb-0">To add a user visit this <a href="/users/create">link<i class="fa fa-link"></i></a>.</p>
 </div>
 {{end}} {{end}}

@@ -4,12 +4,12 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 ### Tasks On Server
 * Create application forms and backend logic
 * Populate database
-* Migrate to CouchDB to support 32-bit host pc
-* Fix VSCode extension "Go" not reloading (Delete package dir)
-* Check laptop for virus, temp files, or whatever
+* ~~Migrate to CouchDB to support 32-bit host pc~~
 * Missing on server Installing gomodifytags FAILED and Installing dlv FAILED
 
 ### Completed
+* Check laptop for virus, temp files, or whatever
+* Fix VSCode extension "Go" not reloading (Delete package dir)
 * ~~Clean your Google Chrome account~~
 * Implement mgo usage
 * Add struct annotations
@@ -21,11 +21,11 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 * Use [Negroni](https://github.com/urfave/negroni)
 
 ### Notes
-* go build & nmsrs-lookup.exe
-* go build ; ./nmsrs-lookup.exe
-* ~~Server architecture is 32-bit must be 64-bit~~
-* ~~Max DB size 2GB~~
-* ~~VSCode debugger only works on 64-bit~~
+* go build & nmsrs-lookup.exe (PowerShell)
+* go build ; ./nmsrs-lookup.exe (Bash)
+* Server architecture is 32-bit must be 64-bit
+* Max DB size 2GB
+* VSCode debugger only works on 64-bit
 
 ### Important
 * Always push source to remote
