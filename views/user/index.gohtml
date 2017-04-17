@@ -42,14 +42,46 @@
     <h4 class="alert-heading">Collection is empty</h4>
     <p class="mb-0">To add a user visit this <a href="/users/create">link<i class="fa fa-link"></i></a>.</p>
 </div>
-{{end}} {{end}} {{define "script"}}
+{{end}}
+<div class="modal fade" id="confirm_delete_user_modal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Are you sure to delete <span id="delete_user_count"></span>?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                There's no way to revert this change.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="yes_proceed_deleting_user">Yes, proceed</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}} {{define "script"}}
 <script>
     $(function () {
         var select_all = $("#select_all_users")
         var delete_button = $("#delete_user_button")
 
         delete_button.on("click", function () {
-            var ids = []
+            var delete_user_count_text = "";
+
+            if ($(".checkbox:checked").length == 1) {
+                delete_user_count_text = "1 user";
+            } else {
+                delete_user_count_text = $(".checkbox:checked").length + " users";
+            }
+            $("#delete_user_count").text(delete_user_count_text);
+            $("#confirm_delete_user_modal").modal("show");
+        });
+
+        $("#yes_proceed_deleting_user").on("click", function () {
+            var ids = [];
 
             $(".checkbox").each(function () {
                 if ($(this).prop("checked")) {
@@ -58,8 +90,9 @@
             });
 
             if (ids.length != 0) {
-                ajaxCall("/users/ids", "POST", {ids})
+                ajaxCall("/users/ids", "POST", { ids });
             }
+            $("#confirm_delete_user_modal").modal("hide");
         });
 
         select_all.change(function () {

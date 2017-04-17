@@ -93,9 +93,9 @@ func (usr User) DeleteMany(ids []string) error {
 }
 
 func (usr *User) CheckEmail() error {
-	c, _ := db.Users.Find(bson.M{"email": usr.Email}).Count()
+	count, _ := db.Users.Find(bson.M{"email": usr.Email}).Count()
 
-	if c != 0 {
+	if count != 0 {
 		return errors.New("Email already taken")
 	}
 	return nil
