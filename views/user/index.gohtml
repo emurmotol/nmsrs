@@ -48,17 +48,17 @@
         var select_all = $("#select_all_users")
         var delete_button = $("#delete_user_button")
 
-        delete_button.on("click", function() {
+        delete_button.on("click", function () {
             var ids = []
 
-            $(".checkbox").each(function() {
+            $(".checkbox").each(function () {
                 if ($(this).prop("checked")) {
                     ids.push($(this).val());
                 }
             });
 
             if (ids.length != 0) {
-                ajaxCall("/users/ids", "DELETE", ids)
+                ajaxCall("/users/ids", "POST", {ids})
             }
         });
 

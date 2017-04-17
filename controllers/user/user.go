@@ -1,7 +1,6 @@
 package user
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -276,20 +275,14 @@ func DestroyMany(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-
-	decoder := json.NewDecoder(r.Body)
 	var ids []string
-	err := decoder.Decode(ids)
-	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
+
+	for _, values := range r.Form {
+		for _, value := range values {
+			ids = append(ids, value)
+		}
 	}
-	defer r.Body.Close()
 	var usr models.User
-	// TODO: last modified line
 
 	if err := usr.DeleteMany(ids); err != nil {
 		res.JSON(w, res.Make{

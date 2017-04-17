@@ -77,7 +77,7 @@ func (usr *User) Delete() error {
 	return nil
 }
 
-func (usr User) DeleteMany(ids []string) error { // TODO: change []string to []bson.ObjectId
+func (usr User) DeleteMany(ids []string) error {
 	for _, id := range ids {
 		usr, err := usr.Find(id)
 

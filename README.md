@@ -8,6 +8,7 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 * Missing on server Installing gomodifytags FAILED and Installing dlv FAILED
 
 ### Completed
+* Fix [negroni] 2017-04-17T13:24:28+08:00 | 404 | 0s | localhost:8080 | GET /css/bootstrap.min.css.map
 * Check laptop for virus, temp files, or whatever
 * Fix VSCode extension "Go" not reloading (Delete package dir)
 * ~~Clean your Google Chrome account~~

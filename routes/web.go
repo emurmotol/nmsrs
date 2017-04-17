@@ -32,11 +32,11 @@ func Web() *mux.Router {
 	r.Path("/users").Methods("GET").HandlerFunc(user.Index)
 	r.Path("/users/create").Methods("GET").HandlerFunc(user.Create)
 	r.Path("/users").Methods("POST").HandlerFunc(user.Store)
+	r.Path("/users/ids").Methods("POST").HandlerFunc(user.DestroyMany)
 	r.Path("/users/{id}").Methods("GET").HandlerFunc(user.Show)
 	r.Path("/users/{id}/edit").Methods("GET").HandlerFunc(user.Edit)
 	r.Path("/users/{id}").Methods("PUT").HandlerFunc(user.Update)
 	r.Path("/users/{id}").Methods("DELETE").HandlerFunc(user.Destroy)
-	r.Path("/users/ids").Methods("DELETE").HandlerFunc(user.DestroyMany)
 	r.Path("/users/{id}/reset-password").Methods("POST").HandlerFunc(user.ResetPassword)
 
 	r.Path("/applicants").Methods("GET").HandlerFunc(applicant.Index)

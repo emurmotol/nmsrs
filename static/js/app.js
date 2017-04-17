@@ -7,7 +7,7 @@ $(function () {
             dataType: "json",
             success: function (r) {
                 if (r.data.redirect != "") {
-                    // window.location.href = r.data.redirect
+                    window.location.href = r.data.redirect
                 }
                 console.log(r)
             }, error: function (r) {
