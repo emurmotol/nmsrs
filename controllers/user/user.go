@@ -289,6 +289,7 @@ func DestroyMany(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 	var usr models.User
+	// TODO: last modified line
 
 	if err := usr.DeleteMany(ids); err != nil {
 		res.JSON(w, res.Make{
