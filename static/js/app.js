@@ -1,8 +1,9 @@
 $(function () {
-    ajaxCall = function (a, m) {
+    ajaxCall = function (a, m, d) {
         $.ajax({
             url: a,
             type: m,
+            data: d,
             dataType: "json",
             success: function (r) {
                 if (r.data.redirect != "") {

@@ -22,7 +22,7 @@
     $(function () {
         $("#delete_user_form").on("submit", function (e) {
             e.preventDefault();
-            ajaxCall($(this).attr("action"), $(this).attr("method"))
+            ajaxCall($(this).attr("action"), $(this).attr("method"), null)
         });
     });
 

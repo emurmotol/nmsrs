@@ -1,6 +1,7 @@
 package user
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -115,7 +116,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 func Show(w http.ResponseWriter, r *http.Request) {
 	var usr models.User
 	v := mux.Vars(r)
-	u, err := usr.Find(v["id"])
+	usr, err := usr.Find(v["id"])
 
 	if err != nil {
 		res.JSON(w, res.Make{
@@ -127,7 +128,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	}
 	data := map[string]interface{}{
 		"Title": "Show User",
-		"User":  u,
+		"User":  usr,
 	}
 	funcMap := map[string]interface{}{}
 	tmpl.Render(w, r, "dashboard", "user.show", data, funcMap)
@@ -136,7 +137,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 func Edit(w http.ResponseWriter, r *http.Request) {
 	var usr models.User
 	v := mux.Vars(r)
-	u, err := usr.Find(v["id"])
+	usr, err := usr.Find(v["id"])
 
 	if err != nil {
 		res.JSON(w, res.Make{
@@ -148,7 +149,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 	}
 	data := map[string]interface{}{
 		"Title": "Edit User",
-		"User":  u,
+		"User":  usr,
 	}
 	funcMap := map[string]interface{}{}
 	tmpl.Render(w, r, "dashboard", "user.edit", data, funcMap)
@@ -186,6 +187,16 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	}
 	// TODO: Check if email exsist, ignore if same with old
 	v := mux.Vars(r)
+	usr, err := usr.Find(v["id"])
+
+	if err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
 
 	if err := usr.Update(v["id"]); err != nil {
 		res.JSON(w, res.Make{
@@ -218,7 +229,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 func Destroy(w http.ResponseWriter, r *http.Request) {
 	var usr models.User
 	v := mux.Vars(r)
-	u, err := usr.Find(v["id"])
+	usr, err := usr.Find(v["id"])
 
 	if err != nil {
 		res.JSON(w, res.Make{
@@ -229,7 +240,7 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := u.Delete(); err != nil {
+	if err := usr.Delete(); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
@@ -239,6 +250,56 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := flash.Set(r, w, "User deleted"); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+	res.JSON(w, res.Make{
+		Status: http.StatusOK,
+		Data: map[string]string{
+			"redirect": "/users",
+		},
+		Errors: "",
+	})
+	return
+}
+
+func DestroyMany(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+
+	decoder := json.NewDecoder(r.Body)
+	var ids []string
+	err := decoder.Decode(ids)
+	if err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+	}
+	defer r.Body.Close()
+	var usr models.User
+
+	if err := usr.DeleteMany(ids); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+
+	if err := flash.Set(r, w, "User(s) deleted"); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",

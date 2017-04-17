@@ -26,8 +26,8 @@
             </thead>
             <tbody>
                 {{range .}}
-                <tr id="{{.ID.Hex}}">
-                    <td><input type="checkbox"></td>
+                <tr data-id="{{.ID.Hex}}">
+                    <td><input type="checkbox" class="checkbox" value="{{.ID.Hex}}"></td>
                     <td><a href="/users/{{.ID.Hex}}">{{.Name}}</a></td>
                     <td><a href="mailto:{{.Email}}">{{.Email}}</a></td>
                     <td>{{DateForHumans .CreatedAt}}</td>
@@ -42,4 +42,47 @@
     <h4 class="alert-heading">Collection is empty</h4>
     <p class="mb-0">To add a user visit this <a href="/users/create">link<i class="fa fa-link"></i></a>.</p>
 </div>
-{{end}} {{end}}
+{{end}} {{end}} {{define "script"}}
+<script>
+    $(function () {
+        var select_all = $("#select_all_users")
+        var delete_button = $("#delete_user_button")
+
+        delete_button.on("click", function() {
+            var ids = []
+
+            $(".checkbox").each(function() {
+                if ($(this).prop("checked")) {
+                    ids.push($(this).val());
+                }
+            });
+
+            if (ids.length != 0) {
+                ajaxCall("/users/ids", "DELETE", ids)
+            }
+        });
+
+        select_all.change(function () {
+            $(".checkbox").prop("checked", $(this).prop("checked"));
+            delete_button.prop("disabled", !$(this).prop("checked"));
+        });
+
+        $(".checkbox").change(function () {
+            if ($(this).prop("checked") == false) {
+                select_all.prop("checked", false);
+            }
+
+            if ($(".checkbox:checked").length == $(".checkbox").length) {
+                select_all.prop("checked", true);
+            }
+
+            if ($(".checkbox:checked").length == 0) {
+                delete_button.prop("disabled", true);
+            } else {
+                delete_button.prop("disabled", false);
+            }
+        });
+    });
+
+</script>
+{{end}}

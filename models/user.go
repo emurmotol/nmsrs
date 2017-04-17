@@ -46,27 +46,18 @@ func (usr *User) Insert() error {
 	return nil
 }
 
-func (usr *User) Find(id string) (User, error) {
-	var u User
-
+func (usr User) Find(id string) (User, error) {
 	if !bson.IsObjectIdHex(id) {
-		return u, errors.New("invalid object id")
+		return usr, errors.New("invalid object id")
 	}
 
-	if err := db.Users.FindId(bson.ObjectIdHex(id)).One(&u); err != nil {
-		return u, err
+	if err := db.Users.FindId(bson.ObjectIdHex(id)).One(&usr); err != nil {
+		return usr, err
 	}
-	return u, nil
+	return usr, nil
 }
 
 func (usr *User) Update(id string) error {
-	var u User
-	_, err := u.Find(id)
-
-	if err != nil {
-		return err
-	}
-
 	if !bson.IsObjectIdHex(id) {
 		return errors.New("invalid object id")
 	}
@@ -80,15 +71,23 @@ func (usr *User) Update(id string) error {
 }
 
 func (usr *User) Delete() error {
-	var u User
-	_, err := u.Find(usr.ID.Hex())
-
-	if err != nil {
-		return err
-	}
-
 	if err := db.Users.RemoveId(usr.ID); err != nil {
 		return err
+	}
+	return nil
+}
+
+func (usr User) DeleteMany(ids []string) error { // TODO: change []string to []bson.ObjectId
+	for _, id := range ids {
+		usr, err := usr.Find(id)
+
+		if err != nil {
+			return err
+		}
+
+		if err := db.Users.RemoveId(usr.ID); err != nil {
+			return err
+		}
 	}
 	return nil
 }
