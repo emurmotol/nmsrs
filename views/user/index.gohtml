@@ -1,10 +1,4 @@
-{{define "content"}} {{with .Flash}}
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button> {{.}}
-</div>
-{{end}} {{with .Users}}
+{{define "content"}} {{with .Users}}
 <div class="card card-outline-info">
     <div class="card-block">
         <div class="card-title">

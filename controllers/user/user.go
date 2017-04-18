@@ -7,9 +7,10 @@ import (
 	"github.com/gorilla/schema"
 	"github.com/zneyrl/nmsrs-lookup/helpers/flash"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
+	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
-	"github.com/zneyrl/nmsrs-lookup/models"
+	"github.com/zneyrl/nmsrs-lookup/models/user"
 )
 
 var (
@@ -17,8 +18,7 @@ var (
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	var usr models.User
-	usrs, err := usr.All()
+	users, err := user.All()
 
 	if err != nil {
 		res.JSON(w, res.Make{
@@ -30,7 +30,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	}
 	data := map[string]interface{}{
 		"Title": "Users",
-		"Users": usrs,
+		"Users": users,
 	}
 	funcMap := map[string]interface{}{}
 	tmpl.Render(w, r, "dashboard", "user.index", data, funcMap)
@@ -53,7 +53,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	var usr models.User
+	var usr user.User
 
 	if err := decoder.Decode(&usr, r.PostForm); err != nil {
 		res.JSON(w, res.Make{
@@ -63,9 +63,9 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	yes, errs := trans.StructHasError(usr)
+	errs := trans.StructHasError(usr)
 
-	if yes {
+	if len(errs) != 0 {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
@@ -113,9 +113,8 @@ func Store(w http.ResponseWriter, r *http.Request) {
 }
 
 func Show(w http.ResponseWriter, r *http.Request) {
-	var usr models.User
 	v := mux.Vars(r)
-	usr, err := usr.Find(v["id"])
+	usr, err := user.Find(v["id"])
 
 	if err != nil {
 		res.JSON(w, res.Make{
@@ -134,9 +133,8 @@ func Show(w http.ResponseWriter, r *http.Request) {
 }
 
 func Edit(w http.ResponseWriter, r *http.Request) {
-	var usr models.User
 	v := mux.Vars(r)
-	usr, err := usr.Find(v["id"])
+	usr, err := user.Find(v["id"])
 
 	if err != nil {
 		res.JSON(w, res.Make{
@@ -163,10 +161,9 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	var usr models.User
-	// TODO: Create temp struct to update spacific fields
+	var profile user.Profile
 
-	if err := decoder.Decode(&usr, r.PostForm); err != nil {
+	if err := decoder.Decode(&profile, r.PostForm); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
@@ -174,9 +171,9 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	yes, errs := trans.StructHasError(usr)
+	errs := trans.StructHasError(profile)
 
-	if yes {
+	if len(errs) != 0 {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
@@ -186,6 +183,9 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	}
 	v := mux.Vars(r)
 	id := v["id"]
+	var usr user.User
+	usr.Name = profile.Name
+	usr.Email = profile.Email
 
 	if err := usr.CheckEmailIfSameAsOld(id); err != nil {
 		res.JSON(w, res.Make{
@@ -195,8 +195,12 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+	src := user.Src{
+		"name":  profile.Name,
+		"email": profile.Email,
+	}
 
-	if err := usr.Update(id); err != nil {
+	if err := user.Update(id, src); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
@@ -225,9 +229,8 @@ func Update(w http.ResponseWriter, r *http.Request) {
 }
 
 func Destroy(w http.ResponseWriter, r *http.Request) {
-	var usr models.User
 	v := mux.Vars(r)
-	usr, err := usr.Find(v["id"])
+	usr, err := user.Find(v["id"])
 
 	if err != nil {
 		res.JSON(w, res.Make{
@@ -281,9 +284,8 @@ func DestroyMany(w http.ResponseWriter, r *http.Request) {
 			ids = append(ids, value)
 		}
 	}
-	var usr models.User
 
-	if err := usr.DeleteMany(ids); err != nil {
+	if err := user.DeleteMany(ids); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
@@ -310,4 +312,65 @@ func DestroyMany(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func ResetPassword(w http.ResponseWriter, r *http.Request) {}
+func ResetPassword(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+	var resetPassword user.ResetPassword
+
+	if err := decoder.Decode(&resetPassword, r.PostForm); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+	errs := trans.StructHasError(resetPassword)
+
+	if len(errs) != 0 {
+		res.JSON(w, res.Make{
+			Status: http.StatusForbidden,
+			Data:   "",
+			Errors: errs,
+		})
+		return
+	}
+	v := mux.Vars(r)
+	id := v["id"]
+	var usr user.User
+	usr.Password = str.Bcrypt(resetPassword.Password)
+	usr.ConfirmPassword = resetPassword.ConfirmPassword
+
+	if err := usr.Update(id); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+
+	if err := flash.Set(r, w, "Password updated"); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+
+	res.JSON(w, res.Make{
+		Status: http.StatusOK,
+		Data: map[string]string{
+			"redirect": "/users/" + id + "/edit" + r.URL.Fragment,
+		},
+		Errors: "",
+	})
+	return
+}

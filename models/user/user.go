@@ -1,4 +1,4 @@
-package models
+package user
 
 import (
 	"errors"
@@ -9,6 +9,8 @@ import (
 	"github.com/zneyrl/nmsrs-lookup/db"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 )
+
+type Src map[string]interface{}
 
 type AuthCredentials struct {
 	Email    string `schema:"email" validate:"required,email"`
@@ -25,12 +27,22 @@ type User struct {
 	UpdatedAt       int64         `schema:"updated_at" json:"updated_at" bson:"updatedAt"`
 }
 
-func (usr *User) All() ([]User, error) {
-	usrs := []User{}
-	if err := db.Users.Find(bson.M{}).All(&usrs); err != nil {
+type Profile struct {
+	Name  string `schema:"name" validate:"required,min=2"`
+	Email string `schema:"email" validate:"required,email"`
+}
+
+type ResetPassword struct {
+	Password        string `schema:"password" validate:"required,min=6"`
+	ConfirmPassword string `schema:"confirm_password" validate:"required,eqfield=Password"`
+}
+
+func All() ([]User, error) {
+	users := []User{}
+	if err := db.Users.Find(bson.M{}).All(&users); err != nil {
 		return nil, err
 	}
-	return usrs, nil
+	return users, nil
 }
 
 func (usr *User) Insert() error {
@@ -46,7 +58,9 @@ func (usr *User) Insert() error {
 	return nil
 }
 
-func (usr User) Find(id string) (User, error) {
+func Find(id string) (User, error) {
+	var usr User
+
 	if !bson.IsObjectIdHex(id) {
 		return usr, errors.New("invalid object id")
 	}
@@ -70,6 +84,20 @@ func (usr *User) Update(id string) error {
 	return nil
 }
 
+func Update(id string, src Src) error {
+	var usr User
+
+	if !bson.IsObjectIdHex(id) {
+		return errors.New("invalid object id")
+	}
+	usr.ID = bson.ObjectIdHex(id) // TODO: What happened here?
+
+	if err := db.Users.UpdateId(usr.ID, bson.M(src)); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (usr *User) Delete() error {
 	if err := db.Users.RemoveId(usr.ID); err != nil {
 		return err
@@ -77,9 +105,9 @@ func (usr *User) Delete() error {
 	return nil
 }
 
-func (usr User) DeleteMany(ids []string) error {
+func DeleteMany(ids []string) error {
 	for _, id := range ids {
-		usr, err := usr.Find(id)
+		usr, err := Find(id)
 
 		if err != nil {
 			return err
@@ -102,7 +130,7 @@ func (usr *User) CheckEmailIfTaken() error {
 }
 
 func (usr *User) CheckEmailIfSameAsOld(id string) error {
-	u, err := usr.Find(id)
+	u, err := Find(id)
 
 	if err != nil {
 		return err

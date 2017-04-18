@@ -9,16 +9,16 @@ var (
 )
 
 type Applicant struct {
-	PersonalInformation           PersonalInformation             `schema:"personal_information"`
-	FormalEducation               []FormalEducation               `schema:"formal_education"`
-	ProfessionalLicence           []ProfessionalLicence           `schema:"professional_licence"`
-	Eligibility                   []Eligibility                   `schema:"eligibility"`
-	TrainingAndRelevantExperience []TrainingAndRelevantExperience `schema:"training_and_relevant_experience"`
-	CertificateOfCompetence       []CertificateOfCompetence       `schema:"certificate_of_competence"`
-	WorkExperience                WorkExperience                  `schema:"work_experience"`
-	OtherSkills                   []string                        `schema:"other_skills"`
-	CreatedAt                     string                          `schema:"created_at"`
-	UpdatedAt                     string                          `schema:"updated_at"`
+	PersonalInformation           PersonalInformation              `schema:"personal_information"`
+	FormalEducation               []*FormalEducation               `schema:"formal_education"`
+	ProfessionalLicence           []*ProfessionalLicence           `schema:"professional_licence"`
+	Eligibility                   []*Eligibility                   `schema:"eligibility"`
+	TrainingAndRelevantExperience []*TrainingAndRelevantExperience `schema:"training_and_relevant_experience"`
+	CertificateOfCompetence       []*CertificateOfCompetence       `schema:"certificate_of_competence"`
+	WorkExperience                WorkExperience                   `schema:"work_experience"`
+	OtherSkills                   []string                         `schema:"other_skills"`
+	CreatedAt                     string                           `schema:"created_at"`
+	UpdatedAt                     string                           `schema:"updated_at"`
 }
 
 type PersonalInformation struct {
@@ -111,8 +111,8 @@ type CertificateOfCompetence struct {
 }
 
 type WorkExperience struct {
-	Local    []Local    `schema:"local"`
-	Overseas []Overseas `schema:"overseas"`
+	Local    []*Local    `schema:"local"`
+	Overseas []*Overseas `schema:"overseas"`
 }
 
 type Local struct {

@@ -8,7 +8,7 @@ import (
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
 	mw "github.com/zneyrl/nmsrs-lookup/middlewares"
-	"github.com/zneyrl/nmsrs-lookup/models"
+	"github.com/zneyrl/nmsrs-lookup/models/user"
 )
 
 func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
@@ -20,7 +20,7 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	var user models.AuthCredentials
+	var authCredentials user.AuthCredentials
 
 	if err := r.ParseForm(); err != nil {
 		res.JSON(w, res.Make{
@@ -31,16 +31,16 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := decoder.Decode(&user, r.PostForm); err != nil {
+	if err := decoder.Decode(&authCredentials, r.PostForm); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "", Errors: err.Error(),
 		})
 		return
 	}
-	yes, errs := trans.StructHasError(user)
+	errs := trans.StructHasError(authCredentials)
 
-	if yes {
+	if len(errs) != 0 {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
@@ -49,7 +49,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if strings.ToLower(user.Email) != "admin@example.com" || user.Password != "secret" {
+	if strings.ToLower(authCredentials.Email) != "admin@example.com" || authCredentials.Password != "secret" {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
