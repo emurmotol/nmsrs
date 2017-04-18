@@ -45,10 +45,19 @@ func Find(id string) (User, error) {
 	var usr User
 
 	if !bson.IsObjectIdHex(id) {
-		return usr, errors.New("invalid object id")
+		return usr, errors.New("Invalid object ID")
 	}
 
 	if err := db.Users.FindId(bson.ObjectIdHex(id)).One(&usr); err != nil {
+		return usr, err
+	}
+	return usr, nil
+}
+
+func FindByEmail(email string) (User, error) {
+	var usr User
+
+	if err := db.Users.Find(bson.M{"email": email}).One(&usr); err != nil {
 		return usr, err
 	}
 	return usr, nil
@@ -80,20 +89,20 @@ func CheckEmailIfTaken(email string) error {
 	count, _ := db.Users.Find(bson.M{"email": email}).Count()
 
 	if count != 0 {
-		return errors.New("Email already taken")
+		return errors.New("Email has already been taken")
 	}
 	return nil
 }
 
-func CheckEmailIfSameAsOld(id string, email string) error {
+func CheckEmailIfSameAsOld(id string, email string) (bool, error) {
 	u, err := Find(id)
 
 	if err != nil {
-		return err
+		return false, err
 	}
 
 	if u.Email != email {
-		return CheckEmailIfTaken(email)
+		return false, nil
 	}
-	return nil
+	return true, nil
 }

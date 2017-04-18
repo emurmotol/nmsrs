@@ -23,12 +23,7 @@ func Web() *mux.Router {
 	login.Methods("GET").HandlerFunc(auth.ShowLoginForm)
 	login.Methods("POST").HandlerFunc(auth.Login)
 
-	// register := r.Path("/register").Subrouter()
-	// register.Methods("GET").HandlerFunc(auth.ShowRegisterForm)
-	// register.Methods("POST").HandlerFunc(auth.Register)
-
 	r.Path("/dashboard").Methods("GET").Handler(middlewares.Secure(dashboard.Index))
-	r.Path("/dashboard/overview").Methods("GET").Handler(middlewares.Secure(dashboard.Overview))
 
 	r.Path("/users").Methods("GET").Handler(middlewares.Secure(user.Index))
 	r.Path("/users/create").Methods("GET").Handler(middlewares.Secure(user.Create))

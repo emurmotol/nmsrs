@@ -16,7 +16,7 @@ type Profile struct {
 
 func UpdateProfile(id string, profile Profile) error {
 	if !bson.IsObjectIdHex(id) {
-		return errors.New("invalid object id")
+		return errors.New("Invalid object ID")
 	}
 	profile.UpdatedAt = time.Now().Unix()
 

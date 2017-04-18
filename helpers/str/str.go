@@ -3,6 +3,7 @@ package str
 import (
 	"encoding/json"
 	"log"
+	"os/user"
 	"regexp"
 	"strings"
 
@@ -76,4 +77,13 @@ func ToJSONString(in interface{}) string {
 		log.Fatal(err)
 	}
 	return string(json)
+}
+
+func GetUserHomeDir() string {
+	usr, err := user.Current()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	return usr.HomeDir
 }

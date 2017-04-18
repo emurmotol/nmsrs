@@ -17,7 +17,7 @@ type ResetPassword struct {
 
 func UpdatePassword(id string, resetPassword ResetPassword) error {
 	if !bson.IsObjectIdHex(id) {
-		return errors.New("invalid object id")
+		return errors.New("Invalid object ID")
 	}
 	resetPassword.Password = str.Bcrypt(resetPassword.Password)
 	resetPassword.UpdatedAt = time.Now().Unix()

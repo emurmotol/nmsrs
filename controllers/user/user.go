@@ -93,7 +93,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := flash.Set(r, w, "User created"); err != nil {
+	if err := flash.Set(r, w, "User has been successfully created"); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
@@ -182,14 +182,28 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	}
 	v := mux.Vars(r)
 	id := v["id"]
+	sameAsOld, err := user.CheckEmailIfSameAsOld(id, profile.Email)
 
-	if err := user.CheckEmailIfSameAsOld(id, profile.Email); err != nil {
+	if err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
 			Errors: err.Error(),
 		})
 		return
+	}
+
+	if !sameAsOld {
+		if err := user.CheckEmailIfTaken(profile.Email); err != nil {
+			res.JSON(w, res.Make{
+				Status: http.StatusForbidden,
+				Data:   "",
+				Errors: map[string]interface{}{
+					"email": err.Error(),
+				},
+			})
+			return
+		}
 	}
 
 	if err := user.UpdateProfile(id, profile); err != nil {
@@ -201,19 +215,10 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := flash.Set(r, w, "User updated"); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
-	}
-
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"redirect": "/users/" + id + "/edit" + r.URL.Fragment,
+			"message": "User has been successfully updated",
 		},
 		Errors: "",
 	})
@@ -242,7 +247,7 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := flash.Set(r, w, "User deleted"); err != nil {
+	if err := flash.Set(r, w, "User has been successfully deleted"); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
@@ -286,7 +291,7 @@ func DestroyMany(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := flash.Set(r, w, "Users deleted"); err != nil {
+	if err := flash.Set(r, w, "User(s) has been successfully deleted"); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
@@ -345,19 +350,10 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := flash.Set(r, w, "Password updated"); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
-	}
-
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"redirect": "/users/" + id + "/edit" + r.URL.Fragment,
+			"message": "Password has been successfully updated",
 		},
 		Errors: "",
 	})

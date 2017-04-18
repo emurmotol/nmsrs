@@ -96,7 +96,7 @@ func authHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// create a signer for rsa 256
-	t := jwt.New(jwt.GetSigningMethod("RS256"))
+	t := jwt.New(jwt.SigningMethodRS256)
 
 	// set our claims
 	claims := make(jwt.MapClaims)

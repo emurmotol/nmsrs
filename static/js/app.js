@@ -6,7 +6,7 @@ $(function () {
             data: d,
             dataType: "json",
             success: function (r) {
-                if (r.data.redirect != "") {
+                if (r.data.redirect != null) {
                     window.location.href = r.data.redirect
                 }
                 console.log(r)
@@ -17,7 +17,7 @@ $(function () {
     }
 
     validateForm = function (a, m, f, d) {
-        var err = $("#error");
+        var alert = $("#alert");
 
         $.ajax({
             url: a,
@@ -25,7 +25,7 @@ $(function () {
             dataType: "json",
             data: d,
             success: function (r) {
-                err.empty();
+                alert.empty();
 
                 $.each(f, function (i, v) {
                     var field = $("#" + v);
@@ -65,19 +65,30 @@ $(function () {
                             }
                         });
                     } else {
-                        if (r.data.redirect != "") {
+                        if (r.data.message != null) {
+                            var message_markup = `
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <i class="fa fa-check"></i> `+ r.data.message + `
+                            </div>`;
+                            alert.html(message_markup);
+                        }
+
+                        if (r.data.redirect != null) {
                             window.location.href = r.data.redirect
                         }
                     }
                 } catch (e) {
-                    var markup = `
+                    var err_markup = `
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <i class="fa fa-exclamation-triangle"></i> `+ r.errors + `
                     </div>`;
-                    err.html(markup);
+                    alert.html(err_markup);
                 }
                 console.log(r)
             }, error: function (r) {

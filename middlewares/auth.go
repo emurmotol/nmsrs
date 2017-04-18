@@ -2,11 +2,9 @@ package middlewares
 
 import (
 	"crypto/rsa"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os/user"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -14,20 +12,12 @@ import (
 )
 
 var (
-	privateKeyPath = "../temp/.ssh/app.rsa"
-	publicKeyPath  = "../temp/.ssh/app.rsa.pub"
+	privateKeyPath = "temp/.ssh/app.rsa"     // openssl genrsa -out app.rsa keysize
+	publicKeyPath  = "temp/.ssh/app.rsa.pub" // openssl rsa -in app.rsa -pubout > app.rsa.pub
 	signKey        *rsa.PrivateKey
 	verifyKey      *rsa.PublicKey
+	TokenName      = "AccessToken"
 )
-
-func homeDir() string {
-	usr, err := user.Current()
-
-	if err != nil {
-		log.Fatal(err)
-	}
-	return usr.HomeDir
-} // TODO: Unused
 
 func init() {
 	signBytes, err := ioutil.ReadFile(privateKeyPath)
@@ -52,26 +42,40 @@ func init() {
 }
 
 func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	// token, err := request.ParseFromRequest(r, request.AuthorizationHeaderExtractor, func(token *jwt.Token) (interface{}, error) {
-	// 	return verifyKey, nil
-	// })
+	tokenCookie, err := r.Cookie(TokenName)
 
-	token, err := jwt.Parse(MakeToken(), func(token *jwt.Token) (interface{}, error) {
+	switch {
+	case err == http.ErrNoCookie:
+		http.Redirect(w, r, "/login", http.StatusUnauthorized)
+		return
+	case err != nil:
+		log.Fatal(err)
+	}
+
+	token, err := jwt.Parse(tokenCookie.Value, func(token *jwt.Token) (interface{}, error) {
 		return verifyKey, nil
 	})
 
-	if err == nil {
-		if token.Valid {
-			next(w, r)
-		} else {
-			// TODO: Redirect to logout
-			w.WriteHeader(http.StatusUnauthorized)
-			fmt.Fprint(w, "Token is not valid")
+	switch err.(type) {
+	case nil:
+		if !token.Valid {
+			http.Redirect(w, r, "/logout", http.StatusUnauthorized)
+			return
 		}
-	} else {
-		// TODO: Redirect to login
-		w.WriteHeader(http.StatusUnauthorized)
-		fmt.Fprint(w, "Unauthorized access to this resource: "+err.Error())
+		next(w, r)
+		return
+	case *jwt.ValidationError:
+		validationError := err.(*jwt.ValidationError)
+
+		switch validationError.Errors {
+		case jwt.ValidationErrorExpired:
+			http.Redirect(w, r, "/login", http.StatusUnauthorized)
+			return
+		default:
+			log.Fatal(err)
+		}
+	default:
+		log.Fatal(err)
 	}
 }
 
@@ -82,9 +86,10 @@ func Secure(handler http.HandlerFunc) *negroni.Negroni {
 	) // TODO: Understand how this works
 }
 
-func MakeToken() string {
+func GetToken() string {
 	token := jwt.New(jwt.SigningMethodRS256)
 	claims := make(jwt.MapClaims)
+	claims[TokenName] = "level1" // TODO: WTF level1 means
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
 	claims["iat"] = time.Now().Unix()
 	token.Claims = claims

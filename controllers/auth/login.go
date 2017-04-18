@@ -1,10 +1,12 @@
 package auth
 
 import (
+	"fmt"
 	"net/http"
-	"strings"
 
+	"github.com/zneyrl/nmsrs-lookup/env"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
+	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
 	"github.com/zneyrl/nmsrs-lookup/middlewares"
@@ -34,7 +36,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	if err := decoder.Decode(&authCredentials, r.PostForm); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
-			Data:   "", Errors: err.Error(),
+			Data:   "",
+			Errors: err.Error(),
 		})
 		return
 	}
@@ -48,22 +51,40 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+	usr, err := user.FindByEmail(authCredentials.Email)
 
-	if strings.ToLower(authCredentials.Email) != "admin@example.com" || authCredentials.Password != "secret" {
+	if err != nil {
 		res.JSON(w, res.Make{
-			Status: http.StatusForbidden,
+			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: "Invalid credentials",
+			Errors: map[string]interface{}{
+				"email": fmt.Sprintf("Sorry, %s doesn't recognize that email", env.AppName),
+			},
 		})
 		return
 	}
 
+	if !str.IsPasswordMatched(usr.Password, authCredentials.Password) {
+		res.JSON(w, res.Make{
+			Status: http.StatusForbidden,
+			Data:   "",
+			Errors: "These credentials do not match our records",
+		})
+		return
+	}
+
+	http.SetCookie(w, &http.Cookie{
+		Name:       middlewares.TokenName,
+		Value:      middlewares.GetToken(),
+		Path:       "/",
+		RawExpires: "0",
+	})
+
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"redirect": "/", // TODO: Redirect to dashboard
-			"token":    middlewares.MakeToken(),
-			"message":  "success login",
+			"redirect": "/dashboard",
+			"message":  "Login successful",
 		},
 		Errors: "",
 	})
