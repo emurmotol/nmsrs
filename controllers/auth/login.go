@@ -79,12 +79,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		Path:       "/",
 		RawExpires: "0",
 	})
-
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
 			"redirect": "/dashboard",
-			"message":  "Login successful",
+			"message":  "User authenticated",
 		},
 		Errors: "",
 	})

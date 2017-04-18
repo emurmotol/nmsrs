@@ -214,7 +214,6 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
@@ -349,7 +348,6 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{

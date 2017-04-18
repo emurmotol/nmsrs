@@ -1,7 +1,7 @@
 {{define "content"}}
 <div class="card">
     <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
+        <ul class="nav nav-tabs card-header-tabs pull-left">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#profile">
                     <i class="fa fa-user-o"></i> Profile
@@ -13,6 +13,7 @@
                 </a>
             </li>
         </ul>
+        <a href="/users/{{.User.ID.Hex}}" class="btn btn-outline-primary btn-sm pull-right">View profile</a>
     </div>
     <div class="card-block">
         <div class="tab-content">
