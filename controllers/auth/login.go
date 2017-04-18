@@ -7,7 +7,7 @@ import (
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
-	mw "github.com/zneyrl/nmsrs-lookup/middlewares"
+	"github.com/zneyrl/nmsrs-lookup/middlewares"
 	"github.com/zneyrl/nmsrs-lookup/models/user"
 )
 
@@ -57,12 +57,12 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	// TODO: Redirect to dashboard
+
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"redirect": "/",
-			"token":    mw.GetToken(),
+			"redirect": "/", // TODO: Redirect to dashboard
+			"token":    middlewares.MakeToken(),
 			"message":  "success login",
 		},
 		Errors: "",

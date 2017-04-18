@@ -1,4 +1,4 @@
-package models
+package applicant
 
 var (
 	Sex            = []string{"Male", "Female"}

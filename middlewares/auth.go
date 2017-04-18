@@ -10,13 +10,12 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/dgrijalva/jwt-go/request"
 	"github.com/urfave/negroni"
 )
 
 var (
-	privateKeyPath = homeDir() + "/.ssh/id_rsa"
-	publicKeyPath  = homeDir() + "/.ssh/id_rsa.test.pub" // TODO: File manually added original .pub file is incompatible
+	privateKeyPath = "../temp/.ssh/app.rsa"
+	publicKeyPath  = "../temp/.ssh/app.rsa.pub"
 	signKey        *rsa.PrivateKey
 	verifyKey      *rsa.PublicKey
 )
@@ -53,7 +52,11 @@ func init() {
 }
 
 func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	token, err := request.ParseFromRequest(r, request.AuthorizationHeaderExtractor, func(token *jwt.Token) (interface{}, error) {
+	// token, err := request.ParseFromRequest(r, request.AuthorizationHeaderExtractor, func(token *jwt.Token) (interface{}, error) {
+	// 	return verifyKey, nil
+	// })
+
+	token, err := jwt.Parse(MakeToken(), func(token *jwt.Token) (interface{}, error) {
 		return verifyKey, nil
 	})
 
@@ -68,7 +71,7 @@ func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 	} else {
 		// TODO: Redirect to login
 		w.WriteHeader(http.StatusUnauthorized)
-		fmt.Fprint(w, "Unauthorized access to this resource")
+		fmt.Fprint(w, "Unauthorized access to this resource: "+err.Error())
 	}
 }
 
@@ -79,7 +82,7 @@ func Secure(handler http.HandlerFunc) *negroni.Negroni {
 	) // TODO: Understand how this works
 }
 
-func GetToken() string {
+func MakeToken() string {
 	token := jwt.New(jwt.SigningMethodRS256)
 	claims := make(jwt.MapClaims)
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()

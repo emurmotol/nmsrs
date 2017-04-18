@@ -10,13 +10,6 @@ import (
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 )
 
-type Src map[string]interface{}
-
-type AuthCredentials struct {
-	Email    string `schema:"email" validate:"required,email"`
-	Password string `schema:"password" validate:"required"`
-}
-
 type User struct {
 	ID              bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
 	Name            string        `schema:"name" json:"name" bson:"name,omitempty" validate:"required,min=2"`
@@ -25,18 +18,6 @@ type User struct {
 	ConfirmPassword string        `schema:"confirm_password" json:"confirm_password" bson:"confirmPassword,omitempty" validate:"required,eqfield=Password"` // TODO: Lol
 	CreatedAt       int64         `schema:"created_at" json:"created_at" bson:"createdAt,omitempty"`
 	UpdatedAt       int64         `schema:"updated_at" json:"updated_at" bson:"updatedAt,omitempty"`
-}
-
-type Profile struct {
-	Name      string `schema:"name" json:"name" bson:"name,omitempty" validate:"required,min=2"`
-	Email     string `schema:"email" json:"email" bson:"email,omitempty" validate:"required,email"`
-	UpdatedAt int64  `schema:"updated_at" json:"updated_at" bson:"updatedAt,omitempty"`
-}
-
-type ResetPassword struct {
-	Password        string `schema:"password" json:"password" bson:"password,omitempty" validate:"required,min=6"`
-	ConfirmPassword string `schema:"confirm_password" json:"confirm_password" bson:"confirmPassword,omitempty" validate:"required,eqfield=Password"` // TODO: Lol
-	UpdatedAt       int64  `schema:"updated_at" json:"updated_at" bson:"updatedAt,omitempty"`
 }
 
 func All() ([]User, error) {
@@ -71,31 +52,6 @@ func Find(id string) (User, error) {
 		return usr, err
 	}
 	return usr, nil
-}
-
-func UpdateProfile(id string, profile Profile) error {
-	if !bson.IsObjectIdHex(id) {
-		return errors.New("invalid object id")
-	}
-	profile.UpdatedAt = time.Now().Unix()
-
-	if err := db.Users.UpdateId(bson.ObjectIdHex(id), bson.M{"$set": profile}); err != nil {
-		return err
-	}
-	return nil
-}
-
-func UpdatePassword(id string, resetPassword ResetPassword) error {
-	if !bson.IsObjectIdHex(id) {
-		return errors.New("invalid object id")
-	}
-	resetPassword.Password = str.Bcrypt(resetPassword.Password)
-	resetPassword.UpdatedAt = time.Now().Unix()
-
-	if err := db.Users.UpdateId(bson.ObjectIdHex(id), bson.M{"$set": resetPassword}); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (usr *User) Delete() error {
