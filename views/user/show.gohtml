@@ -1,12 +1,14 @@
 {{define "content"}}
 <div class="card">
     <div class="card-header">
-        <span class="pull-left">Profile</span>
+        <span class="pull-left"><i class="fa fa-user-o"></i> Profile</span>
         <span class="pull-right">
-            <form action="/users/{{.User.ID.Hex}}" method="DELETE" id="delete_user_form">
-                <a href="/users/{{.User.ID.Hex}}/edit" class="btn btn-outline-primary btn-sm">Edit</a>
-                <input type="submit" class="btn btn-outline-danger btn-sm" value="Delete">
-            </form>
+            <a href="/users/{{.User.ID.Hex}}/edit" class="btn btn-outline-primary btn-sm">
+                <i class="fa fa-pencil"></i>
+            </a>
+            <button class="btn btn-outline-danger btn-sm" id="delete_user_button" role="button">
+                <i class="fa fa-trash-o"></i>
+            </button>
         </span>
     </div>
     <div class="card-block">
@@ -17,12 +19,36 @@
         <h4>Updated at: {{DateForHumans .User.UpdatedAt}}</h4>
     </div>
 </div>
+<div class="modal fade" id="confirm_delete_user_modal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Are you sure to delete <span id="delete_user"></span>?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                There's no way to revert this change.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="yes_proceed_deleting_user">Yes, proceed</button>
+            </div>
+        </div>
+    </div>
+</div>
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        $("#delete_user_form").on("submit", function (e) {
-            e.preventDefault();
-            ajaxCall($(this).attr("action"), $(this).attr("method"), null)
+        $("#delete_user_button").on("click", function () {
+            $("#delete_user").text("{{.User.Name}}");
+            $("#confirm_delete_user_modal").modal("show");
+        });
+
+        $("#yes_proceed_deleting_user").on("click", function () {
+            ajaxCall("/users/{{.User.ID.Hex}}", "DELETE", null);
+            $("#confirm_delete_user_modal").modal("hide");
         });
     });
 

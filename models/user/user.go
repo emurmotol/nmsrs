@@ -28,13 +28,15 @@ type User struct {
 }
 
 type Profile struct {
-	Name  string `schema:"name" validate:"required,min=2"`
-	Email string `schema:"email" validate:"required,email"`
+	Name      string `schema:"name" json:"name" bson:"name,omitempty" validate:"required,min=2"`
+	Email     string `schema:"email" json:"email" bson:"email,omitempty" validate:"required,email"`
+	UpdatedAt int64  `schema:"updated_at" json:"updated_at" bson:"updatedAt,omitempty"`
 }
 
 type ResetPassword struct {
-	Password        string `schema:"password" validate:"required,min=6"`
-	ConfirmPassword string `schema:"confirm_password" validate:"required,eqfield=Password"`
+	Password        string `schema:"password" json:"password" bson:"password,omitempty" validate:"required,min=6"`
+	ConfirmPassword string `schema:"confirm_password" json:"confirm_password" bson:"confirmPassword,omitempty" validate:"required,eqfield=Password"` // TODO: Lol
+	UpdatedAt       int64  `schema:"updated_at" json:"updated_at" bson:"updatedAt,omitempty"`
 }
 
 func All() ([]User, error) {
@@ -71,13 +73,26 @@ func Find(id string) (User, error) {
 	return usr, nil
 }
 
-func (usr *User) Update(id string) error {
+func UpdateProfile(id string, profile Profile) error {
 	if !bson.IsObjectIdHex(id) {
 		return errors.New("invalid object id")
 	}
-	usr.UpdatedAt = time.Now().Unix()
+	profile.UpdatedAt = time.Now().Unix()
 
-	if err := db.Users.UpdateId(bson.ObjectIdHex(id), bson.M{"$set": usr}); err != nil {
+	if err := db.Users.UpdateId(bson.ObjectIdHex(id), bson.M{"$set": profile}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdatePassword(id string, resetPassword ResetPassword) error {
+	if !bson.IsObjectIdHex(id) {
+		return errors.New("invalid object id")
+	}
+	resetPassword.Password = str.Bcrypt(resetPassword.Password)
+	resetPassword.UpdatedAt = time.Now().Unix()
+
+	if err := db.Users.UpdateId(bson.ObjectIdHex(id), bson.M{"$set": resetPassword}); err != nil {
 		return err
 	}
 	return nil
@@ -105,8 +120,8 @@ func DeleteMany(ids []string) error {
 	return nil
 }
 
-func (usr *User) CheckEmailIfTaken() error {
-	count, _ := db.Users.Find(bson.M{"email": usr.Email}).Count()
+func CheckEmailIfTaken(email string) error {
+	count, _ := db.Users.Find(bson.M{"email": email}).Count()
 
 	if count != 0 {
 		return errors.New("Email already taken")
@@ -114,15 +129,15 @@ func (usr *User) CheckEmailIfTaken() error {
 	return nil
 }
 
-func (usr *User) CheckEmailIfSameAsOld(id string) error {
+func CheckEmailIfSameAsOld(id string, email string) error {
 	u, err := Find(id)
 
 	if err != nil {
 		return err
 	}
 
-	if u.Email != usr.Email {
-		return usr.CheckEmailIfTaken()
+	if u.Email != email {
+		return CheckEmailIfTaken(email)
 	}
 	return nil
 }

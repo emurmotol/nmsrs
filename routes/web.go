@@ -22,9 +22,9 @@ func Web() *mux.Router {
 	login.Methods("GET").HandlerFunc(auth.ShowLoginForm)
 	login.Methods("POST").HandlerFunc(auth.Login)
 
-	register := r.Path("/register").Subrouter()
-	register.Methods("GET").HandlerFunc(auth.ShowRegisterForm)
-	register.Methods("POST").HandlerFunc(auth.Register)
+	// register := r.Path("/register").Subrouter()
+	// register.Methods("GET").HandlerFunc(auth.ShowRegisterForm)
+	// register.Methods("POST").HandlerFunc(auth.Register)
 
 	r.Path("/dashboard").Methods("GET").HandlerFunc(dashboard.Index)
 	r.Path("/dashboard/overview").Methods("GET").HandlerFunc(dashboard.Overview)

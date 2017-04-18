@@ -7,7 +7,6 @@ import (
 	"github.com/gorilla/schema"
 	"github.com/zneyrl/nmsrs-lookup/helpers/flash"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
-	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
 	"github.com/zneyrl/nmsrs-lookup/models/user"
@@ -74,7 +73,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := usr.CheckEmailIfTaken(); err != nil {
+	if err := user.CheckEmailIfTaken(usr.Email); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
@@ -183,11 +182,8 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	}
 	v := mux.Vars(r)
 	id := v["id"]
-	var usr user.User
-	usr.Name = profile.Name
-	usr.Email = profile.Email
 
-	if err := usr.CheckEmailIfSameAsOld(id); err != nil {
+	if err := user.CheckEmailIfSameAsOld(id, profile.Email); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
@@ -196,7 +192,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := usr.Update(id); err != nil {
+	if err := user.UpdateProfile(id, profile); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
@@ -339,11 +335,8 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 	}
 	v := mux.Vars(r)
 	id := v["id"]
-	var usr user.User
-	usr.Password = str.Bcrypt(resetPassword.Password)
-	usr.ConfirmPassword = resetPassword.ConfirmPassword
 
-	if err := usr.Update(id); err != nil {
+	if err := user.UpdatePassword(id, resetPassword); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",

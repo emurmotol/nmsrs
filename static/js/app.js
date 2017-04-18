@@ -75,7 +75,7 @@ $(function () {
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        `+ r.errors + `
+                        <i class="fa fa-exclamation-triangle"></i> `+ r.errors + `
                     </div>`;
                     err.html(markup);
                 }

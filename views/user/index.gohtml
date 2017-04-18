@@ -2,20 +2,21 @@
 <div class="card card-outline-info">
     <div class="card-block">
         <div class="card-title">
-            <a class="btn btn-outline-primary" href="/users/create" role="button">
+            <a class="btn btn-outline-primary btn-sm" href="/users/create" role="button">
                 <i class="fa fa-plus"></i> Add
             </a>
-            <button class="btn btn-outline-danger" id="delete_user_button" role="button" disabled>
-                <i class="fa fa-trash"></i> Delete
+            <button class="btn btn-outline-danger btn-sm" id="delete_user_button" role="button" disabled>
+                <i class="fa fa-trash-o"></i> Delete
             </button>
         </div>
         <table class="table table-hover mb-0" id="users_table">
             <thead>
                 <tr>
                     <th><input type="checkbox" id="select_all_users"></th>
-                    <th>Name</th>
-                    <th>Email address</th>
-                    <th>Created at</th>
+                    <th><i class="fa fa-user-o"></i> Name</th>
+                    <th><i class="fa fa-envelope-o"></i> Email address</th>
+                    <th>Edit</th>
+                    <th><i class="fa fa-clock-o"></i> Created at</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,7 @@
                     <td><input type="checkbox" class="checkbox" value="{{.ID.Hex}}"></td>
                     <td><a href="/users/{{.ID.Hex}}">{{.Name}}</a></td>
                     <td><a href="mailto:{{.Email}}">{{.Email}}</a></td>
+                    <td><a href="/users/{{.ID.Hex}}/edit"><i class="fa fa-pencil"></i></a></td>
                     <td>{{DateForHumans .CreatedAt}}</td>
                 </tr>
                 {{end}}
