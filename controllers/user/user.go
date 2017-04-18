@@ -74,7 +74,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := usr.CheckEmail(); err != nil {
+	if err := usr.CheckEmailIfTaken(); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
@@ -184,20 +184,19 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	// TODO: Check if email exsist, ignore if same with old
 	v := mux.Vars(r)
-	usr, err := usr.Find(v["id"])
+	id := v["id"]
 
-	if err != nil {
+	if err := usr.CheckEmailIfSameAsOld(id); err != nil {
 		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
+			Status: http.StatusForbidden,
 			Data:   "",
 			Errors: err.Error(),
 		})
 		return
 	}
 
-	if err := usr.Update(v["id"]); err != nil {
+	if err := usr.Update(id); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
@@ -218,7 +217,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"redirect": "/users/" + v["id"] + "/edit" + r.URL.Fragment,
+			"redirect": "/users/" + id + "/edit" + r.URL.Fragment,
 		},
 		Errors: "",
 	})
@@ -293,7 +292,7 @@ func DestroyMany(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := flash.Set(r, w, "User(s) deleted"); err != nil {
+	if err := flash.Set(r, w, "Users deleted"); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",

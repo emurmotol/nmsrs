@@ -61,7 +61,7 @@ func (usr *User) Update(id string) error {
 	if !bson.IsObjectIdHex(id) {
 		return errors.New("invalid object id")
 	}
-	usr.ID = bson.ObjectIdHex(id)
+	usr.ID = bson.ObjectIdHex(id) // TODO: What happened here?
 	usr.UpdatedAt = time.Now().Unix()
 
 	if err := db.Users.UpdateId(usr.ID, usr); err != nil {
@@ -92,11 +92,24 @@ func (usr User) DeleteMany(ids []string) error {
 	return nil
 }
 
-func (usr *User) CheckEmail() error {
+func (usr *User) CheckEmailIfTaken() error {
 	count, _ := db.Users.Find(bson.M{"email": usr.Email}).Count()
 
 	if count != 0 {
 		return errors.New("Email already taken")
+	}
+	return nil
+}
+
+func (usr *User) CheckEmailIfSameAsOld(id string) error {
+	u, err := usr.Find(id)
+
+	if err != nil {
+		return err
+	}
+
+	if u.Email != usr.Email {
+		return usr.CheckEmailIfTaken()
 	}
 	return nil
 }
