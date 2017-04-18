@@ -27,7 +27,7 @@ func homeDir() string {
 		log.Fatal(err)
 	}
 	return usr.HomeDir
-}
+} // TODO: Unused
 
 func init() {
 	signBytes, err := ioutil.ReadFile(privateKeyPath)
