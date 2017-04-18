@@ -195,12 +195,8 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	src := user.Src{
-		"name":  profile.Name,
-		"email": profile.Email,
-	}
 
-	if err := user.Update(id, src); err != nil {
+	if err := usr.Update(id); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",

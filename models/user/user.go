@@ -18,13 +18,13 @@ type AuthCredentials struct {
 }
 
 type User struct {
-	ID              bson.ObjectId `schema:"id" json:"id" bson:"_id"`
-	Name            string        `schema:"name" json:"name" bson:"name" validate:"required,min=2"`
-	Email           string        `schema:"email" json:"email" bson:"email" validate:"required,email"`
-	Password        string        `schema:"password" json:"password" bson:"password" validate:"required,min=6"`
-	ConfirmPassword string        `schema:"confirm_password" json:"confirm_password" bson:"confirmPassword" validate:"required,eqfield=Password"` // TODO: Lol
-	CreatedAt       int64         `schema:"created_at" json:"created_at" bson:"createdAt"`
-	UpdatedAt       int64         `schema:"updated_at" json:"updated_at" bson:"updatedAt"`
+	ID              bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	Name            string        `schema:"name" json:"name" bson:"name,omitempty" validate:"required,min=2"`
+	Email           string        `schema:"email" json:"email" bson:"email,omitempty" validate:"required,email"`
+	Password        string        `schema:"password" json:"password" bson:"password,omitempty" validate:"required,min=6"`
+	ConfirmPassword string        `schema:"confirm_password" json:"confirm_password" bson:"confirmPassword,omitempty" validate:"required,eqfield=Password"` // TODO: Lol
+	CreatedAt       int64         `schema:"created_at" json:"created_at" bson:"createdAt,omitempty"`
+	UpdatedAt       int64         `schema:"updated_at" json:"updated_at" bson:"updatedAt,omitempty"`
 }
 
 type Profile struct {
@@ -75,24 +75,9 @@ func (usr *User) Update(id string) error {
 	if !bson.IsObjectIdHex(id) {
 		return errors.New("invalid object id")
 	}
-	usr.ID = bson.ObjectIdHex(id) // TODO: What happened here?
 	usr.UpdatedAt = time.Now().Unix()
 
-	if err := db.Users.UpdateId(usr.ID, usr); err != nil {
-		return err
-	}
-	return nil
-}
-
-func Update(id string, src Src) error {
-	var usr User
-
-	if !bson.IsObjectIdHex(id) {
-		return errors.New("invalid object id")
-	}
-	usr.ID = bson.ObjectIdHex(id) // TODO: What happened here?
-
-	if err := db.Users.UpdateId(usr.ID, bson.M(src)); err != nil {
+	if err := db.Users.UpdateId(bson.ObjectIdHex(id), bson.M{"$set": usr}); err != nil {
 		return err
 	}
 	return nil
