@@ -89,8 +89,8 @@ func Secure(handler http.HandlerFunc) *negroni.Negroni {
 func GetToken() string {
 	token := jwt.New(jwt.SigningMethodRS256)
 	claims := make(jwt.MapClaims)
-	claims[TokenName] = "level1" // TODO: WTF level1 means
-	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
+	claims[TokenName] = "level1"                                          // TODO: WTF level1 means
+	claims["exp"] = time.Now().Add(time.Hour * time.Duration(168)).Unix() // TODO: Expires in 1 week
 	claims["iat"] = time.Now().Unix()
 	token.Claims = claims
 	tokenString, err := token.SignedString(signKey)

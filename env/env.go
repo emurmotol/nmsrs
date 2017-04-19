@@ -23,6 +23,11 @@ var (
 	DBHost     string
 	DBPort     int
 	DBTimeout  time.Duration
+
+	//Admin
+	AdminName     string
+	AdminEmail    string
+	AdminPassword string
 )
 
 func init() {
@@ -43,6 +48,11 @@ func init() {
 	flag.StringVar(&DBHost, "DBHost", "localhost", "Database host name")
 	flag.IntVar(&DBPort, "DBPort", 27017, "Database port number")
 	flag.DurationVar(&DBTimeout, "DBTimeout", time.Duration(500*time.Millisecond), "Database timeout")
+
+	// Svr
+	flag.StringVar(&AdminName, "AdminName", "Administrator", "Administrator name")
+	flag.StringVar(&AdminEmail, "AdminEmail", "admin@example.com", "Administrator email")
+	flag.StringVar(&AdminPassword, "AdminPassword", "secret", "Administrator default password")
 
 	// Parse flags
 	flag.Parse()
@@ -67,6 +77,11 @@ func Config() interface{} {
 			"Host":     DBHost,
 			"Port":     string(DBPort),
 			"Timeout":  string(DBTimeout),
+		},
+		"Admin": map[string]string{
+			"Name":     AdminName,
+			"Email":    AdminEmail,
+			"Password": AdminPassword,
 		},
 	}
 } // TODO: Used for template access

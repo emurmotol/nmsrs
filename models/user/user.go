@@ -7,6 +7,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 
 	"github.com/zneyrl/nmsrs-lookup/db"
+	"github.com/zneyrl/nmsrs-lookup/env"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 )
 
@@ -15,14 +16,15 @@ type User struct {
 	Name            string        `schema:"name" json:"name" bson:"name,omitempty" validate:"required,min=2"`
 	Email           string        `schema:"email" json:"email" bson:"email,omitempty" validate:"required,email"`
 	Password        string        `schema:"password" json:"password" bson:"password,omitempty" validate:"required,min=6"`
-	ConfirmPassword string        `schema:"confirm_password" json:"confirm_password" bson:"confirmPassword,omitempty" validate:"required,eqfield=Password"` // TODO: Lol
+	ConfirmPassword string        `schema:"confirm_password" json:"confirm_password" bson:",omitempty" validate:"required,eqfield=Password"`
+	IsAdmin         bool          `schema:"is_admin" json:"is_admin" bson:"isAdmin"`
 	CreatedAt       int64         `schema:"created_at" json:"created_at" bson:"createdAt,omitempty"`
 	UpdatedAt       int64         `schema:"updated_at" json:"updated_at" bson:"updatedAt,omitempty"`
 }
 
 func All() ([]User, error) {
 	users := []User{}
-	if err := db.Users.Find(bson.M{}).All(&users); err != nil {
+	if err := db.Users.Find(bson.M{"email": bson.M{"$ne": env.AdminEmail}}).All(&users); err != nil {
 		return nil, err
 	}
 	return users, nil
@@ -30,6 +32,7 @@ func All() ([]User, error) {
 
 func (usr *User) Insert() error {
 	usr.ID = bson.NewObjectId()
+	usr.ConfirmPassword = ""
 	usr.Password = str.Bcrypt(usr.Password)
 	now := time.Now().Unix()
 	usr.CreatedAt = now
@@ -64,6 +67,10 @@ func FindByEmail(email string) (User, error) {
 }
 
 func (usr *User) Delete() error {
+	if err := CheckAdmin(usr.ID.Hex()); err != nil {
+		return err
+	}
+
 	if err := db.Users.RemoveId(usr.ID); err != nil {
 		return err
 	}
@@ -75,6 +82,10 @@ func DeleteMany(ids []string) error {
 		usr, err := Find(id)
 
 		if err != nil {
+			return err
+		}
+
+		if err := CheckAdmin(id); err != nil {
 			return err
 		}
 
