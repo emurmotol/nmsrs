@@ -357,3 +357,7 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 	})
 	return
 }
+
+func Photo(w http.ResponseWriter, r *http.Request) {
+
+}

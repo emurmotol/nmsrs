@@ -18,7 +18,7 @@
     <div class="card-block">
         <div class="tab-content">
             <div class="tab-pane active" id="profile">
-                <form action="/users/{{.User.ID.Hex}}#profile" method="PUT" id="edit_user_form">
+                <form action="/users/{{.User.ID.Hex}}#profile" method="PUT" id="edit_user_form" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">

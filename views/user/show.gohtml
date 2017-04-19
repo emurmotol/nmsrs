@@ -12,11 +12,13 @@
         </span>
     </div>
     <div class="card-block">
-        <h4>Name: {{.User.Name}}</h4>
-        <h4>Email address: <a href="mailto:{{.User.Email}}">{{.User.Email}}</a></h4>
-        <h4>Created at: {{DateForHumans .User.CreatedAt}}</h4>
-        <!--Updated at must be diff for humans-->
-        <h4>Updated at: {{DateForHumans .User.UpdatedAt}}</h4>
+        <a href="/users/{{.User.ID.Hex}}/edit#profile">
+            <img src="{{if .User.PhotoIsSet}}/users/{{.User.ID.Hex}}/img/default.png{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="rounded mb-3" id="preview" height="160" alt="{{.User.Name}}">
+        </a>
+        <h6><i class="fa fa-user-o"></i> {{.User.Name}}</h6>
+        <h6><i class="fa fa-envelope-o"></i> <a href="mailto:{{.User.Email}}">{{.User.Email}}</a></h6>
+        <h6><i class="fa fa-calendar-o"></i> {{DateForHumans .User.CreatedAt}}</h6>
+        <h6><i class="fa fa-clock-o"></i> <span data-livestamp="{{.User.UpdatedAt}}"></span></h6>
     </div>
 </div>
 <div class="modal fade" id="confirm_delete_user_modal" role="dialog">
@@ -39,6 +41,8 @@
     </div>
 </div>
 {{end}} {{define "script"}}
+<script src="/js/moment.min.js"></script>
+<script src="/js/livestamp.min.js"></script>
 <script>
     $(function () {
         $("#delete_user_button").on("click", function () {

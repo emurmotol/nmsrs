@@ -28,6 +28,9 @@ var (
 	AdminName     string
 	AdminEmail    string
 	AdminPassword string
+
+	// Default
+	DefaultUserPhoto string
 )
 
 func init() {
@@ -53,6 +56,9 @@ func init() {
 	flag.StringVar(&AdminName, "AdminName", "Administrator", "Administrator name")
 	flag.StringVar(&AdminEmail, "AdminEmail", "admin@example.com", "Administrator email")
 	flag.StringVar(&AdminPassword, "AdminPassword", "secret", "Administrator default password")
+
+	// Default
+	flag.StringVar(&DefaultUserPhoto, "DefaultUserPhoto", "/img/user/default.png", "Default user photo")
 
 	// Parse flags
 	flag.Parse()
@@ -82,6 +88,9 @@ func Config() interface{} {
 			"Name":     AdminName,
 			"Email":    AdminEmail,
 			"Password": AdminPassword,
+		},
+		"Default": map[string]string{
+			"UserPhoto": DefaultUserPhoto,
 		},
 	}
 } // TODO: Used for template access

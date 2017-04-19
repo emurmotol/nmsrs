@@ -2,9 +2,14 @@
 <div class="card">
     <div class="card-header"><i class="fa fa-file-text-o"></i> {{.Title}}</div>
     <div class="card-block">
-        <form action="/users" method="POST" id="create_user_form">
+        <form action="/users" method="POST" id="create_user_form" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="photo">Photo</label><br>
+                        <img src="{{.Config.Default.UserPhoto}}" class="rounded mb-3" id="preview" height="160" alt="Default">
+                        <input type="file" class="form-control" name="photo" id="photo" placeholder="Photo">
+                    </div>
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" name="name" id="name" placeholder="Name">
@@ -38,6 +43,7 @@
 <script>
     $(function () {
         var fields = [
+            "photo",
             "name",
             "email",
             "password",
@@ -51,10 +57,10 @@
                 $(this).attr("method"),
                 fields,
                 {
-                    "name": $("#" + fields[0]).val(),
-                    "email": $("#" + fields[1]).val(),
-                    "password": $("#" + fields[2]).val(),
-                    "confirm_password": $("#" + fields[3]).val(),
+                    "name": $("#" + fields[1]).val(),
+                    "email": $("#" + fields[2]).val(),
+                    "password": $("#" + fields[3]).val(),
+                    "confirm_password": $("#" + fields[4]).val(),
                     "is_admin": $("#is_admin").is(":checked")
                 }
             );

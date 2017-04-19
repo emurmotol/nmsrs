@@ -16,6 +16,57 @@ $(function () {
         });
     }
 
+    validateImage = function (photo, preview, default_photo) {
+        photo.change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    removeErrorMarkup(photo);
+                    preview.attr("src", e.target.result);
+
+                    preview.on("error", function () {
+                        preview.attr("src", default_photo);
+                        addErrorMarkup(photo, "The selected file is not a valid image");
+                    });
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    }
+
+    removeErrorMarkup = function (field) {
+        var fc = field.parent();
+
+        if (fc.hasClass("has-danger")) {
+            fc.removeClass("has-danger");
+        }
+
+        if (field.hasClass("form-control-danger")) {
+            field.removeClass("form-control-danger");
+        }
+
+        if (fc.find("div.form-control-feedback").get().length == 1) {
+            fc.find("div.form-control-feedback").remove();
+        }
+    }
+
+    addErrorMarkup = function (field, message) {
+        var fc = field.parent();
+
+        if (!fc.hasClass("has-danger")) {
+            fc.addClass("has-danger");
+        }
+
+        if (!field.hasClass("form-control-danger")) {
+            field.addClass("form-control-danger");
+        }
+
+        if (fc.find("div.form-control-feedback").get().length == 0) {
+            fc.append(`<div class="form-control-feedback">` + message + `</div>`);
+        }
+    }
+
     validateForm = function (a, m, f, d) {
         var alert = $("#alert");
 
@@ -29,40 +80,34 @@ $(function () {
 
                 $.each(f, function (i, v) {
                     var field = $("#" + v);
-                    var fc = field.parent();
-
-                    if (fc.hasClass("has-danger")) {
-                        fc.removeClass("has-danger");
-                    }
-
-                    if (field.hasClass("form-control-danger")) {
-                        field.removeClass("form-control-danger");
-                    }
-
-                    if (fc.find("div.form-control-feedback").get().length == 1) {
-                        fc.find("div.form-control-feedback").remove();
-                    }
+                    removeErrorMarkup(field);
                 });
+                errors = r.errors;
 
                 try {
-                    e = r.errors;
+                    if ($.inArray("photo", f) == 0) {
+                        var photo = $("#photo")[0];
+                        var preview = $("#preview");
 
-                    if (e.length != 0) {
-                        $.each(e, function (i, v) {
+                        if (photo.files && photo.files[0]) {
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                preview.attr("src", e.target.result);
+
+                                preview.on("error", function () {
+                                    preview.attr("src", "/img/user/default.png"); // TODO: src must be dynamic
+                                    errors["photo"] = "The selected file is not a valid image";
+                                });
+                            }
+                            reader.readAsDataURL(photo.files[0]);
+                        }
+                    }
+
+                    if (errors.length != 0) {
+                        $.each(errors, function (i, v) {
                             var field = $("#" + i);
-                            var fc = field.parent();
-
-                            if (!fc.hasClass("has-danger")) {
-                                fc.addClass("has-danger");
-                            }
-
-                            if (!field.hasClass("form-control-danger")) {
-                                field.addClass("form-control-danger");
-                            }
-
-                            if (fc.find("div.form-control-feedback").get().length == 0) {
-                                fc.append(`<div class="form-control-feedback">` + v + `</div>`);
-                            }
+                            addErrorMarkup(field, v)
                         });
                     } else {
                         if (r.data.message != null) {
@@ -86,7 +131,7 @@ $(function () {
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <i class="fa fa-exclamation-triangle"></i> `+ r.errors + `
+                        <i class="fa fa-exclamation-triangle"></i> `+ errors + `
                     </div>`;
                     alert.html(err_markup);
                 }
