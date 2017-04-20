@@ -66,29 +66,19 @@
     $(function () {
         $("#edit_user_form").on("submit", function (e) {
             e.preventDefault();
-            validateForm(
-                $(this).attr("action"),
-                $(this).attr("method"),
-                ["name", "email"],
-                {
-                    "name": $("#name").val(),
-                    "email": $("#email").val(),
-                    "is_admin": $("#is_admin").is(":checked")
-                }
-            );
+            makeRequest($(this).attr("action"), $(this).attr("method"), ["name", "email"], {
+                "name": $("#name").val(),
+                "email": $("#email").val(),
+                "is_admin": $("#is_admin").is(":checked")
+            }, true);
         });
 
         $("#reset_password_form").on("submit", function (e) {
             e.preventDefault();
-            validateForm(
-                $(this).attr("action"),
-                $(this).attr("method"),
-                ["password", "confirm_password"],
-                {
-                    "password": $("#password").val(),
-                    "confirm_password": $("#confirm_password").val()
-                }
-            );
+            makeRequest($(this).attr("action"), $(this).attr("method"), ["password", "confirm_password"], {
+                "password": $("#password").val(),
+                "confirm_password": $("#confirm_password").val()
+            }, false);
         });
     });
 

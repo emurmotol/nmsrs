@@ -25,8 +25,9 @@ func CreateAdminUser(name string, email string, password string) error {
 	usr.ConfirmPassword = ""
 	usr.IsAdmin = true
 	usr.PhotoIsSet = false
+	_, err := usr.Insert()
 
-	if err := usr.Insert(); err != nil {
+	if err != nil {
 		return err
 	}
 	return nil

@@ -29,9 +29,5 @@ func UpdateProfile(id string, profile Profile) error {
 	if err := db.Users.UpdateId(bson.ObjectIdHex(id), bson.M{"$set": profile}); err != nil {
 		return err
 	}
-
-	if profile.PhotoIsSet {
-		// TODO: Save image to content dir
-	}
 	return nil
 }

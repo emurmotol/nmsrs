@@ -3,8 +3,8 @@ $(function () {
         $.ajax({
             url: action,
             type: method,
-            data: data,
             dataType: "json",
+            data: data,
             success: function (r) {
                 if (r.data.redirect != null) {
                     window.location.href = r.data.redirect
@@ -16,8 +16,18 @@ $(function () {
         });
     }
 
-    setCheckboxBoolValue = function(checkbox) {
-        checkbox.on("change", function() {
+    $.fn.serializeObject = function () {
+        var arr = this.serializeArray();
+        var obj = {};
+
+        for (var i = 0; i < arr.length; i++) {
+            obj[arr[i].name] = arr[i].value;
+        }
+        return obj;
+    };
+
+    setCheckboxBoolValue = function (checkbox) {
+        checkbox.on("change", function () {
             $(this).val($(this).is(":checked"));
         });
     }
@@ -54,15 +64,20 @@ $(function () {
         }
     }
 
-    validateForm = function (action, method, fields, data) {
+    makeRequest = function (action, method, fields, data, isMultipart) {
         var alert = $("#alert");
+        var content_type = false
+
+        if (!isMultipart) {
+            content_type = "application/x-www-form-urlencoded; charset=UTF-8";
+        }
 
         $.ajax({
             url: action,
             type: method,
             dataType: "json",
+            contentType: content_type,
             data: data,
-            contentType: false,
             processData: false,
             success: function (r) {
                 alert.empty();
@@ -72,25 +87,6 @@ $(function () {
                     removeErrorMarkup(field);
                 });
                 errors = r.errors;
-
-                if ($.inArray("photo", fields) == 0) {
-                    var photo = $("#photo")[0];
-                    var preview = $("#preview");
-
-                    if (photo.files && photo.files[0]) {
-                        var reader = new FileReader();
-
-                        reader.onload = function (e) {
-                            preview.attr("src", e.target.result);
-
-                            preview.on("error", function () {
-                                preview.attr("src", "/img/user/default.png"); // TODO: src must be dynamic
-                                errors["photo"] = "The selected file is not a valid image";
-                            });
-                        }
-                        reader.readAsDataURL(photo.files[0]);
-                    }
-                } // TODO: Must have separate function
 
                 try {
                     if (Object.keys(errors).length != 0) {

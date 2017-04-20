@@ -53,7 +53,7 @@
                 "password",
                 "confirm_password"
             ];
-            validateForm($(this).attr("action"), $(this).attr("method"), validateFields, (new FormData(this)));
+            makeRequest($(this).attr("action"), $(this).attr("method"), validateFields, (new FormData(this)), true);
         });
     });
 

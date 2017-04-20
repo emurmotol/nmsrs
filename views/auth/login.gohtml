@@ -12,14 +12,13 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        var validateFields = [
-            "email",
-            "password"
-        ];
-
         $("#login_form").on("submit", function (e) {
             e.preventDefault();
-            validateForm($(this).attr("action"), $(this).attr("method"), validateFields, $(this).serialize());
+            var validateFields = [
+                "email",
+                "password"
+            ];
+            makeRequest($(this).attr("action"), $(this).attr("method"), validateFields, $(this).serialize(), false);
         });
     });
 

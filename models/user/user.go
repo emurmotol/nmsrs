@@ -31,7 +31,7 @@ func All() ([]User, error) {
 	return users, nil
 }
 
-func (usr *User) Insert() error {
+func (usr *User) Insert() (string, error) {
 	usr.ID = bson.NewObjectId()
 	usr.ConfirmPassword = ""
 	usr.Password = str.Bcrypt(usr.Password)
@@ -40,13 +40,9 @@ func (usr *User) Insert() error {
 	usr.UpdatedAt = now
 
 	if err := db.Users.Insert(usr); err != nil {
-		return err
+		return "", err
 	}
-
-	if usr.PhotoIsSet {
-		// TODO: Save image to content dir
-	}
-	return nil
+	return usr.ID.Hex(), nil
 }
 
 func Find(id string) (User, error) {
