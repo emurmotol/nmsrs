@@ -28,7 +28,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: err.Error(),
+			Errors: str.UpperCaseFirstChar(err.Error()),
 		})
 		return
 	}
@@ -37,7 +37,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: err.Error(),
+			Errors: str.UpperCaseFirstChar(err.Error()),
 		})
 		return
 	}

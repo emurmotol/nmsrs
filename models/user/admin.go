@@ -36,7 +36,7 @@ func CheckAdmin(id string) error {
 	usr, _ := Find(id)
 
 	if usr.Email == env.AdminEmail {
-		return errors.New("Action not permitted")
+		return errors.New("action not permitted")
 	}
 	return nil
 }

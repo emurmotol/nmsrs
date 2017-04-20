@@ -23,7 +23,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: err.Error(),
+			Errors: str.UpperCaseFirstChar(err.Error()),
 		})
 		return
 	}
@@ -33,7 +33,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: err.Error(),
+			Errors: str.UpperCaseFirstChar(err.Error()),
 		})
 		return
 	}
@@ -53,7 +53,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 			Status: http.StatusForbidden,
 			Data:   "",
 			Errors: map[string]interface{}{
-				"email": err.Error(),
+				"email": str.UpperCaseFirstChar(err.Error()),
 			},
 		})
 		return
@@ -63,7 +63,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: err.Error(),
+			Errors: str.UpperCaseFirstChar(err.Error()),
 		})
 		return
 	}
@@ -72,7 +72,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: err.Error(),
+			Errors: str.UpperCaseFirstChar(err.Error()),
 		})
 		return
 	}

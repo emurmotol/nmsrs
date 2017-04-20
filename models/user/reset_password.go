@@ -17,7 +17,7 @@ type ResetPassword struct {
 
 func UpdatePassword(id string, resetPassword ResetPassword) error {
 	if !bson.IsObjectIdHex(id) {
-		return errors.New("Invalid object ID")
+		return errors.New("invalid object ID")
 	}
 
 	if err := CheckAdmin(id); err != nil {

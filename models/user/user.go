@@ -53,7 +53,7 @@ func Find(id string) (User, error) {
 	var usr User
 
 	if !bson.IsObjectIdHex(id) {
-		return usr, errors.New("Invalid object ID")
+		return usr, errors.New("invalid object ID")
 	}
 
 	if err := db.Users.FindId(bson.ObjectIdHex(id)).One(&usr); err != nil {
@@ -105,7 +105,7 @@ func CheckEmailIfTaken(email string) error {
 	count, _ := db.Users.Find(bson.M{"email": email}).Count()
 
 	if count != 0 {
-		return errors.New("Email has already been taken")
+		return errors.New("email has already been taken")
 	}
 	return nil
 }
