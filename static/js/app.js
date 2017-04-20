@@ -1,9 +1,9 @@
 $(function () {
-    ajaxCall = function (a, m, d) {
+    ajaxCall = function (action, method, data) {
         $.ajax({
-            url: a,
-            type: m,
-            data: d,
+            url: action,
+            type: method,
+            data: data,
             dataType: "json",
             success: function (r) {
                 if (r.data.redirect != null) {
@@ -67,46 +67,46 @@ $(function () {
         }
     }
 
-    validateForm = function (a, m, f, d) {
+    validateForm = function (action, method, fields, data) {
         var alert = $("#alert");
 
         $.ajax({
-            url: a,
-            type: m,
+            url: action,
+            type: method,
             dataType: "json",
-            data: d,
+            data: data,
             success: function (r) {
                 alert.empty();
 
-                $.each(f, function (i, v) {
+                $.each(fields, function (k, v) {
                     var field = $("#" + v);
                     removeErrorMarkup(field);
                 });
                 errors = r.errors;
 
-                try {
-                    if ($.inArray("photo", f) == 0) {
-                        var photo = $("#photo")[0];
-                        var preview = $("#preview");
+                if ($.inArray("photo", fields) == 0) {
+                    var photo = $("#photo")[0];
+                    var preview = $("#preview");
 
-                        if (photo.files && photo.files[0]) {
-                            var reader = new FileReader();
+                    if (photo.files && photo.files[0]) {
+                        var reader = new FileReader();
 
-                            reader.onload = function (e) {
-                                preview.attr("src", e.target.result);
+                        reader.onload = function (e) {
+                            preview.attr("src", e.target.result);
 
-                                preview.on("error", function () {
-                                    preview.attr("src", "/img/user/default.png"); // TODO: src must be dynamic
-                                    errors["photo"] = "The selected file is not a valid image";
-                                });
-                            }
-                            reader.readAsDataURL(photo.files[0]);
+                            preview.on("error", function () {
+                                preview.attr("src", "/img/user/default.png"); // TODO: src must be dynamic
+                                errors["photo"] = "The selected file is not a valid image";
+                            });
                         }
+                        reader.readAsDataURL(photo.files[0]);
                     }
+                } // TODO: Must have separate function
 
-                    if (errors.length != 0) {
-                        $.each(errors, function (i, v) {
-                            var field = $("#" + i);
+                try {
+                    if (Object.keys(errors).length != 0) {
+                        $.each(errors, function (k, v) {
+                            var field = $("#" + k);
                             addErrorMarkup(field, v)
                         });
                     } else {

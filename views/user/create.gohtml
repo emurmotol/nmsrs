@@ -42,7 +42,7 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        var fields = [
+        var validateFields = [
             "photo",
             "name",
             "email",
@@ -55,12 +55,12 @@
             validateForm(
                 $(this).attr("action"),
                 $(this).attr("method"),
-                fields,
+                validateFields,
                 {
-                    "name": $("#" + fields[1]).val(),
-                    "email": $("#" + fields[2]).val(),
-                    "password": $("#" + fields[3]).val(),
-                    "confirm_password": $("#" + fields[4]).val(),
+                    "name": $("#name").val(),
+                    "email": $("#email").val(),
+                    "password": $("#password").val(),
+                    "confirm_password": $("#confirm_password").val(),
                     "is_admin": $("#is_admin").is(":checked")
                 }
             );

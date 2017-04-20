@@ -12,7 +12,7 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        var fields = [
+        var validateFields = [
             "email",
             "password"
         ];
@@ -22,10 +22,10 @@
             validateForm(
                 $(this).attr("action"),
                 $(this).attr("method"),
-                fields,
+                validateFields,
                 {
-                    "email": $("#" + fields[0]).val(),
-                    "password": $("#" + fields[1]).val()
+                    "email": $("#email").val(),
+                    "password": $("#password").val()
                 }
             );
         });
