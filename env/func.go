@@ -7,6 +7,9 @@ import (
 )
 
 func URL(path string) string {
+	if SvrEnvironment == "production" {
+		return fmt.Sprintf("%s://%s%s", SvrProtocol, SvrHost, path)
+	}
 	return fmt.Sprintf("%s://%s:%d%s", SvrProtocol, SvrHost, SvrPort, path)
 }
 

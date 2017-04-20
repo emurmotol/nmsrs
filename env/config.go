@@ -9,9 +9,10 @@ func Config() interface{} {
 			"CharSet": CharSet,
 		},
 		"Svr": map[string]string{
-			"Host":     SvrHost,
-			"Port":     string(SvrPort),
-			"Protocol": SvrProtocol,
+			"Environment": SvrEnvironment,
+			"Host":        SvrHost,
+			"Port":        string(SvrPort),
+			"Protocol":    SvrProtocol,
 		},
 		"DB": map[string]string{
 			"User":     DBUser,

@@ -13,9 +13,10 @@ var (
 	CharSet string
 
 	// Svr
-	SvrHost     string
-	SvrPort     int
-	SvrProtocol string
+	SvrEnvironment string
+	SvrHost        string
+	SvrPort        int
+	SvrProtocol    string
 
 	// DB
 	DBUser     string
@@ -42,6 +43,7 @@ func init() {
 	flag.StringVar(&CharSet, "CharSet", "UTF-8", "Character set")
 
 	// Svr
+	flag.StringVar(&SvrEnvironment, "SvrEnvironment", "local", "Server environment")
 	flag.StringVar(&SvrHost, "SvrHost", "localhost", "Server host name")
 	flag.IntVar(&SvrPort, "SvrPort", 8080, "Server port number")
 	flag.StringVar(&SvrProtocol, "SvrProtocol", "http", "Server protocol")
