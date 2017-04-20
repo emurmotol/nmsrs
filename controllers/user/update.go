@@ -5,7 +5,6 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
-	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
 	"github.com/zneyrl/nmsrs-lookup/models/user"
@@ -19,7 +18,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: str.UpperCaseFirstChar(err.Error()),
+			Errors: err.Error(),
 		})
 		return
 	}
@@ -36,7 +35,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: str.UpperCaseFirstChar(err.Error()),
+			Errors: err.Error(),
 		})
 		return
 	}
@@ -46,7 +45,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: str.UpperCaseFirstChar(err.Error()),
+			Errors: err.Error(),
 		})
 		return
 	}
@@ -68,7 +67,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
-			Errors: str.UpperCaseFirstChar(err.Error()),
+			Errors: err.Error(),
 		})
 		return
 	}
@@ -79,7 +78,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 				Status: http.StatusForbidden,
 				Data:   "",
 				Errors: map[string]interface{}{
-					"email": str.UpperCaseFirstChar(err.Error()),
+					"email": err.Error(),
 				},
 			})
 			return
@@ -90,7 +89,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: str.UpperCaseFirstChar(err.Error()),
+			Errors: err.Error(),
 		})
 		return
 	}
@@ -109,7 +108,7 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: str.UpperCaseFirstChar(err.Error()),
+			Errors: err.Error(),
 		})
 		return
 	}
@@ -119,7 +118,7 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: str.UpperCaseFirstChar(err.Error()),
+			Errors: err.Error(),
 		})
 		return
 	}
@@ -140,7 +139,7 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: str.UpperCaseFirstChar(err.Error()),
+			Errors: err.Error(),
 		})
 		return
 	}

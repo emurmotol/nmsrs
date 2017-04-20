@@ -18,7 +18,7 @@ type Profile struct {
 
 func UpdateProfile(id string, profile Profile) error {
 	if !bson.IsObjectIdHex(id) {
-		return errors.New("invalid object ID")
+		return errors.New("Invalid object ID")
 	}
 
 	if err := CheckAdmin(id); err != nil {

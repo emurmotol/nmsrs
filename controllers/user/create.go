@@ -23,17 +23,18 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: str.UpperCaseFirstChar(err.Error()),
+			Errors: err.Error(),
 		})
 		return
 	}
 	var usr user.User
+	// TODO: Populate user struct
 
 	if err := decoder.Decode(&usr, r.PostForm); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: str.UpperCaseFirstChar(err.Error()),
+			Errors: err.Error(),
 		})
 		return
 	}
@@ -53,7 +54,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 			Status: http.StatusForbidden,
 			Data:   "",
 			Errors: map[string]interface{}{
-				"email": str.UpperCaseFirstChar(err.Error()),
+				"email": err.Error(),
 			},
 		})
 		return
@@ -63,7 +64,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: str.UpperCaseFirstChar(err.Error()),
+			Errors: err.Error(),
 		})
 		return
 	}
@@ -72,7 +73,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
-			Errors: str.UpperCaseFirstChar(err.Error()),
+			Errors: err.Error(),
 		})
 		return
 	}

@@ -42,28 +42,18 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        var validateFields = [
-            "photo",
-            "name",
-            "email",
-            "password",
-            "confirm_password"
-        ];
+        setCheckboxBoolValue($("#is_admin"));
 
         $("#create_user_form").on("submit", function (e) {
             e.preventDefault();
-            validateForm(
-                $(this).attr("action"),
-                $(this).attr("method"),
-                validateFields,
-                {
-                    "name": $("#name").val(),
-                    "email": $("#email").val(),
-                    "password": $("#password").val(),
-                    "confirm_password": $("#confirm_password").val(),
-                    "is_admin": $("#is_admin").is(":checked")
-                }
-            );
+            var validateFields = [
+                "photo",
+                "name",
+                "email",
+                "password",
+                "confirm_password"
+            ];
+            validateForm($(this).attr("action"), $(this).attr("method"), validateFields, (new FormData(this)));
         });
     });
 

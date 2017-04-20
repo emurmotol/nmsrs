@@ -16,22 +16,9 @@ $(function () {
         });
     }
 
-    validateImage = function (photo, preview, default_photo) {
-        photo.change(function () {
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    removeErrorMarkup(photo);
-                    preview.attr("src", e.target.result);
-
-                    preview.on("error", function () {
-                        preview.attr("src", default_photo);
-                        addErrorMarkup(photo, "The selected file is not a valid image");
-                    });
-                }
-                reader.readAsDataURL(this.files[0]);
-            }
+    setCheckboxBoolValue = function(checkbox) {
+        checkbox.on("change", function() {
+            $(this).val($(this).is(":checked"));
         });
     }
 
@@ -75,6 +62,8 @@ $(function () {
             type: method,
             dataType: "json",
             data: data,
+            contentType: false,
+            processData: false,
             success: function (r) {
                 alert.empty();
 
