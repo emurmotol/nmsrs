@@ -4,25 +4,29 @@ import (
 	"errors"
 	"io"
 	"mime/multipart"
+	"net/textproto"
 	"os"
 	"path/filepath"
+	"strconv"
 )
 
 var (
 	mimes            = []string{"image/jpeg", "image/png", "image/gif"}
+	maxUploadSize    = int64(1 * 1024) // 1 mb
 	ErrImageNotValid = errors.New("not a valid image")
+	ErrImageToLarge  = errors.New("to large") // TODO: Include size in mb
 )
 
-func Save(photo multipart.File, handler *multipart.FileHeader, dir string, filename string) error {
+func Save(photo multipart.File, handler *multipart.FileHeader, path string) error {
 	defer photo.Close()
+	dir := filepath.Dir(path)
 	_, err := os.Stat(dir)
 
 	if os.IsNotExist(err) {
-		os.MkdirAll(dir, 0777) // TODO: Change permission
+		os.MkdirAll(dir, 0777)
 	}
-	filepath := filepath.Join(dir, filename)
 
-	file, err := os.Create(filepath)
+	file, err := os.Create(path)
 	if err != nil {
 		return err
 	}
@@ -35,9 +39,18 @@ func Save(photo multipart.File, handler *multipart.FileHeader, dir string, filen
 	return nil
 }
 
-func Validate(contentType string) error {
+func Validate(header textproto.MIMEHeader) error {
 	for _, mime := range mimes {
-		if contentType == mime {
+		if header.Get("Content-Type") == mime {
+			size, err := strconv.ParseInt(header.Get("Content-Length"), 10, 64)
+
+			if err != nil {
+				return err
+			}
+
+			if size > maxUploadSize {
+				return ErrImageToLarge
+			}
 			return nil
 		}
 	}

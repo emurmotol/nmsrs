@@ -43,7 +43,7 @@
 <script>
     $(function () {
         $("#photo").on("change", function() {
-            checkFileRequest("/check/file/image/photo", "POST", the_file_object, this)
+            checkFileRequest("/check/file/image/"+ $(this)[0].id, "POST", this)
         });
 
         $("#create_user_form").on("submit", function (e) {

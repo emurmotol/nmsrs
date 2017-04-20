@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"mime/multipart"
+	"os"
 	"path/filepath"
 	"strings"
 	"time"
@@ -20,6 +21,7 @@ var (
 	ErrInvalidObjectID    = errors.New("invalid object ID")
 	ErrActionNotPermitted = errors.New("action not permitted")
 	ErrEmailTaken         = errors.New("email has already been taken")
+	contentDir            = "content/users"
 )
 
 type User struct {
@@ -70,12 +72,22 @@ func Find(id string) (User, error) {
 }
 
 func (usr *User) Delete() error {
-	if err := CheckAdmin(usr.ID.Hex()); err != nil {
+	id := usr.ID.Hex()
+
+	if err := CheckAdmin(id); err != nil {
 		return err
 	}
 
 	if err := db.Users.RemoveId(usr.ID); err != nil {
 		return err
+	}
+	dir := filepath.Join(contentDir, id)
+	_, err := os.Stat(dir)
+
+	if err == nil {
+		if err := os.RemoveAll(dir); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -88,11 +100,7 @@ func DeleteMany(ids []string) error {
 			return err
 		}
 
-		if err := CheckAdmin(id); err != nil {
-			return err
-		}
-
-		if err := db.Users.RemoveId(usr.ID); err != nil {
+		if err := usr.Delete(); err != nil {
 			return err
 		}
 	}
@@ -101,9 +109,9 @@ func DeleteMany(ids []string) error {
 
 func SetPhoto(photo multipart.File, handler *multipart.FileHeader, id string) error {
 	name := fmt.Sprintf("default%s", strings.ToLower(filepath.Ext(handler.Filename)))
-	dir := fmt.Sprintf("content/%s/img", id)
+	path := filepath.Join(contentDir, id, "img", name)
 
-	if err := img.Save(photo, handler, dir, name); err != nil {
+	if err := img.Save(photo, handler, path); err != nil {
 		return err
 	}
 

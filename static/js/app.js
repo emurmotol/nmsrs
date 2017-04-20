@@ -1,21 +1,4 @@
 $(function () {
-    quickRequest = function (action, method, data) {
-        $.ajax({
-            url: action,
-            type: method,
-            dataType: "json",
-            data: data,
-            success: function (r) {
-                if (r.data.redirect != null) {
-                    window.location.href = r.data.redirect
-                }
-                console.log(r)
-            }, error: function (r) {
-                console.log(r)
-            }
-        });
-    }
-
     $.fn.serializeObject = function () {
         var arr = this.serializeArray();
         var obj = {};
@@ -64,19 +47,38 @@ $(function () {
         }
     }
 
-    checkFileRequest = function (url, method, data, id) {
+    quickRequest = function (action, method, data) {
+        $.ajax({
+            url: action,
+            type: method,
+            data: data,
+            dataType: "json",
+            success: function (r) {
+                if (r.data.redirect != null) {
+                    window.location.href = r.data.redirect
+                }
+                console.log(r)
+            }, error: function (r) {
+                console.log(r)
+            }
+        });
+    }
+
+    checkFileRequest = function (url, method, input) {
         var alert = $("#alert");
+        var data = new FormData();
+        data.append(input.id, input.files[0]);
 
         $.ajax({
             url: url,
             type: method,
+            data: data,
             dataType: "json",
             contentType: false,
-            data: data,
             processData: false,
             success: function (r) {
                 alert.empty();
-                removeErrorMarkup($(id));
+                removeErrorMarkup($(input));
                 errors = r.errors;
 
                 try {
@@ -114,9 +116,9 @@ $(function () {
         $.ajax({
             url: action,
             type: method,
+            data: data,
             dataType: "json",
             contentType: content_type,
-            data: data,
             processData: false,
             success: function (r) {
                 alert.empty();
