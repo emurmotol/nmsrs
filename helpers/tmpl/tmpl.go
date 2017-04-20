@@ -74,7 +74,7 @@ func paths(root string) ([]string, []string, error) {
 		}
 		if !info.IsDir() {
 			p := strings.TrimPrefix(filepath.Dir(path), root+pathSeparator)
-			// TODO: What if there are no layout page template
+			// TODO: What if there's no layout page template
 			if p == layoutsDir {
 				layouts = append(layouts, path)
 			} else {

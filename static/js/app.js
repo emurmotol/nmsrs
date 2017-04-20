@@ -107,7 +107,7 @@ $(function () {
                     if (Object.keys(errors).length != 0) {
                         $.each(errors, function (k, v) {
                             var field = $("#" + k);
-                            addErrorMarkup(field, v)
+                            addErrorMarkup(field, v);
                         });
                     } else {
                         if (r.data.message != null) {
@@ -135,9 +135,9 @@ $(function () {
                     </div>`;
                     alert.html(err_markup);
                 }
-                console.log(r)
+                console.log(r);
             }, error: function (r) {
-                console.log(r)
+                console.log(r);
             }
         });
     }

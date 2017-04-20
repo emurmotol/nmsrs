@@ -44,7 +44,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 }
 
 func Store(w http.ResponseWriter, r *http.Request) {
-	if err := r.ParseForm(); err != nil {
+	if err := r.ParseMultipartForm(0); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
@@ -151,8 +151,8 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 	tmpl.Render(w, r, "dashboard", "user.edit", data, funcMap)
 }
 
-func Update(w http.ResponseWriter, r *http.Request) {
-	if err := r.ParseForm(); err != nil {
+func UpdateProfile(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil { // TODO: Must be multipart
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
