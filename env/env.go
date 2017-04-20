@@ -13,8 +13,9 @@ var (
 	CharSet string
 
 	// Svr
-	SvrHost string
-	SvrPort int
+	SvrHost     string
+	SvrPort     int
+	SvrProtocol string
 
 	// DB
 	DBUser     string
@@ -43,6 +44,7 @@ func init() {
 	// Svr
 	flag.StringVar(&SvrHost, "SvrHost", "localhost", "Server host name")
 	flag.IntVar(&SvrPort, "SvrPort", 8080, "Server port number")
+	flag.StringVar(&SvrProtocol, "SvrProtocol", "http", "Server protocol")
 
 	// DB
 	flag.StringVar(&DBUser, "DBUser", "admin", "Database user")
@@ -63,34 +65,3 @@ func init() {
 	// Parse flags
 	flag.Parse()
 }
-
-func Config() interface{} {
-	return map[string]interface{}{
-		"App": map[string]string{
-			"Key":     AppKey,
-			"Name":    AppName,
-			"Locale":  Locale,
-			"CharSet": CharSet,
-		},
-		"Svr": map[string]string{
-			"Host": SvrHost,
-			"Port": string(SvrPort),
-		},
-		"DB": map[string]string{
-			"User":     DBUser,
-			"Password": DBPassword,
-			"Name":     DBName,
-			"Host":     DBHost,
-			"Port":     string(DBPort),
-			"Timeout":  string(DBTimeout),
-		},
-		"Admin": map[string]string{
-			"Name":     AdminName,
-			"Email":    AdminEmail,
-			"Password": AdminPassword,
-		},
-		"Default": map[string]string{
-			"UserPhoto": DefaultUserPhoto,
-		},
-	}
-} // TODO: Used for template access

@@ -9,6 +9,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/urfave/negroni"
+	"github.com/zneyrl/nmsrs-lookup/env"
 )
 
 var (
@@ -46,7 +47,7 @@ func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 
 	switch {
 	case err == http.ErrNoCookie:
-		http.Redirect(w, r, "/login", http.StatusUnauthorized)
+		http.Redirect(w, r, env.URL("/login"), http.StatusUnauthorized)
 		return
 	case err != nil:
 		log.Fatal(err)
@@ -59,7 +60,7 @@ func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 	switch err.(type) {
 	case nil:
 		if !token.Valid {
-			http.Redirect(w, r, "/logout", http.StatusUnauthorized)
+			http.Redirect(w, r, env.URL("/logout"), http.StatusUnauthorized)
 			return
 		}
 		next(w, r)
@@ -69,7 +70,7 @@ func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 
 		switch validationError.Errors {
 		case jwt.ValidationErrorExpired:
-			http.Redirect(w, r, "/login", http.StatusUnauthorized)
+			http.Redirect(w, r, env.URL("/login"), http.StatusUnauthorized)
 			return
 		default:
 			log.Fatal(err)
