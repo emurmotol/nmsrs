@@ -36,6 +36,10 @@ func CamelCaseToSentenceCase(s string) string {
 	return UpperCaseFirstChar(strings.ToLower(strings.Join(a, " ")))
 }
 
+func SnakeCaseToSentenceCase(s string) string {
+	return UpperCaseFirstChar(strings.ToLower(strings.Join(strings.Split(s, "_"), " ")))
+}
+
 func CamelCaseToSnakeCase(s string) string {
 	var a []string
 	for _, sub := range camel.FindAllStringSubmatch(s, -1) {

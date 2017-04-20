@@ -2,13 +2,24 @@ package user
 
 import (
 	"errors"
+	"fmt"
+	"mime/multipart"
+	"path/filepath"
+	"strings"
 	"time"
 
 	"gopkg.in/mgo.v2/bson"
 
 	"github.com/zneyrl/nmsrs-lookup/db"
 	"github.com/zneyrl/nmsrs-lookup/env"
+	"github.com/zneyrl/nmsrs-lookup/helpers/img"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
+)
+
+var (
+	ErrInvalidObjectID    = errors.New("invalid object ID")
+	ErrActionNotPermitted = errors.New("action not permitted")
+	ErrEmailTaken         = errors.New("email has already been taken")
 )
 
 type User struct {
@@ -49,7 +60,7 @@ func Find(id string) (User, error) {
 	var usr User
 
 	if !bson.IsObjectIdHex(id) {
-		return usr, errors.New("Invalid object ID")
+		return usr, ErrInvalidObjectID
 	}
 
 	if err := db.Users.FindId(bson.ObjectIdHex(id)).One(&usr); err != nil {
@@ -84,6 +95,20 @@ func DeleteMany(ids []string) error {
 		if err := db.Users.RemoveId(usr.ID); err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
+func SetPhoto(photo multipart.File, handler *multipart.FileHeader, id string) error {
+	name := fmt.Sprintf("default%s", strings.ToLower(filepath.Ext(handler.Filename)))
+	dir := fmt.Sprintf("content/%s/img", id)
+
+	if err := img.Save(photo, handler, dir, name); err != nil {
+		return err
+	}
+
+	if err := db.Users.UpdateId(bson.ObjectIdHex(id), bson.M{"$set": bson.M{"photoIsSet": true}}); err != nil {
+		return err
 	}
 	return nil
 }

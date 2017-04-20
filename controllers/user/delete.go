@@ -10,8 +10,7 @@ import (
 )
 
 func Destroy(w http.ResponseWriter, r *http.Request) {
-	v := mux.Vars(r)
-	usr, err := user.Find(v["id"])
+	usr, err := user.Find(mux.Vars(r)["id"])
 
 	if err != nil {
 		res.JSON(w, res.Make{

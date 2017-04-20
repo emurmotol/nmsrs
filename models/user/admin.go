@@ -1,7 +1,6 @@
 package user
 
 import (
-	"errors"
 	"log"
 
 	"github.com/zneyrl/nmsrs-lookup/env"
@@ -37,7 +36,7 @@ func CheckAdmin(id string) error {
 	usr, _ := Find(id)
 
 	if usr.Email == env.AdminEmail {
-		return errors.New("Action not permitted")
+		return ErrActionNotPermitted
 	}
 	return nil
 }

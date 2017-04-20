@@ -5,14 +5,14 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
+	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
 	"github.com/zneyrl/nmsrs-lookup/models/user"
 )
 
 func Edit(w http.ResponseWriter, r *http.Request) {
-	v := mux.Vars(r)
-	usr, err := user.Find(v["id"])
+	usr, err := user.Find(mux.Vars(r)["id"])
 
 	if err != nil {
 		res.JSON(w, res.Make{
@@ -59,8 +59,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	v := mux.Vars(r)
-	id := v["id"]
+	id := mux.Vars(r)["id"]
 	sameAsOld, err := user.CheckEmailIfSameAsOld(id, profile.Email)
 
 	if err != nil {
@@ -77,8 +76,8 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 			res.JSON(w, res.Make{
 				Status: http.StatusForbidden,
 				Data:   "",
-				Errors: map[string]interface{}{
-					"email": err.Error(),
+				Errors: map[string]string{
+					"email": str.UpperCaseFirstChar(err.Error()),
 				},
 			})
 			return
@@ -132,8 +131,7 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	v := mux.Vars(r)
-	id := v["id"]
+	id := mux.Vars(r)["id"]
 
 	if err := user.UpdatePassword(id, resetPassword); err != nil {
 		res.JSON(w, res.Make{

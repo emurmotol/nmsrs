@@ -1,24 +1,26 @@
 package img
 
 import (
-	"fmt"
+	"errors"
 	"io"
 	"mime/multipart"
 	"os"
 	"path/filepath"
-	"strings"
 )
 
-func SetUserPhoto(photo multipart.File, handler *multipart.FileHeader, id string) error {
+var (
+	mimes            = []string{"image/jpeg", "image/png", "image/gif"}
+	ErrImageNotValid = errors.New("not a valid image")
+)
+
+func Save(photo multipart.File, handler *multipart.FileHeader, dir string, filename string) error {
 	defer photo.Close()
-	name := fmt.Sprintf("default%s", strings.ToLower(filepath.Ext(handler.Filename)))
-	path := fmt.Sprintf("content/%s/img", id)
-	_, err := os.Stat(path)
+	_, err := os.Stat(dir)
 
 	if os.IsNotExist(err) {
-		os.MkdirAll(path, 0777) // TODO: Change permission
+		os.MkdirAll(dir, 0777) // TODO: Change permission
 	}
-	filepath := filepath.Join(path, name)
+	filepath := filepath.Join(dir, filename)
 
 	file, err := os.Create(filepath)
 	if err != nil {
@@ -31,4 +33,13 @@ func SetUserPhoto(photo multipart.File, handler *multipart.FileHeader, id string
 		return err
 	}
 	return nil
+}
+
+func Validate(contentType string) error {
+	for _, mime := range mimes {
+		if contentType == mime {
+			return nil
+		}
+	}
+	return ErrImageNotValid
 }

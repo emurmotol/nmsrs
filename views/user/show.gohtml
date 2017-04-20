@@ -51,7 +51,7 @@
         });
 
         $("#yes_proceed_deleting_user").on("click", function () {
-            ajaxCall("/users/{{.User.ID.Hex}}", "DELETE", null);
+            quickRequest("/users/{{.User.ID.Hex}}", "DELETE", null);
             $("#confirm_delete_user_modal").modal("hide");
         });
     });

@@ -6,6 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/zneyrl/nmsrs-lookup/controllers/applicant"
 	"github.com/zneyrl/nmsrs-lookup/controllers/auth"
+	"github.com/zneyrl/nmsrs-lookup/controllers/check"
 	"github.com/zneyrl/nmsrs-lookup/controllers/dashboard"
 	"github.com/zneyrl/nmsrs-lookup/controllers/home"
 	"github.com/zneyrl/nmsrs-lookup/controllers/reports"
@@ -38,6 +39,8 @@ func Web() *mux.Router {
 
 	r.Path("/applicants").Methods("GET").Handler(middlewares.Secure(applicant.Index))
 	r.Path("/reports").Methods("GET").Handler(middlewares.Secure(reports.Index))
+
+	r.Path("/check/file/image/{id}").Methods("POST").Handler(middlewares.Secure(check.Image))
 
 	r.Path("/search").Methods("GET").Handler(middlewares.Secure(search.Index))
 	r.Path("/results").Methods("GET").Handler(middlewares.Secure(search.Results))

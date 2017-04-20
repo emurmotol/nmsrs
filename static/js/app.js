@@ -1,5 +1,5 @@
 $(function () {
-    ajaxCall = function (action, method, data) {
+    quickRequest = function (action, method, data) {
         $.ajax({
             url: action,
             type: method,
@@ -24,7 +24,7 @@ $(function () {
             obj[arr[i].name] = arr[i].value;
         }
         return obj;
-    };
+    }
 
     setCheckboxBoolValue = function (checkbox) {
         checkbox.on("change", function () {
@@ -62,6 +62,45 @@ $(function () {
         if (fc.find("div.form-control-feedback").get().length == 0) {
             fc.append(`<div class="form-control-feedback">` + message + `</div>`);
         }
+    }
+
+    checkFileRequest = function (url, method, data, id) {
+        var alert = $("#alert");
+
+        $.ajax({
+            url: url,
+            type: method,
+            dataType: "json",
+            contentType: false,
+            data: data,
+            processData: false,
+            success: function (r) {
+                alert.empty();
+                removeErrorMarkup($(id));
+                errors = r.errors;
+
+                try {
+                    if (Object.keys(errors).length != 0) {
+                        $.each(errors, function (k, v) {
+                            var field = $("#" + k);
+                            addErrorMarkup(field, v);
+                        });
+                    }
+                } catch (e) {
+                    var err_markup = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <i class="fa fa-exclamation-triangle"></i> `+ errors + `
+                    </div>`;
+                    alert.html(err_markup);
+                }
+                console.log(r);
+            }, error: function (r) {
+                console.log(r);
+            }
+        });
     }
 
     makeRequest = function (action, method, fields, data, isMultipart) {

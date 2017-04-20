@@ -1,8 +1,6 @@
 package user
 
 import (
-	"errors"
-
 	"github.com/zneyrl/nmsrs-lookup/db"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -20,7 +18,7 @@ func CheckEmailIfTaken(email string) error {
 	count, _ := db.Users.Find(bson.M{"email": email}).Count()
 
 	if count != 0 {
-		return errors.New("Email has already been taken")
+		return ErrEmailTaken
 	}
 	return nil
 }

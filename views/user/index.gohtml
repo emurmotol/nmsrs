@@ -86,7 +86,7 @@
             });
 
             if (ids.length != 0) {
-                ajaxCall("/users/ids", "POST", { ids });
+                quickRequest("/users/ids", "POST", { ids });
             }
             $("#confirm_delete_user_modal").modal("hide");
         });

@@ -1,7 +1,6 @@
 package user
 
 import (
-	"errors"
 	"time"
 
 	"github.com/zneyrl/nmsrs-lookup/db"
@@ -18,7 +17,7 @@ type Profile struct {
 
 func UpdateProfile(id string, profile Profile) error {
 	if !bson.IsObjectIdHex(id) {
-		return errors.New("Invalid object ID")
+		return ErrInvalidObjectID
 	}
 
 	if err := CheckAdmin(id); err != nil {

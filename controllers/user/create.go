@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/zneyrl/nmsrs-lookup/helpers/flash"
-	"github.com/zneyrl/nmsrs-lookup/helpers/img"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
+	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
 	"github.com/zneyrl/nmsrs-lookup/models/user"
@@ -66,8 +66,8 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
-			Errors: map[string]interface{}{
-				"email": err.Error(),
+			Errors: map[string]string{
+				"email": str.UpperCaseFirstChar(err.Error()),
 			},
 		})
 		return
@@ -83,7 +83,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := img.SetUserPhoto(photo, handler, id); err != nil {
+	if err := user.SetPhoto(photo, handler, id); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
