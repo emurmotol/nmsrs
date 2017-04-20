@@ -83,7 +83,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := img.ValidateAndSave(photo, handler, id); err != nil {
+	if err := img.SetUserPhoto(photo, handler, id); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
