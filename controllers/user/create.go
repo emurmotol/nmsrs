@@ -63,9 +63,11 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if photo != nil {
-		if err := img.Validate(photo, handler.Header); err != nil {
+		defer photo.Close()
+		if err := img.Validate(photo, handler); err != nil {
 			if err == img.ErrImageNotValid || err == img.ErrImageToLarge { // TODO: Add new custom err here
 				if _, ok := errs[photoFieldName]; !ok {
+					// TODO: Use validate var
 					errs[photoFieldName] = fmt.Sprintf("%s %s", str.SnakeCaseToSentenceCase(photoFieldName), err.Error())
 				}
 			} else {

@@ -1,5 +1,9 @@
 package env
 
+import (
+	"strconv"
+)
+
 func Config() interface{} {
 	return map[string]interface{}{
 		"App": map[string]string{
@@ -28,7 +32,8 @@ func Config() interface{} {
 			"Password": AdminPassword,
 		},
 		"Default": map[string]string{
-			"UserPhoto": DefaultUserPhoto,
+			"UserPhoto":          DefaultUserPhoto,
+			"MaxImageUploadSize": strconv.FormatInt(DefaultMaxImageUploadSize, 10),
 		},
 	}
 } // TODO: Used for template access

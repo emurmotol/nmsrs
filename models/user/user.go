@@ -3,6 +3,7 @@ package user
 import (
 	"errors"
 	"fmt"
+	"io"
 	"mime/multipart"
 	"os"
 	"path/filepath"
@@ -116,6 +117,23 @@ func SetPhoto(photo multipart.File, handler *multipart.FileHeader, id string) er
 	}
 
 	if err := db.Users.UpdateId(bson.ObjectIdHex(id), bson.M{"$set": bson.M{"photoIsSet": true}}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func MakeTempFile(id string) error {
+	name := fmt.Sprintf("%s.tmp", id)
+	path := filepath.Join(contentDir, name)
+	file, err := os.Create(path)
+
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	_, err = io.Copy(file, photo)
+
+	if err != nil {
 		return err
 	}
 	return nil

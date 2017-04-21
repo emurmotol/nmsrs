@@ -36,3 +36,5 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 * [validator](https://github.com/go-playground/validator)
 * [couchdb-go](https://github.com/rhinoman/couchdb-go)
 * https://stackoverflow.com/questions/17129797/golang-how-to-check-multipart-file-information
+* https://github.com/asaskevich/govalidator
+* https://github.com/moxiecode/plupload

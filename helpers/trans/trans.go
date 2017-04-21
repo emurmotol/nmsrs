@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	validate *validator.Validate
+	Validate *validator.Validate
 	uni      *ut.UniversalTranslator
 	trans    ut.Translator
 )
@@ -21,29 +21,12 @@ func init() {
 	en := en.New()
 	uni = ut.New(en, en)
 	trans, _ = uni.GetTranslator(env.Locale)
-	validate = validator.New()
-	en_trans.RegisterDefaultTranslations(validate, trans)
+	Validate = validator.New()
+	en_trans.RegisterDefaultTranslations(Validate, trans)
 }
 
 func StructHasError(s interface{}) map[string]string {
-	err := validate.Struct(s)
-
-	if err != nil {
-		if _, ok := err.(*validator.InvalidValidationError); ok {
-			log.Fatal(err)
-		}
-		errs := make(map[string]string)
-
-		for _, e := range err.(validator.ValidationErrors) {
-			errs[str.CamelCaseToSnakeCase(e.Field())] = str.CamelCaseToSentenceCase(e.Translate(trans)) // TODO: Must parse only the key not the value
-		}
-		return errs
-	}
-	return map[string]string{}
-}
-
-func VarHasError(s interface{}, t string) map[string]string {
-	err := validate.Var(s, t)
+	err := Validate.Struct(s)
 
 	if err != nil {
 		if _, ok := err.(*validator.InvalidValidationError); ok {

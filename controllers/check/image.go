@@ -33,24 +33,30 @@ func Image(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	if err := img.Validate(photo, handler.Header); err != nil {
-		if err == img.ErrImageNotValid || err == img.ErrImageToLarge { // TODO: Add new custom err here
+	if photo != nil {
+		defer photo.Close()
+
+		if err := img.Validate(photo, handler); err != nil {
+			if err == img.ErrImageNotValid || err == img.ErrImageToLarge { // TODO: Add new custom err here
+				// TODO: Use validate var
+				res.JSON(w, res.Make{
+					Status: http.StatusInternalServerError,
+					Data:   "",
+					Errors: map[string]string{
+						photoFieldName: fmt.Sprintf("%s %s", str.SnakeCaseToSentenceCase(photoFieldName), err.Error()),
+					},
+				})
+				return
+			}
 			res.JSON(w, res.Make{
 				Status: http.StatusInternalServerError,
 				Data:   "",
-				Errors: map[string]string{
-					photoFieldName: fmt.Sprintf("%s %s", str.SnakeCaseToSentenceCase(photoFieldName), err.Error()),
-				},
+				Errors: err.Error(),
 			})
 			return
 		}
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
 	}
+
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data:   "",

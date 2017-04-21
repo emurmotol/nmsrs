@@ -32,7 +32,8 @@ var (
 	AdminPassword string
 
 	// Default
-	DefaultUserPhoto string
+	DefaultUserPhoto          string
+	DefaultMaxImageUploadSize int64
 )
 
 func init() {
@@ -63,6 +64,7 @@ func init() {
 
 	// Default
 	flag.StringVar(&DefaultUserPhoto, "DefaultUserPhoto", "/img/user/default.png", "Default user photo")
+	flag.Int64Var(&DefaultMaxImageUploadSize, "DefaultMaxImageUploadSize", int64(1*1048576), "Default max image upload size")
 
 	// Parse flags
 	flag.Parse()
