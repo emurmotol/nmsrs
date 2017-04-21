@@ -22,7 +22,7 @@ var (
 	ErrInvalidObjectID    = errors.New("Invalid object ID")
 	ErrActionNotPermitted = errors.New("Action not permitted")
 	ErrEmailTaken         = errors.New("Email has already been taken")
-	contentDir            = "content/users"
+	ContentDir            = "content/users"
 )
 
 type User struct {
@@ -32,7 +32,7 @@ type User struct {
 	Password        string        `schema:"password" json:"password" bson:"password,omitempty" validate:"required,min=6"`
 	ConfirmPassword string        `schema:"confirm_password" json:"confirm_password" bson:",omitempty" validate:"required,eqfield=Password"`
 	IsAdmin         bool          `schema:"is_admin" json:"is_admin" bson:"isAdmin"`
-	PhotoIsSet      bool          `schema:"photo_is_set" json:"photo_is_set" bson:"photoIsSet"`
+	PhotoIsSet      bool          `schema:"photo_is_set" json:"photo_is_set" bson:"photoIsSet,omitempty"`
 	CreatedAt       int64         `schema:"created_at" json:"created_at" bson:"createdAt,omitempty"`
 	UpdatedAt       int64         `schema:"updated_at" json:"updated_at" bson:"updatedAt,omitempty"`
 }
@@ -83,7 +83,7 @@ func (usr *User) Delete() error {
 	if err := db.Users.RemoveId(usr.ID); err != nil {
 		return err
 	}
-	dir := filepath.Join(contentDir, id)
+	dir := filepath.Join(ContentDir, id)
 	_, err := os.Stat(dir)
 
 	if err == nil {
@@ -109,11 +109,11 @@ func DeleteMany(ids []string) error {
 	return nil
 }
 
-func SetPhoto(photo multipart.File, handler *multipart.FileHeader, id string) error {
-	name := fmt.Sprintf("default%s", strings.ToLower(filepath.Ext(handler.Filename)))
-	path := filepath.Join(contentDir, id, "img", name)
+func SetPhoto(file multipart.File, handler *multipart.FileHeader, id string) error {
+	filename := fmt.Sprintf("default%s", strings.ToLower(filepath.Ext(handler.Filename)))
+	name := filepath.Join(ContentDir, id, "photo", filename)
 
-	if err := img.Save(photo, handler, path); err != nil {
+	if err := img.Save(file, handler, name); err != nil {
 		return err
 	}
 
@@ -124,7 +124,14 @@ func SetPhoto(photo multipart.File, handler *multipart.FileHeader, id string) er
 }
 
 func MakeReadMeFile(id string) error {
-	file := filepath.Join(contentDir, id, "README.md")
+	file := filepath.Join(ContentDir, id, "README.md")
+
+	dir := filepath.Dir(file)
+	_, err := os.Stat(dir)
+
+	if os.IsNotExist(err) {
+		os.MkdirAll(dir, 0777)
+	}
 	content := fmt.Sprintf("id: %s\n", id)
 
 	if err := ioutil.WriteFile(file, []byte(content), 0644); err != nil {

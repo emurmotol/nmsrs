@@ -1,10 +1,8 @@
 package auth
 
 import (
-	"fmt"
 	"net/http"
 
-	"github.com/zneyrl/nmsrs-lookup/env"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
@@ -46,7 +44,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		if _, ok := errs["email"]; !ok {
-			errs["email"] = fmt.Sprintf("Sorry, %s doesn't recognize that email", env.AppName)
+			errs["email"] = "Sorry, we don't recognize that email"
 		}
 	}
 

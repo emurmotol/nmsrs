@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/zneyrl/nmsrs-lookup/helpers/img"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
@@ -30,7 +31,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateProfile(w http.ResponseWriter, r *http.Request) {
-	if err := r.ParseForm(); err != nil { // TODO: Must be multipart
+	if err := r.ParseMultipartForm(0); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
@@ -38,6 +39,21 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+	photoFieldName := "photo"
+	file, handler, err := r.FormFile(photoFieldName)
+	newFileInstance, newHandlerInstance, _ := r.FormFile(photoFieldName) // TODO: Duplicate instance of form file
+
+	if err != nil {
+		if err != http.ErrMissingFile {
+			res.JSON(w, res.Make{
+				Status: http.StatusInternalServerError,
+				Data:   "",
+				Errors: err.Error(),
+			})
+			return
+		}
+	}
+	delete(r.PostForm, photoFieldName)
 	var profile user.Profile
 
 	if err := decoder.Decode(&profile, r.PostForm); err != nil {
@@ -66,6 +82,32 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		if err := user.CheckEmailIfTaken(profile.Email); err != nil {
 			if _, ok := errs["email"]; !ok {
 				errs["email"] = err.Error()
+			}
+		}
+	}
+
+	if file != nil {
+		if err := img.Validate(newFileInstance, newHandlerInstance); err != nil {
+			if err == img.ErrImageNotValid || err == img.ErrImageToLarge { // TODO: Add new custom err here
+				if _, ok := errs[photoFieldName]; !ok {
+					errs[photoFieldName] = err.Error()
+				}
+			} else {
+				res.JSON(w, res.Make{
+					Status: http.StatusInternalServerError,
+					Data:   "",
+					Errors: err.Error(),
+				})
+				return
+			}
+		} else {
+			if err := user.SetPhoto(file, handler, id); err != nil {
+				res.JSON(w, res.Make{
+					Status: http.StatusInternalServerError,
+					Data:   "",
+					Errors: err.Error(),
+				})
+				return
 			}
 		}
 	}

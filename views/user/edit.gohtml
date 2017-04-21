@@ -22,6 +22,11 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
+                                <label for="photo">Photo</label><br>
+                                <img src="{{if .User.PhotoIsSet}}/users/{{.User.ID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="rounded mb-3" id="preview" height="160" alt="Default">
+                                <input type="file" class="form-control" name="photo" id="photo" placeholder="Photo">
+                            </div>
+                            <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" class="form-control" name="name" id="name" value="{{.User.Name}}" placeholder="Name">
                             </div>
@@ -38,7 +43,7 @@
                             </div>
                         </div>
                     </div>
-                    <button role="button" type="submit" class="btn btn-outline-primary btn-block">Update profile</button>
+                    <button role="button" type="submit" class="btn btn-outline-primary">Update profile</button>
                 </form>
             </div>
             <div class="tab-pane" id="reset-password">
@@ -64,9 +69,36 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
+        $("#photo").on("change", function () {
+            checkFileRequest("/check/file/image/" + $(this)[0].id, "POST", this)
+            var preview = $(this).parent().find("#preview");
+            var default_photo = "{{.Config.Default.UserPhoto}}";
+            var max_upload_size = parseInt("{{.Config.Default.MaxImageUploadSize}}");
+            
+            if (this.files[0].size > max_upload_size) {
+                preview.attr("src", default_photo);
+                return
+            } // TODO: First check file size and on server side
+
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.attr("src", e.target.result);
+
+                    preview.on("error", function () {
+                        preview.attr("src", default_photo);
+                    });
+                }
+                reader.readAsDataURL(photo.files[0]);
+            } else {
+                preview.attr("src", default_photo);
+            }
+        });
+        
         $("#edit_user_form").on("submit", function (e) {
             e.preventDefault();
-            makeRequest(this, ["name", "email"], true);
+            makeRequest(this, ["photo", "name", "email"], true);
         });
 
         $("#reset_password_form").on("submit", function (e) {

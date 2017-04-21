@@ -32,7 +32,7 @@ func Web() *mux.Router {
 	r.Path("/users/ids").Methods("POST").Handler(middlewares.Secure(user.DestroyMany))
 	r.Path("/users/{id}").Methods("GET").Handler(middlewares.Secure(user.Show))
 	r.Path("/users/{id}/edit").Methods("GET").Handler(middlewares.Secure(user.Edit))
-	r.Path("/users/{id}/img/{{file}}").Methods("GET").Handler(middlewares.Secure(user.Photo))
+	r.Path("/users/{id}/photo").Methods("GET").Handler(middlewares.Secure(user.Photo))
 	r.Path("/users/{id}").Methods("PUT").Handler(middlewares.Secure(user.UpdateProfile))
 	r.Path("/users/{id}").Methods("DELETE").Handler(middlewares.Secure(user.Destroy))
 	r.Path("/users/{id}/reset-password").Methods("POST").Handler(middlewares.Secure(user.ResetPassword))

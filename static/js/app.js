@@ -55,7 +55,7 @@ $(function () {
             dataType: "json",
             success: function (r) {
                 if (r.data.redirect != null) {
-                    window.location.href = r.data.redirect
+                    window.location.href = r.data.redirect;
                 }
                 console.log(r)
             }, error: function (r) {
@@ -153,7 +153,7 @@ $(function () {
                         }
 
                         if (r.data.redirect != null) {
-                            window.location.href = r.data.redirect
+                            window.location.href = r.data.redirect;
                         }
                     }
                 } catch (e) {
@@ -171,7 +171,10 @@ $(function () {
                 console.log(r);
             }
         }).done(function() {
-            submitButton.html(oldText)
+            $.each($(form).find(":file"), function() {
+                this.reset();
+            }); // TODO: Not tested
+            submitButton.html(oldText);
         });
     }
 });

@@ -13,7 +13,7 @@
     </div>
     <div class="card-block">
         <a href="/users/{{.User.ID.Hex}}/edit#profile">
-            <img src="{{if .User.PhotoIsSet}}/users/{{.User.ID.Hex}}/img/default.png{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="rounded mb-3" id="preview" height="160" alt="{{.User.Name}}">
+            <img src="{{if .User.PhotoIsSet}}/users/{{.User.ID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="rounded mb-3" id="preview" height="160" alt="{{.User.Name}}">
         </a>
         <h6><i class="fa fa-user-o"></i> {{.User.Name}}</h6>
         <h6><i class="fa fa-envelope-o"></i> <a href="mailto:{{.User.Email}}">{{.User.Email}}</a></h6>
@@ -51,8 +51,8 @@
         });
 
         $("#yes_proceed_deleting_user").on("click", function () {
+            $(this).html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Deleting...`);
             quickRequest("/users/{{.User.ID.Hex}}", "DELETE", null);
-            $("#confirm_delete_user_modal").modal("hide");
         });
     });
 

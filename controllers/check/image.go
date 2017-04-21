@@ -6,7 +6,6 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/zneyrl/nmsrs-lookup/helpers/img"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
-	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 )
 
 func Image(w http.ResponseWriter, r *http.Request) {
@@ -42,7 +41,7 @@ func Image(w http.ResponseWriter, r *http.Request) {
 					Status: http.StatusInternalServerError,
 					Data:   "",
 					Errors: map[string]string{
-						photoFieldName: str.SnakeCaseToSentenceCase(err.Error()),
+						photoFieldName: err.Error(),
 					},
 				})
 				return

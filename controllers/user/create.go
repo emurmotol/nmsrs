@@ -29,7 +29,8 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	photoFieldName := "photo"
-	photo, handler, err := r.FormFile(photoFieldName)
+	file, handler, err := r.FormFile(photoFieldName)
+	newFileInstance, newHandlerInstance, _ := r.FormFile(photoFieldName) // TODO: Duplicate instance of form file
 
 	if err != nil {
 		if err != http.ErrMissingFile {
@@ -60,9 +61,8 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	if photo != nil {
-		defer photo.Close()
-		if err := img.Validate(photo, handler); err != nil {
+	if file != nil {
+		if err := img.Validate(newFileInstance, newHandlerInstance); err != nil {
 			if err == img.ErrImageNotValid || err == img.ErrImageToLarge { // TODO: Add new custom err here
 				if _, ok := errs[photoFieldName]; !ok {
 					errs[photoFieldName] = err.Error()
@@ -97,7 +97,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := user.SetPhoto(photo, handler, id); err != nil {
+	if err := user.SetPhoto(file, handler, id); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
