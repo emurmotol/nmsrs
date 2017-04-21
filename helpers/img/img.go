@@ -1,13 +1,13 @@
 package img
 
 import (
+	"bytes"
 	"errors"
 	"io"
 	"mime/multipart"
 	"net/textproto"
 	"os"
 	"path/filepath"
-	"strconv"
 )
 
 var (
@@ -39,10 +39,10 @@ func Save(photo multipart.File, handler *multipart.FileHeader, path string) erro
 	return nil
 }
 
-func Validate(header textproto.MIMEHeader) error {
+func Validate(photo multipart.File, header textproto.MIMEHeader) error {
 	for _, mime := range mimes {
 		if header.Get("Content-Type") == mime {
-			size, err := strconv.ParseInt(header.Get("Content-Length"), 10, 64)
+			size, err := getSize(photo)
 
 			if err != nil {
 				return err
@@ -55,4 +55,14 @@ func Validate(header textproto.MIMEHeader) error {
 		}
 	}
 	return ErrImageNotValid
+}
+
+func getSize(photo multipart.File) (int64, error) {
+	var buff bytes.Buffer
+	photoSize, err := buff.ReadFrom(photo)
+
+	if err != nil {
+		return 0, err
+	}
+	return photoSize, nil
 }

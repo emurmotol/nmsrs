@@ -1,9 +1,11 @@
 package user
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/zneyrl/nmsrs-lookup/helpers/flash"
+	"github.com/zneyrl/nmsrs-lookup/helpers/img"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
@@ -28,7 +30,8 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	photo, handler, err := r.FormFile("photo")
+	photoFieldName := "photo"
+	photo, handler, err := r.FormFile(photoFieldName)
 
 	if err != nil {
 		if err != http.ErrMissingFile {
@@ -40,7 +43,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	delete(r.PostForm, "photo")
+	delete(r.PostForm, photoFieldName)
 	var usr user.User
 
 	if err := decoder.Decode(&usr, r.PostForm); err != nil {
@@ -53,22 +56,34 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	}
 	errs := trans.StructHasError(usr)
 
+	if err := user.CheckEmailIfTaken(usr.Email); err != nil {
+		if _, ok := errs["email"]; !ok {
+			errs["email"] = str.UpperCaseFirstChar(err.Error())
+		}
+	}
+
+	if photo != nil {
+		if err := img.Validate(photo, handler.Header); err != nil {
+			if err == img.ErrImageNotValid || err == img.ErrImageToLarge { // TODO: Add new custom err here
+				if _, ok := errs[photoFieldName]; !ok {
+					errs[photoFieldName] = fmt.Sprintf("%s %s", str.SnakeCaseToSentenceCase(photoFieldName), err.Error())
+				}
+			} else {
+				res.JSON(w, res.Make{
+					Status: http.StatusInternalServerError,
+					Data:   "",
+					Errors: err.Error(),
+				})
+				return
+			}
+		}
+	}
+
 	if len(errs) != 0 {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
 			Errors: errs,
-		})
-		return
-	}
-
-	if err := user.CheckEmailIfTaken(usr.Email); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusForbidden,
-			Data:   "",
-			Errors: map[string]string{
-				"email": str.UpperCaseFirstChar(err.Error()),
-			},
 		})
 		return
 	}

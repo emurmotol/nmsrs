@@ -39,7 +39,7 @@ func StructHasError(s interface{}) map[string]string {
 		}
 		return errs
 	}
-	return nil
+	return map[string]string{}
 }
 
 func VarHasError(s interface{}, t string) map[string]string {
@@ -56,5 +56,5 @@ func VarHasError(s interface{}, t string) map[string]string {
 		}
 		return errs
 	}
-	return nil
+	return map[string]string{}
 }

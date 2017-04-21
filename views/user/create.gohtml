@@ -42,8 +42,22 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        $("#photo").on("change", function() {
-            checkFileRequest("/check/file/image/"+ $(this)[0].id, "POST", this)
+        $("#photo").on("change", function () {
+            checkFileRequest("/check/file/image/" + $(this)[0].id, "POST", this)
+            var preview = $(this).parent().find("#preview");
+
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.attr("src", e.target.result);
+
+                    preview.on("error", function () {
+                        preview.attr("src", "{{.Config.Default.UserPhoto}}");
+                    });
+                }
+                reader.readAsDataURL(photo.files[0]);
+            }
         });
 
         $("#create_user_form").on("submit", function (e) {
@@ -57,7 +71,7 @@
             ];
             makeRequest($(this).attr("action"), $(this).attr("method"), validateFields, (new FormData(this)), true);
         });
-        
+
         setCheckboxBoolValue($("#is_admin"));
     });
 

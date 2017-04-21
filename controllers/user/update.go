@@ -51,14 +51,6 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	}
 	errs := trans.StructHasError(profile)
 
-	if len(errs) != 0 {
-		res.JSON(w, res.Make{
-			Status: http.StatusForbidden,
-			Data:   "",
-			Errors: errs,
-		})
-		return
-	}
 	id := mux.Vars(r)["id"]
 	sameAsOld, err := user.CheckEmailIfSameAsOld(id, profile.Email)
 
@@ -73,15 +65,19 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 
 	if !sameAsOld {
 		if err := user.CheckEmailIfTaken(profile.Email); err != nil {
-			res.JSON(w, res.Make{
-				Status: http.StatusForbidden,
-				Data:   "",
-				Errors: map[string]string{
-					"email": str.UpperCaseFirstChar(err.Error()),
-				},
-			})
-			return
+			if _, ok := errs["email"]; !ok {
+				errs["email"] = str.UpperCaseFirstChar(err.Error())
+			}
 		}
+	}
+
+	if len(errs) != 0 {
+		res.JSON(w, res.Make{
+			Status: http.StatusForbidden,
+			Data:   "",
+			Errors: errs,
+		})
+		return
 	}
 
 	if err := user.UpdateProfile(id, profile); err != nil {
