@@ -39,3 +39,7 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 * https://github.com/asaskevich/govalidator
 * https://github.com/moxiecode/plupload
 * http://stackoverflow.com/questions/17129797/golang-how-to-check-multipart-file-information
+* https://www.socketloop.com/tutorials/golang-convert-png-transparent-background-image-to-jpg-or-jpeg-image
+* https://www.socketloop.com/tutorials/golang-save-image-to-png-jpeg-or-gif-format
+* http://stackoverflow.com/questions/12430874/image-manipulation-in-golang
+* http://stackoverflow.com/questions/33168973/converting-multipart-file-to-an-image-object-in-golang

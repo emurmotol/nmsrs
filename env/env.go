@@ -3,6 +3,8 @@ package env
 import (
 	"flag"
 	"time"
+
+	"github.com/zneyrl/nmsrs-lookup/helpers/fi"
 )
 
 var (
@@ -63,8 +65,8 @@ func init() {
 	flag.StringVar(&AdminPassword, "AdminPassword", "secret", "Administrator default password")
 
 	// Default
-	flag.StringVar(&DefaultUserPhoto, "DefaultUserPhoto", "/img/user/default.png", "Default user photo")
-	flag.Int64Var(&DefaultMaxImageUploadSize, "DefaultMaxImageUploadSize", int64(1*1048576), "Default max image upload size")
+	flag.StringVar(&DefaultUserPhoto, "DefaultUserPhoto", "/img/user/default.png", "Default user photo") // TODO: Convert to .jpg
+	flag.Int64Var(&DefaultMaxImageUploadSize, "DefaultMaxImageUploadSize", int64(1*fi.MB), "Default max image upload size")
 
 	// Parse flags
 	flag.Parse()

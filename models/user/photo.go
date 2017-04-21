@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/zneyrl/nmsrs-lookup/db"
+	"github.com/zneyrl/nmsrs-lookup/env"
 	"github.com/zneyrl/nmsrs-lookup/helpers/fi"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -27,5 +28,5 @@ func SetPhoto(file multipart.File, handler *multipart.FileHeader, id string) err
 }
 
 func GetPhoto(id string) string {
-	return path.Join(contentDir, id, "photo", "default.jpg") // TODO: File extension must be dynamic
+	return path.Join(contentDir, id, "photo", filepath.Base(env.DefaultUserPhoto))
 }

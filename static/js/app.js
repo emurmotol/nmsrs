@@ -142,7 +142,7 @@ $(function () {
         var data = (new FormData(form));
         var submitButton = $(form).find(":submit");
         var oldText = submitButton.text();
-        submitButton.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Loading...`)
+        submitButton.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Please wait...`)
 
         if (!isMultipart) {
             content_type = "application/x-www-form-urlencoded; charset=UTF-8";
