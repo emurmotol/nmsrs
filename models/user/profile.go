@@ -8,11 +8,11 @@ import (
 )
 
 type Profile struct {
-	Name       string `schema:"name" json:"name" bson:"name,omitempty" validate:"required,min=2"`
-	Email      string `schema:"email" json:"email" bson:"email,omitempty" validate:"required,email"`
-	IsAdmin    bool   `schema:"is_admin" json:"is_admin" bson:"isAdmin"`
-	PhotoIsSet bool   `schema:"photo_is_set" json:"photo_is_set" bson:"photoIsSet,omitempty"`
-	UpdatedAt  int64  `schema:"updated_at" json:"updated_at" bson:"updatedAt,omitempty"`
+	Name    string `schema:"name" json:"name" bson:"name,omitempty" validate:"required,min=2"`
+	Email   string `schema:"email" json:"email" bson:"email,omitempty" validate:"required,email"`
+	IsAdmin bool   `schema:"is_admin" json:"is_admin" bson:"isAdmin"`
+	// TODO: PhotoIsSet is handled when user.SetPhoto func is called
+	UpdatedAt int64 `schema:"updated_at" json:"updated_at" bson:"updatedAt,omitempty"`
 }
 
 func UpdateProfile(id string, profile Profile) error {

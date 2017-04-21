@@ -97,14 +97,16 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := user.SetPhoto(file, handler, id); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
-	}
+	if file != nil {
+		if err := user.SetPhoto(file, handler, id); err != nil {
+			res.JSON(w, res.Make{
+				Status: http.StatusInternalServerError,
+				Data:   "",
+				Errors: err.Error(),
+			})
+			return
+		}
+	} // TODO: Check file != again to capture user id
 
 	if err := flash.Set(r, w, "User has been successfully created"); err != nil {
 		res.JSON(w, res.Make{

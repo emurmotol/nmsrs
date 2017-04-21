@@ -36,9 +36,8 @@ func Image(w http.ResponseWriter, r *http.Request) {
 
 		if err := img.Validate(photo, handler); err != nil {
 			if err == img.ErrImageNotValid || err == img.ErrImageToLarge { // TODO: Add new custom err here
-				// TODO: Use validate var
 				res.JSON(w, res.Make{
-					Status: http.StatusInternalServerError,
+					Status: http.StatusForbidden,
 					Data:   "",
 					Errors: map[string]string{
 						photoFieldName: err.Error(),

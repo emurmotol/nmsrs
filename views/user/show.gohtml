@@ -52,7 +52,7 @@
 
         $("#yes_proceed_deleting_user").on("click", function () {
             $(this).html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Deleting...`);
-            quickRequest("/users/{{.User.ID.Hex}}", "DELETE", null);
+            quickRequest("/users/" + `{{.User.ID.Hex}}`, "DELETE", null);
         });
     });
 

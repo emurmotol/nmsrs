@@ -4,17 +4,14 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"mime/multipart"
 	"os"
 	"path/filepath"
-	"strings"
 	"time"
 
 	"gopkg.in/mgo.v2/bson"
 
 	"github.com/zneyrl/nmsrs-lookup/db"
 	"github.com/zneyrl/nmsrs-lookup/env"
-	"github.com/zneyrl/nmsrs-lookup/helpers/img"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 )
 
@@ -22,7 +19,7 @@ var (
 	ErrInvalidObjectID    = errors.New("Invalid object ID")
 	ErrActionNotPermitted = errors.New("Action not permitted")
 	ErrEmailTaken         = errors.New("Email has already been taken")
-	ContentDir            = "content/users"
+	contentDir            = "content/users"
 )
 
 type User struct {
@@ -32,7 +29,7 @@ type User struct {
 	Password        string        `schema:"password" json:"password" bson:"password,omitempty" validate:"required,min=6"`
 	ConfirmPassword string        `schema:"confirm_password" json:"confirm_password" bson:",omitempty" validate:"required,eqfield=Password"`
 	IsAdmin         bool          `schema:"is_admin" json:"is_admin" bson:"isAdmin"`
-	PhotoIsSet      bool          `schema:"photo_is_set" json:"photo_is_set" bson:"photoIsSet,omitempty"`
+	PhotoIsSet      bool          `schema:"photo_is_set" json:"photo_is_set" bson:"photoIsSet"`
 	CreatedAt       int64         `schema:"created_at" json:"created_at" bson:"createdAt,omitempty"`
 	UpdatedAt       int64         `schema:"updated_at" json:"updated_at" bson:"updatedAt,omitempty"`
 }
@@ -83,7 +80,7 @@ func (usr *User) Delete() error {
 	if err := db.Users.RemoveId(usr.ID); err != nil {
 		return err
 	}
-	dir := filepath.Join(ContentDir, id)
+	dir := filepath.Join(contentDir, id)
 	_, err := os.Stat(dir)
 
 	if err == nil {
@@ -109,22 +106,8 @@ func DeleteMany(ids []string) error {
 	return nil
 }
 
-func SetPhoto(file multipart.File, handler *multipart.FileHeader, id string) error {
-	filename := fmt.Sprintf("default%s", strings.ToLower(filepath.Ext(handler.Filename)))
-	name := filepath.Join(ContentDir, id, "photo", filename)
-
-	if err := img.Save(file, handler, name); err != nil {
-		return err
-	}
-
-	if err := db.Users.UpdateId(bson.ObjectIdHex(id), bson.M{"$set": bson.M{"photoIsSet": true}}); err != nil {
-		return err
-	}
-	return nil
-}
-
 func MakeReadMeFile(id string) error {
-	file := filepath.Join(ContentDir, id, "README.md")
+	file := filepath.Join(contentDir, id, "README.md")
 
 	dir := filepath.Dir(file)
 	_, err := os.Stat(dir)

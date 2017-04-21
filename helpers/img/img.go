@@ -18,7 +18,7 @@ import (
 var (
 	mimes            = []string{"image/jpeg", "image/png", "image/gif"}
 	ErrImageNotValid = errors.New("We only support PNG, GIF, or JPG pictures")
-	ErrImageToLarge  = fmt.Errorf("Please upload a picture smaller than %s", str.BytesForHumans(env.DefaultMaxImageUploadSize))
+	ErrImageToLarge  = fmt.Errorf("Please select a picture smaller than %s", str.BytesForHumans(env.DefaultMaxImageUploadSize))
 )
 
 func Save(file multipart.File, handler *multipart.FileHeader, name string) error {
