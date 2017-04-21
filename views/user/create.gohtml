@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" class="btn btn-outline-primary" value="Create">
+            <button role="button" type="submit" class="btn btn-outline-primary">Create</button>
         </form>
     </div>
 </div>
@@ -78,7 +78,7 @@
                 "password",
                 "confirm_password"
             ];
-            makeRequest($(this).attr("action"), $(this).attr("method"), validateFields, (new FormData(this)), true);
+            makeRequest(this, validateFields, true);
         });
 
         setCheckboxBoolValue($("#is_admin"));

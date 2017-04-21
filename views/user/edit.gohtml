@@ -38,7 +38,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-outline-primary" value="Update profile">
+                    <button role="button" type="submit" class="btn btn-outline-primary btn-block">Update profile</button>
                 </form>
             </div>
             <div class="tab-pane" id="reset-password">
@@ -55,7 +55,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-outline-primary" value="Update password">
+                    <button role="button" type="submit" class="btn btn-outline-primary">Update password</button>
                 </form>
             </div>
         </div>
@@ -66,19 +66,12 @@
     $(function () {
         $("#edit_user_form").on("submit", function (e) {
             e.preventDefault();
-            makeRequest($(this).attr("action"), $(this).attr("method"), ["name", "email"], {
-                "name": $("#name").val(),
-                "email": $("#email").val(),
-                "is_admin": $("#is_admin").is(":checked")
-            }, true);
+            makeRequest(this, ["name", "email"], true);
         });
 
         $("#reset_password_form").on("submit", function (e) {
             e.preventDefault();
-            makeRequest($(this).attr("action"), $(this).attr("method"), ["password", "confirm_password"], {
-                "password": $("#password").val(),
-                "confirm_password": $("#confirm_password").val()
-            }, false);
+            makeRequest(this, ["password", "confirm_password"], false);
         });
     });
 

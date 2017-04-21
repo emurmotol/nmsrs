@@ -1,13 +1,11 @@
 package user
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/zneyrl/nmsrs-lookup/helpers/flash"
 	"github.com/zneyrl/nmsrs-lookup/helpers/img"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
-	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
 	"github.com/zneyrl/nmsrs-lookup/models/user"
@@ -58,7 +56,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 
 	if err := user.CheckEmailIfTaken(usr.Email); err != nil {
 		if _, ok := errs["email"]; !ok {
-			errs["email"] = str.UpperCaseFirstChar(err.Error())
+			errs["email"] = err.Error()
 		}
 	}
 
@@ -67,8 +65,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		if err := img.Validate(photo, handler); err != nil {
 			if err == img.ErrImageNotValid || err == img.ErrImageToLarge { // TODO: Add new custom err here
 				if _, ok := errs[photoFieldName]; !ok {
-					// TODO: Use validate var
-					errs[photoFieldName] = fmt.Sprintf("%s %s", str.SnakeCaseToSentenceCase(photoFieldName), err.Error())
+					errs[photoFieldName] = err.Error()
 				}
 			} else {
 				res.JSON(w, res.Make{

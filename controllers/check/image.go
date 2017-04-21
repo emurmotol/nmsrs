@@ -1,7 +1,6 @@
 package check
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -43,7 +42,7 @@ func Image(w http.ResponseWriter, r *http.Request) {
 					Status: http.StatusInternalServerError,
 					Data:   "",
 					Errors: map[string]string{
-						photoFieldName: fmt.Sprintf("%s %s", str.SnakeCaseToSentenceCase(photoFieldName), err.Error()),
+						photoFieldName: str.SnakeCaseToSentenceCase(err.Error()),
 					},
 				})
 				return

@@ -2,19 +2,23 @@ package img
 
 import (
 	"bytes"
-	"errors"
 	"io"
 	"mime/multipart"
 	"os"
 	"path/filepath"
 
+	"fmt"
+
+	"errors"
+
 	"github.com/zneyrl/nmsrs-lookup/env"
+	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 )
 
 var (
 	mimes            = []string{"image/jpeg", "image/png", "image/gif"}
-	ErrImageNotValid = errors.New("not a valid image")
-	ErrImageToLarge  = errors.New("to large") // TODO: Include size in mb
+	ErrImageNotValid = errors.New("We only support PNG, GIF, or JPG pictures")
+	ErrImageToLarge  = fmt.Errorf("Please upload a picture smaller than %s", str.BytesForHumans(env.DefaultMaxImageUploadSize))
 )
 
 func Save(photo multipart.File, handler *multipart.FileHeader, path string) error {

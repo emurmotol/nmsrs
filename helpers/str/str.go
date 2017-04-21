@@ -8,6 +8,8 @@ import (
 
 	"time"
 
+	"fmt"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -80,4 +82,26 @@ func ToJSONString(in interface{}) string {
 		log.Fatal(err)
 	}
 	return string(json)
+}
+
+func BytesForHumans(b int64) string {
+	const (
+		kb = 1024
+		mb = 1024 * kb
+		gb = 1024 * mb
+		tb = 1024 * gb
+	)
+
+	switch {
+	case b < kb:
+		return fmt.Sprintf("%d B", b)
+	case b < mb:
+		return fmt.Sprintf("%d KB", b/kb)
+	case b < gb:
+		return fmt.Sprintf("%d MB", b/mb)
+	case b < tb:
+		return fmt.Sprintf("%d GB", b/gb)
+	default:
+		return fmt.Sprintf("%d GB", b/tb)
+	}
 }

@@ -3,7 +3,7 @@ package user
 import (
 	"errors"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"mime/multipart"
 	"os"
 	"path/filepath"
@@ -19,9 +19,9 @@ import (
 )
 
 var (
-	ErrInvalidObjectID    = errors.New("invalid object ID")
-	ErrActionNotPermitted = errors.New("action not permitted")
-	ErrEmailTaken         = errors.New("email has already been taken")
+	ErrInvalidObjectID    = errors.New("Invalid object ID")
+	ErrActionNotPermitted = errors.New("Action not permitted")
+	ErrEmailTaken         = errors.New("Email has already been taken")
 	contentDir            = "content/users"
 )
 
@@ -56,7 +56,8 @@ func (usr *User) Insert() (string, error) {
 	if err := db.Users.Insert(usr); err != nil {
 		return "", err
 	}
-	return usr.ID.Hex(), nil
+	id := usr.ID.Hex()
+	return id, MakeReadMeFile(id)
 }
 
 func Find(id string) (User, error) {
@@ -122,18 +123,11 @@ func SetPhoto(photo multipart.File, handler *multipart.FileHeader, id string) er
 	return nil
 }
 
-func MakeTempFile(id string) error {
-	name := fmt.Sprintf("%s.tmp", id)
-	path := filepath.Join(contentDir, name)
-	file, err := os.Create(path)
+func MakeReadMeFile(id string) error {
+	file := filepath.Join(contentDir, id, "README.md")
+	content := fmt.Sprintf("id: %s\n", id)
 
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-	_, err = io.Copy(file, photo)
-
-	if err != nil {
+	if err := ioutil.WriteFile(file, []byte(content), 0644); err != nil {
 		return err
 	}
 	return nil

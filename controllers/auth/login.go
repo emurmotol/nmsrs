@@ -42,24 +42,19 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	errs := trans.StructHasError(authCredentials)
+	usr, err := user.FindByEmail(authCredentials.Email)
+
+	if err != nil {
+		if _, ok := errs["email"]; !ok {
+			errs["email"] = fmt.Sprintf("Sorry, %s doesn't recognize that email", env.AppName)
+		}
+	}
 
 	if len(errs) != 0 {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
 			Errors: errs,
-		})
-		return
-	}
-	usr, err := user.FindByEmail(authCredentials.Email)
-
-	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: map[string]interface{}{
-				"email": fmt.Sprintf("Sorry, %s doesn't recognize that email", env.AppName),
-			},
 		})
 		return
 	}

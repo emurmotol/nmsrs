@@ -105,17 +105,22 @@ $(function () {
         });
     }
 
-    makeRequest = function (action, method, fields, data, isMultipart) {
+    makeRequest = function (form, fields, isMultipart) {
         var alert = $("#alert");
-        var content_type = false
+        var content_type = false;
+        var data = (new FormData(form));
+        var submitButton = $(form).find(":submit");
+        var oldText = submitButton.text();
+        submitButton.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Loading...`)
 
         if (!isMultipart) {
             content_type = "application/x-www-form-urlencoded; charset=UTF-8";
+            data = $(form).serialize();
         }
 
         $.ajax({
-            url: action,
-            type: method,
+            url: $(form).attr("action"),
+            type: $(form).attr("method"),
             data: data,
             dataType: "json",
             contentType: content_type,
@@ -165,6 +170,8 @@ $(function () {
             }, error: function (r) {
                 console.log(r);
             }
+        }).done(function() {
+            submitButton.html(oldText)
         });
     }
 });

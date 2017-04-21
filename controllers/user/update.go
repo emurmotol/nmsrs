@@ -5,7 +5,6 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
-	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
 	"github.com/zneyrl/nmsrs-lookup/models/user"
@@ -66,7 +65,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	if !sameAsOld {
 		if err := user.CheckEmailIfTaken(profile.Email); err != nil {
 			if _, ok := errs["email"]; !ok {
-				errs["email"] = str.UpperCaseFirstChar(err.Error())
+				errs["email"] = err.Error()
 			}
 		}
 	}

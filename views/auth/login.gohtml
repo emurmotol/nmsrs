@@ -7,7 +7,7 @@
     <div class="form-group">
         <input type="password" class="form-control" name="password" id="password" placeholder="Password">
     </div>
-    <input type="submit" class="btn btn-outline-primary btn-block" value="Login">
+    <button role="button" type="submit" class="btn btn-outline-primary btn-block">Login</button>
 </form>
 {{end}} {{define "script"}}
 <script>
@@ -18,7 +18,7 @@
                 "email",
                 "password"
             ];
-            makeRequest($(this).attr("action"), $(this).attr("method"), validateFields, $(this).serialize(), false);
+            makeRequest(this, validateFields, false);
         });
     });
 
