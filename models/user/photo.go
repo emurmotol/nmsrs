@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/zneyrl/nmsrs-lookup/db"
-	"github.com/zneyrl/nmsrs-lookup/helpers/img"
+	"github.com/zneyrl/nmsrs-lookup/helpers/fi"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -16,7 +16,7 @@ func SetPhoto(file multipart.File, handler *multipart.FileHeader, id string) err
 	filename := fmt.Sprintf("default%s", strings.ToLower(filepath.Ext(handler.Filename)))
 	name := filepath.Join(contentDir, id, "photo", filename)
 
-	if err := img.Save(file, handler, name); err != nil {
+	if err := fi.Save(file, handler, name); err != nil {
 		return err
 	}
 

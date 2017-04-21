@@ -6,6 +6,8 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/zneyrl/nmsrs-lookup/helpers/fi"
+
 	"time"
 
 	"fmt"
@@ -85,12 +87,10 @@ func ToJSONString(in interface{}) string {
 }
 
 func BytesForHumans(b int64) string {
-	const (
-		kb = 1024
-		mb = 1024 * kb
-		gb = 1024 * mb
-		tb = 1024 * gb
-	)
+	kb := fi.KB
+	mb := fi.MB
+	gb := fi.GB
+	tb := fi.TB
 
 	switch {
 	case b < kb:

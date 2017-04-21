@@ -38,3 +38,4 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 * https://stackoverflow.com/questions/17129797/golang-how-to-check-multipart-file-information
 * https://github.com/asaskevich/govalidator
 * https://github.com/moxiecode/plupload
+* http://stackoverflow.com/questions/17129797/golang-how-to-check-multipart-file-information

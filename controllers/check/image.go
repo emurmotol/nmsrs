@@ -56,7 +56,9 @@ func Image(w http.ResponseWriter, r *http.Request) {
 
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
-		Data:   "",
+		Data: map[string]string{
+			"message": "Image is valid",
+		},
 		Errors: "",
 	})
 	return
