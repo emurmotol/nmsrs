@@ -13,3 +13,6 @@ func TechnicalTrainingAndRelevantExperience(w http.ResponseWriter, r *http.Reque
 	funcMap := map[string]interface{}{}
 	tmpl.Render(w, r, "dashboard", "registrant.create.technical_training_and_relevant_experience", data, funcMap)
 }
+
+func UpdateTechnicalTrainingAndRelevantExperience(w http.ResponseWriter, r *http.Request) {
+}

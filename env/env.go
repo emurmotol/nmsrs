@@ -67,7 +67,7 @@ func init() {
 
 	// Default
 	flag.StringVar(&DefaultUserPhoto, "DefaultUserPhoto", "/img/user/default.jpg", "Default user photo")
-	flag.StringVar(&DefaultRegistrantPhoto, "DefaultRegistrantPhoto", "/img/user/default.jpg", "Default registrant photo")
+	flag.StringVar(&DefaultRegistrantPhoto, "DefaultRegistrantPhoto", "/img/registrant/default.jpg", "Default registrant photo")
 	flag.Int64Var(&DefaultMaxImageUploadSize, "DefaultMaxImageUploadSize", int64(1*fi.MB), "Default max image upload size")
 
 	// Parse flags

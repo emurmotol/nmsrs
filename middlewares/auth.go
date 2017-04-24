@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	privateKeyPath = "temp/.ssh/app.rsa"     // openssl genrsa -out app.rsa keysize
-	publicKeyPath  = "temp/.ssh/app.rsa.pub" // openssl rsa -in app.rsa -pubout > app.rsa.pub
+	privateKeyPath = "keys/.ssh/app.rsa"     // openssl genrsa -out app.rsa keysize
+	publicKeyPath  = "keys/.ssh/app.rsa.pub" // openssl rsa -in app.rsa -pubout > app.rsa.pub
 	signKey        *rsa.PrivateKey
 	verifyKey      *rsa.PublicKey
 	TokenName      = "AccessToken"

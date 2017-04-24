@@ -9,8 +9,9 @@ import (
 )
 
 var (
-	DB    *mgo.Database
-	Users *mgo.Collection
+	DB          *mgo.Database
+	Users       *mgo.Collection
+	Registrants *mgo.Collection
 )
 
 func init() {
@@ -25,4 +26,5 @@ func init() {
 	}
 	DB = s.DB(env.DBName)
 	Users = DB.C("users")
+	Registrants = DB.C("registrants")
 }

@@ -13,3 +13,6 @@ func FormalEducation(w http.ResponseWriter, r *http.Request) {
 	funcMap := map[string]interface{}{}
 	tmpl.Render(w, r, "dashboard", "registrant.create.formal_education", data, funcMap)
 }
+
+func UpdateFormalEducation(w http.ResponseWriter, r *http.Request) {
+}
