@@ -18,7 +18,7 @@ type Sizer interface {
 	Size() int64
 }
 
-func Save(file multipart.File, handler *multipart.FileHeader, name string) error {
+func Save(file multipart.File, name string) error {
 	defer file.Close()
 	dir := filepath.Dir(name)
 	_, err := os.Stat(dir)
@@ -31,7 +31,7 @@ func Save(file multipart.File, handler *multipart.FileHeader, name string) error
 	if err != nil {
 		return err
 	}
-	err = ioutil.WriteFile(name, data, 0644)
+	err = ioutil.WriteFile(name, data, 0666)
 
 	if err != nil {
 		return err

@@ -136,16 +136,21 @@ $(function () {
         });
     }
 
-    makeRequest = function (form, fields, isMultipart) {
+    makeRequest = function (form, fields) {
         var alert = $("#alert");
-        var content_type = false;
-        var data = (new FormData(form));
         var submitButton = $(form).find(":submit");
         var oldText = submitButton.text();
         submitButton.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Please wait...`)
 
-        if (!isMultipart) {
-            content_type = "application/x-www-form-urlencoded; charset=UTF-8";
+        var content_type = "";
+        var data = "";
+        var enctype = $(form).prop("enctype");
+
+        if (enctype == "multipart/form-data") {
+            content_type = false;
+            data = (new FormData(form));
+        } else {
+            content_type = enctype;
             data = $(form).serialize();
         }
 

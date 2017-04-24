@@ -51,7 +51,7 @@
                 "password",
                 "confirm_password"
             ];
-            makeRequest(this, validateFields, true);
+            makeRequest(this, validateFields);
         });
 
         validateImage($("#photo"), parseInt("{{.Config.Default.MaxImageUploadSize}}"));

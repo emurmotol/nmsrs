@@ -65,7 +65,7 @@ func init() {
 	flag.StringVar(&AdminPassword, "AdminPassword", "secret", "Administrator default password")
 
 	// Default
-	flag.StringVar(&DefaultUserPhoto, "DefaultUserPhoto", "/img/user/default.png", "Default user photo") // TODO: Convert to .jpg
+	flag.StringVar(&DefaultUserPhoto, "DefaultUserPhoto", "/img/user/default.jpg", "Default user photo") // TODO: Convert to .jpg
 	flag.Int64Var(&DefaultMaxImageUploadSize, "DefaultMaxImageUploadSize", int64(1*fi.MB), "Default max image upload size")
 
 	// Parse flags

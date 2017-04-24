@@ -40,8 +40,8 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	photoFieldName := "photo"
-	file, handler, err := r.FormFile(photoFieldName)
-	newFileInstance, newHandlerInstance, _ := r.FormFile(photoFieldName) // TODO: Duplicate instance of form file
+	file, _, err := r.FormFile(photoFieldName)
+	newFileInstance, handler, _ := r.FormFile(photoFieldName) // TODO: Duplicate instance of form file
 
 	if err != nil {
 		if err != http.ErrMissingFile {
@@ -87,7 +87,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if file != nil {
-		if err := img.Validate(newFileInstance, newHandlerInstance); err != nil {
+		if err := img.Validate(newFileInstance, handler); err != nil {
 			if err == img.ErrImageNotValid || err == img.ErrImageToLarge { // TODO: Add new custom err here
 				if _, ok := errs[photoFieldName]; !ok {
 					errs[photoFieldName] = err.Error()
@@ -101,7 +101,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		} else {
-			if err := user.SetPhoto(file, handler, id); err != nil {
+			if err := user.SetPhoto(file, id); err != nil {
 				res.JSON(w, res.Make{
 					Status: http.StatusInternalServerError,
 					Data:   "",

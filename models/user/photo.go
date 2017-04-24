@@ -1,23 +1,20 @@
 package user
 
 import (
-	"fmt"
 	"mime/multipart"
 	"path"
 	"path/filepath"
-	"strings"
 
 	"github.com/zneyrl/nmsrs-lookup/db"
 	"github.com/zneyrl/nmsrs-lookup/env"
-	"github.com/zneyrl/nmsrs-lookup/helpers/fi"
+	"github.com/zneyrl/nmsrs-lookup/helpers/img"
 	"gopkg.in/mgo.v2/bson"
 )
 
-func SetPhoto(file multipart.File, handler *multipart.FileHeader, id string) error {
-	filename := fmt.Sprintf("default%s", strings.ToLower(filepath.Ext(handler.Filename)))
-	name := filepath.Join(contentDir, id, "photo", filename)
+func SetPhoto(file multipart.File, id string) error {
+	name := filepath.Join(contentDir, id, "photo", "default.jpg")
 
-	if err := fi.Save(file, handler, name); err != nil {
+	if err := img.SaveAsJPEG(file, name); err != nil {
 		return err
 	}
 

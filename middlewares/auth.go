@@ -47,7 +47,7 @@ func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 
 	switch {
 	case err == http.ErrNoCookie:
-		http.Redirect(w, r, env.URL("/login"), http.StatusUnauthorized)
+		http.Redirect(w, r, env.URL("/login"), http.StatusFound)
 		return
 	case err != nil:
 		log.Fatal(err)
@@ -60,7 +60,7 @@ func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 	switch err.(type) {
 	case nil:
 		if !token.Valid {
-			http.Redirect(w, r, env.URL("/logout"), http.StatusUnauthorized)
+			http.Redirect(w, r, env.URL("/logout"), http.StatusFound)
 			return
 		}
 		next(w, r)
@@ -70,7 +70,7 @@ func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 
 		switch validationError.Errors {
 		case jwt.ValidationErrorExpired:
-			http.Redirect(w, r, env.URL("/login"), http.StatusUnauthorized)
+			http.Redirect(w, r, env.URL("/login"), http.StatusFound)
 			return
 		default:
 			log.Fatal(err)
