@@ -11,8 +11,10 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// var photoPath =
+
 func SetPhoto(file multipart.File, id string) error {
-	name := filepath.Join(contentDir, id, "photo", "default.jpg")
+	name := filepath.Join(contentDir, id, "photo", filepath.Base(env.DefaultUserPhoto))
 
 	if err := img.SaveAsJPEG(file, name); err != nil {
 		return err

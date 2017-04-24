@@ -73,6 +73,7 @@
                 {{end}}
                 <div id="alert"></div>
                 {{template "content" .}}
+                <h1>{{with .AuthUser}}{{.Email}}{{end}}</h1>
             </div>
         </div>
         <script src="/js/jquery-3.1.1.min.js"></script>

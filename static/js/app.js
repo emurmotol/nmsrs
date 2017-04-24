@@ -136,7 +136,7 @@ $(function () {
         });
     }
 
-    makeRequest = function (form, fields) {
+    makeRequest = function (form, validate_fields) {
         var alert = $("#alert");
         var submitButton = $(form).find(":submit");
         var oldText = submitButton.text();
@@ -164,7 +164,7 @@ $(function () {
             success: function (r) {
                 alert.empty();
 
-                $.each(fields, function (k, v) {
+                $.each(validate_fields, function (k, v) {
                     var field = $("#" + v);
                     removeErrorMarkup(field);
                 });

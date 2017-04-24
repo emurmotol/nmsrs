@@ -44,14 +44,14 @@
     $(function () {
         $("#create_user_form").on("submit", function (e) {
             e.preventDefault();
-            var validateFields = [
+            var validate_fields = [
                 "photo",
                 "name",
                 "email",
                 "password",
                 "confirm_password"
             ];
-            makeRequest(this, validateFields);
+            makeRequest(this, validate_fields);
         });
 
         validateImage($("#photo"), parseInt("{{.Config.Default.MaxImageUploadSize}}"));

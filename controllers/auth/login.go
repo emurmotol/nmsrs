@@ -3,6 +3,7 @@ package auth
 import (
 	"net/http"
 
+	"github.com/zneyrl/nmsrs-lookup/env"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
@@ -12,6 +13,10 @@ import (
 )
 
 func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
+	if middlewares.GetAuthUserID(w, r) != "" {
+		http.Redirect(w, r, env.URL("/"), http.StatusFound)
+	}
+
 	data := map[string]interface{}{
 		"Title": "Login",
 	}
@@ -20,6 +25,10 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
+	if middlewares.GetAuthUserID(w, r) != "" {
+		return
+	}
+
 	var authCredentials user.AuthCredentials
 
 	if err := r.ParseForm(); err != nil {
@@ -68,7 +77,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	http.SetCookie(w, &http.Cookie{
 		Name:       middlewares.TokenName,
-		Value:      middlewares.GetToken(),
+		Value:      middlewares.GetUserToken(usr.ID.Hex()),
 		Path:       "/",
 		RawExpires: "0",
 	})

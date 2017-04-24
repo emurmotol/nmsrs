@@ -12,6 +12,8 @@ import (
 	"github.com/zneyrl/nmsrs-lookup/env"
 	"github.com/zneyrl/nmsrs-lookup/helpers/flash"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
+	"github.com/zneyrl/nmsrs-lookup/middlewares"
+	"github.com/zneyrl/nmsrs-lookup/models/user"
 )
 
 var (
@@ -59,6 +61,13 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 		log.Fatal(err)
 	}
 	data["Flash"] = f
+	id := middlewares.GetAuthUserID(w, r)
+	var usr user.User
+
+	if id != "" {
+		usr, _ = user.Find(id)
+	}
+	data["AuthUser"] = usr
 
 	if err := tmpl.ExecuteTemplate(w, layout, data); err != nil {
 		log.Fatal(err)

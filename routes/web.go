@@ -16,34 +16,36 @@ import (
 )
 
 func Web() *mux.Router {
-	r := mux.NewRouter()
-	r.Path("/").Methods("GET").HandlerFunc(home.Index)
-	r.Path("/welcome").Methods("GET").HandlerFunc(home.Welcome)
+	route := mux.NewRouter().StrictSlash(true)
+	route.Path("/").Methods("GET").HandlerFunc(home.Index)
+	route.Path("/welcome").Methods("GET").HandlerFunc(home.Welcome)
 
-	login := r.Path("/login").Subrouter()
+	login := route.Path("/login").Subrouter()
 	login.Methods("GET").HandlerFunc(auth.ShowLoginForm)
 	login.Methods("POST").HandlerFunc(auth.Login)
 
-	r.Path("/dashboard").Methods("GET").Handler(middlewares.Secure(dashboard.Index))
+	route.Path("/logout").Methods("GET").Handler(middlewares.Secure(auth.Logout))
 
-	r.Path("/users").Methods("GET").Handler(middlewares.Secure(user.Index))
-	r.Path("/users/create").Methods("GET").Handler(middlewares.Secure(user.Create))
-	r.Path("/users").Methods("POST").Handler(middlewares.Secure(user.Store))
-	r.Path("/users/ids").Methods("POST").Handler(middlewares.Secure(user.DestroyMany))
-	r.Path("/users/{id}").Methods("GET").Handler(middlewares.Secure(user.Show))
-	r.Path("/users/{id}/edit").Methods("GET").Handler(middlewares.Secure(user.Edit))
-	r.Path("/users/{id}/photo").Methods("GET").Handler(middlewares.Secure(user.Photo))
-	r.Path("/users/{id}").Methods("PUT").Handler(middlewares.Secure(user.UpdateProfile))
-	r.Path("/users/{id}").Methods("DELETE").Handler(middlewares.Secure(user.Destroy))
-	r.Path("/users/{id}/reset-password").Methods("POST").Handler(middlewares.Secure(user.ResetPassword))
+	route.Path("/dashboard").Methods("GET").Handler(middlewares.Secure(dashboard.Index))
 
-	r.Path("/applicants").Methods("GET").Handler(middlewares.Secure(applicant.Index))
-	r.Path("/reports").Methods("GET").Handler(middlewares.Secure(reports.Index))
+	route.Path("/users").Methods("GET").Handler(middlewares.Secure(user.Index))
+	route.Path("/users/create").Methods("GET").Handler(middlewares.Secure(user.Create))
+	route.Path("/users").Methods("POST").Handler(middlewares.Secure(user.Store))
+	route.Path("/users/ids").Methods("POST").Handler(middlewares.Secure(user.DestroyMany))
+	route.Path("/users/{id}").Methods("GET").Handler(middlewares.Secure(user.Show))
+	route.Path("/users/{id}/edit").Methods("GET").Handler(middlewares.Secure(user.Edit))
+	route.Path("/users/{id}/photo").Methods("GET").Handler(middlewares.Secure(user.Photo))
+	route.Path("/users/{id}").Methods("PUT").Handler(middlewares.Secure(user.UpdateProfile))
+	route.Path("/users/{id}").Methods("DELETE").Handler(middlewares.Secure(user.Destroy))
+	route.Path("/users/{id}/reset-password").Methods("POST").Handler(middlewares.Secure(user.ResetPassword))
 
-	r.Path("/check/file/image/{id}").Methods("POST").Handler(middlewares.Secure(check.Image))
+	route.Path("/applicants").Methods("GET").Handler(middlewares.Secure(applicant.Index))
+	route.Path("/reports").Methods("GET").Handler(middlewares.Secure(reports.Index))
 
-	r.Path("/search").Methods("GET").Handler(middlewares.Secure(search.Index))
-	r.Path("/results").Methods("GET").Handler(middlewares.Secure(search.Results))
-	r.PathPrefix("/").Handler(http.FileServer(http.Dir("static")))
-	return r
+	route.Path("/check/file/image/{id}").Methods("POST").Handler(middlewares.Secure(check.Image))
+
+	route.Path("/search").Methods("GET").Handler(middlewares.Secure(search.Index))
+	route.Path("/results").Methods("GET").Handler(middlewares.Secure(search.Results))
+	route.PathPrefix("/").Handler(http.FileServer(http.Dir("static")))
+	return route
 }
