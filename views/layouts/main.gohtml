@@ -31,13 +31,18 @@
                 <img src="/img/logo/dole/1144x1024.png" height="30" class="d-inline-block align-top" alt="DOLE Logo">&nbsp;{{.Config.App.Name}}
             </a>
             <div class="collapse navbar-collapse" id="app_navbar_collapse">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav mr-auto mt-1">
                     <li class="nav-item">
                         <form class="form-inline">
                             <input class="form-control" type="text" placeholder="Search">
                         </form>
                     </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {{with .AuthUser}}
+                    {{else}}
                     <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+                    {{end}}
                 </ul>
             </div>
         </div>

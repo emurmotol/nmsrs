@@ -4,11 +4,11 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/zneyrl/nmsrs-lookup/controllers/applicant"
 	"github.com/zneyrl/nmsrs-lookup/controllers/auth"
 	"github.com/zneyrl/nmsrs-lookup/controllers/check"
 	"github.com/zneyrl/nmsrs-lookup/controllers/dashboard"
 	"github.com/zneyrl/nmsrs-lookup/controllers/home"
+	"github.com/zneyrl/nmsrs-lookup/controllers/registrant"
 	"github.com/zneyrl/nmsrs-lookup/controllers/reports"
 	"github.com/zneyrl/nmsrs-lookup/controllers/search"
 	"github.com/zneyrl/nmsrs-lookup/controllers/user"
@@ -39,7 +39,17 @@ func Web() *mux.Router {
 	route.Path("/users/{id}").Methods("DELETE").Handler(middlewares.Secure(user.Destroy))
 	route.Path("/users/{id}/reset-password").Methods("POST").Handler(middlewares.Secure(user.ResetPassword))
 
-	route.Path("/applicants").Methods("GET").Handler(middlewares.Secure(applicant.Index))
+	route.Path("/registrants").Methods("GET").Handler(middlewares.Secure(registrant.Index))
+	route.Path("/registrants/{id}/profile").Methods("PUT").Handler(middlewares.Secure(registrant.Profile))
+	route.Path("/registrants/{id}/formal-education").Methods("PUT").Handler(middlewares.Secure(registrant.FormalEducation))
+	route.Path("/registrants/{id}/professional-license").Methods("PUT").Handler(middlewares.Secure(registrant.ProfessionalLicense))
+	route.Path("/registrants/{id}/eligibility").Methods("PUT").Handler(middlewares.Secure(registrant.Eligibility))
+	route.Path("/registrants/{id}/technical-training-and-relevant-experience").Methods("PUT").Handler(middlewares.Secure(registrant.TechnicalTrainingAndRelevantExperience))
+	route.Path("/registrants/{id}/certificate-of-competence").Methods("PUT").Handler(middlewares.Secure(registrant.CertificateOfCompetence))
+	route.Path("/registrants/{id}/work-experience").Methods("PUT").Handler(middlewares.Secure(registrant.WorkExperience))
+	route.Path("/registrants/{id}/other-skills-aquired-without-formal-training").Methods("PUT").Handler(middlewares.Secure(registrant.OtherSkillsAquiredWithoutFormalTraining))
+	route.Path("/registrants/{id}/certification-authorization").Methods("PUT").Handler(middlewares.Secure(registrant.CertificationAuthorization))
+
 	route.Path("/reports").Methods("GET").Handler(middlewares.Secure(reports.Index))
 
 	route.Path("/check/file/image/{id}").Methods("POST").Handler(middlewares.Secure(check.Image))

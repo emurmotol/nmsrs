@@ -31,12 +31,26 @@
                 <img src="/img/logo/dole/1144x1024.png" height="30" class="d-inline-block align-top" alt="DOLE Logo">&nbsp;{{.Config.App.Name}}
             </a>
             <div class="collapse navbar-collapse" id="app_navbar_collapse">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav mr-auto mt-1">
                     <li class="nav-item">
                         <form class="form-inline">
                             <input class="form-control" type="text" placeholder="Search">
                         </form>
                     </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {{$defaultUserPhoto := .Config.Default.UserPhoto}}
+                    {{with .AuthUser}}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/users/{{.ID.Hex}}" id="drop_down_{{.ID.Hex}}" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <img src="{{if .PhotoIsSet}}/users/{{.ID.Hex}}/photo{{else}}{{$defaultUserPhoto}}{{end}}" class="rounded nav-user-photo" height="30" alt="{{.Name}}"> {{.Name}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="drop_down_{{.ID.Hex}}">
+                            <a class="dropdown-item" href="/logout">Logout</a>
+                        </div>
+                    </li>
+                    {{end}}
                 </ul>
             </div>
         </div>
@@ -47,12 +61,12 @@
                 <ul class="nav nav-pills flex-column mb-3">
                     <li class="nav-item">
                         <a class="nav-link{{if eq .Request.URL.Path `/users`}} active{{end}}" href="/users">
-                            <i class="fa fa-users"></i> Users
+                            <i class="fa fa-user-o"></i> Users
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link{{if eq .Request.URL.Path `/applicants`}} active{{end}}" href="/applicants">
-                            <i class="fa fa-briefcase"></i> Applicants
+                        <a class="nav-link{{if eq .Request.URL.Path `/registrants`}} active{{end}}" href="/registrants">
+                            <i class="fa fa-users"></i> Registrants
                         </a>
                     </li>
                     <li class="nav-item">
@@ -73,7 +87,6 @@
                 {{end}}
                 <div id="alert"></div>
                 {{template "content" .}}
-                <h1>{{with .AuthUser}}{{.Email}}{{end}}</h1>
             </div>
         </div>
         <script src="/js/jquery-3.1.1.min.js"></script>

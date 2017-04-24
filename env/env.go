@@ -35,13 +35,14 @@ var (
 
 	// Default
 	DefaultUserPhoto          string
+	DefaultRegistrantPhoto    string
 	DefaultMaxImageUploadSize int64
 )
 
 func init() {
 	// App
 	flag.StringVar(&AppKey, "AppKey", "secret", "Application secret key")
-	flag.StringVar(&AppName, "AppName", "Applicant Lookup", "Application name")
+	flag.StringVar(&AppName, "AppName", "NMSRS", "Application name")
 	flag.StringVar(&Locale, "Locale", "en", "Language")
 	flag.StringVar(&CharSet, "CharSet", "UTF-8", "Character set")
 
@@ -65,7 +66,8 @@ func init() {
 	flag.StringVar(&AdminPassword, "AdminPassword", "secret", "Administrator default password")
 
 	// Default
-	flag.StringVar(&DefaultUserPhoto, "DefaultUserPhoto", "/img/user/default.jpg", "Default user photo") // TODO: Convert to .jpg
+	flag.StringVar(&DefaultUserPhoto, "DefaultUserPhoto", "/img/user/default.jpg", "Default user photo")
+	flag.StringVar(&DefaultRegistrantPhoto, "DefaultRegistrantPhoto", "/img/user/default.jpg", "Default registrant photo")
 	flag.Int64Var(&DefaultMaxImageUploadSize, "DefaultMaxImageUploadSize", int64(1*fi.MB), "Default max image upload size")
 
 	// Parse flags

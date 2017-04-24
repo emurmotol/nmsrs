@@ -1,4 +1,4 @@
-package applicant
+package registrant
 
 import (
 	"net/http"
@@ -8,8 +8,8 @@ import (
 
 func Index(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
-		"Title": "Applicants",
+		"Title": "Registrants",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "dashboard", "applicant.index", data, funcMap)
+	tmpl.Render(w, r, "dashboard", "registrant.index", data, funcMap)
 }

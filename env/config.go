@@ -33,6 +33,7 @@ func Config() interface{} {
 		},
 		"Default": map[string]string{
 			"UserPhoto":          DefaultUserPhoto,
+			"RegistrantPhoto":    DefaultRegistrantPhoto,
 			"MaxImageUploadSize": strconv.FormatInt(DefaultMaxImageUploadSize, 10),
 		},
 	}
