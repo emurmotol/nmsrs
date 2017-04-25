@@ -13,9 +13,9 @@ import (
 
 	"errors"
 
-	"github.com/zneyrl/nmsrs-lookup/env"
-	"github.com/zneyrl/nmsrs-lookup/helpers/fi"
-	"github.com/zneyrl/nmsrs-lookup/helpers/str"
+	"github.com/zneyrl/nmsrs/env"
+	"github.com/zneyrl/nmsrs/helpers/fi"
+	"github.com/zneyrl/nmsrs/helpers/str"
 )
 
 var (

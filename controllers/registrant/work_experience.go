@@ -3,7 +3,7 @@ package registrant
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tmpl"
 )
 
 func WorkExperience(w http.ResponseWriter, r *http.Request) {

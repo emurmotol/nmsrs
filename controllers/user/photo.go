@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/zneyrl/nmsrs-lookup/models/user"
+	"github.com/zneyrl/nmsrs/models/user"
 )
 
 func Photo(w http.ResponseWriter, r *http.Request) {

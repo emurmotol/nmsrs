@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/sessions"
-	"github.com/zneyrl/nmsrs-lookup/env"
+	"github.com/zneyrl/nmsrs/env"
 )
 
 var (

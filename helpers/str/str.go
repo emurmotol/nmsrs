@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/zneyrl/nmsrs-lookup/helpers/fi"
+	"github.com/zneyrl/nmsrs/helpers/fi"
 
 	"time"
 

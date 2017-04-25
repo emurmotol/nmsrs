@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/zneyrl/nmsrs-lookup/helpers/img"
-	"github.com/zneyrl/nmsrs-lookup/helpers/res"
+	"github.com/zneyrl/nmsrs/helpers/img"
+	"github.com/zneyrl/nmsrs/helpers/res"
 )
 
 func Image(w http.ResponseWriter, r *http.Request) {

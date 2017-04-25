@@ -6,8 +6,8 @@ import (
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/zneyrl/nmsrs-lookup/env"
-	"github.com/zneyrl/nmsrs-lookup/middlewares"
+	"github.com/zneyrl/nmsrs/env"
+	"github.com/zneyrl/nmsrs/middlewares"
 )
 
 func GetToken(id string) string {

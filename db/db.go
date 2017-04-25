@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/zneyrl/nmsrs-lookup/env"
+	"github.com/zneyrl/nmsrs/env"
 	mgo "gopkg.in/mgo.v2"
 )
 

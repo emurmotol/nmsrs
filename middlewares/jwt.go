@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/zneyrl/nmsrs-lookup/env"
+	"github.com/zneyrl/nmsrs/env"
 )
 
 var (

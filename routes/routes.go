@@ -5,13 +5,15 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/urfave/negroni"
-	"github.com/zneyrl/nmsrs-lookup/controllers/auth"
-	"github.com/zneyrl/nmsrs-lookup/controllers/check"
-	"github.com/zneyrl/nmsrs-lookup/controllers/home"
-	"github.com/zneyrl/nmsrs-lookup/controllers/registrant"
-	"github.com/zneyrl/nmsrs-lookup/controllers/reports"
-	"github.com/zneyrl/nmsrs-lookup/controllers/search"
-	"github.com/zneyrl/nmsrs-lookup/controllers/user"
+	"github.com/zneyrl/nmsrs/controllers/auth"
+	"github.com/zneyrl/nmsrs/controllers/check"
+	"github.com/zneyrl/nmsrs/controllers/home"
+	"github.com/zneyrl/nmsrs/controllers/httperror"
+	"github.com/zneyrl/nmsrs/controllers/registrant"
+	"github.com/zneyrl/nmsrs/controllers/reports"
+	"github.com/zneyrl/nmsrs/controllers/search"
+	"github.com/zneyrl/nmsrs/controllers/user"
+	"github.com/zneyrl/nmsrs/middlewares"
 )
 
 func Register() *mux.Router {
@@ -29,8 +31,8 @@ func Register() *mux.Router {
 	adminRoutes := mux.NewRouter().StrictSlash(true)
 	users := adminRoutes.PathPrefix("/users").Subrouter()
 	users.Path("/").Methods("GET").HandlerFunc(user.Index)
-	users.Path("/create").Methods("GET").HandlerFunc(user.Create)
 	users.Path("/").Methods("POST").HandlerFunc(user.Store)
+	users.Path("/create").Methods("GET").HandlerFunc(user.Create)
 	users.Path("/ids").Methods("POST").HandlerFunc(user.DestroyMany)
 	users.Path("/{id}").Methods("GET").HandlerFunc(user.Show)
 	users.Path("/{id}/edit").Methods("GET").HandlerFunc(user.Edit)
@@ -72,10 +74,12 @@ func Register() *mux.Router {
 	login.Methods("GET").HandlerFunc(auth.ShowLoginForm)
 	login.Methods("POST").HandlerFunc(auth.Login)
 
-	// common := negroni.New(negroni.HandlerFunc(middlewares.ValidateToken))
-	// router.PathPrefix("/auth").Handler(common.With(negroni.Wrap(authRoutes)))
-	// router.PathPrefix("/admin").Handler(common.With(negroni.Wrap(adminRoutes)))
-	router.PathPrefix("/").Handler(negroni.New(negroni.Wrap(webRoutes)))
+	router.NotFoundHandler = http.HandlerFunc(httperror.Err404)
+
+	common := negroni.New(negroni.HandlerFunc(middlewares.ValidateToken))
+	router.PathPrefix("/auth").Handler(common.With(negroni.Wrap(authRoutes)))
+	router.PathPrefix("/admin").Handler(common.With(negroni.Wrap(adminRoutes)))
+	router.PathPrefix("/web").Handler(negroni.New(negroni.Wrap(webRoutes)))
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("static")))
 
 	return router

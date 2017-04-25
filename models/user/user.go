@@ -10,9 +10,9 @@ import (
 
 	"gopkg.in/mgo.v2/bson"
 
-	"github.com/zneyrl/nmsrs-lookup/db"
-	"github.com/zneyrl/nmsrs-lookup/env"
-	"github.com/zneyrl/nmsrs-lookup/helpers/str"
+	"github.com/zneyrl/nmsrs/db"
+	"github.com/zneyrl/nmsrs/env"
+	"github.com/zneyrl/nmsrs/helpers/str"
 )
 
 var (

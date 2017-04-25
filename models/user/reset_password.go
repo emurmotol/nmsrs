@@ -3,8 +3,8 @@ package user
 import (
 	"time"
 
-	"github.com/zneyrl/nmsrs-lookup/db"
-	"github.com/zneyrl/nmsrs-lookup/helpers/str"
+	"github.com/zneyrl/nmsrs/db"
+	"github.com/zneyrl/nmsrs/helpers/str"
 	"gopkg.in/mgo.v2/bson"
 )
 

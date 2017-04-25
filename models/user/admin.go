@@ -3,7 +3,7 @@ package user
 import (
 	"log"
 
-	"github.com/zneyrl/nmsrs-lookup/env"
+	"github.com/zneyrl/nmsrs/env"
 )
 
 func SetDefaultUser() {

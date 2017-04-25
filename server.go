@@ -6,9 +6,9 @@ import (
 	"fmt"
 
 	"github.com/urfave/negroni"
-	"github.com/zneyrl/nmsrs-lookup/env"
-	"github.com/zneyrl/nmsrs-lookup/models/user"
-	"github.com/zneyrl/nmsrs-lookup/routes"
+	"github.com/zneyrl/nmsrs/env"
+	"github.com/zneyrl/nmsrs/models/user"
+	"github.com/zneyrl/nmsrs/routes"
 )
 
 func main() {

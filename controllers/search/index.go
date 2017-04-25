@@ -3,7 +3,7 @@ package search
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tmpl"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {

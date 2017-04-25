@@ -9,11 +9,11 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/zneyrl/nmsrs-lookup/env"
-	"github.com/zneyrl/nmsrs-lookup/helpers/client"
-	"github.com/zneyrl/nmsrs-lookup/helpers/flash"
-	"github.com/zneyrl/nmsrs-lookup/helpers/str"
-	"github.com/zneyrl/nmsrs-lookup/models/user"
+	"github.com/zneyrl/nmsrs/env"
+	"github.com/zneyrl/nmsrs/helpers/client"
+	"github.com/zneyrl/nmsrs/helpers/flash"
+	"github.com/zneyrl/nmsrs/helpers/str"
+	"github.com/zneyrl/nmsrs/models/user"
 )
 
 var (

@@ -6,7 +6,7 @@ import (
 
 	"os"
 
-	"github.com/zneyrl/nmsrs-lookup/helpers/fi"
+	"github.com/zneyrl/nmsrs/helpers/fi"
 )
 
 var (
@@ -70,7 +70,7 @@ func init() {
 	// DB
 	flag.StringVar(&DBUser, "DBUser", "admin", "Database user")
 	flag.StringVar(&DBPassword, "DBPassword", "secret", "Database password")
-	flag.StringVar(&DBName, "DBName", "nmsrs_lookup", "Database name")
+	flag.StringVar(&DBName, "DBName", "nmsrs", "Database name")
 	flag.StringVar(&DBHost, "DBHost", "localhost", "Database host name")
 	flag.IntVar(&DBPort, "DBPort", 27017, "Database port number")
 	flag.DurationVar(&DBTimeout, "DBTimeout", time.Duration(500*time.Millisecond), "Database timeout")
