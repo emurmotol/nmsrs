@@ -193,14 +193,14 @@ $(function () {
         }).done(function (r) {
             if (r.status == 200) {
                 if (r.data.message != null) {
-                    var message_markup = `
+                    var msg_markup = `
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <i class="fa fa-check"></i> `+ r.data.message + `
                     </div>`;
-                    alert.html(message_markup);
+                    alert.html(msg_markup);
                 }
 
                 if (r.data.redirect != null) {
