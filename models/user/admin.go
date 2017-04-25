@@ -32,11 +32,11 @@ func CreateAdminUser(name string, email string, password string) error {
 	return nil
 }
 
-func CheckAdmin(id string) error {
+func IsAdminUser(id string) bool {
 	usr, _ := Find(id)
 
 	if usr.Email == env.AdminEmail {
-		return ErrActionNotPermitted
+		return true
 	}
-	return nil
+	return false
 }

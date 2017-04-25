@@ -11,8 +11,8 @@ func JSON(w http.ResponseWriter, response interface{}) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 	w.Write(json)
 }
 

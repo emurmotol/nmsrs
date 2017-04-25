@@ -20,8 +20,8 @@ func UpdateProfile(id string, profile Profile) error {
 		return ErrInvalidObjectID
 	}
 
-	if err := CheckAdmin(id); err != nil {
-		return err
+	if IsAdminUser(id) {
+		return ErrActionNotPermitted
 	}
 	profile.UpdatedAt = time.Now().Unix()
 

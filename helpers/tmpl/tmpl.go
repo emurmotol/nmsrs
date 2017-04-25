@@ -10,25 +10,21 @@ import (
 	"strings"
 
 	"github.com/zneyrl/nmsrs-lookup/env"
+	"github.com/zneyrl/nmsrs-lookup/helpers/client"
 	"github.com/zneyrl/nmsrs-lookup/helpers/flash"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
-	"github.com/zneyrl/nmsrs-lookup/middlewares"
 	"github.com/zneyrl/nmsrs-lookup/models/user"
 )
 
 var (
-	templates        map[string]*template.Template
-	layoutsParentDir = "views"
-	layoutsDir       = "layouts"
-	tmplExt          = ".gohtml"
-	pathSeparator    = string(os.PathSeparator)
+	templates map[string]*template.Template
 )
 
 func init() {
-	if templates == nil {
-		templates = make(map[string]*template.Template)
-	}
-	// parseTemplateDir(layoutsParentDir)
+	// if templates == nil {
+	// 	templates = make(map[string]*template.Template)
+	// }
+	// parseTemplateDir(env.TemplateParentDir)
 }
 
 func ParseAllAndRender(w http.ResponseWriter, layout string, name string, data map[string]interface{}) error {
@@ -46,10 +42,11 @@ func ParseAllAndRender(w http.ResponseWriter, layout string, name string, data m
 } // TODO: Not used
 
 func Render(w http.ResponseWriter, r *http.Request, layout string, name string, data map[string]interface{}, funcMap template.FuncMap) {
-	tmplFile := layoutsParentDir + pathSeparator + strings.Replace(name, ".", pathSeparator, -1) + tmplExt
-	layoutFile := layoutsParentDir + pathSeparator + layoutsDir + pathSeparator + layout + tmplExt
+	tmplFile := env.TemplateParentDir + env.TemplatePathSeparator + strings.Replace(name, ".", env.TemplatePathSeparator, -1) + env.TemplateExt
+	layoutFile := env.TemplateParentDir + env.TemplatePathSeparator + env.TemplateLayoutsDir + env.TemplatePathSeparator + layout + env.TemplateExt
 
 	funcMap["DateForHumans"] = str.DateForHumans
+	funcMap["IsAdminUser"] = user.IsAdminUser
 	t := template.New(fmt.Sprintf("%s:%s", layout, name)).Funcs(funcMap)
 	tmpl := template.Must(t.ParseFiles(layoutFile, tmplFile))
 
@@ -61,7 +58,7 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 		log.Fatal(err)
 	}
 	data["Flash"] = f
-	id := middlewares.GetAuthUserID(w, r)
+	id := client.GetAuthID(w, r)
 	var usr user.User
 
 	if id != "" {
@@ -73,6 +70,7 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 		log.Fatal(err)
 	}
 	w.Header().Set("Content-Type", "text/html")
+	w.WriteHeader(http.StatusOK)
 }
 
 func paths(root string) ([]string, []string, error) {
@@ -82,9 +80,9 @@ func paths(root string) ([]string, []string, error) {
 			return err
 		}
 		if !info.IsDir() {
-			p := strings.TrimPrefix(filepath.Dir(path), root+pathSeparator)
+			p := strings.TrimPrefix(filepath.Dir(path), root+env.TemplatePathSeparator)
 			// TODO: What if there's no layout page template
-			if p == layoutsDir {
+			if p == env.TemplateLayoutsDir {
 				layouts = append(layouts, path)
 			} else {
 				pages = append(pages, path)
@@ -110,8 +108,8 @@ func parseTemplateDir(root string) error {
 			files := []string{layout, page}
 			layoutWithExt := filepath.Base(layout)
 			layoutNoExt := strings.TrimSuffix(layoutWithExt, filepath.Ext(layoutWithExt))
-			p := strings.TrimPrefix(filepath.Dir(page), root+pathSeparator)
-			pageDir := strings.Replace(p, pathSeparator, ".", -1)
+			p := strings.TrimPrefix(filepath.Dir(page), root+env.TemplatePathSeparator)
+			pageDir := strings.Replace(p, env.TemplatePathSeparator, ".", -1)
 			pageWithExt := filepath.Base(page)
 			pageNoExt := strings.TrimSuffix(pageWithExt, filepath.Ext(pageWithExt))
 

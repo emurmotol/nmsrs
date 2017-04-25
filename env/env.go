@@ -4,6 +4,8 @@ import (
 	"flag"
 	"time"
 
+	"os"
+
 	"github.com/zneyrl/nmsrs-lookup/helpers/fi"
 )
 
@@ -37,6 +39,19 @@ var (
 	DefaultUserPhoto          string
 	DefaultRegistrantPhoto    string
 	DefaultMaxImageUploadSize int64
+
+	//Key
+	KeyPrivate string
+	KeyPublic  string
+
+	// JWT
+	JWTTokenName string
+
+	// Template
+	TemplateParentDir     string
+	TemplateLayoutsDir    string
+	TemplateExt           string
+	TemplatePathSeparator string
 )
 
 func init() {
@@ -69,6 +84,19 @@ func init() {
 	flag.StringVar(&DefaultUserPhoto, "DefaultUserPhoto", "/img/user/default.jpg", "Default user photo")
 	flag.StringVar(&DefaultRegistrantPhoto, "DefaultRegistrantPhoto", "/img/registrant/default.jpg", "Default registrant photo")
 	flag.Int64Var(&DefaultMaxImageUploadSize, "DefaultMaxImageUploadSize", int64(1*fi.MB), "Default max image upload size")
+
+	// Key
+	flag.StringVar(&KeyPrivate, "KeyPrivate", "temp/.ssh/app.rsa", "Key private rsa")  // openssl genrsa -out app.rsa keysize
+	flag.StringVar(&KeyPublic, "KeyPublic", "temp/.ssh/app.rsa.pub", "Key public rsa") // openssl rsa -in app.rsa -pubout > app.rsa.pub
+
+	// JWT
+	flag.StringVar(&JWTTokenName, "JWTTokenName", "AccessToken", "JWT token name")
+
+	// Template
+	flag.StringVar(&TemplateParentDir, "TemplateParentDir", "views", "Template parent directory")
+	flag.StringVar(&TemplateLayoutsDir, "TemplateLayoutsDir", "layouts", "Template layouts directory")
+	flag.StringVar(&TemplateExt, "TemplateExt", ".gohtml", "Template file extension")
+	flag.StringVar(&TemplatePathSeparator, "TemplatePathSeparator", string(os.PathSeparator), "Template path separator")
 
 	// Parse flags
 	flag.Parse()

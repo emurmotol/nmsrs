@@ -31,7 +31,7 @@ func Save(file multipart.File, name string) error {
 	if err != nil {
 		return err
 	}
-	err = ioutil.WriteFile(name, data, 0666)
+	err = ioutil.WriteFile(name, data, 0644)
 
 	if err != nil {
 		return err

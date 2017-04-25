@@ -19,8 +19,8 @@ func UpdatePassword(id string, resetPassword ResetPassword) error {
 		return ErrInvalidObjectID
 	}
 
-	if err := CheckAdmin(id); err != nil {
-		return err
+	if IsAdminUser(id) {
+		return ErrActionNotPermitted
 	}
 	resetPassword.Password = str.Bcrypt(resetPassword.Password)
 	resetPassword.ConfirmPassword = ""

@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/zneyrl/nmsrs-lookup/helpers/client"
 	"github.com/zneyrl/nmsrs-lookup/helpers/flash"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
 	"github.com/zneyrl/nmsrs-lookup/models/user"
@@ -26,6 +27,17 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 			Status: http.StatusInternalServerError,
 			Data:   "",
 			Errors: err.Error(),
+		})
+		return
+	}
+
+	if client.GetAuthID(w, r) == usr.ID.Hex() {
+		res.JSON(w, res.Make{
+			Status: http.StatusOK,
+			Data: map[string]string{
+				"redirect": "/logout",
+			},
+			Errors: "",
 		})
 		return
 	}
@@ -72,6 +84,19 @@ func DestroyMany(w http.ResponseWriter, r *http.Request) {
 			Errors: err.Error(),
 		})
 		return
+	}
+
+	for _, id := range ids {
+		if client.GetAuthID(w, r) == id {
+			res.JSON(w, res.Make{
+				Status: http.StatusOK,
+				Data: map[string]string{
+					"redirect": "/logout",
+				},
+				Errors: "",
+			})
+			return
+		}
 	}
 
 	if err := flash.Set(r, w, "User(s) has been successfully deleted"); err != nil {

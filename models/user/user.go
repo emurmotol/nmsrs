@@ -73,8 +73,8 @@ func Find(id string) (User, error) {
 func (usr *User) Delete() error {
 	id := usr.ID.Hex()
 
-	if err := CheckAdmin(id); err != nil {
-		return err
+	if IsAdminUser(id) {
+		return ErrActionNotPermitted
 	}
 
 	if err := db.Users.RemoveId(usr.ID); err != nil {

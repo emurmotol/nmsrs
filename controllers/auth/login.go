@@ -4,18 +4,18 @@ import (
 	"net/http"
 
 	"github.com/zneyrl/nmsrs-lookup/env"
+	"github.com/zneyrl/nmsrs-lookup/helpers/client"
 	"github.com/zneyrl/nmsrs-lookup/helpers/res"
 	"github.com/zneyrl/nmsrs-lookup/helpers/str"
 	"github.com/zneyrl/nmsrs-lookup/helpers/tmpl"
 	"github.com/zneyrl/nmsrs-lookup/helpers/trans"
-	"github.com/zneyrl/nmsrs-lookup/middlewares"
 	"github.com/zneyrl/nmsrs-lookup/models/user"
 )
 
 func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
-	if middlewares.GetAuthUserID(w, r) != "" {
+	if client.GetAuthID(w, r) != "" {
 		http.Redirect(w, r, env.URL("/"), http.StatusFound)
-	}
+	} // TODO: Temporary
 
 	data := map[string]interface{}{
 		"Title": "Login",
@@ -25,9 +25,9 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	if middlewares.GetAuthUserID(w, r) != "" {
+	if client.GetAuthID(w, r) != "" {
 		return
-	}
+	} // TODO: Temporary
 
 	var authCredentials user.AuthCredentials
 
@@ -76,15 +76,15 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.SetCookie(w, &http.Cookie{
-		Name:       middlewares.TokenName,
-		Value:      middlewares.GetUserToken(usr.ID.Hex()),
+		Name:       env.JWTTokenName,
+		Value:      client.GetToken(usr.ID.Hex()),
 		Path:       "/",
 		RawExpires: "0",
 	})
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"redirect": "/dashboard",
+			"redirect": "/",
 			"message":  "User authenticated",
 		},
 		Errors: "",

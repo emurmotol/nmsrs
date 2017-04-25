@@ -36,5 +36,18 @@ func Config() interface{} {
 			"RegistrantPhoto":    DefaultRegistrantPhoto,
 			"MaxImageUploadSize": strconv.FormatInt(DefaultMaxImageUploadSize, 10),
 		},
+		"Key": map[string]string{
+			"Private": KeyPrivate,
+			"Public":  KeyPublic,
+		},
+		"JWT": map[string]string{
+			"TokenName": JWTTokenName,
+		},
+		"Template": map[string]string{
+			"ParentDir":     TemplateParentDir,
+			"LayoutsDir":    TemplateLayoutsDir,
+			"Ext":           TemplateExt,
+			"PathSeparator": TemplatePathSeparator,
+		},
 	}
 } // TODO: Used for template access
