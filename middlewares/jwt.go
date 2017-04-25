@@ -4,14 +4,15 @@ import (
 	"crypto/rsa"
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/zneyrl/nmsrs/env"
 )
 
 var (
-	SignKey   *rsa.PrivateKey
-	VerifyKey *rsa.PublicKey
+	signKey   *rsa.PrivateKey
+	verifyKey *rsa.PublicKey
 )
 
 func init() {
@@ -20,7 +21,7 @@ func init() {
 		panic(err)
 	}
 
-	SignKey, err = jwt.ParseRSAPrivateKeyFromPEM(signBytes)
+	signKey, err = jwt.ParseRSAPrivateKeyFromPEM(signBytes)
 	if err != nil {
 		panic(err)
 	}
@@ -30,13 +31,13 @@ func init() {
 		panic(err)
 	}
 
-	VerifyKey, err = jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
+	verifyKey, err = jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
 	if err != nil {
 		panic(err)
 	}
 }
 
-func ValidateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+func validateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	tokenCookie, err := r.Cookie(env.JWTTokenName)
 
 	switch {
@@ -48,7 +49,7 @@ func ValidateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 	}
 
 	token, err := jwt.Parse(tokenCookie.Value, func(token *jwt.Token) (interface{}, error) {
-		return VerifyKey, nil
+		return verifyKey, nil
 	})
 
 	switch err.(type) {
@@ -72,4 +73,47 @@ func ValidateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 	default:
 		panic(err)
 	}
+}
+
+func GetToken(id string) string {
+	token := jwt.New(jwt.SigningMethodRS256)
+	claims := make(jwt.MapClaims)
+	claims["id"] = id
+	claims[env.JWTTokenName] = "level1"                                   // TODO: WTF level1 means
+	claims["exp"] = time.Now().Add(time.Hour * time.Duration(168)).Unix() // TODO: Expires in 1 week
+	claims["iat"] = time.Now().Unix()
+	token.Claims = claims
+	tokenString, err := token.SignedString(signKey)
+
+	if err != nil {
+		panic(err)
+	}
+	return tokenString
+}
+
+func GetAuthID(r *http.Request) string {
+	tokenCookie, err := r.Cookie(env.JWTTokenName)
+
+	if err == nil {
+		token, err := jwt.Parse(tokenCookie.Value, func(token *jwt.Token) (interface{}, error) {
+			return verifyKey, nil
+		})
+
+		if err != nil {
+			// TODO: Logout to fix this error
+			panic(err)
+		}
+		claims, ok := token.Claims.(jwt.MapClaims)
+
+		if !ok && !token.Valid {
+			panic("invalid JWT token")
+		}
+
+		if claims["id"] != nil {
+			return claims["id"].(string)
+		}
+		// http.Redirect(w, r, env.URL("/logout"), http.StatusFound)
+	}
+	// ErrNoCookie, No auth user
+	return ""
 }

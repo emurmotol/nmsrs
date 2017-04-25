@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/zneyrl/nmsrs/helpers/client"
 	"github.com/zneyrl/nmsrs/helpers/flash"
 	"github.com/zneyrl/nmsrs/helpers/res"
+	"github.com/zneyrl/nmsrs/middlewares"
 	"github.com/zneyrl/nmsrs/models/user"
 )
 
@@ -31,7 +31,7 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if client.GetAuthID(w, r) == usr.ID.Hex() {
+	if middlewares.GetAuthID(r) == usr.ID.Hex() {
 		res.JSON(w, res.Make{
 			Status: http.StatusOK,
 			Data: map[string]string{
@@ -87,7 +87,7 @@ func DestroyMany(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, id := range ids {
-		if client.GetAuthID(w, r) == id {
+		if middlewares.GetAuthID(r) == id {
 			res.JSON(w, res.Make{
 				Status: http.StatusOK,
 				Data: map[string]string{

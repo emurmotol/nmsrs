@@ -16,33 +16,24 @@ import (
 )
 
 func Register() *mux.Router {
-	router := mux.NewRouter()
-
-	// Auth routesz
-	router.Path("/check/file/image/{id}").Methods("POST").Handler(middlewares.Auth(check.Image))
-	router.Path("/reports").Methods("GET").Handler(middlewares.Auth(reports.Index))
-	router.Path("/search").Methods("GET").Handler(middlewares.Auth(search.Index))
-	router.Path("/results").Methods("GET").Handler(middlewares.Auth(search.Results))
+	router := mux.NewRouter().StrictSlash(true)
+	router.NotFoundHandler = http.HandlerFunc(controllers.PageNotFound) // TODO: Not working
 
 	// Admin routes
 	users := router.PathPrefix("/users").Subrouter()
-	users.Path("/").Methods("GET").Handler(middlewares.Admin(user.Index))
-	users.Path("/").Methods("POST").Handler(middlewares.Admin(user.Store))
 	users.Path("/create").Methods("GET").Handler(middlewares.Admin(user.Create))
 	users.Path("/ids").Methods("POST").Handler(middlewares.Admin(user.DestroyMany))
-	users.Path("/{id}").Methods("GET").Handler(middlewares.Admin(user.Show))
+	users.Path("/{id}/reset-password").Methods("POST").Handler(middlewares.Admin(user.ResetPassword))
 	users.Path("/{id}/edit").Methods("GET").Handler(middlewares.Admin(user.Edit))
 	users.Path("/{id}/photo").Methods("GET").Handler(middlewares.Admin(user.Photo))
-	users.Path("/{id}").Methods("PUT").Handler(middlewares.Admin(user.UpdateProfile))
+	users.Path("/{id}").Methods("GET").Handler(middlewares.Admin(user.Show))
 	users.Path("/{id}").Methods("DELETE").Handler(middlewares.Admin(user.Destroy))
-	users.Path("/{id}/reset-password").Methods("POST").Handler(middlewares.Admin(user.ResetPassword))
+	users.Path("/{id}").Methods("PUT").Handler(middlewares.Admin(user.UpdateProfile))
+	users.Methods("GET").Handler(middlewares.Admin(user.Index))
+	users.Methods("POST").Handler(middlewares.Admin(user.Store))
 	registrants := router.PathPrefix("/registrants").Subrouter()
-	registrants.Path("/").Methods("GET").Handler(middlewares.Admin(registrant.Index))
-	registrants.Path("/").Methods("POST").Handler(middlewares.Admin(registrant.Store))
 	registrants.Path("/ids").Methods("POST").Handler(middlewares.Admin(registrant.DestroyMany))
-	registrants.Path("/{id}").Methods("GET").Handler(middlewares.Admin(registrant.Show))
 	registrants.Path("/{id}/photo").Methods("GET").Handler(middlewares.Admin(registrant.Photo))
-	registrants.Path("/{id}").Methods("DELETE").Handler(middlewares.Admin(registrant.Destroy))
 	registrants.Path("/{id}/profile").Methods("GET").Handler(middlewares.Admin(registrant.Profile))
 	registrants.Path("/{id}/profile").Methods("PUT").Handler(middlewares.Admin(registrant.UpdateProfile))
 	registrants.Path("/{id}/formal-education").Methods("GET").Handler(middlewares.Admin(registrant.FormalEducation))
@@ -61,17 +52,24 @@ func Register() *mux.Router {
 	registrants.Path("/{id}/other-skills-aquired-without-formal-training").Methods("PUT").Handler(middlewares.Admin(registrant.UpdateOtherSkillsAquiredWithoutFormalTraining))
 	registrants.Path("/{id}/certification-authorization").Methods("GET").Handler(middlewares.Admin(registrant.CertificationAuthorization))
 	registrants.Path("/{id}/certification-authorization").Methods("PUT").Handler(middlewares.Admin(registrant.UpdateCertificationAuthorization))
+	registrants.Path("/{id}").Methods("GET").Handler(middlewares.Admin(registrant.Show))
+	registrants.Path("/{id}").Methods("DELETE").Handler(middlewares.Admin(registrant.Destroy))
+	registrants.Methods("GET").Handler(middlewares.Admin(registrant.Index))
+	registrants.Methods("POST").Handler(middlewares.Admin(registrant.Store))
+
+	// Auth routes
+	router.Path("/check/file/image/{field}").Methods("POST").Handler(middlewares.Auth(check.Image))
+	router.Path("/reports").Methods("GET").Handler(middlewares.Auth(reports.Index))
+	router.Path("/search").Methods("GET").Handler(middlewares.Auth(search.Index))
+	router.Path("/results").Methods("GET").Handler(middlewares.Auth(search.Results))
 
 	// Web routes
-	router.Path("/").Methods("GET").Handler(middlewares.Web(home.Index))
-	router.Path("/welcome").Methods("GET").Handler(middlewares.Web(home.Welcome))
-	router.Path("/logout").Methods("GET").Handler(middlewares.Web(auth.Logout))
 	login := router.PathPrefix("/login").Subrouter()
 	login.Methods("GET").Handler(middlewares.Web(auth.ShowLoginForm))
 	login.Methods("POST").Handler(middlewares.Web(auth.Login))
-
-	router.NotFoundHandler = http.HandlerFunc(controllers.PageNotFound)
-	router.PathPrefix("/").Handler(http.FileServer(http.Dir("static")))
+	router.Path("/logout").Methods("GET").Handler(middlewares.Web(auth.Logout))
+	router.Path("/welcome").Methods("GET").Handler(middlewares.Web(home.Welcome))
+	router.Path("/").Methods("GET").Handler(middlewares.Web(home.Index))
 
 	return router
 }

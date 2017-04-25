@@ -15,8 +15,8 @@ func main() {
 	n := negroni.New()
 	n.Use(negroni.NewLogger())
 	n.Use(negroni.NewRecovery())
-	r := routes.Register()
-	n.UseHandler(r)
+	n.Use(negroni.NewStatic(http.Dir("static")))
+	n.UseHandler(routes.Register())
 	user.SetDefaultUser()
 	http.ListenAndServe(fmt.Sprintf("%s:%d", env.SvrHost, env.SvrPort), n)
 }

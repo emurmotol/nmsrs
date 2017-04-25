@@ -4,16 +4,16 @@ import (
 	"net/http"
 
 	"github.com/zneyrl/nmsrs/env"
-	"github.com/zneyrl/nmsrs/helpers/client"
 	"github.com/zneyrl/nmsrs/helpers/res"
 	"github.com/zneyrl/nmsrs/helpers/str"
 	"github.com/zneyrl/nmsrs/helpers/tmpl"
 	"github.com/zneyrl/nmsrs/helpers/trans"
+	"github.com/zneyrl/nmsrs/middlewares"
 	"github.com/zneyrl/nmsrs/models/user"
 )
 
 func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
-	if client.GetAuthID(w, r) != "" {
+	if middlewares.GetAuthID(r) != "" {
 		http.Redirect(w, r, env.URL("/"), http.StatusFound)
 	} // TODO: Temporary
 
@@ -25,7 +25,7 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	if client.GetAuthID(w, r) != "" {
+	if middlewares.GetAuthID(r) != "" {
 		return
 	} // TODO: Temporary
 
@@ -77,7 +77,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	http.SetCookie(w, &http.Cookie{
 		Name:       env.JWTTokenName,
-		Value:      client.GetToken(usr.ID.Hex()),
+		Value:      middlewares.GetToken(usr.ID.Hex()),
 		Path:       "/",
 		RawExpires: "0",
 	})

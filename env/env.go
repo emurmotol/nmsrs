@@ -86,8 +86,8 @@ func init() {
 	flag.Int64Var(&DefaultMaxImageUploadSize, "DefaultMaxImageUploadSize", int64(1*fi.MB), "Default max image upload size")
 
 	// Key
-	flag.StringVar(&KeyPrivate, "KeyPrivate", "temp/.ssh/app.rsa", "Key private rsa")  // openssl genrsa -out app.rsa keysize
-	flag.StringVar(&KeyPublic, "KeyPublic", "temp/.ssh/app.rsa.pub", "Key public rsa") // openssl rsa -in app.rsa -pubout > app.rsa.pub
+	flag.StringVar(&KeyPrivate, "KeyPrivate", "keys/.ssh/app.rsa", "Key private rsa")  // openssl genrsa -out app.rsa keysize
+	flag.StringVar(&KeyPublic, "KeyPublic", "keys/.ssh/app.rsa.pub", "Key public rsa") // openssl rsa -in app.rsa -pubout > app.rsa.pub
 
 	// JWT
 	flag.StringVar(&JWTTokenName, "JWTTokenName", "AccessToken", "JWT token name")

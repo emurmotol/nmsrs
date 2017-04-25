@@ -17,7 +17,7 @@ func Image(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	photoFieldName := mux.Vars(r)["id"]
+	photoFieldName := mux.Vars(r)["field"]
 	photo, handler, err := r.FormFile(photoFieldName)
 
 	if err != nil {

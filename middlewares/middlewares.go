@@ -6,14 +6,14 @@ import (
 	"github.com/urfave/negroni"
 )
 
-var Common = negroni.New(negroni.HandlerFunc(ValidateToken))
+var common = negroni.New(negroni.HandlerFunc(validateToken))
 
 func Admin(handler http.HandlerFunc) *negroni.Negroni {
-	return Common.With(negroni.Wrap(handler))
+	return common.With(negroni.Wrap(handler))
 }
 
 func Auth(handler http.HandlerFunc) *negroni.Negroni {
-	return Common.With(negroni.Wrap(handler))
+	return common.With(negroni.Wrap(handler))
 }
 
 func Web(handler http.HandlerFunc) *negroni.Negroni {

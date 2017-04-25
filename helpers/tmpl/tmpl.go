@@ -9,9 +9,9 @@ import (
 	"strings"
 
 	"github.com/zneyrl/nmsrs/env"
-	"github.com/zneyrl/nmsrs/helpers/client"
 	"github.com/zneyrl/nmsrs/helpers/flash"
 	"github.com/zneyrl/nmsrs/helpers/str"
+	"github.com/zneyrl/nmsrs/middlewares"
 	"github.com/zneyrl/nmsrs/models/user"
 )
 
@@ -57,7 +57,7 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 		panic(err)
 	}
 	data["Flash"] = f
-	id := client.GetAuthID(w, r)
+	id := middlewares.GetAuthID(r)
 	var usr user.User
 
 	if id != "" {
@@ -69,7 +69,6 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 		panic(err)
 	}
 	w.Header().Set("Content-Type", "text/html")
-	w.WriteHeader(http.StatusOK)
 }
 
 func paths(root string) ([]string, []string, error) {
