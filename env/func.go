@@ -2,7 +2,6 @@ package env
 
 import (
 	"fmt"
-	"log"
 	"os/user"
 )
 
@@ -17,7 +16,7 @@ func UserHomeDir() string {
 	usr, err := user.Current()
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	return usr.HomeDir
 }

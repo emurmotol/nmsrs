@@ -16,10 +16,9 @@ import (
 )
 
 func Register() *mux.Router {
-	router := mux.NewRouter().StrictSlash(true)
+	router := mux.NewRouter()
 
-	// Auth routes
-	router.Path("/logout").Methods("GET").Handler(middlewares.Auth(auth.Logout))
+	// Auth routesz
 	router.Path("/check/file/image/{id}").Methods("POST").Handler(middlewares.Auth(check.Image))
 	router.Path("/reports").Methods("GET").Handler(middlewares.Auth(reports.Index))
 	router.Path("/search").Methods("GET").Handler(middlewares.Auth(search.Index))
@@ -66,6 +65,7 @@ func Register() *mux.Router {
 	// Web routes
 	router.Path("/").Methods("GET").Handler(middlewares.Web(home.Index))
 	router.Path("/welcome").Methods("GET").Handler(middlewares.Web(home.Welcome))
+	router.Path("/logout").Methods("GET").Handler(middlewares.Web(auth.Logout))
 	login := router.PathPrefix("/login").Subrouter()
 	login.Methods("GET").Handler(middlewares.Web(auth.ShowLoginForm))
 	login.Methods("POST").Handler(middlewares.Web(auth.Login))

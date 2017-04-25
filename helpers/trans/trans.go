@@ -1,8 +1,6 @@
 package trans
 
 import (
-	"log"
-
 	en "github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/zneyrl/nmsrs/env"
@@ -30,7 +28,7 @@ func StructHasError(s interface{}) map[string]string {
 
 	if err != nil {
 		if _, ok := err.(*validator.InvalidValidationError); ok {
-			log.Fatal(err)
+			panic(err)
 		}
 		errs := make(map[string]string)
 

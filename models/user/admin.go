@@ -1,8 +1,6 @@
 package user
 
 import (
-	"log"
-
 	"github.com/zneyrl/nmsrs/env"
 )
 
@@ -11,7 +9,7 @@ func SetDefaultUser() {
 
 	if err != nil {
 		if err := CreateAdminUser(env.AdminName, env.AdminEmail, env.AdminPassword); err != nil {
-			log.Fatal(err)
+			panic(err)
 		}
 	}
 }

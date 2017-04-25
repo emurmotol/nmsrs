@@ -2,7 +2,6 @@ package str
 
 import (
 	"encoding/json"
-	"log"
 	"regexp"
 	"strings"
 
@@ -61,7 +60,7 @@ func Bcrypt(pwd string) string {
 	hashedPwd, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	return string(hashedPwd)
 }
@@ -81,7 +80,7 @@ func ToJSONString(in interface{}) string {
 	json, err := json.Marshal(in)
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	return string(json)
 }

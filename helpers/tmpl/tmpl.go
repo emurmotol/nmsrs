@@ -3,7 +3,6 @@ package tmpl
 import (
 	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -55,7 +54,7 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 	f, err := flash.Get(r, w)
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	data["Flash"] = f
 	id := client.GetAuthID(w, r)
@@ -67,7 +66,7 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 	data["AuthUser"] = usr
 
 	if err := tmpl.ExecuteTemplate(w, layout, data); err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	w.Header().Set("Content-Type", "text/html")
 	w.WriteHeader(http.StatusOK)

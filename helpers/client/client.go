@@ -1,7 +1,6 @@
 package client
 
 import (
-	"log"
 	"net/http"
 	"time"
 
@@ -21,7 +20,7 @@ func GetToken(id string) string {
 	tokenString, err := token.SignedString(middlewares.SignKey)
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	return tokenString
 }
@@ -35,12 +34,16 @@ func GetAuthID(w http.ResponseWriter, r *http.Request) string {
 		})
 
 		if err != nil {
-			log.Fatal(err)
+			panic(err)
 		}
 		claims, ok := token.Claims.(jwt.MapClaims)
 
 		if !ok && !token.Valid {
-			log.Fatal("invalid JWT token")
+			panic("invalid JWT token")
+		}
+
+		if claims["id"] == nil {
+			http.Redirect(w, r, env.URL("/logout"), http.StatusFound)
 		}
 		return claims["id"].(string)
 	}

@@ -3,7 +3,6 @@ package middlewares
 import (
 	"crypto/rsa"
 	"io/ioutil"
-	"log"
 	"net/http"
 
 	jwt "github.com/dgrijalva/jwt-go"
@@ -18,22 +17,22 @@ var (
 func init() {
 	signBytes, err := ioutil.ReadFile(env.KeyPrivate)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	SignKey, err = jwt.ParseRSAPrivateKeyFromPEM(signBytes)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	verifyBytes, err := ioutil.ReadFile(env.KeyPublic)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	VerifyKey, err = jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }
 
@@ -45,7 +44,7 @@ func ValidateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 		http.Redirect(w, r, env.URL("/login"), http.StatusFound)
 		return
 	case err != nil:
-		log.Fatal(err)
+		panic(err)
 	}
 
 	token, err := jwt.Parse(tokenCookie.Value, func(token *jwt.Token) (interface{}, error) {
@@ -68,9 +67,9 @@ func ValidateToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc
 			http.Redirect(w, r, env.URL("/login"), http.StatusFound)
 			return
 		default:
-			log.Fatal(err)
+			panic(err)
 		}
 	default:
-		log.Fatal(err)
+		panic(err)
 	}
 }
