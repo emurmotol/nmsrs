@@ -17,7 +17,6 @@ import (
 
 func Register() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
-	router.NotFoundHandler = http.HandlerFunc(controllers.PageNotFound) // TODO: Not working
 
 	// Admin routes
 	users := router.PathPrefix("/users").Subrouter()
@@ -29,8 +28,8 @@ func Register() *mux.Router {
 	users.Path("/{id}").Methods("GET").Handler(middlewares.Admin(user.Show))
 	users.Path("/{id}").Methods("DELETE").Handler(middlewares.Admin(user.Destroy))
 	users.Path("/{id}").Methods("PUT").Handler(middlewares.Admin(user.UpdateProfile))
-	users.Methods("GET").Handler(middlewares.Admin(user.Index))
-	users.Methods("POST").Handler(middlewares.Admin(user.Store))
+	users.Path("/").Methods("GET").Handler(middlewares.Admin(user.Index))  // TODO: Fix this slash
+	users.Path("/").Methods("POST").Handler(middlewares.Admin(user.Store)) // TODO: Fix this slash
 	registrants := router.PathPrefix("/registrants").Subrouter()
 	registrants.Path("/ids").Methods("POST").Handler(middlewares.Admin(registrant.DestroyMany))
 	registrants.Path("/{id}/photo").Methods("GET").Handler(middlewares.Admin(registrant.Photo))
@@ -54,8 +53,8 @@ func Register() *mux.Router {
 	registrants.Path("/{id}/certification-authorization").Methods("PUT").Handler(middlewares.Admin(registrant.UpdateCertificationAuthorization))
 	registrants.Path("/{id}").Methods("GET").Handler(middlewares.Admin(registrant.Show))
 	registrants.Path("/{id}").Methods("DELETE").Handler(middlewares.Admin(registrant.Destroy))
-	registrants.Methods("GET").Handler(middlewares.Admin(registrant.Index))
-	registrants.Methods("POST").Handler(middlewares.Admin(registrant.Store))
+	registrants.Path("/").Methods("GET").Handler(middlewares.Admin(registrant.Index))  // TODO: Fix this slash
+	registrants.Path("/").Methods("POST").Handler(middlewares.Admin(registrant.Store)) // TODO: Fix this slash
 
 	// Auth routes
 	router.Path("/check/file/image/{field}").Methods("POST").Handler(middlewares.Auth(check.Image))
@@ -65,11 +64,13 @@ func Register() *mux.Router {
 
 	// Web routes
 	login := router.PathPrefix("/login").Subrouter()
-	login.Methods("GET").Handler(middlewares.Web(auth.ShowLoginForm))
-	login.Methods("POST").Handler(middlewares.Web(auth.Login))
+	login.Path("/").Methods("GET").Handler(middlewares.Web(auth.ShowLoginForm))
+	login.Path("/").Methods("POST").Handler(middlewares.Web(auth.Login))
 	router.Path("/logout").Methods("GET").Handler(middlewares.Web(auth.Logout))
 	router.Path("/welcome").Methods("GET").Handler(middlewares.Web(home.Welcome))
 	router.Path("/").Methods("GET").Handler(middlewares.Web(home.Index))
+
+	router.NotFoundHandler = http.HandlerFunc(controllers.PageNotFound) // TODO: Only works when root/subrouter has path /
 
 	return router
 }
