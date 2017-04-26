@@ -16,7 +16,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		"Title": "Create User",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "dashboard", "user.create", data, funcMap)
+	tmpl.Render(w, r, "menu", "user.create", data, funcMap)
 }
 
 func Store(w http.ResponseWriter, r *http.Request) {

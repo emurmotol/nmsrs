@@ -142,8 +142,8 @@ $(function () {
         var oldText = submitButton.text();
         submitButton.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Please wait...`)
 
-        var content_type = "";
-        var data = "";
+        var content_type = null;
+        var data = null;
         var enctype = $(form).prop("enctype");
 
         if (enctype == "multipart/form-data") {

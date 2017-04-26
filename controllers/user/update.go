@@ -27,7 +27,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 		"User":  usr,
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "dashboard", "user.edit", data, funcMap)
+	tmpl.Render(w, r, "menu", "user.edit", data, funcMap)
 }
 
 func UpdateProfile(w http.ResponseWriter, r *http.Request) {

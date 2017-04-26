@@ -25,7 +25,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		"Users": users,
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "dashboard", "user.index", data, funcMap)
+	tmpl.Render(w, r, "menu", "user.index", data, funcMap)
 }
 
 func Show(w http.ResponseWriter, r *http.Request) {
@@ -44,5 +44,5 @@ func Show(w http.ResponseWriter, r *http.Request) {
 		"User":  usr,
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "dashboard", "user.show", data, funcMap)
+	tmpl.Render(w, r, "menu", "user.show", data, funcMap)
 }
