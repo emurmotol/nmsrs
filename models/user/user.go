@@ -53,8 +53,7 @@ func (usr *User) Insert() (string, error) {
 	if err := db.Users.Insert(usr); err != nil {
 		return "", err
 	}
-	id := usr.ID.Hex()
-	return id, MakeReadMeFile(id)
+	return usr.ID.Hex(), MakeReadMeFile(usr)
 }
 
 func Find(id string) (User, error) {
@@ -106,8 +105,8 @@ func DeleteMany(ids []string) error {
 	return nil
 }
 
-func MakeReadMeFile(id string) error {
-	file := filepath.Join(contentDir, id, "README.md")
+func MakeReadMeFile(usr *User) error {
+	file := filepath.Join(contentDir, usr.ID.Hex(), "README.md")
 
 	dir := filepath.Dir(file)
 	_, err := os.Stat(dir)
@@ -115,7 +114,8 @@ func MakeReadMeFile(id string) error {
 	if os.IsNotExist(err) {
 		os.MkdirAll(dir, 0777)
 	}
-	content := fmt.Sprintf("id: %s\n", id)
+	content := fmt.Sprintf("ID: %s", usr.ID.Hex())
+	content += fmt.Sprintf("\nJoined: %s", str.DateForHumans(usr.CreatedAt))
 
 	if err := ioutil.WriteFile(file, []byte(content), 0644); err != nil {
 		return err
