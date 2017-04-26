@@ -14,6 +14,9 @@ import (
 // var photoPath =
 
 func SetPhoto(file multipart.File, id string) error {
+	if IsAdminUser(id) {
+		return ErrActionNotPermitted
+	}
 	name := filepath.Join(contentDir, id, "photo", filepath.Base(env.DefaultUserPhoto))
 
 	if err := img.SaveAsJPEG(file, name); err != nil {

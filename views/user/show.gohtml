@@ -17,11 +17,11 @@
         </a>
         <h6><i class="fa fa-user-o"></i> {{.User.Name}}</h6>
         <h6><i class="fa fa-envelope-o"></i> <a href="mailto:{{.User.Email}}">{{.User.Email}}</a></h6>
-        <h6><i class="fa fa-calendar-o"></i> {{DateForHumans .User.CreatedAt}}</h6>
-        <h6><i class="fa fa-clock-o"></i> <span data-livestamp="{{.User.UpdatedAt}}"></span></h6>
+        <h6><i class="fa fa-calendar-o"></i> Joined {{DateForHumans .User.CreatedAt}}</h6>
+        <h6><i class="fa fa-clock-o"></i> Updated <span data-livestamp="{{.User.UpdatedAt}}"></span></h6>
     </div>
 </div>
-<div class="modal fade" id="confirm_delete_user_modal" role="dialog">
+<div class="modal fade" id="confirm_delete_user_modal" data-backdrop="static" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -31,7 +31,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                There's no way to revert this change.
+                There's <strong>no way</strong> to revert this action.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
