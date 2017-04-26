@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
 )
 
 func PageNotFound(w http.ResponseWriter, r *http.Request) {
@@ -11,5 +11,5 @@ func PageNotFound(w http.ResponseWriter, r *http.Request) {
 		"Title": "Page Not Found",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "error", "error.404", data, funcMap)
+	tpl.Render(w, r, "error", "error.404", data, funcMap)
 }

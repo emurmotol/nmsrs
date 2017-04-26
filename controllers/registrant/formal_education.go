@@ -3,7 +3,7 @@ package registrant
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
 )
 
 func FormalEducation(w http.ResponseWriter, r *http.Request) {
@@ -11,7 +11,7 @@ func FormalEducation(w http.ResponseWriter, r *http.Request) {
 		"Title": "Formal Education",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "dashboard", "registrant.create.formal_education", data, funcMap)
+	tpl.Render(w, r, "dashboard", "registrant.create.formal_education", data, funcMap)
 }
 
 func UpdateFormalEducation(w http.ResponseWriter, r *http.Request) {

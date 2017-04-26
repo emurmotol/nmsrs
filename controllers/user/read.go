@@ -5,7 +5,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/zneyrl/nmsrs/helpers/res"
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
 	"github.com/zneyrl/nmsrs/models/user"
 )
 
@@ -25,7 +25,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		"Users": users,
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "menu", "user.index", data, funcMap)
+	tpl.Render(w, r, "menu", "user.index", data, funcMap)
 }
 
 func Show(w http.ResponseWriter, r *http.Request) {
@@ -44,5 +44,5 @@ func Show(w http.ResponseWriter, r *http.Request) {
 		"User":  usr,
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "menu", "user.show", data, funcMap)
+	tpl.Render(w, r, "menu", "user.show", data, funcMap)
 }

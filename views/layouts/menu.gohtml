@@ -41,7 +41,7 @@
                     {{$defaultUserPhoto := .Config.Default.UserPhoto}}
                     {{with .AuthUser}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="/users/{{.ID.Hex}}" id="drop_down_{{.ID.Hex}}" data-toggle="dropdown" aria-haspopup="true"
+                        <a href="/users/{{.ID.Hex}}" class="nav-link dropdown-toggle" id="drop_down_{{.ID.Hex}}" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             <img src="{{if .PhotoIsSet}}/users/{{.ID.Hex}}/photo{{else}}{{$defaultUserPhoto}}{{end}}" class="rounded nav-user-photo" height="30" alt="{{.Name}}"> {{.Name}}
                         </a>

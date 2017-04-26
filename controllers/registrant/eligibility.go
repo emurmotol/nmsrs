@@ -3,7 +3,7 @@ package registrant
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
 )
 
 func Eligibility(w http.ResponseWriter, r *http.Request) {
@@ -11,7 +11,7 @@ func Eligibility(w http.ResponseWriter, r *http.Request) {
 		"Title": "Eligibility",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "dashboard", "registrant.create.eligibility", data, funcMap)
+	tpl.Render(w, r, "dashboard", "registrant.create.eligibility", data, funcMap)
 }
 
 func UpdateEligibility(w http.ResponseWriter, r *http.Request) {

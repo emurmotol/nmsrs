@@ -3,7 +3,7 @@ package home
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
@@ -11,7 +11,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		"Title": "Home",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "main", "home.index", data, funcMap)
+	tpl.Render(w, r, "main", "home.index", data, funcMap)
 }
 
 func Welcome(w http.ResponseWriter, r *http.Request) {
@@ -19,5 +19,5 @@ func Welcome(w http.ResponseWriter, r *http.Request) {
 		"Title": "Welcome",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "main", "home.welcome", data, funcMap)
+	tpl.Render(w, r, "main", "home.welcome", data, funcMap)
 }

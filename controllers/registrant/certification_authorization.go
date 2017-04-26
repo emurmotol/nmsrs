@@ -3,7 +3,7 @@ package registrant
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
 )
 
 func CertificationAuthorization(w http.ResponseWriter, r *http.Request) {
@@ -11,7 +11,7 @@ func CertificationAuthorization(w http.ResponseWriter, r *http.Request) {
 		"Title": "Certification/Authorization",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "dashboard", "registrant.create.certification_authorization", data, funcMap)
+	tpl.Render(w, r, "dashboard", "registrant.create.certification_authorization", data, funcMap)
 }
 
 func UpdateCertificationAuthorization(w http.ResponseWriter, r *http.Request) {

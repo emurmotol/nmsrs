@@ -3,7 +3,7 @@ package registrant
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
@@ -11,5 +11,5 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		"Title": "Registrants",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "menu", "registrant.index", data, funcMap)
+	tpl.Render(w, r, "menu", "registrant.index", data, funcMap)
 }

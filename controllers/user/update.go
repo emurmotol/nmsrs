@@ -6,8 +6,8 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/zneyrl/nmsrs/helpers/img"
 	"github.com/zneyrl/nmsrs/helpers/res"
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
-	"github.com/zneyrl/nmsrs/helpers/trans"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
+	"github.com/zneyrl/nmsrs/helpers/vald"
 	"github.com/zneyrl/nmsrs/models/user"
 )
 
@@ -27,7 +27,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 		"User":  usr,
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "menu", "user.edit", data, funcMap)
+	tpl.Render(w, r, "menu", "user.edit", data, funcMap)
 }
 
 func UpdateProfile(w http.ResponseWriter, r *http.Request) {
@@ -64,7 +64,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	errs := trans.StructHasError(profile)
+	errs := vald.StructHasError(profile)
 
 	id := mux.Vars(r)["id"]
 	sameAsOld, err := user.CheckEmailIfSameAsOld(id, profile.Email)
@@ -158,7 +158,7 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	errs := trans.StructHasError(resetPassword)
+	errs := vald.StructHasError(resetPassword)
 
 	if len(errs) != 0 {
 		res.JSON(w, res.Make{

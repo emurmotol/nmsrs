@@ -6,8 +6,8 @@ import (
 	"github.com/zneyrl/nmsrs/helpers/flash"
 	"github.com/zneyrl/nmsrs/helpers/img"
 	"github.com/zneyrl/nmsrs/helpers/res"
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
-	"github.com/zneyrl/nmsrs/helpers/trans"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
+	"github.com/zneyrl/nmsrs/helpers/vald"
 	"github.com/zneyrl/nmsrs/models/user"
 )
 
@@ -16,7 +16,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		"Title": "Create User",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "menu", "user.create", data, funcMap)
+	tpl.Render(w, r, "menu", "user.create", data, funcMap)
 }
 
 func Store(w http.ResponseWriter, r *http.Request) {
@@ -53,7 +53,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	errs := trans.StructHasError(usr)
+	errs := vald.StructHasError(usr)
 
 	if err := user.CheckEmailIfTaken(usr.Email); err != nil {
 		if _, ok := errs["email"]; !ok {

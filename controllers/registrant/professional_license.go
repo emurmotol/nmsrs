@@ -3,7 +3,7 @@ package registrant
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
 )
 
 func ProfessionalLicense(w http.ResponseWriter, r *http.Request) {
@@ -11,7 +11,7 @@ func ProfessionalLicense(w http.ResponseWriter, r *http.Request) {
 		"Title": "Professional License",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "dashboard", "registrant.create.professional_license", data, funcMap)
+	tpl.Render(w, r, "dashboard", "registrant.create.professional_license", data, funcMap)
 }
 
 func UpdateProfessionalLicense(w http.ResponseWriter, r *http.Request) {

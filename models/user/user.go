@@ -56,17 +56,17 @@ func (usr *User) Insert() (string, error) {
 	return usr.ID.Hex(), MakeReadMeFile(usr)
 }
 
-func Find(id string) (User, error) {
+func Find(id string) (*User, error) {
 	var usr User
 
 	if !bson.IsObjectIdHex(id) {
-		return usr, ErrInvalidObjectID
+		return &usr, ErrInvalidObjectID
 	}
 
 	if err := db.Users.FindId(bson.ObjectIdHex(id)).One(&usr); err != nil {
-		return usr, err
+		return &usr, err
 	}
-	return usr, nil
+	return &usr, nil
 }
 
 func (usr *User) Delete() error {

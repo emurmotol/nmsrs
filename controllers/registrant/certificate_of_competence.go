@@ -3,7 +3,7 @@ package registrant
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
 )
 
 func CertificateOfCompetence(w http.ResponseWriter, r *http.Request) {
@@ -11,7 +11,7 @@ func CertificateOfCompetence(w http.ResponseWriter, r *http.Request) {
 		"Title": "Certificate Of Competence",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "dashboard", "registrant.create.certificate_of_competence", data, funcMap)
+	tpl.Render(w, r, "dashboard", "registrant.create.certificate_of_competence", data, funcMap)
 }
 
 func UpdateCertificateOfCompetence(w http.ResponseWriter, r *http.Request) {

@@ -6,8 +6,8 @@ import (
 	"github.com/zneyrl/nmsrs/env"
 	"github.com/zneyrl/nmsrs/helpers/res"
 	"github.com/zneyrl/nmsrs/helpers/str"
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
-	"github.com/zneyrl/nmsrs/helpers/trans"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
+	"github.com/zneyrl/nmsrs/helpers/vald"
 	"github.com/zneyrl/nmsrs/middlewares"
 	"github.com/zneyrl/nmsrs/models/user"
 )
@@ -21,7 +21,7 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 		"Title": "Login",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "auth", "auth.login", data, funcMap)
+	tpl.Render(w, r, "auth", "auth.login", data, funcMap)
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
@@ -48,7 +48,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	errs := trans.StructHasError(authCredentials)
+	errs := vald.StructHasError(authCredentials)
 	usr, err := user.FindByEmail(authCredentials.Email)
 
 	if err != nil {

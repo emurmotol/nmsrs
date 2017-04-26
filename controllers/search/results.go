@@ -3,7 +3,7 @@ package search
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
 )
 
 func Results(w http.ResponseWriter, r *http.Request) {
@@ -11,5 +11,5 @@ func Results(w http.ResponseWriter, r *http.Request) {
 		"Title": "Results",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "search", "search.results", data, funcMap)
+	tpl.Render(w, r, "search", "search.results", data, funcMap)
 }

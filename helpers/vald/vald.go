@@ -1,4 +1,4 @@
-package trans
+package vald
 
 import (
 	en "github.com/go-playground/locales/en"
@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	Validate *validator.Validate
+	validate *validator.Validate
 	uni      *ut.UniversalTranslator
 	trans    ut.Translator
 )
@@ -19,12 +19,12 @@ func init() {
 	en := en.New()
 	uni = ut.New(en, en)
 	trans, _ = uni.GetTranslator(env.Locale)
-	Validate = validator.New()
-	en_trans.RegisterDefaultTranslations(Validate, trans)
+	validate = validator.New()
+	en_trans.RegisterDefaultTranslations(validate, trans)
 }
 
 func StructHasError(s interface{}) map[string]string {
-	err := Validate.Struct(s)
+	err := validate.Struct(s)
 
 	if err != nil {
 		if _, ok := err.(*validator.InvalidValidationError); ok {

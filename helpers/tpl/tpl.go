@@ -1,4 +1,4 @@
-package tmpl
+package tpl
 
 import (
 	"fmt"
@@ -27,12 +27,12 @@ func init() {
 }
 
 func ParseAllAndRender(w http.ResponseWriter, layout string, name string, data map[string]interface{}) error {
-	tmpl, ok := templates[layout+":"+name]
+	tpl, ok := templates[layout+":"+name]
 	if !ok {
 		return fmt.Errorf("The template %s does not exist", name)
 	}
 
-	if err := tmpl.ExecuteTemplate(w, layout, data); err != nil {
+	if err := tpl.ExecuteTemplate(w, layout, data); err != nil {
 		return err
 	}
 	w.Header().Set("Content-Type", "text/html")
@@ -41,13 +41,13 @@ func ParseAllAndRender(w http.ResponseWriter, layout string, name string, data m
 } // TODO: Not used
 
 func Render(w http.ResponseWriter, r *http.Request, layout string, name string, data map[string]interface{}, funcMap template.FuncMap) {
-	tmplFile := env.TemplateParentDir + env.TemplatePathSeparator + strings.Replace(name, ".", env.TemplatePathSeparator, -1) + env.TemplateExt
+	tplFile := env.TemplateParentDir + env.TemplatePathSeparator + strings.Replace(name, ".", env.TemplatePathSeparator, -1) + env.TemplateExt
 	layoutFile := env.TemplateParentDir + env.TemplatePathSeparator + env.TemplateLayoutsDir + env.TemplatePathSeparator + layout + env.TemplateExt
 
 	funcMap["DateForHumans"] = str.DateForHumans
 	funcMap["IsAdminUser"] = user.IsAdminUser
 	t := template.New(fmt.Sprintf("%s:%s", layout, name)).Funcs(funcMap)
-	tmpl := template.Must(t.ParseFiles(layoutFile, tmplFile))
+	tpl := template.Must(t.ParseFiles(layoutFile, tplFile))
 
 	data["Config"] = env.Config()
 	data["Request"] = r
@@ -58,14 +58,14 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 	}
 	data["Flash"] = f
 	id := middlewares.GetAuthID(r)
-	var usr user.User
+	var usr *user.User
 
 	if id != "" {
 		usr, _ = user.Find(id)
 	}
 	data["AuthUser"] = usr
 
-	if err := tmpl.ExecuteTemplate(w, layout, data); err != nil {
+	if err := tpl.ExecuteTemplate(w, layout, data); err != nil {
 		panic(err)
 	}
 	w.Header().Set("Content-Type", "text/html")

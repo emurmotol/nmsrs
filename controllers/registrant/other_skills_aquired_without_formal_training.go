@@ -3,7 +3,7 @@ package registrant
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
 )
 
 func OtherSkillsAquiredWithoutFormalTraining(w http.ResponseWriter, r *http.Request) {
@@ -11,7 +11,7 @@ func OtherSkillsAquiredWithoutFormalTraining(w http.ResponseWriter, r *http.Requ
 		"Title": "Other Skills Aquired Without Formal Training",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "dashboard", "registrant.create.other_skills_aquired_without_formal_training", data, funcMap)
+	tpl.Render(w, r, "dashboard", "registrant.create.other_skills_aquired_without_formal_training", data, funcMap)
 }
 
 func UpdateOtherSkillsAquiredWithoutFormalTraining(w http.ResponseWriter, r *http.Request) {

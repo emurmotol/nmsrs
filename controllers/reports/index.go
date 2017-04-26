@@ -3,7 +3,7 @@ package reports
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tmpl"
+	"github.com/zneyrl/nmsrs/helpers/tpl"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
@@ -11,5 +11,5 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		"Title": "Reports",
 	}
 	funcMap := map[string]interface{}{}
-	tmpl.Render(w, r, "menu", "reports.index", data, funcMap)
+	tpl.Render(w, r, "menu", "reports.index", data, funcMap)
 }
