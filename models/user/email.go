@@ -5,13 +5,13 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-func FindByEmail(email string) (User, error) {
+func FindByEmail(email string) (*User, error) {
 	var usr User
 
 	if err := db.Users.Find(bson.M{"email": email}).One(&usr); err != nil {
-		return usr, err
+		return &usr, err
 	}
-	return usr, nil
+	return &usr, nil
 }
 
 func CheckEmailIfTaken(email string) error {

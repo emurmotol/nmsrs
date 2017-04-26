@@ -5,6 +5,7 @@ import (
 
 	"github.com/zneyrl/nmsrs/helpers/flash"
 	"github.com/zneyrl/nmsrs/helpers/img"
+	"github.com/zneyrl/nmsrs/helpers/lang"
 	"github.com/zneyrl/nmsrs/helpers/res"
 	"github.com/zneyrl/nmsrs/helpers/tpl"
 	"github.com/zneyrl/nmsrs/helpers/vald"
@@ -108,7 +109,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		}
 	} // TODO: Check file != again to capture user id
 
-	if err := flash.Set(r, w, "User has been successfully created"); err != nil {
+	if err := flash.Set(r, w, lang.En["user_success_create"]); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",

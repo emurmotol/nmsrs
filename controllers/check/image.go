@@ -5,6 +5,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/zneyrl/nmsrs/helpers/img"
+	"github.com/zneyrl/nmsrs/helpers/lang"
 	"github.com/zneyrl/nmsrs/helpers/res"
 )
 
@@ -57,7 +58,7 @@ func Image(w http.ResponseWriter, r *http.Request) {
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"message": "Image is valid",
+			"message": lang.En["image_valid"],
 		},
 		Errors: "",
 	})

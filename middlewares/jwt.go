@@ -8,6 +8,7 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/zneyrl/nmsrs/env"
+	"github.com/zneyrl/nmsrs/helpers/lang"
 )
 
 var (
@@ -106,7 +107,7 @@ func GetAuthID(r *http.Request) string {
 		claims, ok := token.Claims.(jwt.MapClaims)
 
 		if !ok && !token.Valid {
-			panic("invalid JWT token")
+			panic(lang.En["token_invalid"])
 		}
 
 		if claims["id"] != nil {

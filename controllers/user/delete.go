@@ -5,6 +5,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/zneyrl/nmsrs/helpers/flash"
+	"github.com/zneyrl/nmsrs/helpers/lang"
 	"github.com/zneyrl/nmsrs/helpers/res"
 	"github.com/zneyrl/nmsrs/middlewares"
 	"github.com/zneyrl/nmsrs/models/user"
@@ -42,7 +43,7 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := flash.Set(r, w, "User has been successfully deleted"); err != nil {
+	if err := flash.Set(r, w, lang.En["user_success_delete"]); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",
@@ -99,7 +100,7 @@ func DestroyMany(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	if err := flash.Set(r, w, "User(s) has been successfully deleted"); err != nil {
+	if err := flash.Set(r, w, lang.En["users_success_delete"]); err != nil {
 		res.JSON(w, res.Make{
 			Status: http.StatusInternalServerError,
 			Data:   "",

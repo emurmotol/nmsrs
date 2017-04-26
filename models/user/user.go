@@ -12,13 +12,14 @@ import (
 
 	"github.com/zneyrl/nmsrs/db"
 	"github.com/zneyrl/nmsrs/env"
+	"github.com/zneyrl/nmsrs/helpers/lang"
 	"github.com/zneyrl/nmsrs/helpers/str"
 )
 
 var (
-	ErrInvalidObjectID    = errors.New("Invalid object ID")
-	ErrActionNotPermitted = errors.New("Action not permitted")
-	ErrEmailTaken         = errors.New("Email has already been taken")
+	ErrInvalidObjectID    = errors.New(lang.En["object_id_invalid"])
+	ErrActionNotPermitted = errors.New(lang.En["action_not_permitted"])
+	ErrEmailTaken         = errors.New(lang.En["email_taken"])
 	contentDir            = "content/users"
 )
 

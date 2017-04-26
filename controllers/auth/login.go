@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/zneyrl/nmsrs/env"
+	"github.com/zneyrl/nmsrs/helpers/lang"
 	"github.com/zneyrl/nmsrs/helpers/res"
 	"github.com/zneyrl/nmsrs/helpers/str"
 	"github.com/zneyrl/nmsrs/helpers/tpl"
@@ -53,7 +54,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		if _, ok := errs["email"]; !ok {
-			errs["email"] = "Sorry, we don't recognize that email"
+			errs["email"] = lang.En["email_not_recognized"]
 		}
 	}
 
@@ -70,7 +71,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
-			Errors: "These credentials do not match our records",
+			Errors: lang.En["wrong_credentials"],
 		})
 		return
 	}
@@ -85,7 +86,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		Status: http.StatusOK,
 		Data: map[string]string{
 			"redirect": "/",
-			"message":  "User authenticated",
+			"message":  lang.En["user_authenticated"],
 		},
 		Errors: "",
 	})

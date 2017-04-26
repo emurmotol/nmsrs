@@ -5,6 +5,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/zneyrl/nmsrs/helpers/img"
+	"github.com/zneyrl/nmsrs/helpers/lang"
 	"github.com/zneyrl/nmsrs/helpers/res"
 	"github.com/zneyrl/nmsrs/helpers/tpl"
 	"github.com/zneyrl/nmsrs/helpers/vald"
@@ -132,7 +133,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"message": "User has been successfully updated",
+			"message": lang.En["user_success_update"],
 		},
 		Errors: "",
 	})
@@ -181,7 +182,7 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"message": "Password has been successfully updated",
+			"message": lang.En["password_success_update"],
 		},
 		Errors: "",
 	})
