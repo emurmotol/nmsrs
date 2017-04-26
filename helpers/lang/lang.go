@@ -11,7 +11,10 @@ var En = map[string]string{
 	"users_success_delete":    "User(s) has been successfully deleted",
 	"password_success_update": "Password has been successfully updated",
 	"image_valid":             "Image is valid",
+	"image_invalid":           "We only support PNG, GIF, or JPG pictures",
+	"image_too_large":         "Please select a picture smaller than %s",
 	"token_invalid":           "Invalid JWT token",
 	"object_id_invalid":       "Invalid object ID",
 	"action_not_permitted":    "Action not permitted",
+	"template_not_found":      "The template %s does not exist",
 }

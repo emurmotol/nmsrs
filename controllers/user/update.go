@@ -89,7 +89,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 
 	if file != nil {
 		if err := img.Validate(newFileInstance, handler); err != nil {
-			if err == img.ErrImageNotValid || err == img.ErrImageToLarge { // TODO: Add new custom err here
+			if err == img.ErrImageNotValid || err == img.ErrImageTooLarge { // TODO: Add new custom err here
 				if _, ok := errs[photoFieldName]; !ok {
 					errs[photoFieldName] = err.Error()
 				}

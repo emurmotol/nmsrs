@@ -10,6 +10,7 @@ import (
 
 	"github.com/zneyrl/nmsrs/env"
 	"github.com/zneyrl/nmsrs/helpers/flash"
+	"github.com/zneyrl/nmsrs/helpers/lang"
 	"github.com/zneyrl/nmsrs/helpers/str"
 	"github.com/zneyrl/nmsrs/middlewares"
 	"github.com/zneyrl/nmsrs/models/user"
@@ -29,7 +30,7 @@ func init() {
 func ParseAllAndRender(w http.ResponseWriter, layout string, name string, data map[string]interface{}) error {
 	tpl, ok := templates[layout+":"+name]
 	if !ok {
-		return fmt.Errorf("The template %s does not exist", name)
+		return fmt.Errorf(lang.En["template_not_found"], name)
 	}
 
 	if err := tpl.ExecuteTemplate(w, layout, data); err != nil {

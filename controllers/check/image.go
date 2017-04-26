@@ -36,7 +36,7 @@ func Image(w http.ResponseWriter, r *http.Request) {
 		defer photo.Close()
 
 		if err := img.Validate(photo, handler); err != nil {
-			if err == img.ErrImageNotValid || err == img.ErrImageToLarge { // TODO: Add new custom err here
+			if err == img.ErrImageNotValid || err == img.ErrImageTooLarge { // TODO: Add new custom err here
 				res.JSON(w, res.Make{
 					Status: http.StatusForbidden,
 					Data:   "",
