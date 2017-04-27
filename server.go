@@ -1,9 +1,8 @@
 package main
 
 import (
-	"net/http"
-
 	"fmt"
+	"net/http"
 
 	"github.com/urfave/negroni"
 	"github.com/zneyrl/nmsrs/env"

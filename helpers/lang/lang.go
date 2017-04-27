@@ -17,4 +17,5 @@ var En = map[string]string{
 	"object_id_invalid":       "Invalid object ID",
 	"action_not_permitted":    "Action not permitted",
 	"template_not_found":      "The template %s does not exist",
+	"network_not_present":     "Network not present",
 }
