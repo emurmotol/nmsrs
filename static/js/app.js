@@ -48,12 +48,28 @@ $(function () {
     }
 
     quickRequest = function (action, method, data) {
+        var alert = $("#alert");
+        
         $.ajax({
             url: action,
             type: method,
             data: data,
             dataType: "json",
-            error: function (r) {
+            success: function (r) {
+                alert.empty();
+                errors = r.errors;
+
+                if (errors.length != 0) {
+                    var err_markup = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <i class="fa fa-exclamation-triangle"></i> `+ errors + `
+                    </div>`;
+                    alert.html(err_markup);
+                }
+            }, error: function (r) {
                 console.log(r);
             }
         }).done(function (r) {

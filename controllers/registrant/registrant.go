@@ -1,8 +1,7 @@
 package registrant
 
-import (
-	"net/http"
-)
+import "github.com/gorilla/schema"
 
-func Photo(w http.ResponseWriter, r *http.Request) {
-}
+var (
+	decoder = schema.NewDecoder()
+)

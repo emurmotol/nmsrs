@@ -12,7 +12,7 @@ func URL(path string) string {
 	if SvrEnvironment == "production" {
 		return fmt.Sprintf("%s://%s%s", SvrProtocol, SvrHost, path)
 	}
-	return fmt.Sprintf("%s://%s:%d%s", SvrProtocol, IP(), SvrPort, path)
+	return fmt.Sprintf("%s://%s:%d%s", SvrProtocol, SvrHost, SvrPort, path)
 }
 
 func UserHomeDir() string {
@@ -44,23 +44,32 @@ func IP() string {
 		if err != nil {
 			panic(err)
 		}
+
 		for _, addr := range addrs {
 			var ip net.IP
+
 			switch v := addr.(type) {
 			case *net.IPNet:
 				ip = v.IP
 			case *net.IPAddr:
 				ip = v.IP
 			}
+
 			if ip == nil || ip.IsLoopback() {
 				continue
 			}
 			ip = ip.To4()
+
 			if ip == nil {
 				continue
 			}
 			return ip.String()
 		}
 	}
-	panic(lang.En["network_not_present"])
+
+	if SvrEnvironment == "production" {
+		panic(lang.En["network_not_present"])
+	}
+	return "" // TODO: Redirect wont work if "" must be localhost
+	// return "127.0.0.1" // TODO: Remote access wont work
 }

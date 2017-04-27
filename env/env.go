@@ -63,7 +63,7 @@ func init() {
 
 	// Svr
 	flag.StringVar(&SvrEnvironment, "SvrEnvironment", "local", "Server environment")
-	flag.StringVar(&SvrHost, "SvrHost", "", "Server host name")
+	flag.StringVar(&SvrHost, "SvrHost", IP(), "Server host name")
 	flag.IntVar(&SvrPort, "SvrPort", 80, "Server port number")
 	flag.StringVar(&SvrProtocol, "SvrProtocol", "http", "Server protocol")
 

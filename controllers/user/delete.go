@@ -22,6 +22,7 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+	id := usr.ID.Hex()
 
 	if err := usr.Delete(); err != nil {
 		res.JSON(w, res.Make{
@@ -30,9 +31,9 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 			Errors: err.Error(),
 		})
 		return
-	}
+	} // TODO: UI crashes when an error occur here
 
-	if middlewares.GetAuthID(r) == usr.ID.Hex() {
+	if middlewares.GetAuthID(r) == id {
 		res.JSON(w, res.Make{
 			Status: http.StatusOK,
 			Data: map[string]string{
@@ -85,7 +86,7 @@ func DestroyMany(w http.ResponseWriter, r *http.Request) {
 			Errors: err.Error(),
 		})
 		return
-	}
+	} // TODO: UI crashes when an error occur here
 
 	for _, id := range ids {
 		if middlewares.GetAuthID(r) == id {
