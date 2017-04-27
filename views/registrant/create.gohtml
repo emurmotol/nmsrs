@@ -178,7 +178,6 @@
             e.preventDefault();
 
             // var promise = makeFormRequest(this, validate_fields);
-
             // promise.then(function (r) {
             //     console.log(r);
             // });
@@ -214,19 +213,6 @@
 
         $("#step_9_form").on("submit", function (e) {
             e.preventDefault();
-        });
-
-        $(".next-step").on("click", function () {
-            var a = $(".wizard .nav-pills li.nav-item a.active");
-            var next = a.parent(".nav-item").next().find('a[data-toggle="tab"]');
-            next.removeClass("disabled");
-            next.tab("show");
-        });
-
-        $(".prev-step").on("click", function () {
-            var a = $(".wizard .nav-pills li.nav-item a.active");
-            var prev = a.parent(".nav-item").prev().find('a[data-toggle="tab"]');
-            prev.tab("show");
         });
     });
 
