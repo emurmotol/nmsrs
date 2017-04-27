@@ -154,7 +154,7 @@ $(function () {
             data = $(form).serialize();
         }
 
-        $.ajax({
+        var call = $.ajax({
             url: $(form).attr("action"),
             type: $(form).attr("method"),
             data: data,
@@ -206,6 +206,10 @@ $(function () {
             }
             submitButton.html(oldText);
             console.log(r);
+        });
+
+        return call.then(function (r) {
+            return r;
         });
     }
 });

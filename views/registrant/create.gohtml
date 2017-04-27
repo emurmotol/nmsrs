@@ -174,10 +174,14 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        // TODO: Find a way to execute next after a request
-
         $("#step_1_form").on("submit", function (e) {
             e.preventDefault();
+
+            // var promise = makeFormRequest(this, validate_fields);
+
+            // promise.then(function (r) {
+            //     console.log(r);
+            // });
         });
 
         $("#step_2_form").on("submit", function (e) {
