@@ -70,6 +70,6 @@ func IP() string {
 	if SvrEnvironment == "production" {
 		panic(lang.En["network_not_present"])
 	}
-	return "" // TODO: Redirect wont work if "" must be localhost
+	return "localhost" // TODO: Redirect wont work if "" must be localhost
 	// return "127.0.0.1" // TODO: Remote access wont work
 }
