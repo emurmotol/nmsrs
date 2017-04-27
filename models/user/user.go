@@ -104,7 +104,7 @@ func DeleteMany(ids []string) error {
 		}
 	}
 	return nil
-}
+} // TODO: Slow on big data, use db.Users.RemoveAll instead
 
 func MakeReadMeFile(usr *User) error {
 	file := filepath.Join(contentDir, usr.ID.Hex(), "README.md")

@@ -174,6 +174,8 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
+        // TODO: Find a way to execute next after a request
+
         $("#step_1_form").on("submit", function (e) {
             e.preventDefault();
         });
@@ -219,7 +221,7 @@
 
         $(".prev-step").on("click", function () {
             var a = $(".wizard .nav-pills li.nav-item a.active");
-            var prev = a.parent().prev().find('a[data-toggle="tab"]');
+            var prev = a.parent(".nav-item").prev().find('a[data-toggle="tab"]');
             prev.tab("show");
         });
     });
