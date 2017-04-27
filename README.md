@@ -23,6 +23,10 @@ National Manpower Skills Registration System Lookup For The Municipality Of Gasa
 * Add FontAwesome
 * Use [Negroni](https://github.com/urfave/negroni)
 
+### Last Opened Files
+* create.gohtml (registrants)
+* wizard.gohtml
+
 ### Notes
 * go build & nmsrs.exe (PowerShell)
 * go build ; ./nmsrs.exe (Bash)
