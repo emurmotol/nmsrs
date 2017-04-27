@@ -1,2 +1,0 @@
-Are you ABSOLUTELY sure?
-This action CANNOT be undone. This will permanently delete n users.

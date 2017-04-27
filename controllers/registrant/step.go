@@ -21,7 +21,7 @@ func Step(w http.ResponseWriter, r *http.Request) {
 		return
 	case 3:
 		return
-	case 41:
+	case 4:
 		return
 	case 5:
 		return

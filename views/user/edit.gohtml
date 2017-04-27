@@ -76,12 +76,12 @@
 
         $("#edit_user_form").on("submit", function (e) {
             e.preventDefault();
-            makeRequest(this, ["photo", "name", "email"]);
+            makeFormRequest(this, ["photo", "name", "email"]);
         });
 
         $("#reset_password_form").on("submit", function (e) {
             e.preventDefault();
-            makeRequest(this, ["password", "confirm_password"]);
+            makeFormRequest(this, ["password", "confirm_password"]);
         });
 
         validateImage($("#photo"), parseInt("{{.Config.Default.MaxImageUploadSize}}"));

@@ -87,7 +87,7 @@
 
             if (ids.length != 0) {
                 $(this).html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Deleting...`);
-                quickRequest("/users/ids", "POST", { ids });
+                makeRequest("/users/ids", "POST", { ids });
             }
         });
 

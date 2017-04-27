@@ -1,13 +1,5 @@
 $(function () {
-    $.fn.serializeObject = function () {
-        var arr = this.serializeArray();
-        var obj = {};
-
-        for (var i = 0; i < arr.length; i++) {
-            obj[arr[i].name] = arr[i].value;
-        }
-        return obj;
-    }
+    var alert = $("#alert");
 
     setCheckboxBoolValue = function (checkbox) {
         checkbox.on("change", function () {
@@ -15,7 +7,7 @@ $(function () {
         });
     }
 
-    removeErrorMarkup = function (field) {
+    removeFormErrorMarkup = function (field) {
         var fc = field.parent();
 
         if (fc.hasClass("has-danger")) {
@@ -31,7 +23,7 @@ $(function () {
         }
     }
 
-    addErrorMarkup = function (field, message) {
+    addFormErrorMarkup = function (field, message) {
         var fc = field.parent();
 
         if (!fc.hasClass("has-danger")) {
@@ -47,9 +39,18 @@ $(function () {
         }
     }
 
-    quickRequest = function (action, method, data) {
-        var alert = $("#alert");
-        
+    addAlertErrorMarkup = function (error) {
+        var err_markup = `
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <i class="fa fa-exclamation-triangle"></i> `+ error + `
+        </div>`;
+        alert.html(err_markup);
+    }
+
+    makeRequest = function (action, method, data) {
         $.ajax({
             url: action,
             type: method,
@@ -60,14 +61,7 @@ $(function () {
                 errors = r.errors;
 
                 if (errors.length != 0) {
-                    var err_markup = `
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <i class="fa fa-exclamation-triangle"></i> `+ errors + `
-                    </div>`;
-                    alert.html(err_markup);
+                    addAlertErrorMarkup(errors);
                 }
             }, error: function (r) {
                 console.log(r);
@@ -111,7 +105,6 @@ $(function () {
     }
 
     checkFileRequest = function (url, method, input) {
-        var alert = $("#alert");
         var data = new FormData();
         data.append(input.id, input.files[0]);
 
@@ -124,25 +117,18 @@ $(function () {
             processData: false,
             success: function (r) {
                 alert.empty();
-                removeErrorMarkup($(input));
+                removeFormErrorMarkup($(input));
                 errors = r.errors;
 
                 try {
                     if (Object.keys(errors).length != 0) {
                         $.each(errors, function (k, v) {
                             var field = $("#" + k);
-                            addErrorMarkup(field, v);
+                            addFormErrorMarkup(field, v);
                         });
                     }
                 } catch (e) {
-                    var err_markup = `
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <i class="fa fa-exclamation-triangle"></i> `+ errors + `
-                    </div>`;
-                    alert.html(err_markup);
+                    addAlertErrorMarkup(errors);
                 }
             }, error: function (r) {
                 console.log(r);
@@ -152,19 +138,17 @@ $(function () {
         });
     }
 
-    makeRequest = function (form, validate_fields) {
-        var alert = $("#alert");
+    makeFormRequest = function (form, validate_fields) {
         var submitButton = $(form).find(":submit");
         var oldText = submitButton.text();
-        submitButton.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Please wait...`)
-
         var content_type = null;
         var data = null;
         var enctype = $(form).prop("enctype");
+        submitButton.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Please wait...`)
 
         if (enctype == "multipart/form-data") {
             content_type = false;
-            data = (new FormData(form));
+            data = new FormData(form);
         } else {
             content_type = enctype;
             data = $(form).serialize();
@@ -182,7 +166,7 @@ $(function () {
 
                 $.each(validate_fields, function (k, v) {
                     var field = $("#" + v);
-                    removeErrorMarkup(field);
+                    removeFormErrorMarkup(field);
                 });
                 errors = r.errors;
 
@@ -190,18 +174,11 @@ $(function () {
                     if (Object.keys(errors).length != 0) {
                         $.each(errors, function (k, v) {
                             var field = $("#" + k);
-                            addErrorMarkup(field, v);
+                            addFormErrorMarkup(field, v);
                         });
                     }
                 } catch (e) {
-                    var err_markup = `
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <i class="fa fa-exclamation-triangle"></i> `+ errors + `
-                    </div>`;
-                    alert.html(err_markup);
+                    addAlertErrorMarkup(errors);
                 }
             }, error: function (r) {
                 console.log(r);
