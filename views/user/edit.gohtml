@@ -25,15 +25,15 @@
                                 <label for="photo">Photo</label><br>
                                 <img src="{{if .User.PhotoIsSet}}/users/{{.User.ID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="rounded mb-3"
                                     id="preview" height="160" alt="Default">
-                                <input type="file" class="form-control" name="photo" id="photo" placeholder="Photo">
+                                <input type="file" class="form-control" name="photo" id="photo">
                             </div>
                             <div class="form-group">
                                 <label for="name">Name <span class="asterisk text-danger">*</span></label>
-                                <input type="text" class="form-control" name="name" id="name" value="{{.User.Name}}" placeholder="Name">
+                                <input type="text" class="form-control" name="name" id="name" value="{{.User.Name}}">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email <span class="asterisk text-danger">*</span></label>
-                                <input type="text" class="form-control" name="email" id="email" value="{{.User.Email}}" placeholder="Email">
+                                <input type="text" class="form-control" name="email" id="email" value="{{.User.Email}}">
                             </div>
                             <div class="form-group">
                                 <div class="form-check">
@@ -53,11 +53,11 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="password">New password <span class="asterisk text-danger">*</span></label>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="New password">
+                                <input type="password" class="form-control" name="password" id="password">
                             </div>
                             <div class="form-group">
                                 <label for="confirm_password">Confirm password <span class="asterisk text-danger">*</span></label>
-                                <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm password">
+                                <input type="password" class="form-control" name="confirm_password" id="confirm_password">
                             </div>
                         </div>
                     </div>

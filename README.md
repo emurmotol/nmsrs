@@ -1,15 +1,19 @@
 ### NMSRS Lookup
-National Manpower Skills Registration System Lookup For The Municipality Of Gasan Marinduque Philippines
+National Manpower Skills Registration System For The Municipality Of Gasan Marinduque Philippines
 
 ### Tasks On Server
 * Create application forms and backend logic
 * Populate database
 * ~~Migrate to CouchDB to support 32-bit host pc~~
 * Missing on server Installing gomodifytags FAILED and Installing dlv FAILED
-* Screenshot adding of registrant
-* JWT Middleware: f path is / and not authenticated set / to a different view'
+* CRUD for registrant
+* Send email
+* Search
+* Add CFRF token on forms
 
 ### Completed
+* Screenshot adding of registrant
+* JWT Middleware: f path is / and not authenticated set / to a different view'
 * Fix [negroni] 2017-04-17T13:24:28+08:00 | 404 | 0s | localhost:8080 | GET /css/bootstrap.min.css.map
 * Check laptop for virus, temp files, or whatever
 * Fix VSCode extension "Go" not reloading (Delete package dir)

@@ -124,24 +124,26 @@
         <script src="/js/jquery-3.1.1.min.js"></script>
         <script src="/js/tether.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/url.min.js"></script>
         <script src="/js/app.js"></script>
         <script>
-            nextStep = function(elem) {
-                $(elem).on("click", function () {
+            $(function () {
+                var frag = $.url("#");
+                // TODO: Navigate on page
+
+                nextStep = function () {
                     var a = $(".wizard .nav-pills li.nav-item a.active");
                     var next = a.parent(".nav-item").next().find('a[data-toggle="tab"]');
                     next.removeClass("disabled");
                     next.tab("show");
-                });
-            }
+                }
 
-            prevStep = function (elem) {
-                $(elem).on("click", function () {
+                prevStep = function () {
                     var a = $(".wizard .nav-pills li.nav-item a.active");
                     var prev = a.parent(".nav-item").prev().find('a[data-toggle="tab"]');
                     prev.tab("show");
-                });
-            }
+                }
+            });
         </script>
         {{block "script" .}}{{end}}
 </body>

@@ -1,174 +1,337 @@
 {{define "content"}}
 <div class="tab-content">
     <div class="tab-pane active" id="step-1" role="tabpanel">
-        <div class="card">
-            <div class="card-header">
-                <i class="fa fa-user-o"></i> Registrant Profile
+        <form action="/registrant/steps/1" method="POST" class="mb-4" id="step_1_form">
+            <div class="card mb-4" id="personal-information">
+                <div class="card-header">Personal Information</div>
+                <div class="card-block pb-1">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="family_name">Family name <span class="asterisk text-danger">*</span></label>
+                                <input type="text" class="form-control" name="family_name" id="family_name">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="given_name">Given name <span class="asterisk text-danger">*</span></label>
+                                <input type="text" class="form-control" name="given_name" id="given_name">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="middle_name">Middle name <span class="asterisk text-danger">*</span></label>
+                                <input type="text" class="form-control" name="middle_name" id="middle_name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="birthdate">Birthdate <span class="asterisk text-danger">*</span></label>
+                                <input type="date" class="form-control" name="birthdate" id="birthdate">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password" id="password">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-block">
-                <form action="/registrant/steps/1" method="POST" id="step_1_form">
+            <div class="card mb-4" id="basic-information">
+                <div class="card-header">Basic Information</div>
+                <div class="card-block pb-1">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="street_subdivision">Street/Subdivision <span class="asterisk text-danger">*</span></label>
+                                <input type="text" class="form-control" name="street_subdivision" id="street_subdivision">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="city_municipality">City/Municipality <span class="asterisk text-danger">*</span></label>
+                                <input type="text" class="form-control" name="city_municipality" id="city_municipality">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="barangay">Barangay <span class="asterisk text-danger">*</span></label>
+                                <input type="text" class="form-control" name="barangay" id="barangay">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="province">Province</label>
+                                <input type="text" class="form-control" name="province" id="province">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="place_of_birth">Place of birth <span class="asterisk text-danger">*</span></label>
+                                <input type="text" class="form-control" name="place_of_birth" id="place_of_birth">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="text" class="form-control" name="age" id="age">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="height">Height <span class="asterisk text-danger">*</span></label>
+                                <input type="text" class="form-control" name="height" id="height">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="weight">Weight</label>
+                                <input type="text" class="form-control" name="weight" id="weight">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <legend class="col-form-legend">Sex <span class="asterisk text-danger">*</span></legend>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="sex" value="male"> Male
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="sex" value="female"> Female
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="religion">Religion <span class="asterisk text-danger">*</span></label>
+                                <input type="text" class="form-control" name="religion" id="religion">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="civil_status">Civil status <span class="asterisk text-danger">*</span></label>
+                                <input type="text" class="form-control" name="civil_status" id="civil_status">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="landline">Landline</label>
+                                <input type="text" class="form-control" name="landline" id="landline">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="mobile">Mobile</label>
+                                <input type="text" class="form-control" name="mobile" id="mobile">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" id="email">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4" id="employment">
+                <div class="card-header">Employment</div>
+                <div class="card-block pb-1">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <legend class="col-form-legend">Employment status <span class="asterisk text-danger">*</span></legend>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="employment_status" value=""> Waged employed
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="employment_status" value=""> Self employed
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="employment_status" value=""> Unemployed
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4" id="disability">
+                <div class="card-header">Disability</div>
+                <div class="card-block pb-1">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
                     </div>
-                    <div class="pull-right">
-                        <button role="button" type="submit" class="btn btn-outline-primary next-step">Next</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="card mb-4" id="language">
+                <div class="card-header">Language</div>
+                <div class="card-block pb-1">
+                    <div class="row">
+                        <div class="col-lg-6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right">
+                <button role="button" type="submit" class="btn btn-outline-primary">Next</button>
+            </div>
+        </form>
     </div>
     <div class="tab-pane" id="step-2" role="tabpanel">
-        <div class="card">
-            <div class="card-header">
-                <i class="fa fa-graduation-cap"></i> Formal Education
-            </div>
-            <div class="card-block">
-                <form action="/registrant/steps/2" method="POST" id="step_2_form">
+        <form action="/registrant/steps/2" method="POST" class="mb-4" id="step_2_form">
+            <div class="card mb-4" id="formal-education">
+                <div class="card-header">Formal Education</div>
+                <div class="card-block pb-1">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
                     </div>
-                    <div class="pull-right">
-                        <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
-                        <button role="button" type="submit" class="btn btn-outline-primary next-step">Next</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="pull-right">
+                <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
+                <button role="button" type="submit" class="btn btn-outline-primary">Next</button>
+            </div>
+        </form>
     </div>
     <div class="tab-pane" id="step-3" role="tabpanel">
-        <div class="card">
-            <div class="card-header">
-                <i class="fa fa-id-card-o"></i> Professional License
-            </div>
-            <div class="card-block">
-                <form action="/registrant/steps/3" method="POST" id="step_3_form">
+        <form action="/registrant/steps/3" method="POST" class="mb-4" id="step_3_form">
+            <div class="card mb-4" id="professional-license">
+                <div class="card-header">Professional License</div>
+                <div class="card-block pb-1">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
                     </div>
-                    <div class="pull-right">
-                        <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
-                        <button role="button" type="submit" class="btn btn-outline-primary next-step">Next</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="pull-right">
+                <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
+                <button role="button" type="submit" class="btn btn-outline-primary">Next</button>
+            </div>
+        </form>
     </div>
     <div class="tab-pane" id="step-4" role="tabpanel">
-        <div class="card">
-            <div class="card-header">
-                <i class="fa fa-gavel"></i> Eligibility
-            </div>
-            <div class="card-block">
-                <form action="/registrant/steps/4" method="POST" id="step_4_form">
+        <form action="/registrant/steps/4" method="POST" class="mb-4" id="step_4_form">
+            <div class="card mb-4" id="eligibility">
+                <div class="card-header">Eligibility</div>
+                <div class="card-block pb-1">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
                     </div>
-                    <div class="pull-right">
-                        <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
-                        <button role="button" type="submit" class="btn btn-outline-primary next-step">Next</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="pull-right">
+                <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
+                <button role="button" type="submit" class="btn btn-outline-primary">Next</button>
+            </div>
+        </form>
     </div>
     <div class="tab-pane" id="step-5" role="tabpanel">
-        <div class="card">
-            <div class="card-header">
-                <i class="fa fa-file-text-o"></i> Vocational/Technical Training And Relevant Experience
-            </div>
-            <div class="card-block">
-                <form action="/registrant/steps/5" method="POST" id="step_5_form">
+        <form action="/registrant/steps/5" method="POST" class="mb-4" id="step_5_form">
+            <div class="card mb-4" id="vocational-technical-training-and-relevant-experience">
+                <div class="card-header">Vocational/Technical Training And Relevant Experience</div>
+                <div class="card-block pb-1">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
                     </div>
-                    <div class="pull-right">
-                        <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
-                        <button role="button" type="submit" class="btn btn-outline-primary next-step">Next</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="pull-right">
+                <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
+                <button role="button" type="submit" class="btn btn-outline-primary">Next</button>
+            </div>
+        </form>
     </div>
     <div class="tab-pane" id="step-6" role="tabpanel">
-        <div class="card">
-            <div class="card-header">
-                <i class="fa fa-certificate"></i> Certificate Of Competence
-            </div>
-            <div class="card-block">
-                <form action="/registrant/steps/6" method="POST" id="step_6_form">
+        <form action="/registrant/steps/6" method="POST" class="mb-4" id="step_6_form">
+            <div class="card mb-4" id="certificate-of-competence">
+                <div class="card-header">Certificate Of Competence</div>
+                <div class="card-block pb-1">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
                     </div>
-                    <div class="pull-right">
-                        <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
-                        <button role="button" type="submit" class="btn btn-outline-primary next-step">Next</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="pull-right">
+                <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
+                <button role="button" type="submit" class="btn btn-outline-primary">Next</button>
+            </div>
+        </form>
     </div>
     <div class="tab-pane" id="step-7" role="tabpanel">
-        <div class="card">
-            <div class="card-header">
-                <i class="fa fa-briefcase"></i> Work Experience
-            </div>
-            <div class="card-block">
-                <form action="/registrant/steps/7" method="POST" id="step_7_form">
+        <form action="/registrant/steps/7" method="POST" class="mb-4" id="step_7_form">
+            <div class="card mb-4" id="work-experience">
+                <div class="card-header">Work Experience</div>
+                <div class="card-block pb-1">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
                     </div>
-                    <div class="pull-right">
-                        <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
-                        <button role="button" type="submit" class="btn btn-outline-primary next-step">Next</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="pull-right">
+                <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
+                <button role="button" type="submit" class="btn btn-outline-primary">Next</button>
+            </div>
+        </form>
     </div>
     <div class="tab-pane" id="step-8" role="tabpanel">
-        <div class="card">
-            <div class="card-header">
-                <i class="fa fa-file-o"></i> Other Skills Aquired Without Formal Training
-            </div>
-            <div class="card-block">
-                <form action="/registrant/steps/8" method="POST" id="step_8_form">
+        <form action="/registrant/steps/8" method="POST" class="mb-4" id="step_8_form">
+            <div class="card mb-4" id="other-skills-aquired-without-formal-training">
+                <div class="card-header">Other Skills Aquired Without Formal Training</div>
+                <div class="card-block pb-1">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
                     </div>
-                    <div class="pull-right">
-                        <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
-                        <button role="button" type="submit" class="btn btn-outline-primary next-step">Next</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="pull-right">
+                <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
+                <button role="button" type="submit" class="btn btn-outline-primary">Next</button>
+            </div>
+        </form>
     </div>
     <div class="tab-pane" id="step-9" role="tabpanel">
-        <div class="card">
-            <div class="card-header">
-                <i class="fa fa-check"></i> Certification/Authorization
-            </div>
-            <div class="card-block">
-                <form action="/registrant/steps/9" method="POST" id="step_9_form">
+        <form action="/registrant/steps/9" method="POST" class="mb-4" id="step_9_form">
+            <div class="card mb-4" id="certification-authorization">
+                <div class="card-header">Certification/Authorization</div>
+                <div class="card-block pb-1">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
                     </div>
-                    <div class="pull-right">
-                        <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
-                        <button role="button" type="submit" class="btn btn-outline-primary">Finish</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="pull-right">
+                <button role="button" class="btn btn-outline-primary prev-step">Previous</button>
+                <button role="button" type="submit" class="btn btn-outline-primary">Finish</button>
+            </div>
+        </form>
     </div>
 </div>
 {{end}} {{define "script"}}
@@ -181,38 +344,51 @@
             // promise.then(function (r) {
             //     console.log(r);
             // });
+            nextStep();
         });
 
         $("#step_2_form").on("submit", function (e) {
             e.preventDefault();
+            nextStep();
         });
 
         $("#step_3_form").on("submit", function (e) {
             e.preventDefault();
+            nextStep();
         });
 
         $("#step_4_form").on("submit", function (e) {
             e.preventDefault();
+            nextStep();
         });
 
         $("#step_5_form").on("submit", function (e) {
             e.preventDefault();
+            nextStep();
         });
 
         $("#step_6_form").on("submit", function (e) {
             e.preventDefault();
+            nextStep();
         });
 
         $("#step_7_form").on("submit", function (e) {
             e.preventDefault();
+            nextStep();
         });
 
         $("#step_8_form").on("submit", function (e) {
             e.preventDefault();
+            nextStep();
         });
 
         $("#step_9_form").on("submit", function (e) {
             e.preventDefault();
+        });
+
+        $(".prev-step").on("click", function (e) {
+            e.preventDefault();
+            prevStep();
         });
     });
 
