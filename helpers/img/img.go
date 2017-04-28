@@ -8,6 +8,7 @@ import (
 	"mime/multipart"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"fmt"
 
@@ -27,7 +28,7 @@ var (
 
 func Validate(newFileInstance multipart.File, handler *multipart.FileHeader) error {
 	for _, mime := range mimes {
-		if handler.Header.Get("Content-Type") == mime {
+		if strings.ToLower(handler.Header.Get("Content-Type")) == mime {
 			size, err := fi.Size(newFileInstance)
 
 			if err != nil {

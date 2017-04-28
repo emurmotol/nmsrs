@@ -24,7 +24,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := map[string]interface{}{
-		"Title": "Edit User",
+		"Title": "Edit user",
 		"User":  usr,
 	}
 	funcMap := map[string]interface{}{}

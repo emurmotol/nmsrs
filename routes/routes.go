@@ -32,7 +32,6 @@ func Register() *mux.Router {
 	users.Path("").Methods("POST").Handler(middlewares.Admin(user.Store))
 	registrants := router.PathPrefix("/registrants").Subrouter()
 	registrants.Path("/create").Methods("GET").Handler(middlewares.Admin(registrant.Create))
-	registrants.Path("/steps/{step}").Methods("POST").Handler(middlewares.Admin(registrant.Step))
 	registrants.Path("/ids").Methods("POST").Handler(middlewares.Admin(registrant.DestroyMany))
 	registrants.Path("/{id}/photo").Methods("GET").Handler(middlewares.Admin(registrant.Photo))
 	registrants.Path("/{id}").Methods("GET").Handler(middlewares.Admin(registrant.Show))

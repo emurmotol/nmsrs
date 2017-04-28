@@ -2,21 +2,63 @@ package registrant
 
 import (
 	"net/http"
+	"strconv"
 
+	"github.com/zneyrl/nmsrs/helpers/res"
 	"github.com/zneyrl/nmsrs/helpers/tpl"
-	"github.com/zneyrl/nmsrs/models/registrant"
+	"github.com/zneyrl/nmsrs/models/option"
 )
 
 func Create(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
-		"Title":                   "Create Registrant",
-		"EmploymentStatusOptions": registrant.EmploymentStatusOptions,
-		"SexOptions":              registrant.SexOptions,
-		"CivilStatusOptions":      registrant.CivilStatusOptions,
+		"Title":                   "Create registrant",
+		"EmploymentStatusOptions": option.EmploymentStatus,
+		"SexOptions":              option.Sex,
+		"CivilStatusOptions":      option.CivilStatus,
 	}
 	funcMap := map[string]interface{}{}
 	tpl.Render(w, r, "wizard", "registrant.create", data, funcMap)
 }
 
 func Store(w http.ResponseWriter, r *http.Request) {
+	step, err := strconv.Atoi(r.URL.Query()["step"][0])
+
+	if err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+
+	switch step {
+	case 1:
+		res.JSON(w, res.Make{
+			Status: http.StatusOK,
+			Data: map[string]interface{}{
+				"proceed": true,
+			},
+			Errors: "",
+		})
+		return
+	case 2:
+		return
+	case 3:
+		return
+	case 4:
+		return
+	case 5:
+		return
+	case 6:
+		return
+	case 7:
+		return
+	case 8:
+		return
+	case 9:
+		return
+	default:
+		return
+	}
 }

@@ -8,34 +8,34 @@ $(function () {
     }
 
     removeFormErrorMarkup = function (field) {
-        var fc = field.parent();
+        var fp = field.parent();
 
-        if (fc.hasClass("has-danger")) {
-            fc.removeClass("has-danger");
+        if (fp.hasClass("has-danger")) {
+            fp.removeClass("has-danger");
         }
 
         if (field.hasClass("form-control-danger")) {
             field.removeClass("form-control-danger");
         }
 
-        if (fc.find("div.form-control-feedback").get().length == 1) {
-            fc.find("div.form-control-feedback").remove();
+        if (fp.find("div.form-control-feedback").get().length == 1) {
+            fp.find("div.form-control-feedback").remove();
         }
     }
 
     addFormErrorMarkup = function (field, message) {
-        var fc = field.parent();
+        var fp = field.parent();
 
-        if (!fc.hasClass("has-danger")) {
-            fc.addClass("has-danger");
+        if (!fp.hasClass("has-danger")) {
+            fp.addClass("has-danger");
         }
 
         if (!field.hasClass("form-control-danger")) {
             field.addClass("form-control-danger");
         }
 
-        if (fc.find("div.form-control-feedback").get().length == 0) {
-            fc.append(`<div class="form-control-feedback">` + message + `</div>`);
+        if (fp.find("div.form-control-feedback").get().length == 0) {
+            fp.append(`<div class="form-control-feedback">` + message + `</div>`);
         }
     }
 

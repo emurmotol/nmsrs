@@ -40,7 +40,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := map[string]interface{}{
-		"Title": "Show User",
+		"Title": "Show user",
 		"User":  usr,
 	}
 	funcMap := map[string]interface{}{}

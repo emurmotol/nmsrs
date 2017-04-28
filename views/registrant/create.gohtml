@@ -1,7 +1,7 @@
 {{define "content"}}
 <div class="tab-content">
     <div class="tab-pane active" id="step-1" role="tabpanel">
-        <form action="/registrant/steps/1" method="POST" class="mb-4" id="step_1_form">
+        <form action="/registrants?step=1" method="POST" class="mb-4" id="step_1_form">
             <div class="card mb-4" id="personal-information">
                 <div class="card-header">Personal Information</div>
                 <div class="card-block pb-1">
@@ -204,7 +204,7 @@
         </form>
     </div>
     <div class="tab-pane" id="step-2" role="tabpanel">
-        <form action="/registrant/steps/2" method="POST" class="mb-4" id="step_2_form">
+        <form action="/registrants?step=2" method="POST" class="mb-4" id="step_2_form">
             <div class="card mb-4" id="formal-education">
                 <div class="card-header">Formal Education</div>
                 <div class="card-block pb-1">
@@ -221,7 +221,7 @@
         </form>
     </div>
     <div class="tab-pane" id="step-3" role="tabpanel">
-        <form action="/registrant/steps/3" method="POST" class="mb-4" id="step_3_form">
+        <form action="/registrants?step=3" method="POST" class="mb-4" id="step_3_form">
             <div class="card mb-4" id="professional-license">
                 <div class="card-header">Professional License</div>
                 <div class="card-block pb-1">
@@ -238,7 +238,7 @@
         </form>
     </div>
     <div class="tab-pane" id="step-4" role="tabpanel">
-        <form action="/registrant/steps/4" method="POST" class="mb-4" id="step_4_form">
+        <form action="/registrants?step=4" method="POST" class="mb-4" id="step_4_form">
             <div class="card mb-4" id="eligibility">
                 <div class="card-header">Eligibility</div>
                 <div class="card-block pb-1">
@@ -255,7 +255,7 @@
         </form>
     </div>
     <div class="tab-pane" id="step-5" role="tabpanel">
-        <form action="/registrant/steps/5" method="POST" class="mb-4" id="step_5_form">
+        <form action="/registrants?step=5" method="POST" class="mb-4" id="step_5_form">
             <div class="card mb-4" id="vocational-technical-training-and-relevant-experience">
                 <div class="card-header">Vocational/Technical Training And Relevant Experience</div>
                 <div class="card-block pb-1">
@@ -272,7 +272,7 @@
         </form>
     </div>
     <div class="tab-pane" id="step-6" role="tabpanel">
-        <form action="/registrant/steps/6" method="POST" class="mb-4" id="step_6_form">
+        <form action="/registrants?step=6" method="POST" class="mb-4" id="step_6_form">
             <div class="card mb-4" id="certificate-of-competence">
                 <div class="card-header">Certificate Of Competence</div>
                 <div class="card-block pb-1">
@@ -289,7 +289,7 @@
         </form>
     </div>
     <div class="tab-pane" id="step-7" role="tabpanel">
-        <form action="/registrant/steps/7" method="POST" class="mb-4" id="step_7_form">
+        <form action="/registrants?step=7" method="POST" class="mb-4" id="step_7_form">
             <div class="card mb-4" id="work-experience">
                 <div class="card-header">Work Experience</div>
                 <div class="card-block pb-1">
@@ -306,7 +306,7 @@
         </form>
     </div>
     <div class="tab-pane" id="step-8" role="tabpanel">
-        <form action="/registrant/steps/8" method="POST" class="mb-4" id="step_8_form">
+        <form action="/registrants?step=8" method="POST" class="mb-4" id="step_8_form">
             <div class="card mb-4" id="other-skills-aquired-without-formal-training">
                 <div class="card-header">Other Skills Aquired Without Formal Training</div>
                 <div class="card-block pb-1">
@@ -323,7 +323,7 @@
         </form>
     </div>
     <div class="tab-pane" id="step-9" role="tabpanel">
-        <form action="/registrant/steps/9" method="POST" class="mb-4" id="step_9_form">
+        <form action="/registrants?step=9" method="POST" class="mb-4" id="step_9_form">
             <div class="card mb-4" id="certification-authorization">
                 <div class="card-header">Certification/Authorization</div>
                 <div class="card-block pb-1">
@@ -345,12 +345,13 @@
     $(function () {
         $("#step_1_form").on("submit", function (e) {
             e.preventDefault();
+            var promise = makeFormRequest(this, []);
 
-            // var promise = makeFormRequest(this, validate_fields);
-            // promise.then(function (r) {
-            //     console.log(r);
-            // });
-            nextStep();
+            promise.then(function (r) {
+                if (r.data.proceed != null && r.data.proceed) {
+                    nextStep();
+                }
+            });
         });
 
         $("#step_2_form").on("submit", function (e) {

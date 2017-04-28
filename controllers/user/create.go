@@ -14,7 +14,7 @@ import (
 
 func Create(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
-		"Title": "Create User",
+		"Title": "Create user",
 	}
 	funcMap := map[string]interface{}{}
 	tpl.Render(w, r, "menu", "user.create", data, funcMap)
