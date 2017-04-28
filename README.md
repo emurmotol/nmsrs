@@ -1,17 +1,17 @@
-### NMSRS Lookup
+### NMSRS
 National Manpower Skills Registration System For The Municipality Of Gasan Marinduque Philippines
 
 ### Tasks On Server
 * Create application forms and backend logic
 * Populate database
-* ~~Migrate to CouchDB to support 32-bit host pc~~
 * Missing on server Installing gomodifytags FAILED and Installing dlv FAILED
 * CRUD for registrant
 * Send email
-* Search
-* Add CFRF token on forms
+* Search all
+* Add CSRF token on forms
 
 ### Completed
+* ~~Migrate to CouchDB to support 32-bit host pc~~
 * Screenshot adding of registrant
 * JWT Middleware: f path is / and not authenticated set / to a different view'
 * Fix [negroni] 2017-04-17T13:24:28+08:00 | 404 | 0s | localhost:8080 | GET /css/bootstrap.min.css.map
@@ -23,13 +23,9 @@ National Manpower Skills Registration System For The Municipality Of Gasan Marin
 * Process login
 * Create authentication with JWT
 * Parse templates
-* [Run MongoDB server as a service](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#configure-a-windows-service-for-mongodb-community-edition). Set `mongod --config "C:\Program Files\MongoDB\Server\3.2\bin\mongod.cfg" --journal --directoryperdb --dbpath=C:\Users\Public\OJT\MongoDB\db --storageEngine=mmapv1 --install`
+* ~~[Run MongoDB server as a service](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/#configure-a-windows-service-for-mongodb-community-edition). Set `mongod --config "C:\Program Files\MongoDB\Server\3.2\bin\mongod.cfg" --journal --directoryperdb --dbpath=C:\Users\Public\OJT\MongoDB\db --storageEngine=mmapv1 --install`~~
 * Add FontAwesome
 * Use [Negroni](https://github.com/urfave/negroni)
-
-### Last Opened Files
-* create.gohtml (registrants)
-* wizard.gohtml
 
 ### Notes
 * go build & nmsrs.exe (PowerShell)
