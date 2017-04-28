@@ -51,7 +51,7 @@ $(function () {
     }
 
     makeRequest = function (action, method, data) {
-        $.ajax({
+        var call = $.ajax({
             url: action,
             type: method,
             data: data,
@@ -73,6 +73,10 @@ $(function () {
                 }
             }
             console.log(r)
+        });
+
+        return call.then(function (r) {
+            return r;
         });
     }
 
@@ -139,12 +143,13 @@ $(function () {
     }
 
     makeFormRequest = function (form, validate_fields) {
-        var submitButton = $(form).find(":submit");
-        var oldText = submitButton.text();
+        var submit_button = $(form).find(":submit");
+        var old_text = submit_button.text();
         var content_type = null;
         var data = null;
         var enctype = $(form).prop("enctype");
-        submitButton.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Please wait...`)
+        submit_button.prop("disabled", true);
+        submit_button.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Please wait...`)
 
         if (enctype == "multipart/form-data") {
             content_type = false;
@@ -204,7 +209,8 @@ $(function () {
                     $(this).val("");
                 });
             }
-            submitButton.html(oldText);
+            submit_button.prop("disabled", false);
+            submit_button.html(old_text);
             console.log(r);
         });
 

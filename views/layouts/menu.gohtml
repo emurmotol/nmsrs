@@ -49,6 +49,7 @@
                         <div class="dropdown-menu" aria-labelledby="drop_down_{{.ID.Hex}}">
                             {{if not (IsAdminUser .ID.Hex)}}
                             <a class="dropdown-item" href="/users/{{.ID.Hex}}">Your profile</a>
+                            <div class="dropdown-divider"></div>
                             {{end}}
                             <a class="dropdown-item" href="/logout">Logout</a>
                         </div>

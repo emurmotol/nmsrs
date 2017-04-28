@@ -86,8 +86,17 @@
             });
 
             if (ids.length != 0) {
-                $(this).html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Deleting...`);
-                makeRequest("/users/ids", "POST", { ids });
+                var elem = $(this);
+                var old_text = elem.text();
+                elem.prop("disabled", true);
+                elem.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Deleting...`);
+                var promise = makeRequest("/users/ids", "POST", { ids });
+
+                promise.then(function (r) {
+                    elem.text(old_text);
+                    elem.prop("disabled", false);
+                    $("#confirm_delete_user_modal").modal("hide");
+                });
             }
         });
 
