@@ -53,7 +53,9 @@ func Register() *mux.Router {
 	router.Path("/welcome").Methods("GET").Handler(middlewares.Web(home.Welcome))
 	router.Path("/").Methods("GET").Handler(middlewares.Web(home.Index))
 
-	router.NotFoundHandler = http.HandlerFunc(controllers.PageNotFound) // TODO: Only works when root/subrouter has path /
+	router.NotFoundHandler = http.HandlerFunc(controllers.PageNotFound) // TODO: Only works when root/subrouter has path ""
+
+	router.Path("/dd").Methods("GET").Handler(middlewares.Web(controllers.DD))
 
 	return router
 }

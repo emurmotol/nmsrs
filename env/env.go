@@ -46,6 +46,7 @@ var (
 
 	// JWT
 	JWTTokenName string
+	JWTExp       time.Duration
 
 	// Template
 	TemplateParentDir     string
@@ -91,6 +92,7 @@ func init() {
 
 	// JWT
 	flag.StringVar(&JWTTokenName, "JWTTokenName", "AccessToken", "JWT token name")
+	flag.DurationVar(&JWTExp, "JWTExp", time.Hour*time.Duration(336), "JWT expiration") // TODO: Expires in 1 week
 
 	// Template
 	flag.StringVar(&TemplateParentDir, "TemplateParentDir", "views", "Template parent directory")

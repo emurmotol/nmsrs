@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/zneyrl/nmsrs/db"
+	"github.com/zneyrl/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -17,7 +18,7 @@ type Profile struct {
 
 func UpdateProfile(id string, profile Profile) error {
 	if !bson.IsObjectIdHex(id) {
-		return ErrInvalidObjectID
+		return models.ErrInvalidObjectID
 	}
 
 	if IsAdminUser(id) {

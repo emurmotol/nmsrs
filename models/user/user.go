@@ -14,10 +14,10 @@ import (
 	"github.com/zneyrl/nmsrs/env"
 	"github.com/zneyrl/nmsrs/helpers/lang"
 	"github.com/zneyrl/nmsrs/helpers/str"
+	"github.com/zneyrl/nmsrs/models"
 )
 
 var (
-	ErrInvalidObjectID    = errors.New(lang.En["object_id_invalid"])
 	ErrActionNotPermitted = errors.New(lang.En["action_not_permitted"])
 	ErrEmailTaken         = errors.New(lang.En["email_taken"])
 	contentDir            = "content/users"
@@ -61,7 +61,7 @@ func Find(id string) (*User, error) {
 	var usr User
 
 	if !bson.IsObjectIdHex(id) {
-		return &usr, ErrInvalidObjectID
+		return &usr, models.ErrInvalidObjectID
 	}
 
 	if err := db.Users.FindId(bson.ObjectIdHex(id)).One(&usr); err != nil {

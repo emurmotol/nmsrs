@@ -5,6 +5,7 @@ import (
 
 	"github.com/zneyrl/nmsrs/db"
 	"github.com/zneyrl/nmsrs/helpers/str"
+	"github.com/zneyrl/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -16,7 +17,7 @@ type ResetPassword struct {
 
 func UpdatePassword(id string, resetPassword ResetPassword) error {
 	if !bson.IsObjectIdHex(id) {
-		return ErrInvalidObjectID
+		return models.ErrInvalidObjectID
 	}
 
 	if IsAdminUser(id) {

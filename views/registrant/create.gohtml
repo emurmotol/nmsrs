@@ -94,9 +94,31 @@
                                 <label for="civil_status">Civil status <span class="asterisk text-danger">*</span></label>
                                 <select class="form-control" name="civil_status" id="civil_status">
                                     {{with .CivilStatusOptions}} {{range $key, $value := .}}
-                                    <option value="{{$key}}">{{$value}}</option>
+                                    <option value="{{ToUpper $value}}">{{$value}}</option>
                                     {{end}} {{end}}
                                 </select>
+                            </div>
+                            <div class="modal fade" id="civil_status_other_modal" data-backdrop="static" role="dialog">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Civil status</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="civil_status_other_specify">Other, specify</label>
+                                                <input type="text" class="form-control" name="civil_status_other_specify" id="civil_status_other_specify">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" id="civil_status_other_ok">Ok</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -164,7 +186,7 @@
                                 {{with .EmploymentStatusOptions}} {{range $key, $value := .}}
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="employment_status" value="{{$key}}"> {{$value}}
+                                        <input class="form-check-input" type="radio" name="employment_status" value="{{ToUpper $value}}"> {{$value}}
                                     </label>
                                 </div>
                                 {{end}} {{end}}
@@ -343,6 +365,25 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
+        $("#civil_status_other_ok").on("click", function () {
+            if (($("#civil_status_other_specify").val().split(" ").join("")).length != 0) {
+                var other_specify = $("#civil_status_other_specify").val().toUpperCase();
+                var markup = `<option value="` + other_specify + `" selected>` + other_specify + `</option>`;
+                $("#civil_status").append(markup);
+                $("#civil_status_other_modal").modal("hide");
+                $("#civil_status_other_specify").val("");
+            }
+        });
+
+        $("#civil_status").prop("selectedIndex", -1);
+
+        $("#civil_status").on("change", function () {
+            if ($(this).val() == "OTHER") {
+                $(this).prop("selectedIndex", -1);
+                $("#civil_status_other_modal").modal("show");
+            }
+        });
+
         $("#step_1_form").on("submit", function (e) {
             e.preventDefault();
             var promise = makeFormRequest(this, []);

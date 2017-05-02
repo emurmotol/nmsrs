@@ -80,8 +80,8 @@ func GetToken(id string) string {
 	token := jwt.New(jwt.SigningMethodRS256)
 	claims := make(jwt.MapClaims)
 	claims["id"] = id
-	claims[env.JWTTokenName] = "level1"                                   // TODO: WTF level1 means
-	claims["exp"] = time.Now().Add(time.Hour * time.Duration(168)).Unix() // TODO: Expires in 1 week
+	claims[env.JWTTokenName] = "level1" // TODO: WTF level1 means
+	claims["exp"] = time.Now().Add(env.JWTExp).Unix()
 	claims["iat"] = time.Now().Unix()
 	token.Claims = claims
 	tokenString, err := token.SignedString(signKey)

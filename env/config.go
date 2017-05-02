@@ -42,6 +42,7 @@ func Config() interface{} {
 		},
 		"JWT": map[string]string{
 			"TokenName": JWTTokenName,
+			"Exp":       string(JWTExp),
 		},
 		"Template": map[string]string{
 			"ParentDir":     TemplateParentDir,

@@ -47,6 +47,7 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 
 	funcMap["DateForHumans"] = str.DateForHumans
 	funcMap["IsAdminUser"] = user.IsAdminUser
+	funcMap["ToUpper"] = strings.ToUpper
 	t := template.New(fmt.Sprintf("%s:%s", layout, name)).Funcs(funcMap)
 	tpl := template.Must(t.ParseFiles(layoutFile, tplFile))
 

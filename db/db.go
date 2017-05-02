@@ -11,6 +11,7 @@ var (
 	DB          *mgo.Database
 	Users       *mgo.Collection
 	Registrants *mgo.Collection
+	Options     *mgo.Collection
 )
 
 func init() {
@@ -26,4 +27,5 @@ func init() {
 	DB = s.DB(env.DBName)
 	Users = DB.C("users")
 	Registrants = DB.C("registrants")
+	Options = DB.C("options")
 }
