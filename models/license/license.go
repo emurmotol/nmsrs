@@ -14,7 +14,7 @@ type License struct {
 func All() ([]License, error) {
 	licns := []License{}
 
-	if err := db.Licenses.Find(bson.M{}).All(&licns); err != nil {
+	if err := db.Licenses.Find(bson.M{}).Sort("+name").All(&licns); err != nil {
 		return nil, err
 	}
 	return licns, nil

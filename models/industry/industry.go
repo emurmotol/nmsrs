@@ -14,7 +14,7 @@ type Industry struct {
 func All() ([]Industry, error) {
 	inds := []Industry{}
 
-	if err := db.Industries.Find(bson.M{}).All(&inds); err != nil {
+	if err := db.Industries.Find(bson.M{}).Sort("+name").All(&inds); err != nil {
 		return nil, err
 	}
 	return inds, nil

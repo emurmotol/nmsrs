@@ -14,7 +14,7 @@ type UnemployedStatus struct {
 func All() ([]UnemployedStatus, error) {
 	unEmpStats := []UnemployedStatus{}
 
-	if err := db.UnemployedStatuses.Find(bson.M{}).All(&unEmpStats); err != nil {
+	if err := db.UnemployedStatuses.Find(bson.M{}).Sort("+name").All(&unEmpStats); err != nil {
 		return nil, err
 	}
 	return unEmpStats, nil

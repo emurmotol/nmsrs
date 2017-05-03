@@ -14,7 +14,7 @@ type Religion struct {
 func All() ([]Religion, error) {
 	religs := []Religion{}
 
-	if err := db.Religions.Find(bson.M{}).All(&religs); err != nil {
+	if err := db.Religions.Find(bson.M{}).Sort("+name").All(&religs); err != nil {
 		return nil, err
 	}
 	return religs, nil

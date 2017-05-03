@@ -14,7 +14,7 @@ type OtherSkill struct {
 func All() ([]OtherSkill, error) {
 	oskills := []OtherSkill{}
 
-	if err := db.OtherSkills.Find(bson.M{}).All(&oskills); err != nil {
+	if err := db.OtherSkills.Find(bson.M{}).Sort("+name").All(&oskills); err != nil {
 		return nil, err
 	}
 	return oskills, nil

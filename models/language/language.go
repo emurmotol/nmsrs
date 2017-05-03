@@ -14,7 +14,7 @@ type Language struct {
 func All() ([]Language, error) {
 	lngs := []Language{}
 
-	if err := db.Languages.Find(bson.M{}).All(&lngs); err != nil {
+	if err := db.Languages.Find(bson.M{}).Sort("+name").All(&lngs); err != nil {
 		return nil, err
 	}
 	return lngs, nil

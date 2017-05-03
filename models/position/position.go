@@ -14,7 +14,7 @@ type Position struct {
 func All() ([]Position, error) {
 	poss := []Position{}
 
-	if err := db.Positions.Find(bson.M{}).All(&poss); err != nil {
+	if err := db.Positions.Find(bson.M{}).Sort("+name").All(&poss); err != nil {
 		return nil, err
 	}
 	return poss, nil

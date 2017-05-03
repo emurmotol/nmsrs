@@ -14,7 +14,7 @@ type Course struct {
 func All() ([]Course, error) {
 	cours := []Course{}
 
-	if err := db.Courses.Find(bson.M{}).All(&cours); err != nil {
+	if err := db.Courses.Find(bson.M{}).Sort("+name").All(&cours); err != nil {
 		return nil, err
 	}
 	return cours, nil

@@ -14,7 +14,7 @@ type EducationLevel struct {
 func All() ([]EducationLevel, error) {
 	edulvls := []EducationLevel{}
 
-	if err := db.EducationLevels.Find(bson.M{}).All(&edulvls); err != nil {
+	if err := db.EducationLevels.Find(bson.M{}).Sort("+name").All(&edulvls); err != nil {
 		return nil, err
 	}
 	return edulvls, nil

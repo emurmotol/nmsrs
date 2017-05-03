@@ -6,15 +6,60 @@ import (
 
 	"github.com/zneyrl/nmsrs/helpers/res"
 	"github.com/zneyrl/nmsrs/helpers/tpl"
+	"github.com/zneyrl/nmsrs/models/civilstatus"
+	"github.com/zneyrl/nmsrs/models/employmentstatus"
+	"github.com/zneyrl/nmsrs/models/religion"
+	"github.com/zneyrl/nmsrs/models/sex"
 )
 
 func Create(w http.ResponseWriter, r *http.Request) {
+	empStats, err := employmentstatus.All()
+
+	if err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+	sexs, err := sex.All()
+
+	if err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+	civStats, err := civilstatus.All()
+
+	if err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+	religs, err := religion.All()
+
+	if err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+
 	data := map[string]interface{}{
-		"Title": "Create registrant",
-		// "EmploymentStatusOptions": models.EmploymentStatusOptions,
-		// "SexOptions":              models.SexOptions,
-		// "CivilStatusOptions":      models.CivilStatusOptions,
-		// "ReligionOptions":         models.ReligionOptions,
+		"Title":            "Create registrant",
+		"EmploymentStatus": empStats,
+		"Sex":              sexs,
+		"CivilStatus":      civStats,
+		"Religion":         religs,
 	}
 	funcMap := map[string]interface{}{}
 	tpl.Render(w, r, "wizard", "registrant.create", data, funcMap)

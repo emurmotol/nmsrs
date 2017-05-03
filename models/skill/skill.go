@@ -14,7 +14,7 @@ type Skill struct {
 func All() ([]Skill, error) {
 	skills := []Skill{}
 
-	if err := db.Skills.Find(bson.M{}).All(&skills); err != nil {
+	if err := db.Skills.Find(bson.M{}).Sort("+name").All(&skills); err != nil {
 		return nil, err
 	}
 	return skills, nil

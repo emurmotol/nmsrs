@@ -34,9 +34,17 @@ func main() {
 	n.Use(negroni.NewRecovery())
 	n.Use(negroni.NewStatic(http.Dir("static")))
 	n.UseHandler(routes.Register())
-
 	user.SetDefaultUser()
+	seed()
+	host := fmt.Sprintf("%s:%d", env.SvrHost, env.SvrPort)
+	fmt.Printf("Server running at %s\n", host)
 
+	if err := http.ListenAndServe(host, n); err != nil {
+		panic(err)
+	}
+}
+
+func seed() {
 	certificate.Seeder()
 	civilstatus.Seeder()
 	country.Seeder()
@@ -57,11 +65,4 @@ func main() {
 	skill.Seeder()
 	unemployedstatus.Seeder()
 	user.Seeder()
-
-	host := fmt.Sprintf("%s:%d", env.SvrHost, env.SvrPort)
-	fmt.Printf("Server running at %s\n", host)
-
-	if err := http.ListenAndServe(host, n); err != nil {
-		panic(err)
-	}
 }

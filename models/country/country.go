@@ -14,7 +14,7 @@ type Country struct {
 func All() ([]Country, error) {
 	couns := []Country{}
 
-	if err := db.Countries.Find(bson.M{}).All(&couns); err != nil {
+	if err := db.Countries.Find(bson.M{}).Sort("+name").All(&couns); err != nil {
 		return nil, err
 	}
 	return couns, nil

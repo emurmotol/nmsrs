@@ -14,7 +14,7 @@ type School struct {
 func All() ([]School, error) {
 	schs := []School{}
 
-	if err := db.Schools.Find(bson.M{}).All(&schs); err != nil {
+	if err := db.Schools.Find(bson.M{}).Sort("+name").All(&schs); err != nil {
 		return nil, err
 	}
 	return schs, nil

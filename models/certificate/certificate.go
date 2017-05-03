@@ -14,7 +14,7 @@ type Certificate struct {
 func All() ([]Certificate, error) {
 	certs := []Certificate{}
 
-	if err := db.Certificates.Find(bson.M{}).All(&certs); err != nil {
+	if err := db.Certificates.Find(bson.M{}).Sort("+name").All(&certs); err != nil {
 		return nil, err
 	}
 	return certs, nil
