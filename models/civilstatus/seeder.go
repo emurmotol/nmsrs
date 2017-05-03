@@ -1,5 +1,7 @@
 package civilstatus
 
+import "log"
+
 var data = []string{
 	"SINGLE",
 	"WIDOWED",
@@ -25,5 +27,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("CivilStatus seeding successful")
 	}
 }

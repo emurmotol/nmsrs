@@ -1,6 +1,8 @@
 package user
 
 import (
+	"log"
+
 	"github.com/icrowley/fake"
 )
 
@@ -25,5 +27,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("User seeding successful")
 	}
 }

@@ -1,5 +1,7 @@
 package employmentstatus
 
+import "log"
+
 var data = []string{
 	"WAGED EMPLOYED",
 	"SELF EMPLOYED",
@@ -23,5 +25,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("EmploymentStatus seeding successful")
 	}
 }

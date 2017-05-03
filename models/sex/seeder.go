@@ -1,5 +1,7 @@
 package sex
 
+import "log"
+
 var data = []string{
 	"MALE",
 	"FEMALE",
@@ -22,5 +24,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("Sex seeding successful")
 	}
 }

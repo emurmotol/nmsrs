@@ -1,5 +1,7 @@
 package educationlevel
 
+import "log"
+
 var data = []string{
 	"GRADE I",
 	"GRADE II",
@@ -46,5 +48,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("EducationLevel seeding successful")
 	}
 }

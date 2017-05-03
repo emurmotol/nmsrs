@@ -1,5 +1,7 @@
 package disability
 
+import "log"
+
 var data = []string{
 	"VISUAL IMPAIRMENT",
 	"HEARING IMPAIRMENT",
@@ -25,5 +27,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("Disability seeding successful")
 	}
 }

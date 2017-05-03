@@ -1,5 +1,7 @@
 package eligibility
 
+import "log"
+
 var data = []string{
 	"CAREER SERVICE PROFESSIONAL",
 	"CAREER SERVICE EXECUTIVE ELIGIBILITY",
@@ -32,5 +34,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("Eligibility seeding successful")
 	}
 }

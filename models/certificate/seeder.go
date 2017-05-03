@@ -1,5 +1,7 @@
 package certificate
 
+import "log"
+
 var data = []string{
 	"(NEW) AUTOMOTIVE SERVICE TECHNICIAN (LIGHT DUTY) (COMPETENCY LEADING TO NL)",
 	"(NEW) AUTOMOTIVE SERVICE TECHNICIAN (LIGHT DUTY) (NATIONAL CERTIFICATE I)",
@@ -669,5 +671,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("Certificate seeding successful")
 	}
 }

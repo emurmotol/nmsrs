@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/urfave/negroni"
@@ -37,7 +38,7 @@ func main() {
 	user.SetDefaultUser()
 	seed()
 	host := fmt.Sprintf("%s:%d", env.SvrHost, env.SvrPort)
-	fmt.Printf("Server running at %s\n", host)
+	log.Printf("Server running at %s\n", host)
 
 	if err := http.ListenAndServe(host, n); err != nil {
 		panic(err)

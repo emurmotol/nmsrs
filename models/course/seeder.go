@@ -1,5 +1,7 @@
 package course
 
+import "log"
+
 var data = []string{
 	"EDUCATION AT THE FIRST LEVEL (ELEMENTARY EDUCATION LEVEL)",
 	"GENERAL ELEMENTARY EDUCATION PROGRAMS",
@@ -1847,5 +1849,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("Course seeding successful")
 	}
 }

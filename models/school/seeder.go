@@ -1,5 +1,7 @@
 package school
 
+import "log"
+
 var data = []string{
 	"ABLAN MEMORIAL COLLEGE",
 	"ADELPHI COLLEGE",
@@ -2391,5 +2393,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("School seeding successful")
 	}
 }

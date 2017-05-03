@@ -1,5 +1,7 @@
 package religion
 
+import "log"
+
 var data = []string{
 	"TWELVE TRIBES OF ISRAEL",
 	"ASSEMBLY OF GOD",
@@ -59,5 +61,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("Religion seeding successful")
 	}
 }

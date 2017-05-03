@@ -1,5 +1,7 @@
 package otherskill
 
+import "log"
+
 var data = []string{
 	"TEACHING",
 	"NEGOTIATING",
@@ -73,5 +75,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("OtherSkill seeding successful")
 	}
 }

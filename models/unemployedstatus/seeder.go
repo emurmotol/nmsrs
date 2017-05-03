@@ -1,5 +1,7 @@
 package unemployedstatus
 
+import "log"
+
 var data = []string{
 	"ACTIVELY LOOKING FOR WORK",
 	"RESIGNED",
@@ -24,5 +26,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("UnemployedStatus seeding successful")
 	}
 }

@@ -11,8 +11,6 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-// var photoPath =
-
 func SetPhoto(file multipart.File, id string) error {
 	if IsAdminUser(id) {
 		return ErrActionNotPermitted

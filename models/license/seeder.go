@@ -1,5 +1,7 @@
 package license
 
+import "log"
+
 var data = []string{
 	"CERTIFIED PUBLIC ACCOUNTANT",
 	"AGRICULTURAL ENGINEER",
@@ -133,5 +135,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("License seeding successful")
 	}
 }

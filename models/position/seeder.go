@@ -1,5 +1,7 @@
 package position
 
+import "log"
+
 var data = []string{
 	"SPECIAL OCCUPATION",
 	"ARMED FORCES",
@@ -8201,5 +8203,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("Position seeding successful")
 	}
 }

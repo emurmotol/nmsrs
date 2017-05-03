@@ -1,5 +1,7 @@
 package industry
 
+import "log"
+
 var data = []string{
 	"AGRICULTURE",
 	"FISHING",
@@ -37,5 +39,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("Industry seeding successful")
 	}
 }

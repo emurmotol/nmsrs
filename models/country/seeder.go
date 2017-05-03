@@ -1,5 +1,7 @@
 package country
 
+import "log"
+
 var data = []string{
 	"AFGHANISTAN",
 	"ALBANIA",
@@ -216,5 +218,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("Country seeding successful")
 	}
 }

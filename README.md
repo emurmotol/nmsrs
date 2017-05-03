@@ -35,9 +35,12 @@ National Manpower Skills Registration System For The Municipality Of Gasan Marin
 * VSCode debugger only works on 64-bit
 
 ### Important
+* Change key on production
 * Always push source to remote
 
 ### Useful Links
+* http://codepen.io/cfmatre/pen/LGOdjq
+* http://stackoverflow.com/questions/19448939/how-to-disable-browser-from-regenerating-my-form-data-upon-pressing-back-button
 * https://github.com/go-playground/validator
 * https://github.com/rhinoman/couchdb-go
 * https://stackoverflow.com/questions/17129797/golang-how-to-check-multipart-file-information

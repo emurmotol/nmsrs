@@ -1,5 +1,7 @@
 package skill
 
+import "log"
+
 var data = []string{
 	"Skill",
 	"COMPUTER LITERATE",
@@ -37,5 +39,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("Skill seeding successful")
 	}
 }

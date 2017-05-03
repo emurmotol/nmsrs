@@ -1,5 +1,7 @@
 package language
 
+import "log"
+
 var data = []string{
 	"AGTA",
 	"AGUTAYNON",
@@ -254,5 +256,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
+		log.Println("Language seeding successful")
 	}
 }
