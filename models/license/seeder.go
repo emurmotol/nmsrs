@@ -117,17 +117,17 @@ var data = []string{
 }
 
 func Seeder() {
-	lics, err := All()
+	licns, err := All()
 
 	if err != nil {
 		panic(err)
 	}
 
-	if len(lics) == 0 {
+	if len(licns) == 0 {
 		for _, value := range data {
-			var lic License
-			lic.Name = value
-			_, err := lic.Insert()
+			var licn License
+			licn.Name = value
+			_, err := licn.Insert()
 
 			if err != nil {
 				panic(err)

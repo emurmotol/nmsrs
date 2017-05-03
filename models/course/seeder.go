@@ -1831,17 +1831,17 @@ var data = []string{
 }
 
 func Seeder() {
-	courses, err := All()
+	cours, err := All()
 
 	if err != nil {
 		panic(err)
 	}
 
-	if len(courses) == 0 {
+	if len(cours) == 0 {
 		for _, value := range data {
-			var course Course
-			course.Name = value
-			_, err := course.Insert()
+			var cour Course
+			cour.Name = value
+			_, err := cour.Insert()
 
 			if err != nil {
 				panic(err)

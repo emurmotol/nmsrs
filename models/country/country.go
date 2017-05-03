@@ -12,32 +12,32 @@ type Country struct {
 }
 
 func All() ([]Country, error) {
-	countries := []Country{}
+	couns := []Country{}
 
-	if err := db.Countries.Find(bson.M{}).All(&countries); err != nil {
+	if err := db.Countries.Find(bson.M{}).All(&couns); err != nil {
 		return nil, err
 	}
-	return countries, nil
+	return couns, nil
 }
 
-func (country *Country) Insert() (string, error) {
-	country.ID = bson.NewObjectId()
+func (coun *Country) Insert() (string, error) {
+	coun.ID = bson.NewObjectId()
 
-	if err := db.Countries.Insert(country); err != nil {
+	if err := db.Countries.Insert(coun); err != nil {
 		return "", err
 	}
-	return country.ID.Hex(), nil
+	return coun.ID.Hex(), nil
 }
 
 func Find(id string) (*Country, error) {
-	var country Country
+	var coun Country
 
 	if !bson.IsObjectIdHex(id) {
-		return &country, models.ErrInvalidObjectID
+		return &coun, models.ErrInvalidObjectID
 	}
 
-	if err := db.Countries.FindId(bson.ObjectIdHex(id)).One(&country); err != nil {
-		return &country, err
+	if err := db.Countries.FindId(bson.ObjectIdHex(id)).One(&coun); err != nil {
+		return &coun, err
 	}
-	return &country, nil
+	return &coun, nil
 }

@@ -8,17 +8,17 @@ var data = []string{
 }
 
 func Seeder() {
-	unempstats, err := All()
+	unEmpStats, err := All()
 
 	if err != nil {
 		panic(err)
 	}
 
-	if len(unempstats) == 0 {
+	if len(unEmpStats) == 0 {
 		for _, value := range data {
-			var unempstat UnemployedStatus
-			unempstat.Name = value
-			_, err := unempstat.Insert()
+			var unEmpStat UnemployedStatus
+			unEmpStat.Name = value
+			_, err := unEmpStat.Insert()
 
 			if err != nil {
 				panic(err)
