@@ -75,6 +75,16 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
+                                <label for="religion">Religion <span class="asterisk text-danger">*</span></label>
+                                <select class="form-control" name="religion" id="religion">
+                                    {{with .ReligionOptions}} {{range $key, $value := .}}
+                                    <option value="{{$value}}">{{$value}}</option>
+                                    {{end}} {{end}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
                                 <label for="place_of_birth">Place of birth <span class="asterisk text-danger">*</span></label>
                                 <input type="text" class="form-control" name="place_of_birth" id="place_of_birth">
                             </div>
@@ -83,20 +93,20 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label for="religion">Religion <span class="asterisk text-danger">*</span></label>
-                                <select class="form-control" name="religion" id="religion">
-                                    <option>Example</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="civil_status">Civil status <span class="asterisk text-danger">*</span></label>
-                                <select class="form-control" name="civil_status" id="civil_status">
-                                    {{with .CivilStatusOptions}} {{range $key, $value := .}}
-                                    <option value="{{ToUpper $value}}">{{$value}}</option>
-                                    {{end}} {{end}}
-                                </select>
+                                <legend class="col-form-legend">Civil status <span class="asterisk text-danger">*</span></legend>
+                                {{with .CivilStatusOptions}} {{range $key, $value := .}} {{if eq $value "OTHER"}}
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{SentenceCaseToSnakeCase $value}}" value="{{$value}}"> {{AllCapsToSentenceCase $value}}, simplify
+                                    </label>
+                                </div>
+                                <input class="form-control" type="text" name="civil_status" id="civil_status"> {{else}}
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{SentenceCaseToSnakeCase $value}}" value="{{$value}}"> {{AllCapsToSentenceCase $value}}
+                                    </label>
+                                </div>
+                                {{end}} {{end}} {{end}}
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -104,31 +114,25 @@
                                 <label for="age">Age</label>
                                 <input type="text" class="form-control" name="age" id="age">
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="height">Height (cm) <span class="asterisk text-danger">*</span></label>
-                                <input type="text" class="form-control" name="height" id="height">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="weight">Weight (kg)</label>
-                                <input type="text" class="form-control" name="weight" id="weight">
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
                             <div class="form-group">
                                 <legend class="col-form-legend">Sex <span class="asterisk text-danger">*</span></legend>
                                 {{with .SexOptions}} {{range $key, $value := .}}
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="sex" value="{{$key}}"> {{$value}}
+                                        <input class="form-check-input" type="radio" name="sex" value="{{$value}}"> {{AllCapsToSentenceCase $value}}
                                     </label>
                                 </div>
                                 {{end}} {{end}}
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="height">Height (cm) <span class="asterisk text-danger">*</span></label>
+                                <input type="text" class="form-control" name="height" id="height">
+                            </div>
+                            <div class="form-group">
+                                <label for="weight">Weight (kg)</label>
+                                <input type="text" class="form-control" name="weight" id="weight">
                             </div>
                         </div>
                     </div>
@@ -164,7 +168,7 @@
                                 {{with .EmploymentStatusOptions}} {{range $key, $value := .}}
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="employment_status" value="{{ToUpper $value}}"> {{$value}}
+                                        <input class="form-check-input" type="radio" name="employment_status" value="{{$value}}"> {{AllCapsToSentenceCase $value}}
                                     </label>
                                 </div>
                                 {{end}} {{end}}
@@ -340,52 +344,13 @@
         </form>
     </div>
 </div>
-<div class="modal fade" id="civil_status_other_modal" data-backdrop="static" role="dialog">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <form id="civil_status_other_form">
-                <div class="modal-header">
-                    <h5 class="modal-title">Civil status</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="civil_status_other_specify">Other, specify</label>
-                        <input type="text" class="form-control" name="civil_status_other_specify" id="civil_status_other_specify">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" role="button" class="btn btn-primary">Ok</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        $("#civil_status_other_form").on("submit", function (e) {
-            e.preventDefault();
+        $("#religion").prop("selectedIndex", -1);
 
-            if (($("#civil_status_other_specify").val().split(" ").join("")).length != 0) {
-                var other_specify = $("#civil_status_other_specify").val().toUpperCase();
-                var markup = `<option value="` + other_specify + `" selected>` + other_specify + `</option>`;
-                $("#civil_status").append(markup);
-                $("#civil_status_other_modal").modal("hide");
-                $("#civil_status_other_specify").val("");
-            }
-        });
-
-        $("#civil_status").prop("selectedIndex", -1);
-
-        $("#civil_status").on("change", function () {
-            if ($(this).val() == "OTHER") {
-                $(this).prop("selectedIndex", -1);
-                $("#civil_status_other_modal").modal("show");
-            }
+        $("#civil_status_other").on("click", function () {
+            $("#civil_status").focus();
         });
 
         $("#step_1_form").on("submit", function (e) {

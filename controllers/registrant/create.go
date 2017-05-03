@@ -15,6 +15,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		"EmploymentStatusOptions": models.EmploymentStatusOptions,
 		"SexOptions":              models.SexOptions,
 		"CivilStatusOptions":      models.CivilStatusOptions,
+		"ReligionOptions":         models.ReligionOptions,
 	}
 	funcMap := map[string]interface{}{}
 	tpl.Render(w, r, "wizard", "registrant.create", data, funcMap)

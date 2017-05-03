@@ -1,10 +1,10 @@
 package controllers
 
 import (
+	"bufio"
 	"fmt"
 	"net/http"
-
-	"github.com/zneyrl/nmsrs/models/user"
+	"os"
 )
 
 func DD(w http.ResponseWriter, r *http.Request) {
@@ -18,6 +18,21 @@ func DD(w http.ResponseWriter, r *http.Request) {
 	// 	panic(err)
 	// }
 	// http.ServeFile(w, r, "temp/hello.pdf")
-	val, _ := user.All()
-	w.Write([]byte(fmt.Sprintf("%v\n", val)))
+	file, err := os.Open("temp/col.txt")
+
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	scanner := bufio.NewScanner(file)
+	txt := ""
+
+	for scanner.Scan() {
+		txt += fmt.Sprintln(fmt.Sprintf(`"%s",`, scanner.Text()))
+	}
+
+	if err := scanner.Err(); err != nil {
+		panic(err)
+	}
+	w.Write([]byte(fmt.Sprintf("%v\n", txt)))
 }

@@ -8,10 +8,27 @@ import (
 )
 
 var (
-	DB          *mgo.Database
-	Users       *mgo.Collection
-	Registrants *mgo.Collection
-	Options     *mgo.Collection
+	DB                 *mgo.Database
+	Certificates       *mgo.Collection
+	CivilStatuses      *mgo.Collection
+	Countries          *mgo.Collection
+	Courses            *mgo.Collection
+	Disabilities       *mgo.Collection
+	EducationLevels    *mgo.Collection
+	Eligibilities      *mgo.Collection
+	EmploymentStatuses *mgo.Collection
+	Industries         *mgo.Collection
+	Languages          *mgo.Collection
+	Licenses           *mgo.Collection
+	OtherSkills        *mgo.Collection
+	Positions          *mgo.Collection
+	Registrants        *mgo.Collection
+	Religions          *mgo.Collection
+	Schools            *mgo.Collection
+	Sexes              *mgo.Collection
+	Skills             *mgo.Collection
+	UnemployedStatuses *mgo.Collection
+	Users              *mgo.Collection
 )
 
 func init() {
@@ -25,7 +42,24 @@ func init() {
 		panic(err)
 	}
 	DB = s.DB(env.DBName)
-	Users = DB.C("users")
+	Certificates = DB.C("certificates")
+	CivilStatuses = DB.C("civilStatuses")
+	Countries = DB.C("countries")
+	Courses = DB.C("courses")
+	Disabilities = DB.C("disabilities")
+	EducationLevels = DB.C("educationLevels")
+	Eligibilities = DB.C("eligibilities")
+	EmploymentStatuses = DB.C("employmentStatuses")
+	Industries = DB.C("industries")
+	Languages = DB.C("languages")
+	Licenses = DB.C("licenses")
+	OtherSkills = DB.C("otherSkills")
+	Positions = DB.C("positions")
 	Registrants = DB.C("registrants")
-	Options = DB.C("options")
+	Religions = DB.C("religions")
+	Schools = DB.C("schools")
+	Sexes = DB.C("sexes")
+	Skills = DB.C("skills")
+	UnemployedStatuses = DB.C("unemployedStatuses")
+	Users = DB.C("users")
 }
