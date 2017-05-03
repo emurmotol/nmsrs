@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/zneyrl/nmsrs/helpers/res"
+	"github.com/zneyrl/nmsrs/helpers/str"
 	"github.com/zneyrl/nmsrs/helpers/tpl"
 	"github.com/zneyrl/nmsrs/models/civilstatus"
 	"github.com/zneyrl/nmsrs/models/employmentstatus"
@@ -61,7 +62,10 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		"CivilStatus":      civStats,
 		"Religion":         religs,
 	}
-	funcMap := map[string]interface{}{}
+	funcMap := map[string]interface{}{
+		"SentenceCaseToSnakeCase": str.SentenceCaseToSnakeCase,
+		"AllCapsToSentenceCase":   str.AllCapsToSentenceCase,
+	}
 	tpl.Render(w, r, "wizard", "registrant.create", data, funcMap)
 }
 
