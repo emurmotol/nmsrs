@@ -2373,3 +2373,23 @@ var data = []string{
 	"NESTOR FAUSTA MEMORIAL COLLEGE (NFMC)",
 	"LEGACY COLLEGE OF COMPOSTELA (LCC)",
 }
+
+func Seeder() {
+	schs, err := All()
+
+	if err != nil {
+		panic(err)
+	}
+
+	if len(schs) == 0 {
+		for _, value := range data {
+			var sch School
+			sch.Name = value
+			_, err := sch.Insert()
+
+			if err != nil {
+				panic(err)
+			}
+		}
+	}
+}

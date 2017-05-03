@@ -28,3 +28,23 @@ var data = []string{
 	"MASTERAL/POST GRADUATE LEVEL",
 	"MASTERAL/POST GRADUATE",
 }
+
+func Seeder() {
+	edulvls, err := All()
+
+	if err != nil {
+		panic(err)
+	}
+
+	if len(edulvls) == 0 {
+		for _, value := range data {
+			var edulvl EducationLevel
+			edulvl.Name = value
+			_, err := edulvl.Insert()
+
+			if err != nil {
+				panic(err)
+			}
+		}
+	}
+}

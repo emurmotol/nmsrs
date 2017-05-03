@@ -115,3 +115,23 @@ var data = []string{
 	"INSURANCE ADVISER",
 	"MARINE ENGINEER",
 }
+
+func Seeder() {
+	lics, err := All()
+
+	if err != nil {
+		panic(err)
+	}
+
+	if len(lics) == 0 {
+		for _, value := range data {
+			var lic License
+			lic.Name = value
+			_, err := lic.Insert()
+
+			if err != nil {
+				panic(err)
+			}
+		}
+	}
+}

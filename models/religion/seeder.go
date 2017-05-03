@@ -41,3 +41,23 @@ var data = []string{
 	"WESLEYAN CHURCH",
 	"WORD OF HOPE",
 }
+
+func Seeder() {
+	religs, err := All()
+
+	if err != nil {
+		panic(err)
+	}
+
+	if len(religs) == 0 {
+		for _, value := range data {
+			var relig Religion
+			relig.Name = value
+			_, err := relig.Insert()
+
+			if err != nil {
+				panic(err)
+			}
+		}
+	}
+}

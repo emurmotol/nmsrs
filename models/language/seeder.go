@@ -236,3 +236,23 @@ var data = []string{
 	"YORUBA",
 	"ZULU",
 }
+
+func Seeder() {
+	lngs, err := All()
+
+	if err != nil {
+		panic(err)
+	}
+
+	if len(lngs) == 0 {
+		for _, value := range data {
+			var lng Language
+			lng.Name = value
+			_, err := lng.Insert()
+
+			if err != nil {
+				panic(err)
+			}
+		}
+	}
+}

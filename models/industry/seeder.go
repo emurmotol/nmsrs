@@ -19,3 +19,23 @@ var data = []string{
 	"ACTIVITIES OF PRIVATE HOUSEHOLDS AS EMPLOYERS AND UNDIFFENTIATED PRODUCTION ACTIVITIES OF PRIVATE",
 	"EXTRA - TERRITORIAL ORGANIZATIONS AND BODIES",
 }
+
+func Seeder() {
+	inds, err := All()
+
+	if err != nil {
+		panic(err)
+	}
+
+	if len(inds) == 0 {
+		for _, value := range data {
+			var ind Industry
+			ind.Name = value
+			_, err := ind.Insert()
+
+			if err != nil {
+				panic(err)
+			}
+		}
+	}
+}

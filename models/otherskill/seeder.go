@@ -55,3 +55,23 @@ var data = []string{
 	"ANTICIPATING",
 	"INNOVATING",
 }
+
+func Seeder() {
+	oskills, err := All()
+
+	if err != nil {
+		panic(err)
+	}
+
+	if len(oskills) == 0 {
+		for _, value := range data {
+			var oskill OtherSkill
+			oskill.Name = value
+			_, err := oskill.Insert()
+
+			if err != nil {
+				panic(err)
+			}
+		}
+	}
+}

@@ -37,6 +37,7 @@ type User struct {
 
 func All() ([]User, error) {
 	users := []User{}
+
 	if err := db.Users.Find(bson.M{"email": bson.M{"$ne": env.AdminEmail}}).All(&users); err != nil {
 		return nil, err
 	}

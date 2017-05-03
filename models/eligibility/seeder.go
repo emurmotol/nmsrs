@@ -14,3 +14,23 @@ var data = []string{
 	"FORESTRY EXTENSION SERVICE",
 	"FIRE OFFICER 2",
 }
+
+func Seeder() {
+	eligs, err := All()
+
+	if err != nil {
+		panic(err)
+	}
+
+	if len(eligs) == 0 {
+		for _, value := range data {
+			var elig Eligibility
+			elig.Name = value
+			_, err := elig.Insert()
+
+			if err != nil {
+				panic(err)
+			}
+		}
+	}
+}

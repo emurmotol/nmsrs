@@ -651,3 +651,23 @@ var data = []string{
 	"WOOD WORKING MACHINE OPERATOR (COMPETENCY LEADING TO NC III)",
 	"WOODEN SASH MAKER (COMPETENCY LEADING TO NC II)",
 }
+
+func Seeder() {
+	certs, err := All()
+
+	if err != nil {
+		panic(err)
+	}
+
+	if len(certs) == 0 {
+		for _, value := range data {
+			var cert Certificate
+			cert.Name = value
+			_, err := cert.Insert()
+
+			if err != nil {
+				panic(err)
+			}
+		}
+	}
+}

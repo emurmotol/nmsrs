@@ -1829,3 +1829,23 @@ var data = []string{
 	"OTHER PROGRAMS OF EDUCATION AT THE THIRD LEVEL, SECOND STAGE, THAT LEADS TO A",
 	"POSTGRADUATE DIPLOMA IN WOMEN AND DEVELOPMENT",
 }
+
+func Seeder() {
+	courses, err := All()
+
+	if err != nil {
+		panic(err)
+	}
+
+	if len(courses) == 0 {
+		for _, value := range data {
+			var course Course
+			course.Name = value
+			_, err := course.Insert()
+
+			if err != nil {
+				panic(err)
+			}
+		}
+	}
+}

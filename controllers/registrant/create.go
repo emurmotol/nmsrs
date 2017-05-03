@@ -6,16 +6,15 @@ import (
 
 	"github.com/zneyrl/nmsrs/helpers/res"
 	"github.com/zneyrl/nmsrs/helpers/tpl"
-	"github.com/zneyrl/nmsrs/models"
 )
 
 func Create(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
-		"Title":                   "Create registrant",
-		"EmploymentStatusOptions": models.EmploymentStatusOptions,
-		"SexOptions":              models.SexOptions,
-		"CivilStatusOptions":      models.CivilStatusOptions,
-		"ReligionOptions":         models.ReligionOptions,
+		"Title": "Create registrant",
+		// "EmploymentStatusOptions": models.EmploymentStatusOptions,
+		// "SexOptions":              models.SexOptions,
+		// "CivilStatusOptions":      models.CivilStatusOptions,
+		// "ReligionOptions":         models.ReligionOptions,
 	}
 	funcMap := map[string]interface{}{}
 	tpl.Render(w, r, "wizard", "registrant.create", data, funcMap)

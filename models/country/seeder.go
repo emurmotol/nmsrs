@@ -198,3 +198,23 @@ var data = []string{
 	"ZAMBIA",
 	"ZIMBABWE",
 }
+
+func Seeder() {
+	countries, err := All()
+
+	if err != nil {
+		panic(err)
+	}
+
+	if len(countries) == 0 {
+		for _, value := range data {
+			var country Country
+			country.Name = value
+			_, err := country.Insert()
+
+			if err != nil {
+				panic(err)
+			}
+		}
+	}
+}
