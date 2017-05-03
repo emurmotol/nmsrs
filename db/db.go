@@ -2,6 +2,7 @@ package db
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/zneyrl/nmsrs/env"
 	mgo "gopkg.in/mgo.v2"
@@ -41,6 +42,8 @@ func init() {
 	if err := s.Ping(); err != nil {
 		panic(err)
 	}
+	log.Println("DB connection successful")
+
 	DB = s.DB(env.DBName)
 	Certificates = DB.C("certificates")
 	CivilStatuses = DB.C("civilStatuses")
