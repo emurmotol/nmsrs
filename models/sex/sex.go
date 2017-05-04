@@ -14,7 +14,7 @@ type Sex struct {
 func All() ([]Sex, error) {
 	sexs := []Sex{}
 
-	if err := db.Sexes.Find(bson.M{}).Sort("+name").All(&sexs); err != nil {
+	if err := db.Sexes.Find(bson.M{}).Sort("-name").All(&sexs); err != nil {
 		return nil, err
 	}
 	return sexs, nil

@@ -3,9 +3,9 @@ package routes
 import (
 	"net/http"
 
-	"github.com/gorilla/mux"
 	"github.com/emurmotol/nmsrs/controllers"
 	"github.com/emurmotol/nmsrs/controllers/auth"
+	"github.com/emurmotol/nmsrs/controllers/barangay"
 	"github.com/emurmotol/nmsrs/controllers/check"
 	"github.com/emurmotol/nmsrs/controllers/home"
 	"github.com/emurmotol/nmsrs/controllers/registrant"
@@ -13,6 +13,7 @@ import (
 	"github.com/emurmotol/nmsrs/controllers/search"
 	"github.com/emurmotol/nmsrs/controllers/user"
 	"github.com/emurmotol/nmsrs/middlewares"
+	"github.com/gorilla/mux"
 )
 
 func Register() *mux.Router {
@@ -38,6 +39,7 @@ func Register() *mux.Router {
 	registrants.Path("/{id}").Methods("DELETE").Handler(middlewares.Admin(registrant.Destroy))
 	registrants.Path("").Methods("GET").Handler(middlewares.Admin(registrant.Index))
 	registrants.Path("").Methods("POST").Handler(middlewares.Admin(registrant.Store))
+	router.Path("/barangays").Methods("POST").Handler(middlewares.Admin(barangay.Index))
 
 	// Auth routes
 	router.Path("/check/file/image/{field}").Methods("POST").Handler(middlewares.Auth(check.Image))

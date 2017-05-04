@@ -53,3 +53,12 @@ func FindAllBy(key string, value interface{}) ([]Province, error) {
 	}
 	return provs, nil
 }
+
+func FindOneByCode(code string) *Province {
+	var prov Province
+
+	if err := db.Provinces.Find(bson.M{"code": code}).One(&prov); err != nil {
+		panic(err)
+	}
+	return &prov
+}

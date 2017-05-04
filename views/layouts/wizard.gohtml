@@ -39,22 +39,20 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                    {{$defaultUserPhoto := .Config.Default.UserPhoto}} {{with .AuthUser}}
                     <li class="nav-item dropdown">
-                        <a href="/users/{{.ID.Hex}}" class="nav-link dropdown-toggle" id="drop_down_{{.ID.Hex}}" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <img src="{{if .PhotoIsSet}}/users/{{.ID.Hex}}/photo{{else}}{{$defaultUserPhoto}}{{end}}" class="rounded nav-user-photo"
-                                height="30" alt="{{.Name}}"> {{.Name}}
+                        <a href="/users/{{.AuthUser.ID.Hex}}" class="nav-link dropdown-toggle" id="drop_down_{{.AuthUser.ID.Hex}}" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img src="{{if .AuthUser.PhotoIsSet}}/users/{{.AuthUser.ID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="rounded nav-user-photo"
+                                height="30" alt="{{.AuthUser.Name}}"> {{.AuthUser.Name}}
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="drop_down_{{.ID.Hex}}">
-                            {{if not (IsAdminUser .ID.Hex)}}
-                            <a class="dropdown-item" href="/users/{{.ID.Hex}}">Your profile</a>
+                        <div class="dropdown-menu" aria-labelledby="drop_down_{{.AuthUser.ID.Hex}}">
+                            {{if not (IsAdminUser .AuthUser.ID.Hex)}}
+                            <a class="dropdown-item" href="/users/{{.AuthUser.ID.Hex}}">Your profile</a>
                             <div class="dropdown-divider"></div>
                             {{end}}
                             <a class="dropdown-item" href="/logout">Logout</a>
                         </div>
                     </li>
-                    {{end}}
                 </ul>
             </div>
         </div>

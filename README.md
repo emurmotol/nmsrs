@@ -40,6 +40,7 @@ National Manpower Skills Registration System For The Municipality Of Gasan Marin
 * Always push source to remote
 
 ### Useful Links
+* https://github.com/twitter/typeahead.js
 * https://mholt.github.io/json-to-go/
 * http://codepen.io/cfmatre/pen/LGOdjq
 * http://stackoverflow.com/questions/19448939/how-to-disable-browser-from-regenerating-my-form-data-upon-pressing-back-button

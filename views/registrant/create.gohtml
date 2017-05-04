@@ -9,19 +9,19 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="family_name">Family name <span class="asterisk text-danger">*</span></label>
-                                <input type="text" class="form-control" name="family_name" id="family_name">
+                                <input type="text" class="form-control" name="family_name" id="family_name" style="text-transform: uppercase;">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="given_name">Given name <span class="asterisk text-danger">*</span></label>
-                                <input type="text" class="form-control" name="given_name" id="given_name">
+                                <input type="text" class="form-control" name="given_name" id="given_name" style="text-transform: uppercase;">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="middle_name">Middle name <span class="asterisk text-danger">*</span></label>
-                                <input type="text" class="form-control" name="middle_name" id="middle_name">
+                                <input type="text" class="form-control" name="middle_name" id="middle_name" style="text-transform: uppercase;">
                             </div>
                         </div>
                     </div>
@@ -46,25 +46,36 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="street_subdivision">Street/Subdivision <span class="asterisk text-danger">*</span></label>
-                                <input type="text" class="form-control" name="street_subdivision" id="street_subdivision">
+                                <input type="text" class="form-control" name="street_subdivision" id="street_subdivision" style="text-transform: uppercase;">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="city_municipality">City/Municipality <span class="asterisk text-danger">*</span></label>
-                                <select class="form-control" name="city_municipality" id="city_municipality">
-                                    {{with .CityMunicipality}} {{range .}}
-                                    <option value="{{.Code}}">{{.Desc}}</option>
-                                    {{end}} {{end}}
-                                </select>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="city_municipality" id="city_municipality">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu dropdown-menu-right dropdown-menu-scrollable">
+                                            {{range .CityMunicipalities}} {{$province := FindProvinceByCode .ProvinceCode}}
+                                            <li><a class="dropdown-item" href="#" data-city-municipality-code="{{.Code}}" data-province-code="{{$province.Code}}"
+                                                    data-province-desc="{{$province.Desc}}">{{.Desc}}, {{$province.Desc}}</a></li>
+                                            {{end}}
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="barangay">Barangay <span class="asterisk text-danger">*</span></label>
-                                <select class="form-control" name="barangay" id="barangay">
-                                    <option>Example</option>
-                                </select>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="barangay" id="barangay" disabled>
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled></button>
+                                        <ul class="dropdown-menu dropdown-menu-right dropdown-menu-scrollable"></ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -72,23 +83,23 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="province">Province</label>
-                                <input type="text" class="form-control" name="province" id="province">
+                                <input type="text" class="form-control" name="province" id="province" style="text-transform: uppercase;">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="religion">Religion <span class="asterisk text-danger">*</span></label>
                                 <select class="form-control" name="religion" id="religion">
-                                    {{with .Religion}} {{range .}}
+                                    {{range .Religions}}
                                     <option value="{{.ID.Hex}}">{{.Name}}</option>
-                                    {{end}} {{end}}
+                                    {{end}}
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="place_of_birth">Place of birth <span class="asterisk text-danger">*</span></label>
-                                <input type="text" class="form-control" name="place_of_birth" id="place_of_birth">
+                                <input type="text" class="form-control" name="place_of_birth" id="place_of_birth" style="text-transform: uppercase;">
                             </div>
                         </div>
                     </div>
@@ -96,19 +107,19 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <legend class="col-form-legend">Civil status <span class="asterisk text-danger">*</span></legend>
-                                {{with .CivilStatus}} {{range .}} {{if eq .Name "OTHER"}}
+                                {{range .CivilStatuses}} {{if eq .Name "OTHER"}}
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{SentenceCaseToSnakeCase .Name}}" value="{{.ID.Hex}}"> {{AllCapsToSentenceCase .Name}} (simplify)
                                     </label>
                                 </div>
-                                <input class="form-control" type="text" name="civil_status" id="civil_status"> {{else}}
-                                <div class="form-check"> 
+                                <input class="form-control" type="text" name="civil_status" id="civil_status" style="text-transform: uppercase;">                                {{else}}
+                                <div class="form-check">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{SentenceCaseToSnakeCase .Name}}" value="{{.ID.Hex}}"> {{AllCapsToSentenceCase .Name}}
                                     </label>
                                 </div>
-                                {{end}} {{end}} {{end}}
+                                {{end}} {{end}}
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -118,13 +129,13 @@
                             </div>
                             <div class="form-group">
                                 <legend class="col-form-legend">Sex <span class="asterisk text-danger">*</span></legend>
-                                {{with .Sex}} {{range .}}
+                                {{range .Sexes}}
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="radio" name="sex" value="{{.ID.Hex}}"> {{AllCapsToSentenceCase .Name}}
                                     </label>
                                 </div>
-                                {{end}} {{end}}
+                                {{end}}
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -167,13 +178,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <legend class="col-form-legend">Employment status <span class="asterisk text-danger">*</span></legend>
-                                {{with .EmploymentStatus}} {{range .}}
+                                {{range .EmploymentStatuses}}
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="radio" name="employment_status" value="{{.ID.Hex}}"> {{AllCapsToSentenceCase .Name}}
                                     </label>
                                 </div>
-                                {{end}} {{end}}
+                                {{end}}
                             </div>
                             <div class="form-group">
                                 <div class="form-check">
@@ -350,6 +361,30 @@
 <script>
     $(function () {
         $("#religion").prop("selectedIndex", -1);
+
+        $("#city_municipality").parent().find(".dropdown-item").on("click", function (e) {
+            e.preventDefault();
+            $("#city_municipality").val($(this).text());
+            $("#province").val($(this).data("province-desc"));
+            $("#province").attr("data-province-code", $(this).data("province-code"));
+
+            var promise = makeRequest("/barangays", "POST", { "city_municipality_code": $(this).data("city-municipality-code") });
+
+            promise.then(function (r) {
+                if (r.data.barangays != null && r.data.barangays) {
+                    var markup = "";
+                    $("#barangay").empty();
+
+                    $.each(r.data.barangays, function (k, brgy) {
+                        markup += `<li><a class="dropdown-item" href="#" data-code="` + brgy.code + `">` + brgy.desc + `</a></li>`;
+                    });
+
+                    $("#barangay").append(markup);
+                    $("#barangay").prop("disabled", false);
+                    $("#city_municipality").parent().find("button.dropdown-toggle").prop("disabled", false); // TODO Not working
+                }
+            });
+        });
 
         $("#civil_status_other").on("click", function () {
             $("#civil_status").focus();

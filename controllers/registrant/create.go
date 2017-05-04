@@ -66,35 +66,25 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	provs, err := province.All()
-
-	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
-	}
 
 	data := map[string]interface{}{
-		"Title":            "Create registrant",
-		"EmploymentStatus": empStats,
-		"Sex":              sexs,
-		"CivilStatus":      civStats,
-		"Religion":         religs,
-		"CityMunicipality": cityMuns,
-		"Province":         provs,
+		"Title":              "Create registrant",
+		"EmploymentStatuses": empStats,
+		"Sexes":              sexs,
+		"CivilStatuses":      civStats,
+		"Religions":          religs,
+		"CityMunicipalities": cityMuns,
 	}
 	funcMap := map[string]interface{}{
 		"SentenceCaseToSnakeCase": str.SentenceCaseToSnakeCase,
 		"AllCapsToSentenceCase":   str.AllCapsToSentenceCase,
+		"FindProvinceByCode":      province.FindOneByCode,
 	}
 	tpl.Render(w, r, "wizard", "registrant.create", data, funcMap)
 }
 
 func Store(w http.ResponseWriter, r *http.Request) {
-	step, err := strconv.Atoi(r.URL.Query()["step"][0])
+	step, err := strconv.Atoi(r.URL.Query()["step"][0]) // TODO: Refactor to values := req.URL.Query() then values.Get("key")
 
 	if err != nil {
 		res.JSON(w, res.Make{
