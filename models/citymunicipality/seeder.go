@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"strings"
 )
 
 type RefCityMun struct {
@@ -36,7 +37,7 @@ func Seeder() {
 		for _, rcm := range rcms {
 			var cityMun CityMunicipality
 			cityMun.Code = rcm.CityMunCode
-			cityMun.Desc = rcm.CityMunDesc
+			cityMun.Desc = strings.ToUpper(rcm.CityMunDesc)
 			cityMun.PSGCCode = rcm.PsgcCode
 			cityMun.RegionCode = rcm.RegCode
 			cityMun.ProvinceCode = rcm.ProvCode

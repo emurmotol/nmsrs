@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"strings"
 )
 
 type RefProvince struct {
@@ -35,7 +36,7 @@ func Seeder() {
 		for _, rp := range rps {
 			var prov Province
 			prov.Code = rp.ProvCode
-			prov.Desc = rp.ProvDesc
+			prov.Desc = strings.ToUpper(rp.ProvDesc)
 			prov.PSGCCode = rp.PsgcCode
 			prov.RegionCode = rp.RegCode
 			_, err := prov.Insert()

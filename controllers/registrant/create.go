@@ -7,8 +7,10 @@ import (
 	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/helpers/str"
 	"github.com/emurmotol/nmsrs/helpers/tpl"
+	"github.com/emurmotol/nmsrs/models/citymunicipality"
 	"github.com/emurmotol/nmsrs/models/civilstatus"
 	"github.com/emurmotol/nmsrs/models/employmentstatus"
+	"github.com/emurmotol/nmsrs/models/province"
 	"github.com/emurmotol/nmsrs/models/religion"
 	"github.com/emurmotol/nmsrs/models/sex"
 )
@@ -54,6 +56,26 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+	cityMuns, err := citymunicipality.All()
+
+	if err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+	provs, err := province.All()
+
+	if err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
 
 	data := map[string]interface{}{
 		"Title":            "Create registrant",
@@ -61,6 +83,8 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		"Sex":              sexs,
 		"CivilStatus":      civStats,
 		"Religion":         religs,
+		"CityMunicipality": cityMuns,
+		"Province":         provs,
 	}
 	funcMap := map[string]interface{}{
 		"SentenceCaseToSnakeCase": str.SentenceCaseToSnakeCase,

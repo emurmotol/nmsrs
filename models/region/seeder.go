@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"strings"
 )
 
 type RefRegion struct {
@@ -34,7 +35,7 @@ func Seeder() {
 		for _, rr := range rrs {
 			var reg Region
 			reg.Code = rr.RegCode
-			reg.Desc = rr.RegDesc
+			reg.Desc = strings.ToUpper(rr.RegDesc)
 			reg.PSGCCode = rr.PsgcCode
 			_, err := reg.Insert()
 

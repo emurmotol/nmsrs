@@ -2,7 +2,7 @@
 National Manpower Skills Registration System For The Municipality Of Gasan Marinduque Philippines
 
 ### Tasks On Server
-* Seed database
+* Load comboBox values
 * Missing on server Installing gomodifytags FAILED and Installing dlv FAILED
 * CRUD for registrant
 * Send email
@@ -10,6 +10,7 @@ National Manpower Skills Registration System For The Municipality Of Gasan Marin
 * Add CSRF token on forms
 
 ### Completed
+* Seed database
 * Create application forms and backend logic
 * ~~Migrate to CouchDB to support 32-bit host pc~~
 * Screenshot adding of registrant
