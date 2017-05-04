@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/zneyrl/nmsrs/env"
+	"github.com/emurmotol/nmsrs/env"
 	mgo "gopkg.in/mgo.v2"
 )
 
 var (
 	DB                 *mgo.Database
+	Barangays          *mgo.Collection
 	Certificates       *mgo.Collection
+	CityMunicipalities *mgo.Collection
 	CivilStatuses      *mgo.Collection
 	Countries          *mgo.Collection
 	Courses            *mgo.Collection
@@ -23,6 +25,8 @@ var (
 	Licenses           *mgo.Collection
 	OtherSkills        *mgo.Collection
 	Positions          *mgo.Collection
+	Provinces          *mgo.Collection
+	Regions            *mgo.Collection
 	Registrants        *mgo.Collection
 	Religions          *mgo.Collection
 	Schools            *mgo.Collection
@@ -45,7 +49,9 @@ func init() {
 	log.Println("DB connection successful")
 
 	DB = s.DB(env.DBName)
+	Barangays = DB.C("barangays")
 	Certificates = DB.C("certificates")
+	CityMunicipalities = DB.C("cityMunicipalities")
 	CivilStatuses = DB.C("civilStatuses")
 	Countries = DB.C("countries")
 	Courses = DB.C("courses")
@@ -58,6 +64,8 @@ func init() {
 	Licenses = DB.C("licenses")
 	OtherSkills = DB.C("otherSkills")
 	Positions = DB.C("positions")
+	Provinces = DB.C("provinces")
+	Regions = DB.C("regions")
 	Registrants = DB.C("registrants")
 	Religions = DB.C("religions")
 	Schools = DB.C("schools")

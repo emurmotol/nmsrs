@@ -1,0 +1,1 @@
+Moved all collection static/dynamic for future updates.

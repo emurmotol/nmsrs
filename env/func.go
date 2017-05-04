@@ -5,7 +5,7 @@ import (
 	"net"
 	"os/user"
 
-	"github.com/zneyrl/nmsrs/helpers/lang"
+	"github.com/emurmotol/nmsrs/helpers/lang"
 )
 
 func URL(path string) string {

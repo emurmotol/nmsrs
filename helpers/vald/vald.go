@@ -3,8 +3,8 @@ package vald
 import (
 	en "github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
-	"github.com/zneyrl/nmsrs/env"
-	"github.com/zneyrl/nmsrs/helpers/str"
+	"github.com/emurmotol/nmsrs/env"
+	"github.com/emurmotol/nmsrs/helpers/str"
 	validator "gopkg.in/go-playground/validator.v9"
 	en_trans "gopkg.in/go-playground/validator.v9/translations/en"
 )

@@ -3,9 +3,9 @@ package user
 import (
 	"time"
 
-	"github.com/zneyrl/nmsrs/db"
-	"github.com/zneyrl/nmsrs/helpers/str"
-	"github.com/zneyrl/nmsrs/models"
+	"github.com/emurmotol/nmsrs/db"
+	"github.com/emurmotol/nmsrs/helpers/str"
+	"github.com/emurmotol/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 

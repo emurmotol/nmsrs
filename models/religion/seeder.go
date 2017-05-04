@@ -61,6 +61,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("Religion seeding successful")
+		log.Println("Religion seeded")
 	}
 }

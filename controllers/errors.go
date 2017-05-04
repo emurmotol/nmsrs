@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tpl"
+	"github.com/emurmotol/nmsrs/helpers/tpl"
 )
 
 func PageNotFound(w http.ResponseWriter, r *http.Request) {

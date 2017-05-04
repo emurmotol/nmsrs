@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/zneyrl/nmsrs/helpers/img"
-	"github.com/zneyrl/nmsrs/helpers/lang"
-	"github.com/zneyrl/nmsrs/helpers/res"
-	"github.com/zneyrl/nmsrs/helpers/tpl"
-	"github.com/zneyrl/nmsrs/helpers/vald"
-	"github.com/zneyrl/nmsrs/models/user"
+	"github.com/emurmotol/nmsrs/helpers/img"
+	"github.com/emurmotol/nmsrs/helpers/lang"
+	"github.com/emurmotol/nmsrs/helpers/res"
+	"github.com/emurmotol/nmsrs/helpers/tpl"
+	"github.com/emurmotol/nmsrs/helpers/vald"
+	"github.com/emurmotol/nmsrs/models/user"
 )
 
 func Edit(w http.ResponseWriter, r *http.Request) {

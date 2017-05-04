@@ -4,15 +4,15 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/zneyrl/nmsrs/controllers"
-	"github.com/zneyrl/nmsrs/controllers/auth"
-	"github.com/zneyrl/nmsrs/controllers/check"
-	"github.com/zneyrl/nmsrs/controllers/home"
-	"github.com/zneyrl/nmsrs/controllers/registrant"
-	"github.com/zneyrl/nmsrs/controllers/reports"
-	"github.com/zneyrl/nmsrs/controllers/search"
-	"github.com/zneyrl/nmsrs/controllers/user"
-	"github.com/zneyrl/nmsrs/middlewares"
+	"github.com/emurmotol/nmsrs/controllers"
+	"github.com/emurmotol/nmsrs/controllers/auth"
+	"github.com/emurmotol/nmsrs/controllers/check"
+	"github.com/emurmotol/nmsrs/controllers/home"
+	"github.com/emurmotol/nmsrs/controllers/registrant"
+	"github.com/emurmotol/nmsrs/controllers/reports"
+	"github.com/emurmotol/nmsrs/controllers/search"
+	"github.com/emurmotol/nmsrs/controllers/user"
+	"github.com/emurmotol/nmsrs/middlewares"
 )
 
 func Register() *mux.Router {

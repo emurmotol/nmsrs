@@ -256,6 +256,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("Language seeding successful")
+		log.Println("Language seeded")
 	}
 }

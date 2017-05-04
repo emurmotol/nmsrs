@@ -5,9 +5,9 @@ import (
 	"path"
 	"path/filepath"
 
-	"github.com/zneyrl/nmsrs/db"
-	"github.com/zneyrl/nmsrs/env"
-	"github.com/zneyrl/nmsrs/helpers/img"
+	"github.com/emurmotol/nmsrs/db"
+	"github.com/emurmotol/nmsrs/env"
+	"github.com/emurmotol/nmsrs/helpers/img"
 	"gopkg.in/mgo.v2/bson"
 )
 

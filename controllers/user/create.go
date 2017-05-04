@@ -3,13 +3,13 @@ package user
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/flash"
-	"github.com/zneyrl/nmsrs/helpers/img"
-	"github.com/zneyrl/nmsrs/helpers/lang"
-	"github.com/zneyrl/nmsrs/helpers/res"
-	"github.com/zneyrl/nmsrs/helpers/tpl"
-	"github.com/zneyrl/nmsrs/helpers/vald"
-	"github.com/zneyrl/nmsrs/models/user"
+	"github.com/emurmotol/nmsrs/helpers/flash"
+	"github.com/emurmotol/nmsrs/helpers/img"
+	"github.com/emurmotol/nmsrs/helpers/lang"
+	"github.com/emurmotol/nmsrs/helpers/res"
+	"github.com/emurmotol/nmsrs/helpers/tpl"
+	"github.com/emurmotol/nmsrs/helpers/vald"
+	"github.com/emurmotol/nmsrs/models/user"
 )
 
 func Create(w http.ResponseWriter, r *http.Request) {

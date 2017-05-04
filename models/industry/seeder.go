@@ -39,6 +39,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("Industry seeding successful")
+		log.Println("Industry seeded")
 	}
 }

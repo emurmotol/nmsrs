@@ -6,7 +6,7 @@ import (
 
 	"os"
 
-	"github.com/zneyrl/nmsrs/helpers/fi"
+	"github.com/emurmotol/nmsrs/helpers/fi"
 )
 
 var (

@@ -1,7 +1,7 @@
 package user
 
 import (
-	"github.com/zneyrl/nmsrs/env"
+	"github.com/emurmotol/nmsrs/env"
 )
 
 func SetDefaultUser() {

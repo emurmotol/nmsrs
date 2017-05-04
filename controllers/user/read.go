@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/zneyrl/nmsrs/helpers/res"
-	"github.com/zneyrl/nmsrs/helpers/tpl"
-	"github.com/zneyrl/nmsrs/models/user"
+	"github.com/emurmotol/nmsrs/helpers/res"
+	"github.com/emurmotol/nmsrs/helpers/tpl"
+	"github.com/emurmotol/nmsrs/models/user"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {

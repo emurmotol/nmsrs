@@ -10,11 +10,11 @@ import (
 
 	"gopkg.in/mgo.v2/bson"
 
-	"github.com/zneyrl/nmsrs/db"
-	"github.com/zneyrl/nmsrs/env"
-	"github.com/zneyrl/nmsrs/helpers/lang"
-	"github.com/zneyrl/nmsrs/helpers/str"
-	"github.com/zneyrl/nmsrs/models"
+	"github.com/emurmotol/nmsrs/db"
+	"github.com/emurmotol/nmsrs/env"
+	"github.com/emurmotol/nmsrs/helpers/lang"
+	"github.com/emurmotol/nmsrs/helpers/str"
+	"github.com/emurmotol/nmsrs/models"
 )
 
 var (

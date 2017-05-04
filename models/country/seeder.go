@@ -218,6 +218,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("Country seeding successful")
+		log.Println("Country seeded")
 	}
 }

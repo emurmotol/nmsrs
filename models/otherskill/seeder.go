@@ -75,6 +75,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("OtherSkill seeding successful")
+		log.Println("OtherSkill seeded")
 	}
 }

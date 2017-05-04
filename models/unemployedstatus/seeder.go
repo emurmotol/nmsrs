@@ -26,6 +26,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("UnemployedStatus seeding successful")
+		log.Println("UnemployedStatus seeded")
 	}
 }

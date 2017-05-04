@@ -8,12 +8,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/zneyrl/nmsrs/env"
-	"github.com/zneyrl/nmsrs/helpers/flash"
-	"github.com/zneyrl/nmsrs/helpers/lang"
-	"github.com/zneyrl/nmsrs/helpers/str"
-	"github.com/zneyrl/nmsrs/middlewares"
-	"github.com/zneyrl/nmsrs/models/user"
+	"github.com/emurmotol/nmsrs/env"
+	"github.com/emurmotol/nmsrs/helpers/flash"
+	"github.com/emurmotol/nmsrs/helpers/lang"
+	"github.com/emurmotol/nmsrs/helpers/str"
+	"github.com/emurmotol/nmsrs/middlewares"
+	"github.com/emurmotol/nmsrs/models/user"
 )
 
 var (

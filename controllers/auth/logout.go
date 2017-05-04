@@ -3,7 +3,7 @@ package auth
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/env"
+	"github.com/emurmotol/nmsrs/env"
 )
 
 func Logout(w http.ResponseWriter, r *http.Request) {

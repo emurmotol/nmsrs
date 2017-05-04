@@ -1,7 +1,7 @@
 package user
 
 import (
-	"github.com/zneyrl/nmsrs/db"
+	"github.com/emurmotol/nmsrs/db"
 	"gopkg.in/mgo.v2/bson"
 )
 

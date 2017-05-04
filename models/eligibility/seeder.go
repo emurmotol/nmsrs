@@ -34,6 +34,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("Eligibility seeding successful")
+		log.Println("Eligibility seeded")
 	}
 }

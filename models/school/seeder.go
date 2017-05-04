@@ -2393,6 +2393,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("School seeding successful")
+		log.Println("School seeded")
 	}
 }

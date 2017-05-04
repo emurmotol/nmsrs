@@ -4,13 +4,13 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/zneyrl/nmsrs/helpers/res"
-	"github.com/zneyrl/nmsrs/helpers/str"
-	"github.com/zneyrl/nmsrs/helpers/tpl"
-	"github.com/zneyrl/nmsrs/models/civilstatus"
-	"github.com/zneyrl/nmsrs/models/employmentstatus"
-	"github.com/zneyrl/nmsrs/models/religion"
-	"github.com/zneyrl/nmsrs/models/sex"
+	"github.com/emurmotol/nmsrs/helpers/res"
+	"github.com/emurmotol/nmsrs/helpers/str"
+	"github.com/emurmotol/nmsrs/helpers/tpl"
+	"github.com/emurmotol/nmsrs/models/civilstatus"
+	"github.com/emurmotol/nmsrs/models/employmentstatus"
+	"github.com/emurmotol/nmsrs/models/religion"
+	"github.com/emurmotol/nmsrs/models/sex"
 )
 
 func Create(w http.ResponseWriter, r *http.Request) {

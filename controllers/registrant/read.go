@@ -3,7 +3,7 @@ package registrant
 import (
 	"net/http"
 
-	"github.com/zneyrl/nmsrs/helpers/tpl"
+	"github.com/emurmotol/nmsrs/helpers/tpl"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {

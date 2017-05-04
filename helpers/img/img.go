@@ -14,10 +14,10 @@ import (
 
 	"errors"
 
-	"github.com/zneyrl/nmsrs/env"
-	"github.com/zneyrl/nmsrs/helpers/fi"
-	"github.com/zneyrl/nmsrs/helpers/lang"
-	"github.com/zneyrl/nmsrs/helpers/str"
+	"github.com/emurmotol/nmsrs/env"
+	"github.com/emurmotol/nmsrs/helpers/fi"
+	"github.com/emurmotol/nmsrs/helpers/lang"
+	"github.com/emurmotol/nmsrs/helpers/str"
 )
 
 var (

@@ -4,11 +4,11 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/zneyrl/nmsrs/helpers/flash"
-	"github.com/zneyrl/nmsrs/helpers/lang"
-	"github.com/zneyrl/nmsrs/helpers/res"
-	"github.com/zneyrl/nmsrs/middlewares"
-	"github.com/zneyrl/nmsrs/models/user"
+	"github.com/emurmotol/nmsrs/helpers/flash"
+	"github.com/emurmotol/nmsrs/helpers/lang"
+	"github.com/emurmotol/nmsrs/helpers/res"
+	"github.com/emurmotol/nmsrs/middlewares"
+	"github.com/emurmotol/nmsrs/models/user"
 )
 
 func Destroy(w http.ResponseWriter, r *http.Request) {

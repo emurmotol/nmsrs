@@ -48,6 +48,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("EducationLevel seeding successful")
+		log.Println("EducationLevel seeded")
 	}
 }

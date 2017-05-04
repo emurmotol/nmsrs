@@ -24,6 +24,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("Sex seeding successful")
+		log.Println("Sex seeded")
 	}
 }

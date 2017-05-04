@@ -1,0 +1,56 @@
+package barangay
+
+import (
+	"github.com/emurmotol/nmsrs/db"
+	"github.com/emurmotol/nmsrs/models"
+	"gopkg.in/mgo.v2/bson"
+)
+
+type Barangay struct {
+	ID                   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	Code                 string        `schema:"code" json:"code" bson:"code,omitempty"`
+	Desc                 string        `schema:"desc" json:"desc" bson:"desc,omitempty"`
+	RegionCode           string        `schema:"region_code" json:"region_code" bson:"regionCode,omitempty"`
+	ProvinceCode         string        `schema:"province_code" json:"province_code" bson:"provinceCode,omitempty"`
+	CityMunicipalityCode string        `schema:"city_municipality_code" json:"city_municipality_code" bson:"cityMunicipalityCode,omitempty"`
+}
+
+func All() ([]Barangay, error) {
+	brgys := []Barangay{}
+
+	if err := db.Barangays.Find(bson.M{}).Sort("+desc").All(&brgys); err != nil {
+		return nil, err
+	}
+	return brgys, nil
+}
+
+func (brgy *Barangay) Insert() (string, error) {
+	brgy.ID = bson.NewObjectId()
+
+	if err := db.Barangays.Insert(brgy); err != nil {
+		return "", err
+	}
+	return brgy.ID.Hex(), nil
+}
+
+func Find(id string) (*Barangay, error) {
+	var brgy Barangay
+
+	if !bson.IsObjectIdHex(id) {
+		return &brgy, models.ErrInvalidObjectID
+	}
+
+	if err := db.Barangays.FindId(bson.ObjectIdHex(id)).One(&brgy); err != nil {
+		return &brgy, err
+	}
+	return &brgy, nil
+}
+
+func FindAllBy(key string, value interface{}) ([]Barangay, error) {
+	brgys := []Barangay{}
+
+	if err := db.Barangays.Find(bson.M{key: value}).Sort("+desc").All(&brgys); err != nil {
+		return brgys, err
+	}
+	return brgys, nil
+}

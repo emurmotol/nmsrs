@@ -5,28 +5,32 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/emurmotol/nmsrs/env"
+	"github.com/emurmotol/nmsrs/models/barangay"
+	"github.com/emurmotol/nmsrs/models/certificate"
+	"github.com/emurmotol/nmsrs/models/citymunicipality"
+	"github.com/emurmotol/nmsrs/models/civilstatus"
+	"github.com/emurmotol/nmsrs/models/country"
+	"github.com/emurmotol/nmsrs/models/course"
+	"github.com/emurmotol/nmsrs/models/disability"
+	"github.com/emurmotol/nmsrs/models/educationlevel"
+	"github.com/emurmotol/nmsrs/models/eligibility"
+	"github.com/emurmotol/nmsrs/models/employmentstatus"
+	"github.com/emurmotol/nmsrs/models/industry"
+	"github.com/emurmotol/nmsrs/models/language"
+	"github.com/emurmotol/nmsrs/models/license"
+	"github.com/emurmotol/nmsrs/models/otherskill"
+	"github.com/emurmotol/nmsrs/models/position"
+	"github.com/emurmotol/nmsrs/models/province"
+	"github.com/emurmotol/nmsrs/models/region"
+	"github.com/emurmotol/nmsrs/models/religion"
+	"github.com/emurmotol/nmsrs/models/school"
+	"github.com/emurmotol/nmsrs/models/sex"
+	"github.com/emurmotol/nmsrs/models/skill"
+	"github.com/emurmotol/nmsrs/models/unemployedstatus"
+	"github.com/emurmotol/nmsrs/models/user"
+	"github.com/emurmotol/nmsrs/routes"
 	"github.com/urfave/negroni"
-	"github.com/zneyrl/nmsrs/env"
-	"github.com/zneyrl/nmsrs/models/certificate"
-	"github.com/zneyrl/nmsrs/models/civilstatus"
-	"github.com/zneyrl/nmsrs/models/country"
-	"github.com/zneyrl/nmsrs/models/course"
-	"github.com/zneyrl/nmsrs/models/disability"
-	"github.com/zneyrl/nmsrs/models/educationlevel"
-	"github.com/zneyrl/nmsrs/models/eligibility"
-	"github.com/zneyrl/nmsrs/models/employmentstatus"
-	"github.com/zneyrl/nmsrs/models/industry"
-	"github.com/zneyrl/nmsrs/models/language"
-	"github.com/zneyrl/nmsrs/models/license"
-	"github.com/zneyrl/nmsrs/models/otherskill"
-	"github.com/zneyrl/nmsrs/models/position"
-	"github.com/zneyrl/nmsrs/models/religion"
-	"github.com/zneyrl/nmsrs/models/school"
-	"github.com/zneyrl/nmsrs/models/sex"
-	"github.com/zneyrl/nmsrs/models/skill"
-	"github.com/zneyrl/nmsrs/models/unemployedstatus"
-	"github.com/zneyrl/nmsrs/models/user"
-	"github.com/zneyrl/nmsrs/routes"
 )
 
 func main() {
@@ -46,7 +50,9 @@ func main() {
 }
 
 func seed() {
+	barangay.Seeder()
 	certificate.Seeder()
+	citymunicipality.Seeder()
 	civilstatus.Seeder()
 	country.Seeder()
 	course.Seeder()
@@ -59,6 +65,8 @@ func seed() {
 	license.Seeder()
 	otherskill.Seeder()
 	position.Seeder()
+	province.Seeder()
+	region.Seeder()
 	// registrant.Seeder()
 	religion.Seeder()
 	school.Seeder()

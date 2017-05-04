@@ -8203,6 +8203,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("Position seeding successful")
+		log.Println("Position seeded")
 	}
 }

@@ -671,6 +671,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("Certificate seeding successful")
+		log.Println("Certificate seeded")
 	}
 }

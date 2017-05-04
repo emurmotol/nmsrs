@@ -135,6 +135,6 @@ func Seeder() {
 				panic(err)
 			}
 		}
-		log.Println("License seeding successful")
+		log.Println("License seeded")
 	}
 }
