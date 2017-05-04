@@ -101,7 +101,7 @@
                                     </label>
                                 </div>
                                 <input class="form-control" type="text" name="civil_status" id="civil_status"> {{else}}
-                                <div class="form-check">
+                                <div class="form-check"> 
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{SentenceCaseToSnakeCase .Name}}" value="{{.ID.Hex}}"> {{AllCapsToSentenceCase .Name}}
                                     </label>
