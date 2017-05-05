@@ -1,22 +1,15 @@
-package barangay
+package api
 
 import (
 	"net/http"
 
 	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/models/barangay"
+	"github.com/gorilla/mux"
 )
 
-func Index(w http.ResponseWriter, r *http.Request) {
-	if err := r.ParseForm(); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
-	}
-	brgys, err := barangay.FindAllBy("cityMunicipalityCode", r.FormValue("city_municipality_code"))
+func Barangays(w http.ResponseWriter, r *http.Request) {
+	brgys, err := barangay.FindAllBy("cityMunicipalityCode", mux.Vars(r)["city_municipality_code"])
 
 	if err != nil {
 		res.JSON(w, res.Make{

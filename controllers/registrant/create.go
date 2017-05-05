@@ -10,7 +10,6 @@ import (
 	"github.com/emurmotol/nmsrs/models/citymunicipality"
 	"github.com/emurmotol/nmsrs/models/civilstatus"
 	"github.com/emurmotol/nmsrs/models/employmentstatus"
-	"github.com/emurmotol/nmsrs/models/province"
 	"github.com/emurmotol/nmsrs/models/religion"
 	"github.com/emurmotol/nmsrs/models/sex"
 )
@@ -78,7 +77,6 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	funcMap := map[string]interface{}{
 		"SentenceCaseToSnakeCase": str.SentenceCaseToSnakeCase,
 		"AllCapsToSentenceCase":   str.AllCapsToSentenceCase,
-		"FindProvinceByCode":      province.FindOneByCode,
 	}
 	tpl.Render(w, r, "wizard", "registrant.create", data, funcMap)
 }

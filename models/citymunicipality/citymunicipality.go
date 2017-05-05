@@ -3,6 +3,7 @@ package citymunicipality
 import (
 	"github.com/emurmotol/nmsrs/db"
 	"github.com/emurmotol/nmsrs/models"
+	"github.com/emurmotol/nmsrs/models/province"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -53,4 +54,24 @@ func FindAllBy(key string, value interface{}) ([]CityMunicipality, error) {
 		return cityMuns, err
 	}
 	return cityMuns, nil
+}
+
+func WithProvince() ([]map[string]string, error) {
+	var cityMunsWithProvs []map[string]string
+	cityMuns, err := All()
+
+	if err != nil {
+		return nil, err
+	}
+
+	for _, cityMun := range cityMuns {
+		prov := province.FindOneByCode(cityMun.ProvinceCode)
+		cityMunsWithProvs = append(cityMunsWithProvs, map[string]string{
+			"city_municipality_code": cityMun.Code,
+			"city_municipality_desc": cityMun.Desc,
+			"province_code":          prov.Code,
+			"province_desc":          prov.Desc,
+		})
+	}
+	return cityMunsWithProvs, nil
 }

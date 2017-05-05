@@ -52,12 +52,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="city_municipality">City/Municipality <span class="asterisk text-danger">*</span></label>
-                                <select class="form-control" name="city_municipality" id="city_municipality">
-                                    <option></option>
-                                    {{range .CityMunicipalities}} {{$province := FindProvinceByCode .ProvinceCode}}
-                                    <option value="{{.Code}}" data-province-code="{{$province.Code}}" data-province-desc="{{$province.Desc}}">{{.Desc}}, {{$province.Desc}}</option>
-                                    {{end}}
-                                </select>
+                                <select class="form-control" name="city_municipality" id="city_municipality"></select>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -77,12 +72,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="religion">Religion <span class="asterisk text-danger">*</span></label>
-                                <select class="form-control" name="religion" id="religion">
-                                    <option></option>
-                                    {{range .Religions}}
-                                    <option value="{{.ID.Hex}}">{{.Name}}</option>
-                                    {{end}}
-                                </select>
+                                <select class="form-control" name="religion" id="religion"></select>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -350,37 +340,71 @@
 <script>
     $(function () {
         $("#religion").select2({
-            placeholder: "Select a religion"
+            placeholder: "Select a religion",
+            ajax: {
+                url: "/religions",
+                delay: 250,
+                dataType: "json",
+                processResults: function (data) {
+                    return {
+                        results: $.map(data.data.religions, function (relig) {
+                            return {
+                                id: relig.id,
+                                text: relig.name
+                            };
+                        })
+                    };
+                },
+                // cache: true
+            }
         });
 
         $("#city_municipality").select2({
-            placeholder: "Select a city/municipality"
-        });
-
-        $("#barangay").select2({
-            placeholder: "Select a barangay"
+            placeholder: "Select a city/municipality",
+            ajax: {
+                url: "/city-municipalities/provinces",
+                delay: 250,
+                dataType: "json",
+                processResults: function (data) {
+                    return {
+                        results: $.map(data.data.city_municipalities_with_provinces, function (city_mun_with_prov) {
+                            return {
+                                id: city_mun_with_prov.city_municipality_code,
+                                text: city_mun_with_prov.city_municipality_desc + ", " + city_mun_with_prov.province_desc
+                            };
+                        })
+                    };
+                },
+                // cache: true
+            }
         });
 
         $("#city_municipality").on("change", function () {
             var selected = $(this).find(":selected");
-            $("#province").val(selected.data("province-desc"));
-            $("#province").attr("data-province-code", selected.data("province-code"));
+            var city_municipality_code = $(this).val();
 
-            var promise = makeRequest("/barangays", "POST", { "city_municipality_code": $(this).val() });
-
-            promise.then(function (r) {
-                if (r.data.barangays != null && r.data.barangays) {
-                    var markup = "<option></option>";
-                    $("#barangay").empty();
-
-                    $.each(r.data.barangays, function (k, brgy) {
-                        markup += `<option value="` + brgy.code + `">` + brgy.desc + `</option>`;
-                    });
-
-                    $("#barangay").append(markup);
-                    $("#barangay").prop("disabled", false);
+            $("#barangay").select2({
+                placeholder: "Select a barangay",
+                ajax: {
+                    url: "/city-municipalities/" + city_municipality_code + "/barangays",
+                    delay: 250,
+                    dataType: "json",
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data.data.barangays, function (brgy) {
+                                return {
+                                    id: brgy.code,
+                                    text: brgy.desc
+                                };
+                            })
+                        };
+                    },
+                    // cache: true
                 }
             });
+            $("#barangay").prop("disabled", false);
+            $("#province").val(selected.data("province-desc"));
+            $("#province").attr("data-province-code", selected.data("province-code"));
         });
 
         $("#civil_status_other").on("click", function () {

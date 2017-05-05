@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/emurmotol/nmsrs/controllers"
+	"github.com/emurmotol/nmsrs/controllers/api"
 	"github.com/emurmotol/nmsrs/controllers/auth"
-	"github.com/emurmotol/nmsrs/controllers/barangay"
 	"github.com/emurmotol/nmsrs/controllers/check"
 	"github.com/emurmotol/nmsrs/controllers/home"
 	"github.com/emurmotol/nmsrs/controllers/registrant"
@@ -39,7 +39,11 @@ func Register() *mux.Router {
 	registrants.Path("/{id}").Methods("DELETE").Handler(middlewares.Admin(registrant.Destroy))
 	registrants.Path("").Methods("GET").Handler(middlewares.Admin(registrant.Index))
 	registrants.Path("").Methods("POST").Handler(middlewares.Admin(registrant.Store))
-	router.Path("/barangays").Methods("POST").Handler(middlewares.Admin(barangay.Index))
+
+	// TODO: Make api routes
+	router.Path("/city-municipalities/{city_municipality_code}/barangays").Methods("GET").Handler(middlewares.Admin(api.Barangays))
+	router.Path("/city-municipalities/provinces").Methods("GET").Handler(middlewares.Admin(api.CityMunicipalitiesWithProvinces))
+	router.Path("/religions").Methods("GET").Handler(middlewares.Admin(api.Religions))
 
 	// Auth routes
 	router.Path("/check/file/image/{field}").Methods("POST").Handler(middlewares.Auth(check.Image))
