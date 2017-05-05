@@ -40,6 +40,7 @@ National Manpower Skills Registration System For The Municipality Of Gasan Marin
 * Always push source to remote
 
 ### Useful Links
+* http://stackoverflow.com/questions/18487056/select2-doesnt-work-when-embedded-in-a-bootstrap-modal/19574076#19574076
 * https://github.com/twitter/typeahead.js
 * https://mholt.github.io/json-to-go/
 * http://codepen.io/cfmatre/pen/LGOdjq
