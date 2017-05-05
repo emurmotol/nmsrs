@@ -1,5 +1,5 @@
 $(function () {
-    var alert = $("#alert");
+    var alert = $("#alert_container");
 
     setCheckboxBoolValue = function (checkbox) {
         checkbox.on("change", function () {
@@ -10,38 +10,30 @@ $(function () {
     removeFormErrorMarkup = function (field) {
         var fp = field.parent();
 
-        if (fp.hasClass("has-danger")) {
-            fp.removeClass("has-danger");
+        if (fp.hasClass("has-error")) {
+            fp.removeClass("has-error");
         }
 
-        if (field.hasClass("form-control-danger")) {
-            field.removeClass("form-control-danger");
-        }
-
-        if (fp.find("div.form-control-feedback").get().length == 1) {
-            fp.find("div.form-control-feedback").remove();
+        if (fp.find("span.help-block").get().length == 1) {
+            fp.find("span.help-block").remove();
         }
     }
 
     addFormErrorMarkup = function (field, message) {
         var fp = field.parent();
 
-        if (!fp.hasClass("has-danger")) {
-            fp.addClass("has-danger");
+        if (!fp.hasClass("has-error")) {
+            fp.addClass("has-error");
         }
 
-        if (!field.hasClass("form-control-danger")) {
-            field.addClass("form-control-danger");
-        }
-
-        if (fp.find("div.form-control-feedback").get().length == 0) {
-            fp.append(`<div class="form-control-feedback">` + message + `</div>`);
+        if (fp.find("span.help-block").get().length == 0) {
+            fp.append(`<span class="help-block">` + message + `</span >`);
         }
     }
 
     addAlertErrorMarkup = function (error) {
         var err_markup = `
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -192,7 +184,7 @@ $(function () {
             if (r.status == 200) {
                 if (r.data.message != null) {
                     var msg_markup = `
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div class="alert alert-success alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

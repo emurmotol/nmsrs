@@ -10,6 +10,8 @@ import (
 
 	"gopkg.in/mgo.v2/bson"
 
+	"strings"
+
 	"github.com/emurmotol/nmsrs/db"
 	"github.com/emurmotol/nmsrs/env"
 	"github.com/emurmotol/nmsrs/helpers/lang"
@@ -46,6 +48,7 @@ func All() ([]User, error) {
 
 func (usr *User) Insert() (string, error) {
 	usr.ID = bson.NewObjectId()
+	usr.Email = strings.ToLower(usr.Email)
 	usr.ConfirmPassword = ""
 	usr.Password = str.Bcrypt(usr.Password)
 	now := time.Now().Unix()

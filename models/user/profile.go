@@ -1,6 +1,7 @@
 package user
 
 import (
+	"strings"
 	"time"
 
 	"github.com/emurmotol/nmsrs/db"
@@ -24,6 +25,7 @@ func UpdateProfile(id string, profile Profile) error {
 	if IsAdminUser(id) {
 		return ErrActionNotPermitted
 	}
+	profile.Email = strings.ToLower(profile.Email)
 	profile.UpdatedAt = time.Now().Unix()
 
 	if err := db.Users.UpdateId(bson.ObjectIdHex(id), bson.M{"$set": profile}); err != nil {

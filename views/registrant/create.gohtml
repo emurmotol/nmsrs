@@ -2,9 +2,9 @@
 <div class="tab-content">
     <div class="tab-pane active" id="step-1" role="tabpanel">
         <form action="/registrants?step=1" method="POST" class="mb-4" id="step_1_form">
-            <div class="card mb-4" id="personal-information">
-                <div class="card-header">Personal Information</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="personal-information">
+                <div class="panel-heading">Personal Information</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group">
@@ -39,9 +39,9 @@
                     </div>
                 </div>
             </div>
-            <div class="card mb-4" id="basic-information">
-                <div class="card-header">Basic Information</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="basic-information">
+                <div class="panel-heading">Basic Information</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group">
@@ -52,30 +52,18 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="city_municipality">City/Municipality <span class="asterisk text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="city_municipality" id="city_municipality">
-                                    <div class="input-group-btn">
-                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                        <ul class="dropdown-menu dropdown-menu-right dropdown-menu-scrollable">
-                                            {{range .CityMunicipalities}} {{$province := FindProvinceByCode .ProvinceCode}}
-                                            <li><a class="dropdown-item" href="#" data-city-municipality-code="{{.Code}}" data-province-code="{{$province.Code}}"
-                                                    data-province-desc="{{$province.Desc}}">{{.Desc}}, {{$province.Desc}}</a></li>
-                                            {{end}}
-                                        </ul>
-                                    </div>
-                                </div>
+                                <select class="form-control" name="city_municipality" id="city_municipality">
+                                    <option></option>
+                                    {{range .CityMunicipalities}} {{$province := FindProvinceByCode .ProvinceCode}}
+                                    <option value="{{.Code}}" data-province-code="{{$province.Code}}" data-province-desc="{{$province.Desc}}">{{.Desc}}, {{$province.Desc}}</option>
+                                    {{end}}
+                                </select>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="barangay">Barangay <span class="asterisk text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="barangay" id="barangay" disabled>
-                                    <div class="input-group-btn">
-                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled></button>
-                                        <ul class="dropdown-menu dropdown-menu-right dropdown-menu-scrollable"></ul>
-                                    </div>
-                                </div>
+                                <select class="form-control" name="barangay" id="barangay" disabled></select>
                             </div>
                         </div>
                     </div>
@@ -90,6 +78,7 @@
                             <div class="form-group">
                                 <label for="religion">Religion <span class="asterisk text-danger">*</span></label>
                                 <select class="form-control" name="religion" id="religion">
+                                    <option></option>
                                     {{range .Religions}}
                                     <option value="{{.ID.Hex}}">{{.Name}}</option>
                                     {{end}}
@@ -171,9 +160,9 @@
                     </div>
                 </div>
             </div>
-            <div class="card mb-4" id="employment">
-                <div class="card-header">Employment</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="employment">
+                <div class="panel-heading">Employment</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
@@ -197,18 +186,18 @@
                     </div>
                 </div>
             </div>
-            <div class="card mb-4" id="disability">
-                <div class="card-header">Disability</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="disability">
+                <div class="panel-heading">Disability</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card mb-4" id="language">
-                <div class="card-header">Language</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="language">
+                <div class="panel-heading">Language</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
@@ -222,9 +211,9 @@
     </div>
     <div class="tab-pane" id="step-2" role="tabpanel">
         <form action="/registrants?step=2" method="POST" class="mb-4" id="step_2_form">
-            <div class="card mb-4" id="formal-education">
-                <div class="card-header">Formal Education</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="formal-education">
+                <div class="panel-heading">Formal Education</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
@@ -239,9 +228,9 @@
     </div>
     <div class="tab-pane" id="step-3" role="tabpanel">
         <form action="/registrants?step=3" method="POST" class="mb-4" id="step_3_form">
-            <div class="card mb-4" id="professional-license">
-                <div class="card-header">Professional License</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="professional-license">
+                <div class="panel-heading">Professional License</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
@@ -256,9 +245,9 @@
     </div>
     <div class="tab-pane" id="step-4" role="tabpanel">
         <form action="/registrants?step=4" method="POST" class="mb-4" id="step_4_form">
-            <div class="card mb-4" id="eligibility">
-                <div class="card-header">Eligibility</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="eligibility">
+                <div class="panel-heading">Eligibility</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
@@ -273,9 +262,9 @@
     </div>
     <div class="tab-pane" id="step-5" role="tabpanel">
         <form action="/registrants?step=5" method="POST" class="mb-4" id="step_5_form">
-            <div class="card mb-4" id="vocational-technical-training-and-relevant-experience">
-                <div class="card-header">Vocational/Technical Training And Relevant Experience</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="vocational-technical-training-and-relevant-experience">
+                <div class="panel-heading">Vocational/Technical Training And Relevant Experience</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
@@ -290,9 +279,9 @@
     </div>
     <div class="tab-pane" id="step-6" role="tabpanel">
         <form action="/registrants?step=6" method="POST" class="mb-4" id="step_6_form">
-            <div class="card mb-4" id="certificate-of-competence">
-                <div class="card-header">Certificate Of Competence</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="certificate-of-competence">
+                <div class="panel-heading">Certificate Of Competence</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
@@ -307,9 +296,9 @@
     </div>
     <div class="tab-pane" id="step-7" role="tabpanel">
         <form action="/registrants?step=7" method="POST" class="mb-4" id="step_7_form">
-            <div class="card mb-4" id="work-experience">
-                <div class="card-header">Work Experience</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="work-experience">
+                <div class="panel-heading">Work Experience</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
@@ -324,9 +313,9 @@
     </div>
     <div class="tab-pane" id="step-8" role="tabpanel">
         <form action="/registrants?step=8" method="POST" class="mb-4" id="step_8_form">
-            <div class="card mb-4" id="other-skills-aquired-without-formal-training">
-                <div class="card-header">Other Skills Aquired Without Formal Training</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="other-skills-aquired-without-formal-training">
+                <div class="panel-heading">Other Skills Aquired Without Formal Training</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
@@ -341,9 +330,9 @@
     </div>
     <div class="tab-pane" id="step-9" role="tabpanel">
         <form action="/registrants?step=9" method="POST" class="mb-4" id="step_9_form">
-            <div class="card mb-4" id="certification-authorization">
-                <div class="card-header">Certification/Authorization</div>
-                <div class="card-block pb-1">
+            <div class="panel panel-info" id="certification-authorization">
+                <div class="panel-heading">Certification/Authorization</div>
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
@@ -360,28 +349,36 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        $("#religion").prop("selectedIndex", -1);
+        $("#religion").select2({
+            placeholder: "Select a religion"
+        });
 
-        $("#city_municipality").parent().find(".dropdown-item").on("click", function (e) {
-            e.preventDefault();
-            $("#city_municipality").val($(this).text());
-            $("#province").val($(this).data("province-desc"));
-            $("#province").attr("data-province-code", $(this).data("province-code"));
+        $("#city_municipality").select2({
+            placeholder: "Select a city/municipality"
+        });
 
-            var promise = makeRequest("/barangays", "POST", { "city_municipality_code": $(this).data("city-municipality-code") });
+        $("#barangay").select2({
+            placeholder: "Select a barangay"
+        });
+
+        $("#city_municipality").on("change", function () {
+            var selected = $(this).find(":selected");
+            $("#province").val(selected.data("province-desc"));
+            $("#province").attr("data-province-code", selected.data("province-code"));
+
+            var promise = makeRequest("/barangays", "POST", { "city_municipality_code": $(this).val() });
 
             promise.then(function (r) {
                 if (r.data.barangays != null && r.data.barangays) {
-                    var markup = "";
+                    var markup = "<option></option>";
                     $("#barangay").empty();
 
                     $.each(r.data.barangays, function (k, brgy) {
-                        markup += `<li><a class="dropdown-item" href="#" data-code="` + brgy.code + `">` + brgy.desc + `</a></li>`;
+                        markup += `<option value="` + brgy.code + `">` + brgy.desc + `</option>`;
                     });
 
                     $("#barangay").append(markup);
                     $("#barangay").prop("disabled", false);
-                    $("#city_municipality").parent().find("button.dropdown-toggle").prop("disabled", false); // TODO Not working
                 }
             });
         });

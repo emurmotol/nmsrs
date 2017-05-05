@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{.Title}}</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/font-product-sans.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
     {{block "style" .}}{{end}}
 </head>
@@ -17,10 +18,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 mx-lg-auto">
-                <a href="/">
-                    <img src="/img/logo/dole/1144x1024.png" height="192" class="mx-auto d-block pt-4 pb-4" alt="DOLE Logo">
-                </a>
+            <div class="col-lg-3 col-centered">
                 {{template "content" .}}
             </div>
         </div>
