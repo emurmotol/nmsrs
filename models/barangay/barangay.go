@@ -18,7 +18,7 @@ type Barangay struct {
 func All() ([]Barangay, error) {
 	brgys := []Barangay{}
 
-	if err := db.Barangays.Find(bson.M{}).Sort("+desc").All(&brgys); err != nil {
+	if err := db.Barangays.Find(nil).Sort("+desc").All(&brgys); err != nil {
 		return nil, err
 	}
 	return brgys, nil
@@ -33,7 +33,7 @@ func (brgy *Barangay) Insert() (string, error) {
 	return brgy.ID.Hex(), nil
 }
 
-func Find(id string) (*Barangay, error) {
+func FindByID(id string) (*Barangay, error) {
 	var brgy Barangay
 
 	if !bson.IsObjectIdHex(id) {
@@ -46,11 +46,11 @@ func Find(id string) (*Barangay, error) {
 	return &brgy, nil
 }
 
-func FindAllBy(key string, value interface{}) ([]Barangay, error) {
+func Search(query interface{}) ([]Barangay, error) {
 	brgys := []Barangay{}
 
-	if err := db.Barangays.Find(bson.M{key: value}).Sort("+desc").All(&brgys); err != nil {
-		return brgys, err
+	if err := db.Barangays.Find(query).Sort("+name").All(&brgys); err != nil {
+		return nil, err
 	}
 	return brgys, nil
 }

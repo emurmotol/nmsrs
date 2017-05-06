@@ -19,7 +19,7 @@ type CityMunicipality struct {
 func All() ([]CityMunicipality, error) {
 	cityMuns := []CityMunicipality{}
 
-	if err := db.CityMunicipalities.Find(bson.M{}).Sort("+desc").All(&cityMuns); err != nil {
+	if err := db.CityMunicipalities.Find(nil).Sort("+desc").All(&cityMuns); err != nil {
 		return nil, err
 	}
 	return cityMuns, nil
@@ -34,7 +34,7 @@ func (cityMun *CityMunicipality) Insert() (string, error) {
 	return cityMun.ID.Hex(), nil
 }
 
-func Find(id string) (*CityMunicipality, error) {
+func FindByID(id string) (*CityMunicipality, error) {
 	var cityMun CityMunicipality
 
 	if !bson.IsObjectIdHex(id) {
@@ -65,7 +65,7 @@ func WithProvince() ([]map[string]string, error) {
 	}
 
 	for _, cityMun := range cityMuns {
-		prov := province.FindOneByCode(cityMun.ProvinceCode)
+		prov := province.FindByCode(cityMun.ProvinceCode)
 		cityMunsWithProvs = append(cityMunsWithProvs, map[string]string{
 			"city_municipality_code": cityMun.Code,
 			"city_municipality_desc": cityMun.Desc,

@@ -3,12 +3,19 @@ package api
 import (
 	"net/http"
 
+	"gopkg.in/mgo.v2/bson"
+
 	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/models/religion"
 )
 
 func Religions(w http.ResponseWriter, r *http.Request) {
-	religs, err := religion.All()
+	religs, err := religion.Search(bson.M{
+		"name": bson.RegEx{
+			Pattern: r.URL.Query().Get("q"),
+			Options: "i",
+		},
+	})
 
 	if err != nil {
 		res.JSON(w, res.Make{

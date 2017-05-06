@@ -14,7 +14,7 @@ type School struct {
 func All() ([]School, error) {
 	schs := []School{}
 
-	if err := db.Schools.Find(bson.M{}).Sort("+name").All(&schs); err != nil {
+	if err := db.Schools.Find(nil).Sort("+name").All(&schs); err != nil {
 		return nil, err
 	}
 	return schs, nil
@@ -29,7 +29,7 @@ func (sch *School) Insert() (string, error) {
 	return sch.ID.Hex(), nil
 }
 
-func Find(id string) (*School, error) {
+func FindByID(id string) (*School, error) {
 	var sch School
 
 	if !bson.IsObjectIdHex(id) {

@@ -14,7 +14,7 @@ type EmploymentStatus struct {
 func All() ([]EmploymentStatus, error) {
 	empStats := []EmploymentStatus{}
 
-	if err := db.EmploymentStatuses.Find(bson.M{}).All(&empStats); err != nil {
+	if err := db.EmploymentStatuses.Find(nil).All(&empStats); err != nil {
 		return nil, err
 	}
 	return empStats, nil
@@ -29,7 +29,7 @@ func (empStat *EmploymentStatus) Insert() (string, error) {
 	return empStat.ID.Hex(), nil
 }
 
-func Find(id string) (*EmploymentStatus, error) {
+func FindByID(id string) (*EmploymentStatus, error) {
 	var empStat EmploymentStatus
 
 	if !bson.IsObjectIdHex(id) {

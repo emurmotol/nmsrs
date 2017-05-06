@@ -16,7 +16,7 @@ type Region struct {
 func All() ([]Region, error) {
 	regs := []Region{}
 
-	if err := db.Regions.Find(bson.M{}).Sort("+desc").All(&regs); err != nil {
+	if err := db.Regions.Find(nil).Sort("+desc").All(&regs); err != nil {
 		return nil, err
 	}
 	return regs, nil
@@ -31,7 +31,7 @@ func (reg *Region) Insert() (string, error) {
 	return reg.ID.Hex(), nil
 }
 
-func Find(id string) (*Region, error) {
+func FindByID(id string) (*Region, error) {
 	var reg Region
 
 	if !bson.IsObjectIdHex(id) {

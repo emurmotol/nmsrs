@@ -14,7 +14,7 @@ type Religion struct {
 func All() ([]Religion, error) {
 	religs := []Religion{}
 
-	if err := db.Religions.Find(bson.M{}).Sort("+name").All(&religs); err != nil {
+	if err := db.Religions.Find(nil).Sort("+name").All(&religs); err != nil {
 		return nil, err
 	}
 	return religs, nil
@@ -29,7 +29,7 @@ func (relig *Religion) Insert() (string, error) {
 	return relig.ID.Hex(), nil
 }
 
-func Find(id string) (*Religion, error) {
+func FindByID(id string) (*Religion, error) {
 	var relig Religion
 
 	if !bson.IsObjectIdHex(id) {
@@ -40,4 +40,13 @@ func Find(id string) (*Religion, error) {
 		return &relig, err
 	}
 	return &relig, nil
+}
+
+func Search(query interface{}) ([]Religion, error) {
+	religs := []Religion{}
+
+	if err := db.Religions.Find(query).Sort("+name").All(&religs); err != nil {
+		return nil, err
+	}
+	return religs, nil
 }

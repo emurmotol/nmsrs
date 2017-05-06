@@ -14,7 +14,7 @@ import (
 )
 
 func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
-	if middlewares.GetAuthID(r) != "" {
+	if middlewares.GetAuthID(w, r) != "" {
 		http.Redirect(w, r, env.URL("/"), http.StatusFound)
 	} // TODO: Temporary
 
@@ -26,7 +26,7 @@ func ShowLoginForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	if middlewares.GetAuthID(r) != "" {
+	if middlewares.GetAuthID(w, r) != "" {
 		return
 	} // TODO: Temporary
 

@@ -14,7 +14,7 @@ type Eligibility struct {
 func All() ([]Eligibility, error) {
 	eligs := []Eligibility{}
 
-	if err := db.Eligibilities.Find(bson.M{}).All(&eligs); err != nil {
+	if err := db.Eligibilities.Find(nil).All(&eligs); err != nil {
 		return nil, err
 	}
 	return eligs, nil
@@ -29,7 +29,7 @@ func (elig *Eligibility) Insert() (string, error) {
 	return elig.ID.Hex(), nil
 }
 
-func Find(id string) (*Eligibility, error) {
+func FindByID(id string) (*Eligibility, error) {
 	var elig Eligibility
 
 	if !bson.IsObjectIdHex(id) {

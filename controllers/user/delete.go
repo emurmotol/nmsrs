@@ -12,7 +12,7 @@ import (
 )
 
 func Destroy(w http.ResponseWriter, r *http.Request) {
-	usr, err := user.Find(mux.Vars(r)["id"])
+	usr, err := user.FindByID(mux.Vars(r)["id"])
 
 	if err != nil {
 		res.JSON(w, res.Make{
@@ -33,7 +33,7 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 		return
 	} // TODO: UI crashes when an error occur here
 
-	if middlewares.GetAuthID(r) == id {
+	if middlewares.GetAuthID(w, r) == id {
 		res.JSON(w, res.Make{
 			Status: http.StatusOK,
 			Data: map[string]string{
@@ -89,7 +89,7 @@ func DestroyMany(w http.ResponseWriter, r *http.Request) {
 	} // TODO: UI crashes when an error occur here
 
 	for _, id := range ids {
-		if middlewares.GetAuthID(r) == id {
+		if middlewares.GetAuthID(w, r) == id {
 			res.JSON(w, res.Make{
 				Status: http.StatusOK,
 				Data: map[string]string{

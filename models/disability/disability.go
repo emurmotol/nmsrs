@@ -14,7 +14,7 @@ type Disability struct {
 func All() ([]Disability, error) {
 	disabs := []Disability{}
 
-	if err := db.Disabilities.Find(bson.M{}).All(&disabs); err != nil {
+	if err := db.Disabilities.Find(nil).All(&disabs); err != nil {
 		return nil, err
 	}
 	return disabs, nil
@@ -29,7 +29,7 @@ func (disab *Disability) Insert() (string, error) {
 	return disab.ID.Hex(), nil
 }
 
-func Find(id string) (*Disability, error) {
+func FindByID(id string) (*Disability, error) {
 	var disab Disability
 
 	if !bson.IsObjectIdHex(id) {

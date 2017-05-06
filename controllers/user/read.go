@@ -29,7 +29,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func Show(w http.ResponseWriter, r *http.Request) {
-	usr, err := user.Find(mux.Vars(r)["id"])
+	usr, err := user.FindByID(mux.Vars(r)["id"])
 
 	if err != nil {
 		res.JSON(w, res.Make{

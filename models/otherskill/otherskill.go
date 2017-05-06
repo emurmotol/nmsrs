@@ -14,7 +14,7 @@ type OtherSkill struct {
 func All() ([]OtherSkill, error) {
 	oskills := []OtherSkill{}
 
-	if err := db.OtherSkills.Find(bson.M{}).Sort("+name").All(&oskills); err != nil {
+	if err := db.OtherSkills.Find(nil).Sort("+name").All(&oskills); err != nil {
 		return nil, err
 	}
 	return oskills, nil
@@ -29,7 +29,7 @@ func (oskill *OtherSkill) Insert() (string, error) {
 	return oskill.ID.Hex(), nil
 }
 
-func Find(id string) (*OtherSkill, error) {
+func FindByID(id string) (*OtherSkill, error) {
 	var oskill OtherSkill
 
 	if !bson.IsObjectIdHex(id) {

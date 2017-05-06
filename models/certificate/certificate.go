@@ -14,7 +14,7 @@ type Certificate struct {
 func All() ([]Certificate, error) {
 	certs := []Certificate{}
 
-	if err := db.Certificates.Find(bson.M{}).Sort("+name").All(&certs); err != nil {
+	if err := db.Certificates.Find(nil).Sort("+name").All(&certs); err != nil {
 		return nil, err
 	}
 	return certs, nil
@@ -29,7 +29,7 @@ func (cert *Certificate) Insert() (string, error) {
 	return cert.ID.Hex(), nil
 }
 
-func Find(id string) (*Certificate, error) {
+func FindByID(id string) (*Certificate, error) {
 	var cert Certificate
 
 	if !bson.IsObjectIdHex(id) {

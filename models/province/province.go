@@ -17,7 +17,7 @@ type Province struct {
 func All() ([]Province, error) {
 	provs := []Province{}
 
-	if err := db.Provinces.Find(bson.M{}).Sort("+desc").All(&provs); err != nil {
+	if err := db.Provinces.Find(nil).Sort("+desc").All(&provs); err != nil {
 		return nil, err
 	}
 	return provs, nil
@@ -32,7 +32,7 @@ func (prov *Province) Insert() (string, error) {
 	return prov.ID.Hex(), nil
 }
 
-func Find(id string) (*Province, error) {
+func FindByID(id string) (*Province, error) {
 	var prov Province
 
 	if !bson.IsObjectIdHex(id) {
@@ -54,7 +54,7 @@ func FindAllBy(key string, value interface{}) ([]Province, error) {
 	return provs, nil
 }
 
-func FindOneByCode(code string) *Province {
+func FindByCode(code string) *Province {
 	var prov Province
 
 	if err := db.Provinces.Find(bson.M{"code": code}).One(&prov); err != nil {

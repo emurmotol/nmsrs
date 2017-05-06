@@ -14,7 +14,7 @@ type Country struct {
 func All() ([]Country, error) {
 	couns := []Country{}
 
-	if err := db.Countries.Find(bson.M{}).Sort("+name").All(&couns); err != nil {
+	if err := db.Countries.Find(nil).Sort("+name").All(&couns); err != nil {
 		return nil, err
 	}
 	return couns, nil
@@ -29,7 +29,7 @@ func (coun *Country) Insert() (string, error) {
 	return coun.ID.Hex(), nil
 }
 
-func Find(id string) (*Country, error) {
+func FindByID(id string) (*Country, error) {
 	var coun Country
 
 	if !bson.IsObjectIdHex(id) {

@@ -14,7 +14,7 @@ type EducationLevel struct {
 func All() ([]EducationLevel, error) {
 	edulvls := []EducationLevel{}
 
-	if err := db.EducationLevels.Find(bson.M{}).Sort("+name").All(&edulvls); err != nil {
+	if err := db.EducationLevels.Find(nil).Sort("+name").All(&edulvls); err != nil {
 		return nil, err
 	}
 	return edulvls, nil
@@ -29,7 +29,7 @@ func (edulvl *EducationLevel) Insert() (string, error) {
 	return edulvl.ID.Hex(), nil
 }
 
-func Find(id string) (*EducationLevel, error) {
+func FindByID(id string) (*EducationLevel, error) {
 	var edulvl EducationLevel
 
 	if !bson.IsObjectIdHex(id) {

@@ -14,7 +14,7 @@ type Skill struct {
 func All() ([]Skill, error) {
 	skills := []Skill{}
 
-	if err := db.Skills.Find(bson.M{}).Sort("+name").All(&skills); err != nil {
+	if err := db.Skills.Find(nil).Sort("+name").All(&skills); err != nil {
 		return nil, err
 	}
 	return skills, nil
@@ -29,7 +29,7 @@ func (skill *Skill) Insert() (string, error) {
 	return skill.ID.Hex(), nil
 }
 
-func Find(id string) (*Skill, error) {
+func FindByID(id string) (*Skill, error) {
 	var skill Skill
 
 	if !bson.IsObjectIdHex(id) {

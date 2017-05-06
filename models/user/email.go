@@ -24,7 +24,7 @@ func CheckEmailIfTaken(email string) error {
 }
 
 func CheckEmailIfSameAsOld(id string, email string) (bool, error) {
-	u, err := Find(id)
+	u, err := FindByID(id)
 
 	if err != nil {
 		return false, err

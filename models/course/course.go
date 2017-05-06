@@ -14,7 +14,7 @@ type Course struct {
 func All() ([]Course, error) {
 	cours := []Course{}
 
-	if err := db.Courses.Find(bson.M{}).Sort("+name").All(&cours); err != nil {
+	if err := db.Courses.Find(nil).Sort("+name").All(&cours); err != nil {
 		return nil, err
 	}
 	return cours, nil
@@ -29,7 +29,7 @@ func (cour *Course) Insert() (string, error) {
 	return cour.ID.Hex(), nil
 }
 
-func Find(id string) (*Course, error) {
+func FindByID(id string) (*Course, error) {
 	var cour Course
 
 	if !bson.IsObjectIdHex(id) {

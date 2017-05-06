@@ -14,7 +14,7 @@ type Industry struct {
 func All() ([]Industry, error) {
 	inds := []Industry{}
 
-	if err := db.Industries.Find(bson.M{}).Sort("+name").All(&inds); err != nil {
+	if err := db.Industries.Find(nil).Sort("+name").All(&inds); err != nil {
 		return nil, err
 	}
 	return inds, nil
@@ -29,7 +29,7 @@ func (ind *Industry) Insert() (string, error) {
 	return ind.ID.Hex(), nil
 }
 
-func Find(id string) (*Industry, error) {
+func FindByID(id string) (*Industry, error) {
 	var ind Industry
 
 	if !bson.IsObjectIdHex(id) {

@@ -14,7 +14,7 @@ type Sex struct {
 func All() ([]Sex, error) {
 	sexs := []Sex{}
 
-	if err := db.Sexes.Find(bson.M{}).Sort("-name").All(&sexs); err != nil {
+	if err := db.Sexes.Find(nil).Sort("-name").All(&sexs); err != nil {
 		return nil, err
 	}
 	return sexs, nil
@@ -29,7 +29,7 @@ func (sex *Sex) Insert() (string, error) {
 	return sex.ID.Hex(), nil
 }
 
-func Find(id string) (*Sex, error) {
+func FindByID(id string) (*Sex, error) {
 	var sex Sex
 
 	if !bson.IsObjectIdHex(id) {

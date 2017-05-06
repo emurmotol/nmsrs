@@ -61,7 +61,7 @@ func (usr *User) Insert() (string, error) {
 	return usr.ID.Hex(), MakeReadMeFile(usr)
 }
 
-func Find(id string) (*User, error) {
+func FindByID(id string) (*User, error) {
 	var usr User
 
 	if !bson.IsObjectIdHex(id) {
@@ -97,7 +97,7 @@ func (usr *User) Delete() error {
 
 func DeleteMany(ids []string) error {
 	for _, id := range ids {
-		usr, err := Find(id)
+		usr, err := FindByID(id)
 
 		if err != nil {
 			return err

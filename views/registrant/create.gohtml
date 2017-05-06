@@ -345,6 +345,11 @@
                 url: "/religions",
                 delay: 250,
                 dataType: "json",
+                data: function (params) {
+                    return {
+                        q: params.term
+                    };
+                },
                 processResults: function (data) {
                     return {
                         results: $.map(data.data.religions, function (relig) {
@@ -355,7 +360,7 @@
                         })
                     };
                 },
-                // cache: true
+                cache: true
             }
         });
 
@@ -375,13 +380,14 @@
                         })
                     };
                 },
-                // cache: true
+                cache: true
             }
         });
 
         $("#city_municipality").on("change", function () {
             var selected = $(this).find(":selected");
             var city_municipality_code = $(this).val();
+            $("#barangay").val("");
 
             $("#barangay").select2({
                 placeholder: "Select a barangay",
@@ -389,6 +395,11 @@
                     url: "/city-municipalities/" + city_municipality_code + "/barangays",
                     delay: 250,
                     dataType: "json",
+                    data: function (params) {
+                        return {
+                            q: params.term
+                        };
+                    },
                     processResults: function (data) {
                         return {
                             results: $.map(data.data.barangays, function (brgy) {
@@ -399,7 +410,7 @@
                             })
                         };
                     },
-                    // cache: true
+                    cache: true
                 }
             });
             $("#barangay").prop("disabled", false);

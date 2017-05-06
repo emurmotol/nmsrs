@@ -14,7 +14,7 @@ type License struct {
 func All() ([]License, error) {
 	licns := []License{}
 
-	if err := db.Licenses.Find(bson.M{}).Sort("+name").All(&licns); err != nil {
+	if err := db.Licenses.Find(nil).Sort("+name").All(&licns); err != nil {
 		return nil, err
 	}
 	return licns, nil
@@ -29,7 +29,7 @@ func (licn *License) Insert() (string, error) {
 	return licn.ID.Hex(), nil
 }
 
-func Find(id string) (*License, error) {
+func FindByID(id string) (*License, error) {
 	var licn License
 
 	if !bson.IsObjectIdHex(id) {

@@ -92,7 +92,7 @@ func GetToken(id string) string {
 	return tokenString
 }
 
-func GetAuthID(r *http.Request) string {
+func GetAuthID(w http.ResponseWriter, r *http.Request) string {
 	tokenCookie, err := r.Cookie(env.JWTTokenName)
 
 	if err == nil {
@@ -101,8 +101,9 @@ func GetAuthID(r *http.Request) string {
 		})
 
 		if err != nil {
+			// panic(err)
 			// TODO: Logout to fix this error
-			panic(err)
+			http.Redirect(w, r, env.URL("/logout"), http.StatusFound)
 		}
 		claims, ok := token.Claims.(jwt.MapClaims)
 

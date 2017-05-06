@@ -31,7 +31,7 @@ func CreateAdminUser(name string, email string, password string) error {
 }
 
 func IsAdminUser(id string) bool {
-	usr, _ := Find(id)
+	usr, _ := FindByID(id)
 
 	if usr.Email == env.AdminEmail {
 		return true

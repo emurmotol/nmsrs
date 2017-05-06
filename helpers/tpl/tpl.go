@@ -58,11 +58,11 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 		panic(err)
 	}
 	data["Flash"] = f
-	id := middlewares.GetAuthID(r)
+	id := middlewares.GetAuthID(w, r)
 	var usr *user.User
 
 	if id != "" {
-		usr, _ = user.Find(id)
+		usr, _ = user.FindByID(id)
 	}
 	data["AuthUser"] = usr
 

@@ -14,7 +14,7 @@ type Language struct {
 func All() ([]Language, error) {
 	lngs := []Language{}
 
-	if err := db.Languages.Find(bson.M{}).Sort("+name").All(&lngs); err != nil {
+	if err := db.Languages.Find(nil).Sort("+name").All(&lngs); err != nil {
 		return nil, err
 	}
 	return lngs, nil
@@ -29,7 +29,7 @@ func (lng *Language) Insert() (string, error) {
 	return lng.ID.Hex(), nil
 }
 
-func Find(id string) (*Language, error) {
+func FindByID(id string) (*Language, error) {
 	var lng Language
 
 	if !bson.IsObjectIdHex(id) {
