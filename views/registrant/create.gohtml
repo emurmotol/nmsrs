@@ -74,7 +74,8 @@
                                         <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{SentenceCaseToSnakeCase .Name}}" value="{{.ID.Hex}}"> {{AllCapsToSentenceCase .Name}} (simplify)
                                     </label>
                                 </div>
-                                <input class="form-control" type="text" name="civil_status_{{SentenceCaseToSnakeCase .Name}}" style="text-transform: uppercase;" disabled>                                {{else}}
+                                <input class="form-control" type="text" name="civil_status_{{SentenceCaseToSnakeCase .Name}}" style="text-transform: uppercase;"
+                                    disabled> {{else}}
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{SentenceCaseToSnakeCase .Name}}" value="{{.ID.Hex}}"> {{AllCapsToSentenceCase .Name}}
@@ -138,20 +139,20 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-4">
-                            <div class="form-group">
+                            <div class="form-group" id="employment_status_radios">
                                 <label>Employment status <span class="asterisk text-danger">*</span></label> {{range .EmploymentStatuses}}
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="employment_status" value="{{.ID.Hex}}"> {{AllCapsToSentenceCase .Name}}
+                                        <input class="form-check-input" type="radio" name="employment_status" id="employment_status_{{SentenceCaseToSnakeCase .Name}}" value="{{.ID.Hex}}"> {{AllCapsToSentenceCase .Name}}
                                     </label>
                                 </div>
                                 {{end}}
-                                <label for="current_status">Current status</label>
-                                <select class="form-control" name="current_status" id="current_status" disabled></select>
+                                <label for="unemployed_current_status">Current status</label>
+                                <select class="form-control" name="unemployed_current_status" id="unemployed_current_status" disabled></select>
                             </div>
                             <div class="form-group">
-                                <label for="country">Country</label>
-                                <select class="form-control" name="country" id="country" disabled></select>
+                                <label for="unemployed_country">Country</label>
+                                <select class="form-control" name="unemployed_country" id="unemployed_country" disabled></select>
                             </div>
                             <div class="form-group">
                                 <div class="form-check">
@@ -187,7 +188,7 @@
                                         </tr>-->
                                     </tbody>
                                 </table>
-                                <p class="text-muted">Select <strong>+ Add</strong> button to add entries on the list</p>
+                                <p class="text-muted">Select <strong>+ Add</strong> button to add preferred occupation</p>
                             </div>
                             <div class="form-group">
                                 <label for="preferred_local_location">Preferred local location</label>
@@ -223,7 +224,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="disability_radios">
                                 <label>Disability <span class="asterisk text-danger">*</span></label> {{range .Disabilities}}
                                 {{if eq .Name "OTHER"}}
                                 <div class="form-check">
@@ -231,7 +232,7 @@
                                         <input class="form-check-input" type="radio" name="disability" id="disability_{{SentenceCaseToSnakeCase .Name}}" value="{{.ID.Hex}}" disabled> {{AllCapsToSentenceCase .Name}} (specify)
                                     </label>
                                 </div>
-                                <input class="form-control" type="text" name="disability" id="disability" style="text-transform: uppercase;" disabled>                                {{else}}
+                                <input class="form-control" type="text" name="disability_{{SentenceCaseToSnakeCase .Name}}" id="disability" style="text-transform: uppercase;" disabled>                                {{else}}
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="radio" name="disability" id="disability_{{SentenceCaseToSnakeCase .Name}}" value="{{.ID.Hex}}" disabled> {{AllCapsToSentenceCase .Name}}
@@ -442,6 +443,10 @@
             }
         });
 
+        $("#barangay").select2({
+            placeholder: "Select a barangay"
+        });
+
         $("#city_municipality").on("change", function () {
             var selected = $(this).find(":selected");
             var city_municipality_code = $(this).val();
@@ -472,21 +477,118 @@
                 }
             });
             $("#barangay").prop("disabled", false);
-            $("#province").val(selected.data("province-desc"));
-            $("#province").attr("data-province-code", selected.data("province-code"));
+            // $("#province").val(selected.data("province-desc"));
+            // $("#province").attr("data-province-code", selected.data("province-code"));
         });
 
-        $("#civil_status_radios").find("input[type=radio]").on("change", function () {
-            var checked = $("input[name=civil_status]:checked");
+        $("#unemployed_current_status").select2({
+            placeholder: "Select current status"
+        });
 
-            if (checked[0].id == "civil_status_other") {
-                
+        $("#unemployed_country").select2({
+            placeholder: "Select a country"
+        });
+
+        $("#employment_status_radios").find("input[type=radio]").on("change", function () {
+            var checked = $("input[name=employment_status]:checked");
+
+            if (checked[0].id == "employment_status_unemployed") {
+                $("#unemployed_current_status").val("");
+
+                $("#unemployed_current_status").select2({
+                    placeholder: "Select current status",
+                    minimumResultsForSearch: Infinity,
+                    ajax: {
+                        url: "/unemployed-statuses",
+                        delay: 250,
+                        dataType: "json",
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data.data.unemployed_statuses, function (un_emp_stat) {
+                                    return {
+                                        id: un_emp_stat.id,
+                                        text: un_emp_stat.name
+                                    };
+                                })
+                            };
+                        },
+                        cache: true
+                    }
+                });
+                $("#unemployed_country").val("");
+
+                $("#unemployed_country").select2({
+                    placeholder: "Select a country",
+                    ajax: {
+                        url: "/countries",
+                        delay: 250,
+                        dataType: "json",
+                        data: function (params) {
+                            return {
+                                q: params.term
+                            };
+                        },
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data.data.countries, function (coun) {
+                                    return {
+                                        id: coun.id,
+                                        text: coun.name
+                                    };
+                                })
+                            };
+                        },
+                        cache: true
+                    }
+                });
+                $("#unemployed_current_status").prop("disabled", false);
+                $("#unemployed_current_status").focus();
+                $("#unemployed_country").prop("disabled", false);
+            } else {
+                $("#unemployed_current_status").prop("disabled", true);
+                $("#unemployed_country").prop("disabled", true);
             }
         });
 
         $("#civil_status_other").on("click", function () {
             $("#civil_status").prop("disabled", false);
             $("#civil_status").focus();
+        });
+
+        $("#civil_status_radios").find("input[type=radio]").on("change", function () {
+            var checked = $("input[name=civil_status]:checked");
+
+            if (checked[0].id == "civil_status_other") {
+                $("input[name=civil_status_other]").prop("disabled", false);
+                $("input[name=civil_status_other]").focus();
+            } else {
+                $("input[name=civil_status_other]").prop("disabled", true);
+            }
+        });
+
+        $("#disability_radios").find("input[type=radio]").on("change", function () {
+            var checked = $("input[name=disability]:checked");
+
+            if (checked[0].id == "disability_other") {
+                $("input[name=disability_other]").prop("disabled", false);
+                $("input[name=disability_other]").focus();
+            } else {
+                $("input[name=disability_other]").prop("disabled", true);
+            }
+        });
+
+        $("#disabled").on("change", function () {
+            if ($(this).prop("checked")) {
+                $("#disability_radios").find("input[type=radio]").each(function () {
+                    $(this).prop("disabled", false);
+                });
+            } else {
+                $("#disability_radios").find("input[type=radio]").each(function () {
+                    $("input[name=disability_other]").prop("disabled", true);
+                    $(this).prop("disabled", true);
+                    $(this).prop("checked", false);
+                });
+            }
         });
 
         $("#step_1_form").on("submit", function (e) {

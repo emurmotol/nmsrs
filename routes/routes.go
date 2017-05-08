@@ -44,6 +44,8 @@ func Register() *mux.Router {
 	router.Path("/city-municipalities/{city_municipality_code}/barangays").Methods("GET").Handler(middlewares.Admin(api.Barangays))
 	router.Path("/city-municipalities/provinces").Methods("GET").Handler(middlewares.Admin(api.CityMunicipalitiesWithProvinces))
 	router.Path("/religions").Methods("GET").Handler(middlewares.Admin(api.Religions))
+	router.Path("/countries").Methods("GET").Handler(middlewares.Admin(api.Countries))
+	router.Path("/unemployed-statuses").Methods("GET").Handler(middlewares.Admin(api.UnemployedStatuses))
 
 	// Auth routes
 	router.Path("/check/file/image/{field}").Methods("POST").Handler(middlewares.Auth(check.Image))

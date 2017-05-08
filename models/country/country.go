@@ -41,3 +41,12 @@ func FindByID(id string) (*Country, error) {
 	}
 	return &coun, nil
 }
+
+func Search(query interface{}) ([]Country, error) {
+	couns := []Country{}
+
+	if err := db.Countries.Find(query).Sort("+name").All(&couns); err != nil {
+		return nil, err
+	}
+	return couns, nil
+}
