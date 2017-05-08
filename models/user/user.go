@@ -30,7 +30,7 @@ type User struct {
 	Name            string        `schema:"name" json:"name" bson:"name,omitempty" validate:"required,min=2"`
 	Email           string        `schema:"email" json:"email" bson:"email,omitempty" validate:"required,email"`
 	Password        string        `schema:"password" json:"password" bson:"password,omitempty" validate:"required,min=6"`
-	ConfirmPassword string        `schema:"confirm_password" json:"confirm_password" bson:",omitempty" validate:"required,eqfield=Password"`
+	ConfirmPassword string        `schema:"confirm_password" json:"confirm_password" bson:"-" validate:"required,eqfield=Password"`
 	IsAdmin         bool          `schema:"is_admin" json:"is_admin" bson:"isAdmin"`
 	PhotoIsSet      bool          `schema:"photo_is_set" json:"photo_is_set" bson:"photoIsSet"`
 	CreatedAt       int64         `schema:"created_at" json:"created_at" bson:"createdAt,omitempty"`
@@ -49,7 +49,6 @@ func All() ([]User, error) {
 func (usr *User) Insert() (string, error) {
 	usr.ID = bson.NewObjectId()
 	usr.Email = strings.ToLower(usr.Email)
-	usr.ConfirmPassword = ""
 	usr.Password = str.Bcrypt(usr.Password)
 	now := time.Now().Unix()
 	usr.CreatedAt = now

@@ -7,10 +7,9 @@ import (
 	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/helpers/str"
 	"github.com/emurmotol/nmsrs/helpers/tpl"
-	"github.com/emurmotol/nmsrs/models/citymunicipality"
 	"github.com/emurmotol/nmsrs/models/civilstatus"
+	"github.com/emurmotol/nmsrs/models/disability"
 	"github.com/emurmotol/nmsrs/models/employmentstatus"
-	"github.com/emurmotol/nmsrs/models/religion"
 	"github.com/emurmotol/nmsrs/models/sex"
 )
 
@@ -45,17 +44,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	religs, err := religion.All()
-
-	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
-	}
-	cityMuns, err := citymunicipality.All()
+	disabs, err := disability.All()
 
 	if err != nil {
 		res.JSON(w, res.Make{
@@ -71,8 +60,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		"EmploymentStatuses": empStats,
 		"Sexes":              sexs,
 		"CivilStatuses":      civStats,
-		"Religions":          religs,
-		"CityMunicipalities": cityMuns,
+		"Disabilities":       disabs,
 	}
 	funcMap := map[string]interface{}{
 		"SentenceCaseToSnakeCase": str.SentenceCaseToSnakeCase,

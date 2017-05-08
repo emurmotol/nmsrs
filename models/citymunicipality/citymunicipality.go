@@ -3,7 +3,6 @@ package citymunicipality
 import (
 	"github.com/emurmotol/nmsrs/db"
 	"github.com/emurmotol/nmsrs/models"
-	"github.com/emurmotol/nmsrs/models/province"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -56,22 +55,30 @@ func FindAllBy(key string, value interface{}) ([]CityMunicipality, error) {
 	return cityMuns, nil
 }
 
-func WithProvince() ([]map[string]string, error) {
-	var cityMunsWithProvs []map[string]string
-	cityMuns, err := All()
+func WithProvince(query interface{}) ([]interface{}, error) {
+	var cmps []interface{}
 
-	if err != nil {
+	q := []bson.M{
+		bson.M{
+			"$lookup": bson.M{
+				"from":         "provinces",
+				"localField":   "provinceCode",
+				"foreignField": "code",
+				"as":           "province",
+			},
+		},
+		bson.M{
+			"$sort": bson.M{
+				"desc": 1,
+			},
+		},
+		bson.M{
+			"$match": query,
+		},
+	}
+
+	if err := db.CityMunicipalities.Pipe(q).All(&cmps); err != nil {
 		return nil, err
 	}
-
-	for _, cityMun := range cityMuns {
-		prov := province.FindByCode(cityMun.ProvinceCode)
-		cityMunsWithProvs = append(cityMunsWithProvs, map[string]string{
-			"city_municipality_code": cityMun.Code,
-			"city_municipality_desc": cityMun.Desc,
-			"province_code":          prov.Code,
-			"province_desc":          prov.Desc,
-		})
-	}
-	return cityMunsWithProvs, nil
+	return cmps, nil
 }
