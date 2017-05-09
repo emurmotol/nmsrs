@@ -56,3 +56,7 @@ a {
 .navbar-default .navbar-nav .open a.dropdown-toggle:link {
     background-color: #d4eafb;
 }
+
+.modal-title {
+    font-weight: bold;
+}

@@ -164,31 +164,8 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <table class="table table-responsive" id="preferred_occupation">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                Preferred occupation <span class="asterisk text-danger">*</span>
-                                            </th>
-                                            <th></th>
-                                            <th class="text-right">
-                                                <a href="#"><i class="fa fa-plus"></i> Add</a>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!--<tr>
-                                            <td>Doe</td>
-                                            <td class="text-right">
-                                                <a href="#"><i class="fa fa-pencil"></i></a>
-                                            </td>
-                                            <td>
-                                                <a href="#"><i class="fa fa-trash-o"></i></a>
-                                            </td>
-                                        </tr>-->
-                                    </tbody>
-                                </table>
-                                <p class="text-muted">Select <strong>+ Add</strong> button to add preferred occupation</p>
+                                <label for="preferred_occupation">Preferred occupation</label>
+                                <select class="form-control" name="preferred_occupation" id="preferred_occupation" multiple="multiple"></select>
                             </div>
                             <div class="form-group">
                                 <label for="preferred_local_location">Preferred local location</label>
@@ -232,7 +209,8 @@
                                         <input class="form-check-input" type="radio" name="disability" id="disability_{{SentenceCaseToSnakeCase .Name}}" value="{{.ID.Hex}}" disabled> {{AllCapsToSentenceCase .Name}} (specify)
                                     </label>
                                 </div>
-                                <input class="form-control" type="text" name="disability_{{SentenceCaseToSnakeCase .Name}}" id="disability" style="text-transform: uppercase;" disabled>                                {{else}}
+                                <input class="form-control" type="text" name="disability_{{SentenceCaseToSnakeCase .Name}}" id="disability" style="text-transform: uppercase;"
+                                    disabled> {{else}}
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="radio" name="disability" id="disability_{{SentenceCaseToSnakeCase .Name}}" value="{{.ID.Hex}}" disabled> {{AllCapsToSentenceCase .Name}}
@@ -248,7 +226,11 @@
                 <div class="panel-heading">Language</div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="language_spoken">Language(s) spoken</label>
+                                <select class="form-control" name="language_spoken" id="language_spoken" multiple="multiple"></select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -258,6 +240,29 @@
             </div>
         </form>
     </div>
+    <!--<div class="modal fade" id="add_language_spoken_modal" data-backdrop="static" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <form>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                    </button>
+                        <h5 class="modal-title">Language(s) spoken</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <select class="form-control" name="select_language_spoken" id="select_language_spoken"></select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" role="button" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>-->
     <div class="tab-pane" id="step-2" role="tabpanel">
         <form action="/registrants?step=2" method="POST" class="mb-4" id="step_2_form">
             <div class="panel panel-info" id="formal-education">
@@ -395,257 +400,4 @@
         </form>
     </div>
 </div>
-{{end}} {{define "script"}}
-<script>
-    $(function () {
-        $("#religion").select2({
-            placeholder: "Select a religion",
-            ajax: {
-                url: "/religions",
-                delay: 250,
-                dataType: "json",
-                data: function (params) {
-                    return {
-                        q: params.term
-                    };
-                },
-                processResults: function (data) {
-                    return {
-                        results: $.map(data.data.religions, function (relig) {
-                            return {
-                                id: relig.id,
-                                text: relig.name
-                            };
-                        })
-                    };
-                },
-                cache: true
-            }
-        });
-
-        $("#city_municipality").select2({
-            placeholder: "Select a city/municipality",
-            ajax: {
-                url: "/city-municipalities/provinces",
-                delay: 250,
-                dataType: "json",
-                processResults: function (data) {
-                    return {
-                        results: $.map(data.data.city_municipalities_with_provinces, function (city_mun_with_prov) {
-                            return {
-                                id: city_mun_with_prov.code,
-                                text: city_mun_with_prov.desc + ", " + city_mun_with_prov.province[0].desc
-                            };
-                        })
-                    };
-                },
-                cache: true
-            }
-        });
-
-        $("#barangay").select2({
-            placeholder: "Select a barangay"
-        });
-
-        $("#city_municipality").on("change", function () {
-            var selected = $(this).find(":selected");
-            var city_municipality_code = $(this).val();
-            $("#barangay").val("");
-
-            $("#barangay").select2({
-                placeholder: "Select a barangay",
-                ajax: {
-                    url: "/city-municipalities/" + city_municipality_code + "/barangays",
-                    delay: 250,
-                    dataType: "json",
-                    data: function (params) {
-                        return {
-                            q: params.term
-                        };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data.data.barangays, function (brgy) {
-                                return {
-                                    id: brgy.code,
-                                    text: brgy.desc
-                                };
-                            })
-                        };
-                    },
-                    cache: true
-                }
-            });
-            $("#barangay").prop("disabled", false);
-            // $("#province").val(selected.data("province-desc"));
-            // $("#province").attr("data-province-code", selected.data("province-code"));
-        });
-
-        $("#unemployed_current_status").select2({
-            placeholder: "Select current status"
-        });
-
-        $("#unemployed_country").select2({
-            placeholder: "Select a country"
-        });
-
-        $("#employment_status_radios").find("input[type=radio]").on("change", function () {
-            var checked = $("input[name=employment_status]:checked");
-
-            if (checked[0].id == "employment_status_unemployed") {
-                $("#unemployed_current_status").val("");
-
-                $("#unemployed_current_status").select2({
-                    placeholder: "Select current status",
-                    minimumResultsForSearch: Infinity,
-                    ajax: {
-                        url: "/unemployed-statuses",
-                        delay: 250,
-                        dataType: "json",
-                        processResults: function (data) {
-                            return {
-                                results: $.map(data.data.unemployed_statuses, function (un_emp_stat) {
-                                    return {
-                                        id: un_emp_stat.id,
-                                        text: un_emp_stat.name
-                                    };
-                                })
-                            };
-                        },
-                        cache: true
-                    }
-                });
-                $("#unemployed_country").val("");
-
-                $("#unemployed_country").select2({
-                    placeholder: "Select a country",
-                    ajax: {
-                        url: "/countries",
-                        delay: 250,
-                        dataType: "json",
-                        data: function (params) {
-                            return {
-                                q: params.term
-                            };
-                        },
-                        processResults: function (data) {
-                            return {
-                                results: $.map(data.data.countries, function (coun) {
-                                    return {
-                                        id: coun.id,
-                                        text: coun.name
-                                    };
-                                })
-                            };
-                        },
-                        cache: true
-                    }
-                });
-                $("#unemployed_current_status").prop("disabled", false);
-                $("#unemployed_current_status").focus();
-                $("#unemployed_country").prop("disabled", false);
-            } else {
-                $("#unemployed_current_status").prop("disabled", true);
-                $("#unemployed_country").prop("disabled", true);
-            }
-        });
-
-        $("#civil_status_other").on("click", function () {
-            $("#civil_status").prop("disabled", false);
-            $("#civil_status").focus();
-        });
-
-        $("#civil_status_radios").find("input[type=radio]").on("change", function () {
-            var checked = $("input[name=civil_status]:checked");
-
-            if (checked[0].id == "civil_status_other") {
-                $("input[name=civil_status_other]").prop("disabled", false);
-                $("input[name=civil_status_other]").focus();
-            } else {
-                $("input[name=civil_status_other]").prop("disabled", true);
-            }
-        });
-
-        $("#disability_radios").find("input[type=radio]").on("change", function () {
-            var checked = $("input[name=disability]:checked");
-
-            if (checked[0].id == "disability_other") {
-                $("input[name=disability_other]").prop("disabled", false);
-                $("input[name=disability_other]").focus();
-            } else {
-                $("input[name=disability_other]").prop("disabled", true);
-            }
-        });
-
-        $("#disabled").on("change", function () {
-            if ($(this).prop("checked")) {
-                $("#disability_radios").find("input[type=radio]").each(function () {
-                    $(this).prop("disabled", false);
-                });
-            } else {
-                $("#disability_radios").find("input[type=radio]").each(function () {
-                    $("input[name=disability_other]").prop("disabled", true);
-                    $(this).prop("disabled", true);
-                    $(this).prop("checked", false);
-                });
-            }
-        });
-
-        $("#step_1_form").on("submit", function (e) {
-            e.preventDefault();
-            var promise = makeFormRequest(this, []);
-
-            promise.then(function (r) {
-                if (r.data.proceed != null && r.data.proceed) {
-                    nextStep();
-                }
-            });
-        });
-
-        $("#step_2_form").on("submit", function (e) {
-            e.preventDefault();
-            nextStep();
-        });
-
-        $("#step_3_form").on("submit", function (e) {
-            e.preventDefault();
-            nextStep();
-        });
-
-        $("#step_4_form").on("submit", function (e) {
-            e.preventDefault();
-            nextStep();
-        });
-
-        $("#step_5_form").on("submit", function (e) {
-            e.preventDefault();
-            nextStep();
-        });
-
-        $("#step_6_form").on("submit", function (e) {
-            e.preventDefault();
-            nextStep();
-        });
-
-        $("#step_7_form").on("submit", function (e) {
-            e.preventDefault();
-            nextStep();
-        });
-
-        $("#step_8_form").on("submit", function (e) {
-            e.preventDefault();
-            nextStep();
-        });
-
-        $("#step_9_form").on("submit", function (e) {
-            e.preventDefault();
-        });
-
-        $(".prev-step").on("click", function (e) {
-            e.preventDefault();
-            prevStep();
-        });
-    });
-
-</script>
 {{end}}

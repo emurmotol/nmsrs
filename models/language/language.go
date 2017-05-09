@@ -41,3 +41,12 @@ func FindByID(id string) (*Language, error) {
 	}
 	return &lng, nil
 }
+
+func Search(query interface{}) ([]Language, error) {
+	lngs := []Language{}
+
+	if err := db.Languages.Find(query).Sort("+name").All(&lngs); err != nil {
+		return nil, err
+	}
+	return lngs, nil
+}

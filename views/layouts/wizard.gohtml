@@ -135,23 +135,7 @@
         <script src="/js/select2.full.min.js"></script>
         <script src="/js/url.min.js"></script>
         <script src="/js/app.js"></script>
-        <script>
-            $(function () {
-                $.fn.select2.defaults.set("theme", "bootstrap");
-                var frag = $.url("#");
-                // TODO: Navigate on page
-
-                nextStep = function () {
-                    var li = $(".wizard .nav-pills li.active");
-                    li.next().removeClass("disabled");
-                    li.next().find('a[data-toggle="tab"]').tab("show");
-                }
-
-                prevStep = function () {
-                    $(".wizard .nav-pills li.active").prev().find('a[data-toggle="tab"]').tab("show");
-                }
-            });
-        </script>
+        <script src="/js/wizard.js"></script>
         {{block "script" .}}{{end}}
 </body>
 

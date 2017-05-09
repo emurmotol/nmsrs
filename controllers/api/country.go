@@ -11,9 +11,18 @@ import (
 
 func Countries(w http.ResponseWriter, r *http.Request) {
 	couns, err := country.Search(bson.M{
-		"name": bson.RegEx{
-			Pattern: r.URL.Query().Get("q"),
-			Options: "i",
+		"$and": []bson.M{
+			bson.M{
+				"name": bson.RegEx{
+					Pattern: r.URL.Query().Get("q"),
+					Options: "i",
+				},
+			},
+			bson.M{
+				"name": bson.M{
+					"$ne": r.URL.Query().Get("except"),
+				},
+			},
 		},
 	})
 
