@@ -31,6 +31,7 @@ National Manpower Skills Registration System For The Municipality Of Gasan Marin
 ### Notes
 * go build & nmsrs.exe (PowerShell)
 * go build ; ./nmsrs.exe (Bash)
+* git fetch origin && git reset --hard origin/master && git clean -f -d
 * Server architecture is 32-bit must be 64-bit
 * Max DB size 2GB
 * VSCode debugger only works on 64-bit
