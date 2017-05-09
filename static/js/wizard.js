@@ -39,7 +39,7 @@ $(function () {
     });
 
     $("#language_spoken").select2({
-        placeholder: "Select language spoken",
+        placeholder: "Select language(s) spoken",
         ajax: {
             url: "/languages",
             delay: 250,
@@ -203,8 +203,6 @@ $(function () {
         var checked = $("input[name=employment_status]:checked");
 
         if (checked[0].id == "employment_status_unemployed") {
-            $("#unemployed_current_status").val("");
-
             $("#unemployed_current_status").select2({
                 placeholder: "Select current status",
                 minimumResultsForSearch: Infinity,
@@ -225,7 +223,6 @@ $(function () {
                     cache: true
                 }
             });
-            $("#unemployed_country").val("");
 
             $("#unemployed_country").select2({
                 placeholder: "Select a country",
