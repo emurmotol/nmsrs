@@ -7,7 +7,7 @@ import (
 )
 
 type Eligibility struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]Eligibility, error) {
 }
 
 func (elig *Eligibility) Insert() (string, error) {
-	elig.ID = bson.NewObjectId()
+	elig.ObjectID = bson.NewObjectId()
 
 	if err := db.Eligibilities.Insert(elig); err != nil {
 		return "", err
 	}
-	return elig.ID.Hex(), nil
+	return elig.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*Eligibility, error) {

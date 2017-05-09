@@ -7,7 +7,7 @@ import (
 )
 
 type Certificate struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]Certificate, error) {
 }
 
 func (cert *Certificate) Insert() (string, error) {
-	cert.ID = bson.NewObjectId()
+	cert.ObjectID = bson.NewObjectId()
 
 	if err := db.Certificates.Insert(cert); err != nil {
 		return "", err
 	}
-	return cert.ID.Hex(), nil
+	return cert.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*Certificate, error) {

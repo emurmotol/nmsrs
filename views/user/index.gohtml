@@ -21,11 +21,11 @@
             </thead>
             <tbody>
                 {{range .}}
-                <tr data-id="user_row_{{.ID.Hex}}">
-                    <td><input type="checkbox" class="checkbox" value="{{.ID.Hex}}"></td>
-                    <td><a href="/users/{{.ID.Hex}}">{{.Name}}</a></td>
+                <tr data-id="user_row_{{.ObjectID.Hex}}">
+                    <td><input type="checkbox" class="checkbox" value="{{.ObjectID.Hex}}"></td>
+                    <td><a href="/users/{{.ObjectID.Hex}}">{{.Name}}</a></td>
                     <td><a href="mailto:{{.Email}}">{{.Email}}</a></td>
-                    <td><a href="/users/{{.ID.Hex}}/edit"><i class="fa fa-pencil"></i></a></td>
+                    <td><a href="/users/{{.ObjectID.Hex}}/edit"><i class="fa fa-pencil"></i></a></td>
                     <td>{{DateForHumans .CreatedAt}}</td>
                 </tr>
                 {{end}}

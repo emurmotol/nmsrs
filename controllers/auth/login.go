@@ -78,7 +78,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	http.SetCookie(w, &http.Cookie{
 		Name:       env.JWTTokenName,
-		Value:      middlewares.GetToken(usr.ID.Hex()),
+		Value:      middlewares.GetToken(usr.ObjectID.Hex()),
 		Path:       "/",
 		RawExpires: "0",
 	})

@@ -7,7 +7,7 @@ import (
 )
 
 type EducationLevel struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]EducationLevel, error) {
 }
 
 func (edulvl *EducationLevel) Insert() (string, error) {
-	edulvl.ID = bson.NewObjectId()
+	edulvl.ObjectID = bson.NewObjectId()
 
 	if err := db.EducationLevels.Insert(edulvl); err != nil {
 		return "", err
 	}
-	return edulvl.ID.Hex(), nil
+	return edulvl.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*EducationLevel, error) {

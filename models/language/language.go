@@ -7,7 +7,7 @@ import (
 )
 
 type Language struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]Language, error) {
 }
 
 func (lng *Language) Insert() (string, error) {
-	lng.ID = bson.NewObjectId()
+	lng.ObjectID = bson.NewObjectId()
 
 	if err := db.Languages.Insert(lng); err != nil {
 		return "", err
 	}
-	return lng.ID.Hex(), nil
+	return lng.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*Language, error) {

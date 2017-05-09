@@ -7,7 +7,7 @@ import (
 )
 
 type Barangay struct {
-	ID                   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID             bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Code                 string        `schema:"code" json:"code" bson:"code,omitempty"`
 	Desc                 string        `schema:"desc" json:"desc" bson:"desc,omitempty"`
 	RegionCode           string        `schema:"region_code" json:"region_code" bson:"regionCode,omitempty"`
@@ -25,12 +25,12 @@ func All() ([]Barangay, error) {
 }
 
 func (brgy *Barangay) Insert() (string, error) {
-	brgy.ID = bson.NewObjectId()
+	brgy.ObjectID = bson.NewObjectId()
 
 	if err := db.Barangays.Insert(brgy); err != nil {
 		return "", err
 	}
-	return brgy.ID.Hex(), nil
+	return brgy.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*Barangay, error) {

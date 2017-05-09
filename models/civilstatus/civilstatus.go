@@ -7,7 +7,7 @@ import (
 )
 
 type CivilStatus struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]CivilStatus, error) {
 }
 
 func (civStat *CivilStatus) Insert() (string, error) {
-	civStat.ID = bson.NewObjectId()
+	civStat.ObjectID = bson.NewObjectId()
 
 	if err := db.CivilStatuses.Insert(civStat); err != nil {
 		return "", err
 	}
-	return civStat.ID.Hex(), nil
+	return civStat.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*CivilStatus, error) {

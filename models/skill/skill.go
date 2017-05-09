@@ -7,7 +7,7 @@ import (
 )
 
 type Skill struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]Skill, error) {
 }
 
 func (skill *Skill) Insert() (string, error) {
-	skill.ID = bson.NewObjectId()
+	skill.ObjectID = bson.NewObjectId()
 
 	if err := db.Skills.Insert(skill); err != nil {
 		return "", err
 	}
-	return skill.ID.Hex(), nil
+	return skill.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*Skill, error) {

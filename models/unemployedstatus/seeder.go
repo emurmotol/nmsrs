@@ -3,7 +3,8 @@ package unemployedstatus
 import "log"
 
 var data = []string{
-	"ACTIVELY LOOKING FOR WORK",
+	"NEW ENTRANT/FRESH GRADUATE",
+	"FINISHED CONTRACT",
 	"RESIGNED",
 	"TERMINATED/LAID OFF, LOCAL",
 	"TERMINATED/LAID OFF, OVERSEAS",

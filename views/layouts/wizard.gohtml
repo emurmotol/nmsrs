@@ -45,14 +45,14 @@
                 <ul class="nav navbar-nav navbar-right">
                     {{$defaultUserPhoto := .Config.Default.UserPhoto}} {{with .AuthUser}}
                     <li class="dropdown">
-                        <a href="/users/{{.ID.Hex}}" class="dropdown-toggle" id="drop_down_{{.ID.Hex}}" data-toggle="dropdown" aria-haspopup="true"
+                        <a href="/users/{{.ObjectID.Hex}}" class="dropdown-toggle" id="drop_down_{{.ObjectID.Hex}}" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <img src="{{if .PhotoIsSet}}/users/{{.ID.Hex}}/photo{{else}}{{$defaultUserPhoto}}{{end}}" class="img-rounded nav-user-photo"
+                            <img src="{{if .PhotoIsSet}}/users/{{.ObjectID.Hex}}/photo{{else}}{{$defaultUserPhoto}}{{end}}" class="img-rounded nav-user-photo"
                                 height="30" alt="{{.Name}}"> {{.Name}}
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="drop_down_{{.ID.Hex}}">
-                            {{if not (IsAdminUser .ID.Hex)}}
-                            <li><a href="/users/{{.ID.Hex}}">Your profile</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="drop_down_{{.ObjectID.Hex}}">
+                            {{if not (IsAdminUser .ObjectID.Hex)}}
+                            <li><a href="/users/{{.ObjectID.Hex}}">Your profile</a></li>
                             <li role="separator" class="divider"></li>
                             {{end}}
                             <li><a href="/logout">Logout</a></li>

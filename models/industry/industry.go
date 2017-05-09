@@ -7,7 +7,7 @@ import (
 )
 
 type Industry struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]Industry, error) {
 }
 
 func (ind *Industry) Insert() (string, error) {
-	ind.ID = bson.NewObjectId()
+	ind.ObjectID = bson.NewObjectId()
 
 	if err := db.Industries.Insert(ind); err != nil {
 		return "", err
 	}
-	return ind.ID.Hex(), nil
+	return ind.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*Industry, error) {

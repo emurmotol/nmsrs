@@ -26,7 +26,7 @@ var (
 )
 
 type User struct {
-	ID              bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID              bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name            string        `schema:"name" json:"name" bson:"name,omitempty" validate:"required,min=2"`
 	Email           string        `schema:"email" json:"email" bson:"email,omitempty" validate:"required,email"`
 	Password        string        `schema:"password" json:"password" bson:"password,omitempty" validate:"required,min=6"`
@@ -47,7 +47,7 @@ func All() ([]User, error) {
 }
 
 func (usr *User) Insert() (string, error) {
-	usr.ID = bson.NewObjectId()
+	usr.ObjectID = bson.NewObjectId()
 	usr.Email = strings.ToLower(usr.Email)
 	usr.Password = str.Bcrypt(usr.Password)
 	now := time.Now().Unix()
@@ -57,7 +57,7 @@ func (usr *User) Insert() (string, error) {
 	if err := db.Users.Insert(usr); err != nil {
 		return "", err
 	}
-	return usr.ID.Hex(), MakeReadMeFile(usr)
+	return usr.ObjectID.Hex(), MakeReadMeFile(usr)
 }
 
 func FindByID(id string) (*User, error) {
@@ -74,13 +74,13 @@ func FindByID(id string) (*User, error) {
 }
 
 func (usr *User) Delete() error {
-	id := usr.ID.Hex()
+	id := usr.ObjectID.Hex()
 
 	if IsAdminUser(id) {
 		return ErrActionNotPermitted
 	}
 
-	if err := db.Users.RemoveId(usr.ID); err != nil {
+	if err := db.Users.RemoveId(usr.ObjectID); err != nil {
 		return err
 	}
 	dir := filepath.Join(contentDir, id)
@@ -110,7 +110,7 @@ func DeleteMany(ids []string) error {
 } // TODO: Slow on big data, use db.Users.RemoveAll instead
 
 func MakeReadMeFile(usr *User) error {
-	file := filepath.Join(contentDir, usr.ID.Hex(), "README.md")
+	file := filepath.Join(contentDir, usr.ObjectID.Hex(), "README.md")
 
 	dir := filepath.Dir(file)
 	_, err := os.Stat(dir)
@@ -118,7 +118,7 @@ func MakeReadMeFile(usr *User) error {
 	if os.IsNotExist(err) {
 		os.MkdirAll(dir, 0777)
 	}
-	content := fmt.Sprintf("ID: %s", usr.ID.Hex())
+	content := fmt.Sprintf("ObjectID: %s", usr.ObjectID.Hex())
 	content += fmt.Sprintf("\nJoined: %s", str.DateForHumans(usr.CreatedAt))
 
 	if err := ioutil.WriteFile(file, []byte(content), 0644); err != nil {

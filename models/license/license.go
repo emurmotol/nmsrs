@@ -7,7 +7,7 @@ import (
 )
 
 type License struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]License, error) {
 }
 
 func (licn *License) Insert() (string, error) {
-	licn.ID = bson.NewObjectId()
+	licn.ObjectID = bson.NewObjectId()
 
 	if err := db.Licenses.Insert(licn); err != nil {
 		return "", err
 	}
-	return licn.ID.Hex(), nil
+	return licn.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*License, error) {

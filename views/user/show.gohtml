@@ -3,7 +3,7 @@
     <div class="card-header">
         <span class="pull-left"><i class="fa fa-user-o"></i> Profile</span>
         <span class="pull-right">
-            <a href="/users/{{.User.ID.Hex}}/edit" class="btn btn-outline-primary btn-sm">
+            <a href="/users/{{.User.ObjectID.Hex}}/edit" class="btn btn-outline-primary btn-sm">
                 <i class="fa fa-pencil"></i>
             </a>
             <button class="btn btn-outline-danger btn-sm" id="delete_user_button" role="button">
@@ -12,8 +12,8 @@
         </span>
     </div>
     <div class="card-block">
-        <a href="/users/{{.User.ID.Hex}}/edit#profile">
-            <img src="{{if .User.PhotoIsSet}}/users/{{.User.ID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="rounded mb-3"
+        <a href="/users/{{.User.ObjectID.Hex}}/edit#profile">
+            <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="rounded mb-3"
                 id="preview" height="160" alt="{{.User.Name}}">
         </a>
         <h6><i class="fa fa-user-o"></i> {{.User.Name}}</h6>
@@ -56,7 +56,7 @@
             var old_text = elem.text();
             elem.prop("disabled", true);
             elem.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Deleting...`);
-            var promise = makeRequest("/users/" + `{{.User.ID.Hex}}`, "DELETE", null);
+            var promise = makeRequest("/users/" + `{{.User.ObjectID.Hex}}`, "DELETE", null);
 
             promise.then(function (r) {
                 elem.text(old_text);

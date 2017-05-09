@@ -7,7 +7,7 @@ import (
 )
 
 type Province struct {
-	ID         bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID         bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Code       string        `schema:"code" json:"code" bson:"code,omitempty"`
 	Desc       string        `schema:"desc" json:"desc" bson:"desc,omitempty"`
 	PSGCCode   string        `schema:"psgc_code" json:"psgc_code" bson:"psgcCode,omitempty"`
@@ -24,12 +24,12 @@ func All() ([]Province, error) {
 }
 
 func (prov *Province) Insert() (string, error) {
-	prov.ID = bson.NewObjectId()
+	prov.ObjectID = bson.NewObjectId()
 
 	if err := db.Provinces.Insert(prov); err != nil {
 		return "", err
 	}
-	return prov.ID.Hex(), nil
+	return prov.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*Province, error) {
@@ -61,4 +61,13 @@ func FindByCode(code string) *Province {
 		panic(err)
 	}
 	return &prov
+}
+
+func Search(query interface{}) ([]Province, error) {
+	provs := []Province{}
+
+	if err := db.Provinces.Find(query).Sort("+desc").All(&provs); err != nil {
+		return nil, err
+	}
+	return provs, nil
 }

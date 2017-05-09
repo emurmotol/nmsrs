@@ -7,7 +7,7 @@ import (
 )
 
 type UnemployedStatus struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]UnemployedStatus, error) {
 }
 
 func (unEmpStat *UnemployedStatus) Insert() (string, error) {
-	unEmpStat.ID = bson.NewObjectId()
+	unEmpStat.ObjectID = bson.NewObjectId()
 
 	if err := db.UnemployedStatuses.Insert(unEmpStat); err != nil {
 		return "", err
 	}
-	return unEmpStat.ID.Hex(), nil
+	return unEmpStat.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*UnemployedStatus, error) {

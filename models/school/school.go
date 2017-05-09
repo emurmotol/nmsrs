@@ -7,7 +7,7 @@ import (
 )
 
 type School struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]School, error) {
 }
 
 func (sch *School) Insert() (string, error) {
-	sch.ID = bson.NewObjectId()
+	sch.ObjectID = bson.NewObjectId()
 
 	if err := db.Schools.Insert(sch); err != nil {
 		return "", err
 	}
-	return sch.ID.Hex(), nil
+	return sch.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*School, error) {

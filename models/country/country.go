@@ -7,7 +7,7 @@ import (
 )
 
 type Country struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]Country, error) {
 }
 
 func (coun *Country) Insert() (string, error) {
-	coun.ID = bson.NewObjectId()
+	coun.ObjectID = bson.NewObjectId()
 
 	if err := db.Countries.Insert(coun); err != nil {
 		return "", err
 	}
-	return coun.ID.Hex(), nil
+	return coun.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*Country, error) {

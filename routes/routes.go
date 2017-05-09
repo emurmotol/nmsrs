@@ -46,6 +46,8 @@ func Register() *mux.Router {
 	router.Path("/religions").Methods("GET").Handler(middlewares.Admin(api.Religions))
 	router.Path("/countries").Methods("GET").Handler(middlewares.Admin(api.Countries))
 	router.Path("/languages").Methods("GET").Handler(middlewares.Admin(api.Languages))
+	router.Path("/positions").Methods("GET").Handler(middlewares.Admin(api.Positions))
+	router.Path("/provinces").Methods("GET").Handler(middlewares.Admin(api.Provinces))
 	router.Path("/unemployed-statuses").Methods("GET").Handler(middlewares.Admin(api.UnemployedStatuses))
 
 	// Auth routes

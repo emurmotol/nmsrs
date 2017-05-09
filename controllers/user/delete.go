@@ -22,7 +22,7 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	id := usr.ID.Hex()
+	id := usr.ObjectID.Hex()
 
 	if err := usr.Delete(); err != nil {
 		res.JSON(w, res.Make{

@@ -7,7 +7,7 @@ import (
 )
 
 type Position struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]Position, error) {
 }
 
 func (pos *Position) Insert() (string, error) {
-	pos.ID = bson.NewObjectId()
+	pos.ObjectID = bson.NewObjectId()
 
 	if err := db.Positions.Insert(pos); err != nil {
 		return "", err
 	}
-	return pos.ID.Hex(), nil
+	return pos.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*Position, error) {
@@ -40,4 +40,13 @@ func FindByID(id string) (*Position, error) {
 		return &pos, err
 	}
 	return &pos, nil
+}
+
+func Search(query interface{}) ([]Position, error) {
+	poss := []Position{}
+
+	if err := db.Positions.Find(query).Sort("+name").All(&poss); err != nil {
+		return nil, err
+	}
+	return poss, nil
 }

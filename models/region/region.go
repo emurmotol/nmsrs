@@ -7,7 +7,7 @@ import (
 )
 
 type Region struct {
-	ID       bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID       bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Code     string        `schema:"code" json:"code" bson:"code,omitempty"`
 	Desc     string        `schema:"desc" json:"desc" bson:"desc,omitempty"`
 	PSGCCode string        `schema:"psgc_code" json:"psgc_code" bson:"psgcCode,omitempty"`
@@ -23,12 +23,12 @@ func All() ([]Region, error) {
 }
 
 func (reg *Region) Insert() (string, error) {
-	reg.ID = bson.NewObjectId()
+	reg.ObjectID = bson.NewObjectId()
 
 	if err := db.Regions.Insert(reg); err != nil {
 		return "", err
 	}
-	return reg.ID.Hex(), nil
+	return reg.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*Region, error) {

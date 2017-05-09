@@ -7,7 +7,7 @@ import (
 )
 
 type OtherSkill struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]OtherSkill, error) {
 }
 
 func (oskill *OtherSkill) Insert() (string, error) {
-	oskill.ID = bson.NewObjectId()
+	oskill.ObjectID = bson.NewObjectId()
 
 	if err := db.OtherSkills.Insert(oskill); err != nil {
 		return "", err
 	}
-	return oskill.ID.Hex(), nil
+	return oskill.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*OtherSkill, error) {

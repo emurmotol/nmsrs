@@ -16,7 +16,7 @@ $(function () {
     $("#preferred_occupation").select2({
         placeholder: "Select preferred occupation",
         ajax: {
-            url: "/languages", // TODO: Change to job positions
+            url: "/positions",
             delay: 250,
             dataType: "json",
             data: function (params) {
@@ -26,7 +26,7 @@ $(function () {
             },
             processResults: function (data) {
                 return {
-                    results: $.map(data.data.languages, function (lng) {
+                    results: $.map(data.data.positions, function (lng) {
                         return {
                             id: lng.id,
                             text: lng.name
@@ -88,6 +88,31 @@ $(function () {
         }
     });
 
+    // $("#province").select2({
+    //     placeholder: "Select a province",
+    //     ajax: {
+    //         url: "/provinces",
+    //         delay: 250,
+    //         dataType: "json",
+    //         data: function (params) {
+    //             return {
+    //                 q: params.term
+    //             };
+    //         },
+    //         processResults: function (data) {
+    //             return {
+    //                 results: $.map(data.data.provinces, function (prov) {
+    //                     return {
+    //                         id: prov.code,
+    //                         text: prov.desc
+    //                     };
+    //                 })
+    //             };
+    //         },
+    //         cache: true
+    //     }
+    // });
+
     $("#city_municipality").select2({
         placeholder: "Select a city/municipality",
         ajax: {
@@ -142,8 +167,6 @@ $(function () {
             }
         });
         $("#barangay").prop("disabled", false);
-        // $("#province").val(selected.data("province-desc"));
-        // $("#province").attr("data-province-code", selected.data("province-code"));
     });
 
     $("#preferred_local_location").select2({

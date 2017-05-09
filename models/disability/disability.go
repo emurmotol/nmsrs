@@ -7,7 +7,7 @@ import (
 )
 
 type Disability struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]Disability, error) {
 }
 
 func (disab *Disability) Insert() (string, error) {
-	disab.ID = bson.NewObjectId()
+	disab.ObjectID = bson.NewObjectId()
 
 	if err := db.Disabilities.Insert(disab); err != nil {
 		return "", err
 	}
-	return disab.ID.Hex(), nil
+	return disab.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*Disability, error) {

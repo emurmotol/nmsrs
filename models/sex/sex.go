@@ -7,7 +7,7 @@ import (
 )
 
 type Sex struct {
-	ID   bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
@@ -21,12 +21,12 @@ func All() ([]Sex, error) {
 }
 
 func (sex *Sex) Insert() (string, error) {
-	sex.ID = bson.NewObjectId()
+	sex.ObjectID = bson.NewObjectId()
 
 	if err := db.Sexes.Insert(sex); err != nil {
 		return "", err
 	}
-	return sex.ID.Hex(), nil
+	return sex.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*Sex, error) {

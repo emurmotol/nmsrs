@@ -7,7 +7,7 @@ import (
 )
 
 type CityMunicipality struct {
-	ID           bson.ObjectId `schema:"id" json:"id" bson:"_id,omitempty"`
+	ObjectID           bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Code         string        `schema:"code" json:"code" bson:"code,omitempty"`
 	Desc         string        `schema:"desc" json:"desc" bson:"desc,omitempty"`
 	PSGCCode     string        `schema:"psgc_code" json:"psgc_code" bson:"psgcCode,omitempty"`
@@ -25,12 +25,12 @@ func All() ([]CityMunicipality, error) {
 }
 
 func (cityMun *CityMunicipality) Insert() (string, error) {
-	cityMun.ID = bson.NewObjectId()
+	cityMun.ObjectID = bson.NewObjectId()
 
 	if err := db.CityMunicipalities.Insert(cityMun); err != nil {
 		return "", err
 	}
-	return cityMun.ID.Hex(), nil
+	return cityMun.ObjectID.Hex(), nil
 }
 
 func FindByID(id string) (*CityMunicipality, error) {
