@@ -1,6 +1,9 @@
 package industry
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"AGRICULTURE",
@@ -33,7 +36,7 @@ func Seeder() {
 		for index, value := range data {
 			var ind Industry
 			ind.ID = index + 1
-			ind.Name = value
+			ind.Name = strings.ToUpper(value)
 			_, err := ind.Insert()
 
 			if err != nil {

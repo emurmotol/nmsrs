@@ -1,6 +1,9 @@
 package religion
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"TWELVE TRIBES OF ISRAEL",
@@ -55,7 +58,7 @@ func Seeder() {
 		for index, value := range data {
 			var relig Religion
 			relig.ID = index + 1
-			relig.Name = value
+			relig.Name = strings.ToUpper(value)
 			_, err := relig.Insert()
 
 			if err != nil {

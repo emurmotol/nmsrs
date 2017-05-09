@@ -1,6 +1,9 @@
 package sex
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"MALE",
@@ -18,7 +21,8 @@ func Seeder() {
 		for index, value := range data {
 			var sex Sex
 			sex.ID = index + 1
-			sex.Name = value
+			sex.Name = strings.ToUpper(value)
+
 			_, err := sex.Insert()
 
 			if err != nil {

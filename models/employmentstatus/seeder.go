@@ -1,6 +1,9 @@
 package employmentstatus
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"WAGED EMPLOYED",
@@ -19,7 +22,7 @@ func Seeder() {
 		for index, value := range data {
 			var empStat EmploymentStatus
 			empStat.ID = index + 1
-			empStat.Name = value
+			empStat.Name = strings.ToUpper(value)
 			_, err := empStat.Insert()
 
 			if err != nil {

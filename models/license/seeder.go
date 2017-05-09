@@ -1,6 +1,9 @@
 package license
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"CERTIFIED PUBLIC ACCOUNTANT",
@@ -129,7 +132,7 @@ func Seeder() {
 		for index, value := range data {
 			var licn License
 			licn.ID = index + 1
-			licn.Name = value
+			licn.Name = strings.ToUpper(value)
 			_, err := licn.Insert()
 
 			if err != nil {

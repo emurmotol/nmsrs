@@ -1,6 +1,9 @@
 package language
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"AGTA",
@@ -250,7 +253,7 @@ func Seeder() {
 		for index, value := range data {
 			var lng Language
 			lng.ID = index + 1
-			lng.Name = value
+			lng.Name = strings.ToUpper(value)
 			_, err := lng.Insert()
 
 			if err != nil {

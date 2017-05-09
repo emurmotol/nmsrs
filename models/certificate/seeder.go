@@ -1,6 +1,9 @@
 package certificate
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"(NEW) AUTOMOTIVE SERVICE TECHNICIAN (LIGHT DUTY) (COMPETENCY LEADING TO NL)",
@@ -665,7 +668,7 @@ func Seeder() {
 		for index, value := range data {
 			var cert Certificate
 			cert.ID = index + 1
-			cert.Name = value
+			cert.Name = strings.ToUpper(value)
 			_, err := cert.Insert()
 
 			if err != nil {

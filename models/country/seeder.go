@@ -1,6 +1,9 @@
 package country
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"AFGHANISTAN",
@@ -212,7 +215,7 @@ func Seeder() {
 		for index, value := range data {
 			var country Country
 			country.ID = index + 1
-			country.Name = value
+			country.Name = strings.ToUpper(value)
 			_, err := country.Insert()
 
 			if err != nil {

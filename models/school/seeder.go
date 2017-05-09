@@ -1,6 +1,9 @@
 package school
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"ABLAN MEMORIAL COLLEGE",
@@ -2387,7 +2390,7 @@ func Seeder() {
 		for index, value := range data {
 			var sch School
 			sch.ID = index + 1
-			sch.Name = value
+			sch.Name = strings.ToUpper(value)
 			_, err := sch.Insert()
 
 			if err != nil {

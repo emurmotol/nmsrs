@@ -1,6 +1,9 @@
 package skill
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"Skill",
@@ -33,7 +36,7 @@ func Seeder() {
 		for index, value := range data {
 			var skill Skill
 			skill.ID = index + 1
-			skill.Name = value
+			skill.Name = strings.ToUpper(value)
 			_, err := skill.Insert()
 
 			if err != nil {

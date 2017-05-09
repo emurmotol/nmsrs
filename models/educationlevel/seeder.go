@@ -1,6 +1,9 @@
 package educationlevel
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"GRADE I",
@@ -42,7 +45,7 @@ func Seeder() {
 		for index, value := range data {
 			var edulvl EducationLevel
 			edulvl.ID = index + 1
-			edulvl.Name = value
+			edulvl.Name = strings.ToUpper(value)
 			_, err := edulvl.Insert()
 
 			if err != nil {

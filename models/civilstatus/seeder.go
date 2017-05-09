@@ -1,6 +1,9 @@
 package civilstatus
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"SINGLE",
@@ -21,7 +24,7 @@ func Seeder() {
 		for index, value := range data {
 			var civStat CivilStatus
 			civStat.ID = index + 1
-			civStat.Name = value
+			civStat.Name = strings.ToUpper(value)
 			_, err := civStat.Insert()
 
 			if err != nil {

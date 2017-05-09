@@ -1,6 +1,9 @@
 package unemployedstatus
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"NEW ENTRANT/FRESH GRADUATE",
@@ -21,7 +24,7 @@ func Seeder() {
 		for index, value := range data {
 			var unEmpStat UnemployedStatus
 			unEmpStat.ID = index + 1
-			unEmpStat.Name = value
+			unEmpStat.Name = strings.ToUpper(value)
 			_, err := unEmpStat.Insert()
 
 			if err != nil {

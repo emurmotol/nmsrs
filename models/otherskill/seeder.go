@@ -1,6 +1,9 @@
 package otherskill
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"TEACHING",
@@ -69,7 +72,7 @@ func Seeder() {
 		for index, value := range data {
 			var oskill OtherSkill
 			oskill.ID = index + 1
-			oskill.Name = value
+			oskill.Name = strings.ToUpper(value)
 			_, err := oskill.Insert()
 
 			if err != nil {

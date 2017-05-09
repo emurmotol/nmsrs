@@ -1,6 +1,9 @@
 package eligibility
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"CAREER SERVICE PROFESSIONAL",
@@ -28,7 +31,7 @@ func Seeder() {
 		for index, value := range data {
 			var elig Eligibility
 			elig.ID = index + 1
-			elig.Name = value
+			elig.Name = strings.ToUpper(value)
 			_, err := elig.Insert()
 
 			if err != nil {

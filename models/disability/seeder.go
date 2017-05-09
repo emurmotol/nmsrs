@@ -1,6 +1,9 @@
 package disability
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"VISUAL IMPAIRMENT",
@@ -21,7 +24,7 @@ func Seeder() {
 		for index, value := range data {
 			var disab Disability
 			disab.ID = index + 1
-			disab.Name = value
+			disab.Name = strings.ToUpper(value)
 			_, err := disab.Insert()
 
 			if err != nil {

@@ -1,6 +1,9 @@
 package position
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 var data = []string{
 	"SPECIAL OCCUPATION",
@@ -8197,7 +8200,7 @@ func Seeder() {
 		for index, value := range data {
 			var pos Position
 			pos.ID = index + 1
-			pos.Name = value
+			pos.Name = strings.ToUpper(value)
 			_, err := pos.Insert()
 
 			if err != nil {
