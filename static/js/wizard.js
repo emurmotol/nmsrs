@@ -13,6 +13,12 @@ $(function () {
         $(".wizard .nav-pills li.active").prev().find('a[data-toggle="tab"]').tab("show");
     }
 
+    $(".wizard ul li").on("click", function () {
+        if ($(this).hasClass("disabled")) {
+            return false;
+        }
+    });
+
     $("#preferred_occupation").select2({
         placeholder: "Select preferred occupation",
         ajax: {
@@ -263,7 +269,7 @@ $(function () {
         $("#unemployed_current_status").text("");
         $("#unemployed_country").val("");
         $("#unemployed_country").text("");
-        
+
         var checked = $("input[name=employment_status]:checked");
 
         if ($(checked).val() == "3") {
