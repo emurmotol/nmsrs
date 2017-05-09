@@ -8194,8 +8194,9 @@ func Seeder() {
 	}
 
 	if len(poss) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var pos Position
+			pos.ID = index + 1
 			pos.Name = value
 			_, err := pos.Insert()
 

@@ -18,8 +18,9 @@ func Seeder() {
 	}
 
 	if len(disabs) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var disab Disability
+			disab.ID = index + 1
 			disab.Name = value
 			_, err := disab.Insert()
 

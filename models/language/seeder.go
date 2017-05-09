@@ -247,8 +247,9 @@ func Seeder() {
 	}
 
 	if len(lngs) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var lng Language
+			lng.ID = index + 1
 			lng.Name = value
 			_, err := lng.Insert()
 

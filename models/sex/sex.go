@@ -2,13 +2,12 @@ package sex
 
 import (
 	"github.com/emurmotol/nmsrs/db"
-	"github.com/emurmotol/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type Sex struct {
-	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
-	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
+	ID   int    `schema:"id" json:"id" bson:"id,omitempty"`
+	Name string `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
 func All() ([]Sex, error) {
@@ -20,23 +19,17 @@ func All() ([]Sex, error) {
 	return sexs, nil
 }
 
-func (sex *Sex) Insert() (string, error) {
-	sex.ObjectID = bson.NewObjectId()
-
+func (sex *Sex) Insert() (int, error) {
 	if err := db.Sexes.Insert(sex); err != nil {
-		return "", err
+		return 0, err
 	}
-	return sex.ObjectID.Hex(), nil
+	return sex.ID, nil
 }
 
-func FindByID(id string) (*Sex, error) {
+func FindByID(id int) (*Sex, error) {
 	var sex Sex
 
-	if !bson.IsObjectIdHex(id) {
-		return &sex, models.ErrInvalidObjectID
-	}
-
-	if err := db.Sexes.FindId(bson.ObjectIdHex(id)).One(&sex); err != nil {
+	if err := db.Sexes.Find(bson.M{"id": id}).One(&sex); err != nil {
 		return &sex, err
 	}
 	return &sex, nil

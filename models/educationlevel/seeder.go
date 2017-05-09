@@ -39,8 +39,9 @@ func Seeder() {
 	}
 
 	if len(edulvls) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var edulvl EducationLevel
+			edulvl.ID = index + 1
 			edulvl.Name = value
 			_, err := edulvl.Insert()
 

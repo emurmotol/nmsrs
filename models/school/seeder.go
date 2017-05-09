@@ -2384,8 +2384,9 @@ func Seeder() {
 	}
 
 	if len(schs) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var sch School
+			sch.ID = index + 1
 			sch.Name = value
 			_, err := sch.Insert()
 

@@ -662,8 +662,9 @@ func Seeder() {
 	}
 
 	if len(certs) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var cert Certificate
+			cert.ID = index + 1
 			cert.Name = value
 			_, err := cert.Insert()
 

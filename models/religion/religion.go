@@ -2,13 +2,12 @@ package religion
 
 import (
 	"github.com/emurmotol/nmsrs/db"
-	"github.com/emurmotol/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type Religion struct {
-	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
-	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
+	ID   int    `schema:"id" json:"id" bson:"id,omitempty"`
+	Name string `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
 func All() ([]Religion, error) {
@@ -20,23 +19,17 @@ func All() ([]Religion, error) {
 	return religs, nil
 }
 
-func (relig *Religion) Insert() (string, error) {
-	relig.ObjectID = bson.NewObjectId()
-
+func (relig *Religion) Insert() (int, error) {
 	if err := db.Religions.Insert(relig); err != nil {
-		return "", err
+		return 0, err
 	}
-	return relig.ObjectID.Hex(), nil
+	return relig.ID, nil
 }
 
-func FindByID(id string) (*Religion, error) {
+func FindByID(id int) (*Religion, error) {
 	var relig Religion
 
-	if !bson.IsObjectIdHex(id) {
-		return &relig, models.ErrInvalidObjectID
-	}
-
-	if err := db.Religions.FindId(bson.ObjectIdHex(id)).One(&relig); err != nil {
+	if err := db.Religions.Find(bson.M{"id": id}).One(&relig); err != nil {
 		return &relig, err
 	}
 	return &relig, nil

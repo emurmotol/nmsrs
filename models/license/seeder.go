@@ -126,8 +126,9 @@ func Seeder() {
 	}
 
 	if len(licns) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var licn License
+			licn.ID = index + 1
 			licn.Name = value
 			_, err := licn.Insert()
 

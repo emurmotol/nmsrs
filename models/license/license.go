@@ -2,13 +2,12 @@ package license
 
 import (
 	"github.com/emurmotol/nmsrs/db"
-	"github.com/emurmotol/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type License struct {
-	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
-	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
+	ID   int    `schema:"id" json:"id" bson:"id,omitempty"`
+	Name string `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
 func All() ([]License, error) {
@@ -20,24 +19,27 @@ func All() ([]License, error) {
 	return licns, nil
 }
 
-func (licn *License) Insert() (string, error) {
-	licn.ObjectID = bson.NewObjectId()
-
+func (licn *License) Insert() (int, error) {
 	if err := db.Licenses.Insert(licn); err != nil {
-		return "", err
+		return 0, err
 	}
-	return licn.ObjectID.Hex(), nil
+	return licn.ID, nil
 }
 
-func FindByID(id string) (*License, error) {
+func FindByID(id int) (*License, error) {
 	var licn License
 
-	if !bson.IsObjectIdHex(id) {
-		return &licn, models.ErrInvalidObjectID
-	}
-
-	if err := db.Licenses.FindId(bson.ObjectIdHex(id)).One(&licn); err != nil {
+	if err := db.Licenses.Find(bson.M{"id": id}).One(&licn); err != nil {
 		return &licn, err
 	}
 	return &licn, nil
+}
+
+func Search(query interface{}) ([]License, error) {
+	licns := []License{}
+
+	if err := db.Licenses.Find(query).Sort("+name").All(&licns); err != nil {
+		return nil, err
+	}
+	return licns, nil
 }

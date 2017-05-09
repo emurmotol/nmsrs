@@ -25,8 +25,9 @@ func Seeder() {
 	}
 
 	if len(eligs) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var elig Eligibility
+			elig.ID = index + 1
 			elig.Name = value
 			_, err := elig.Insert()
 

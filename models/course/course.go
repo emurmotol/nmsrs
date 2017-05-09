@@ -2,13 +2,12 @@ package course
 
 import (
 	"github.com/emurmotol/nmsrs/db"
-	"github.com/emurmotol/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type Course struct {
-	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
-	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
+	ID   int    `schema:"id" json:"id" bson:"id,omitempty"`
+	Name string `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
 func All() ([]Course, error) {
@@ -20,24 +19,27 @@ func All() ([]Course, error) {
 	return cours, nil
 }
 
-func (cour *Course) Insert() (string, error) {
-	cour.ObjectID = bson.NewObjectId()
-
+func (cour *Course) Insert() (int, error) {
 	if err := db.Courses.Insert(cour); err != nil {
-		return "", err
+		return 0, err
 	}
-	return cour.ObjectID.Hex(), nil
+	return cour.ID, nil
 }
 
-func FindByID(id string) (*Course, error) {
+func FindByID(id int) (*Course, error) {
 	var cour Course
 
-	if !bson.IsObjectIdHex(id) {
-		return &cour, models.ErrInvalidObjectID
-	}
-
-	if err := db.Courses.FindId(bson.ObjectIdHex(id)).One(&cour); err != nil {
+	if err := db.Courses.Find(bson.M{"id": id}).One(&cour); err != nil {
 		return &cour, err
 	}
 	return &cour, nil
+}
+
+func Search(query interface{}) ([]Course, error) {
+	cours := []Course{}
+
+	if err := db.Courses.Find(query).Sort("+name").All(&cours); err != nil {
+		return nil, err
+	}
+	return cours, nil
 }

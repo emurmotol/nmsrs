@@ -52,8 +52,9 @@ func Seeder() {
 	}
 
 	if len(religs) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var relig Religion
+			relig.ID = index + 1
 			relig.Name = value
 			_, err := relig.Insert()
 

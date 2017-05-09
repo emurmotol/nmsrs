@@ -30,8 +30,9 @@ func Seeder() {
 	}
 
 	if len(inds) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var ind Industry
+			ind.ID = index + 1
 			ind.Name = value
 			_, err := ind.Insert()
 

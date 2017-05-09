@@ -2,13 +2,12 @@ package position
 
 import (
 	"github.com/emurmotol/nmsrs/db"
-	"github.com/emurmotol/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type Position struct {
-	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
-	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
+	ID   int    `schema:"id" json:"id" bson:"id,omitempty"`
+	Name string `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
 func All() ([]Position, error) {
@@ -20,23 +19,17 @@ func All() ([]Position, error) {
 	return poss, nil
 }
 
-func (pos *Position) Insert() (string, error) {
-	pos.ObjectID = bson.NewObjectId()
-
+func (pos *Position) Insert() (int, error) {
 	if err := db.Positions.Insert(pos); err != nil {
-		return "", err
+		return 0, err
 	}
-	return pos.ObjectID.Hex(), nil
+	return pos.ID, nil
 }
 
-func FindByID(id string) (*Position, error) {
+func FindByID(id int) (*Position, error) {
 	var pos Position
 
-	if !bson.IsObjectIdHex(id) {
-		return &pos, models.ErrInvalidObjectID
-	}
-
-	if err := db.Positions.FindId(bson.ObjectIdHex(id)).One(&pos); err != nil {
+	if err := db.Positions.Find(bson.M{"id": id}).One(&pos); err != nil {
 		return &pos, err
 	}
 	return &pos, nil

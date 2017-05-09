@@ -1840,8 +1840,9 @@ func Seeder() {
 	}
 
 	if len(cours) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var cour Course
+			cour.ID = index + 1
 			cour.Name = value
 			_, err := cour.Insert()
 

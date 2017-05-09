@@ -32,8 +32,7 @@ $(function () {
     }
 
     addAlertErrorMarkup = function (error) {
-        var err_markup = `
-        <div class="alert alert-danger alert-dismissible" role="alert">
+        var err_markup = `<div class="alert alert-danger alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -183,8 +182,7 @@ $(function () {
         }).done(function (r) {
             if (r.status == 200) {
                 if (r.data.message != null) {
-                    var msg_markup = `
-                    <div class="alert alert-success alert-dismissible" role="alert">
+                    var msg_markup = `<div class="alert alert-success alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

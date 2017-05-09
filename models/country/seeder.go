@@ -209,8 +209,9 @@ func Seeder() {
 	}
 
 	if len(countries) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var country Country
+			country.ID = index + 1
 			country.Name = value
 			_, err := country.Insert()
 

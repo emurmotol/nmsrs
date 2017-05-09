@@ -18,8 +18,9 @@ func Seeder() {
 	}
 
 	if len(civStats) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var civStat CivilStatus
+			civStat.ID = index + 1
 			civStat.Name = value
 			_, err := civStat.Insert()
 

@@ -15,8 +15,9 @@ func Seeder() {
 	}
 
 	if len(sexs) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var sex Sex
+			sex.ID = index + 1
 			sex.Name = value
 			_, err := sex.Insert()
 

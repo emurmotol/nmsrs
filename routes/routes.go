@@ -42,7 +42,7 @@ func Register() *mux.Router {
 
 	// TODO: Make api routes
 	router.Path("/city-municipalities/{city_municipality_code}/barangays").Methods("GET").Handler(middlewares.Admin(api.Barangays))
-	router.Path("/city-municipalities/provinces").Methods("GET").Handler(middlewares.Admin(api.CityMunicipalitiesWithProvinces))
+	router.Path("/city-municipalities/provinces").Methods("GET").Handler(middlewares.Admin(api.CityMunicipalities))
 	router.Path("/religions").Methods("GET").Handler(middlewares.Admin(api.Religions))
 	router.Path("/countries").Methods("GET").Handler(middlewares.Admin(api.Countries))
 	router.Path("/languages").Methods("GET").Handler(middlewares.Admin(api.Languages))

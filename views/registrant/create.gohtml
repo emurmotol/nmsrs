@@ -50,7 +50,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="province">Province</label>
-                                <input type="text" class="form-control" name="province" id="province" style="text-transform: uppercase;">
+                                <select class="form-control" name="province" id="province"></select>
                             </div>
                             <div class="form-group">
                                 <label for="barangay">Barangay <span class="asterisk text-danger">*</span></label>
@@ -68,17 +68,17 @@
                         <div class="col-lg-4">
                             <div class="form-group" id="civil_status_radios">
                                 <label>Civil status <span class="asterisk text-danger">*</span></label> {{range .CivilStatuses}}
-                                {{if eq .Name "OTHER"}}
+                                {{if eq .ID 5}}
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{SentenceCaseToSnakeCase .Name}}" value="{{.ObjectID.Hex}}"> {{AllCapsToSentenceCase .Name}} (simplify)
+                                        <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{.ID}}" value="{{.ID}}"> {{AllCapsToSentenceCase .Name}} (simplify)
                                     </label>
                                 </div>
-                                <input class="form-control" type="text" name="civil_status_{{SentenceCaseToSnakeCase .Name}}" style="text-transform: uppercase;"
+                                <input class="form-control" type="text" name="civil_status_{{.ID}}" style="text-transform: uppercase;"
                                     disabled> {{else}}
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{SentenceCaseToSnakeCase .Name}}" value="{{.ObjectID.Hex}}"> {{AllCapsToSentenceCase .Name}}
+                                        <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{.ID}}" value="{{.ID}}"> {{AllCapsToSentenceCase .Name}}
                                     </label>
                                 </div>
                                 {{end}} {{end}}
@@ -89,7 +89,7 @@
                                         <label>Sex <span class="asterisk text-danger">*</span></label> {{range .Sexes}}
                                         <div class="form-check form-check-inline">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="radio" name="sex" value="{{.ObjectID.Hex}}"> {{AllCapsToSentenceCase .Name}}
+                                                <input class="form-check-input" type="radio" name="sex" id="sex_{{.ID}}" value="{{.ID}}"> {{AllCapsToSentenceCase .Name}}
                                             </label>
                                         </div>
                                         {{end}}
@@ -143,7 +143,7 @@
                                 <label>Employment status <span class="asterisk text-danger">*</span></label> {{range .EmploymentStatuses}}
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="employment_status" id="employment_status_{{SentenceCaseToSnakeCase .Name}}" value="{{.ObjectID.Hex}}"> {{AllCapsToSentenceCase .Name}}
+                                        <input class="form-check-input" type="radio" name="employment_status" id="employment_status_{{.ID}}" value="{{.ID}}"> {{AllCapsToSentenceCase .Name}}
                                     </label>
                                 </div>
                                 {{end}}
@@ -206,14 +206,14 @@
                                 {{if eq .Name "OTHER"}}
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="disability" id="disability_{{SentenceCaseToSnakeCase .Name}}" value="{{.ObjectID.Hex}}" disabled> {{AllCapsToSentenceCase .Name}} (specify)
+                                        <input class="form-check-input" type="radio" name="disability" id="disability_{{.ID}}" value="{{.ID}}" disabled> {{AllCapsToSentenceCase .Name}} (specify)
                                     </label>
                                 </div>
-                                <input class="form-control" type="text" name="disability_{{SentenceCaseToSnakeCase .Name}}" id="disability" style="text-transform: uppercase;"
+                                <input class="form-control" type="text" name="disability_{{.ID}}" id="disability" style="text-transform: uppercase;"
                                     disabled> {{else}}
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="disability" id="disability_{{SentenceCaseToSnakeCase .Name}}" value="{{.ObjectID.Hex}}" disabled> {{AllCapsToSentenceCase .Name}}
+                                        <input class="form-check-input" type="radio" name="disability" id="disability_{{.ID}}" value="{{.ID}}" disabled> {{AllCapsToSentenceCase .Name}}
                                     </label>
                                 </div>
                                 {{end}} {{end}}

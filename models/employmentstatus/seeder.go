@@ -16,8 +16,9 @@ func Seeder() {
 	}
 
 	if len(empStats) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var empStat EmploymentStatus
+			empStat.ID = index + 1
 			empStat.Name = value
 			_, err := empStat.Insert()
 

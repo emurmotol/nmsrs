@@ -2,13 +2,12 @@ package language
 
 import (
 	"github.com/emurmotol/nmsrs/db"
-	"github.com/emurmotol/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type Language struct {
-	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
-	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
+	ID   int    `schema:"id" json:"id" bson:"id,omitempty"`
+	Name string `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
 func All() ([]Language, error) {
@@ -20,23 +19,17 @@ func All() ([]Language, error) {
 	return lngs, nil
 }
 
-func (lng *Language) Insert() (string, error) {
-	lng.ObjectID = bson.NewObjectId()
-
+func (lng *Language) Insert() (int, error) {
 	if err := db.Languages.Insert(lng); err != nil {
-		return "", err
+		return 0, err
 	}
-	return lng.ObjectID.Hex(), nil
+	return lng.ID, nil
 }
 
-func FindByID(id string) (*Language, error) {
+func FindByID(id int) (*Language, error) {
 	var lng Language
 
-	if !bson.IsObjectIdHex(id) {
-		return &lng, models.ErrInvalidObjectID
-	}
-
-	if err := db.Languages.FindId(bson.ObjectIdHex(id)).One(&lng); err != nil {
+	if err := db.Languages.Find(bson.M{"id": id}).One(&lng); err != nil {
 		return &lng, err
 	}
 	return &lng, nil

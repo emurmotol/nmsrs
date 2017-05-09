@@ -8,6 +8,7 @@ import (
 )
 
 type RefCityMun struct {
+	ID          int    `json:"id"`
 	PsgcCode    string `json:"psgcCode"`
 	CityMunDesc string `json:"cityMunDesc"`
 	RegCode     string `json:"regCode"`
@@ -36,6 +37,7 @@ func Seeder() {
 
 		for _, rcm := range rcms {
 			var cityMun CityMunicipality
+			cityMun.ID = rcm.ID
 			cityMun.Code = rcm.CityMunCode
 			cityMun.Desc = strings.ToUpper(rcm.CityMunDesc)
 			cityMun.PSGCCode = rcm.PsgcCode

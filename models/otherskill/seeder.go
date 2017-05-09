@@ -66,8 +66,9 @@ func Seeder() {
 	}
 
 	if len(oskills) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var oskill OtherSkill
+			oskill.ID = index + 1
 			oskill.Name = value
 			_, err := oskill.Insert()
 

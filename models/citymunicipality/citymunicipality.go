@@ -2,17 +2,16 @@ package citymunicipality
 
 import (
 	"github.com/emurmotol/nmsrs/db"
-	"github.com/emurmotol/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type CityMunicipality struct {
-	ObjectID           bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
-	Code         string        `schema:"code" json:"code" bson:"code,omitempty"`
-	Desc         string        `schema:"desc" json:"desc" bson:"desc,omitempty"`
-	PSGCCode     string        `schema:"psgc_code" json:"psgc_code" bson:"psgcCode,omitempty"`
-	RegionCode   string        `schema:"region_code" json:"region_code" bson:"regionCode,omitempty"`
-	ProvinceCode string        `schema:"province_code" json:"province_code" bson:"provinceCode,omitempty"`
+	ID           int    `schema:"id" json:"id" bson:"id,omitempty"`
+	Code         string `schema:"code" json:"code" bson:"code,omitempty"`
+	Desc         string `schema:"desc" json:"desc" bson:"desc,omitempty"`
+	PSGCCode     string `schema:"psgc_code" json:"psgc_code" bson:"psgcCode,omitempty"`
+	RegionCode   string `schema:"region_code" json:"region_code" bson:"regionCode,omitempty"`
+	ProvinceCode string `schema:"province_code" json:"province_code" bson:"provinceCode,omitempty"`
 }
 
 func All() ([]CityMunicipality, error) {
@@ -24,38 +23,23 @@ func All() ([]CityMunicipality, error) {
 	return cityMuns, nil
 }
 
-func (cityMun *CityMunicipality) Insert() (string, error) {
-	cityMun.ObjectID = bson.NewObjectId()
-
+func (cityMun *CityMunicipality) Insert() (int, error) {
 	if err := db.CityMunicipalities.Insert(cityMun); err != nil {
-		return "", err
+		return 0, err
 	}
-	return cityMun.ObjectID.Hex(), nil
+	return cityMun.ID, nil
 }
 
-func FindByID(id string) (*CityMunicipality, error) {
+func FindByID(id int) (*CityMunicipality, error) {
 	var cityMun CityMunicipality
 
-	if !bson.IsObjectIdHex(id) {
-		return &cityMun, models.ErrInvalidObjectID
-	}
-
-	if err := db.CityMunicipalities.FindId(bson.ObjectIdHex(id)).One(&cityMun); err != nil {
+	if err := db.CityMunicipalities.Find(bson.M{"id": id}).One(&cityMun); err != nil {
 		return &cityMun, err
 	}
 	return &cityMun, nil
 }
 
-func FindAllBy(key string, value interface{}) ([]CityMunicipality, error) {
-	cityMuns := []CityMunicipality{}
-
-	if err := db.CityMunicipalities.Find(bson.M{key: value}).Sort("+desc").All(&cityMuns); err != nil {
-		return cityMuns, err
-	}
-	return cityMuns, nil
-}
-
-func WithProvince(query interface{}) ([]interface{}, error) {
+func Search(query interface{}) ([]interface{}, error) {
 	var cmps []interface{}
 
 	q := []bson.M{

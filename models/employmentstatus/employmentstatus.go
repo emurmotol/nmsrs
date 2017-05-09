@@ -2,13 +2,12 @@ package employmentstatus
 
 import (
 	"github.com/emurmotol/nmsrs/db"
-	"github.com/emurmotol/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type EmploymentStatus struct {
-	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
-	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
+	ID   int    `schema:"id" json:"id" bson:"id,omitempty"`
+	Name string `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
 func All() ([]EmploymentStatus, error) {
@@ -20,23 +19,17 @@ func All() ([]EmploymentStatus, error) {
 	return empStats, nil
 }
 
-func (empStat *EmploymentStatus) Insert() (string, error) {
-	empStat.ObjectID = bson.NewObjectId()
-
+func (empStat *EmploymentStatus) Insert() (int, error) {
 	if err := db.EmploymentStatuses.Insert(empStat); err != nil {
-		return "", err
+		return 0, err
 	}
-	return empStat.ObjectID.Hex(), nil
+	return empStat.ID, nil
 }
 
-func FindByID(id string) (*EmploymentStatus, error) {
+func FindByID(id int) (*EmploymentStatus, error) {
 	var empStat EmploymentStatus
 
-	if !bson.IsObjectIdHex(id) {
-		return &empStat, models.ErrInvalidObjectID
-	}
-
-	if err := db.EmploymentStatuses.FindId(bson.ObjectIdHex(id)).One(&empStat); err != nil {
+	if err := db.EmploymentStatuses.Find(bson.M{"id": id}).One(&empStat); err != nil {
 		return &empStat, err
 	}
 	return &empStat, nil

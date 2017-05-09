@@ -8,6 +8,7 @@ import (
 )
 
 type RefBrgy struct {
+	ID          int    `json:"id"`
 	BrgyCode    string `json:"brgyCode"`
 	BrgyDesc    string `json:"brgyDesc"`
 	RegCode     string `json:"regCode"`
@@ -36,6 +37,7 @@ func Seeder() {
 
 		for _, rb := range rbs {
 			var brgy Barangay
+			brgy.ID = rb.ID
 			brgy.Code = rb.BrgyCode
 			brgy.Desc = strings.ToUpper(rb.BrgyDesc)
 			brgy.RegionCode = rb.RegCode

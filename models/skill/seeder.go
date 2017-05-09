@@ -30,8 +30,9 @@ func Seeder() {
 	}
 
 	if len(skills) == 0 {
-		for _, value := range data {
+		for index, value := range data {
 			var skill Skill
+			skill.ID = index + 1
 			skill.Name = value
 			_, err := skill.Insert()
 

@@ -2,13 +2,12 @@ package eligibility
 
 import (
 	"github.com/emurmotol/nmsrs/db"
-	"github.com/emurmotol/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type Eligibility struct {
-	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
-	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
+	ID   int    `schema:"id" json:"id" bson:"id,omitempty"`
+	Name string `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
 func All() ([]Eligibility, error) {
@@ -20,24 +19,27 @@ func All() ([]Eligibility, error) {
 	return eligs, nil
 }
 
-func (elig *Eligibility) Insert() (string, error) {
-	elig.ObjectID = bson.NewObjectId()
-
+func (elig *Eligibility) Insert() (int, error) {
 	if err := db.Eligibilities.Insert(elig); err != nil {
-		return "", err
+		return 0, err
 	}
-	return elig.ObjectID.Hex(), nil
+	return elig.ID, nil
 }
 
-func FindByID(id string) (*Eligibility, error) {
+func FindByID(id int) (*Eligibility, error) {
 	var elig Eligibility
 
-	if !bson.IsObjectIdHex(id) {
-		return &elig, models.ErrInvalidObjectID
-	}
-
-	if err := db.Eligibilities.FindId(bson.ObjectIdHex(id)).One(&elig); err != nil {
+	if err := db.Eligibilities.Find(bson.M{"id": id}).One(&elig); err != nil {
 		return &elig, err
 	}
 	return &elig, nil
+}
+
+func Search(query interface{}) ([]Eligibility, error) {
+	eligs := []Eligibility{}
+
+	if err := db.Eligibilities.Find(query).Sort("+name").All(&eligs); err != nil {
+		return nil, err
+	}
+	return eligs, nil
 }

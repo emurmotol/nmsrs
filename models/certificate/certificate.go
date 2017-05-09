@@ -2,13 +2,12 @@ package certificate
 
 import (
 	"github.com/emurmotol/nmsrs/db"
-	"github.com/emurmotol/nmsrs/models"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type Certificate struct {
-	ObjectID   bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
-	Name string        `schema:"name" json:"name" bson:"name,omitempty"`
+	ID   int    `schema:"id" json:"id" bson:"id,omitempty"`
+	Name string `schema:"name" json:"name" bson:"name,omitempty"`
 }
 
 func All() ([]Certificate, error) {
@@ -20,24 +19,27 @@ func All() ([]Certificate, error) {
 	return certs, nil
 }
 
-func (cert *Certificate) Insert() (string, error) {
-	cert.ObjectID = bson.NewObjectId()
-
+func (cert *Certificate) Insert() (int, error) {
 	if err := db.Certificates.Insert(cert); err != nil {
-		return "", err
+		return 0, err
 	}
-	return cert.ObjectID.Hex(), nil
+	return cert.ID, nil
 }
 
-func FindByID(id string) (*Certificate, error) {
+func FindByID(id int) (*Certificate, error) {
 	var cert Certificate
 
-	if !bson.IsObjectIdHex(id) {
-		return &cert, models.ErrInvalidObjectID
-	}
-
-	if err := db.Certificates.FindId(bson.ObjectIdHex(id)).One(&cert); err != nil {
+	if err := db.Certificates.Find(bson.M{"id": id}).One(&cert); err != nil {
 		return &cert, err
 	}
 	return &cert, nil
+}
+
+func Search(query interface{}) ([]Certificate, error) {
+	certs := []Certificate{}
+
+	if err := db.Certificates.Find(query).Sort("+name").All(&certs); err != nil {
+		return nil, err
+	}
+	return certs, nil
 }

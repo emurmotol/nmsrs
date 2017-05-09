@@ -8,6 +8,7 @@ import (
 )
 
 type RefProvince struct {
+	ID       int    `json:"id"`
 	PsgcCode string `json:"psgcCode"`
 	ProvDesc string `json:"provDesc"`
 	RegCode  string `json:"regCode"`
@@ -35,6 +36,7 @@ func Seeder() {
 
 		for _, rp := range rps {
 			var prov Province
+			prov.ID = rp.ID
 			prov.Code = rp.ProvCode
 			prov.Desc = strings.ToUpper(rp.ProvDesc)
 			prov.PSGCCode = rp.PsgcCode

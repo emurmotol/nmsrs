@@ -9,7 +9,7 @@ import (
 	"github.com/emurmotol/nmsrs/models/citymunicipality"
 )
 
-func CityMunicipalitiesWithProvinces(w http.ResponseWriter, r *http.Request) {
+func CityMunicipalities(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query().Get("q")
 	query := bson.M{
 		"$or": []bson.M{
@@ -27,7 +27,7 @@ func CityMunicipalitiesWithProvinces(w http.ResponseWriter, r *http.Request) {
 			},
 		},
 	}
-	cityMunsWithProvs, err := citymunicipality.WithProvince(query)
+	cityMuns, err := citymunicipality.Search(query)
 
 	if err != nil {
 		res.JSON(w, res.Make{
@@ -40,7 +40,7 @@ func CityMunicipalitiesWithProvinces(w http.ResponseWriter, r *http.Request) {
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]interface{}{
-			"city_municipalities_with_provinces": cityMunsWithProvs,
+			"city_municipalities": cityMuns,
 		},
 		Errors: "",
 	})

@@ -88,30 +88,30 @@ $(function () {
         }
     });
 
-    // $("#province").select2({
-    //     placeholder: "Select a province",
-    //     ajax: {
-    //         url: "/provinces",
-    //         delay: 250,
-    //         dataType: "json",
-    //         data: function (params) {
-    //             return {
-    //                 q: params.term
-    //             };
-    //         },
-    //         processResults: function (data) {
-    //             return {
-    //                 results: $.map(data.data.provinces, function (prov) {
-    //                     return {
-    //                         id: prov.code,
-    //                         text: prov.desc
-    //                     };
-    //                 })
-    //             };
-    //         },
-    //         cache: true
-    //     }
-    // });
+    $("#province").select2({
+        placeholder: "Select a province",
+        ajax: {
+            url: "/provinces",
+            delay: 250,
+            dataType: "json",
+            data: function (params) {
+                return {
+                    q: params.term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data.data.provinces, function (prov) {
+                        return {
+                            id: prov.code,
+                            text: prov.desc
+                        };
+                    })
+                };
+            },
+            cache: true
+        }
+    });
 
     $("#city_municipality").select2({
         placeholder: "Select a city/municipality",
@@ -121,10 +121,10 @@ $(function () {
             dataType: "json",
             processResults: function (data) {
                 return {
-                    results: $.map(data.data.city_municipalities_with_provinces, function (city_mun_with_prov) {
+                    results: $.map(data.data.city_municipalities, function (city_mun) {
                         return {
-                            id: city_mun_with_prov.code,
-                            text: city_mun_with_prov.desc + ", " + city_mun_with_prov.province[0].desc
+                            id: city_mun.code,
+                            text: city_mun.desc + ", " + city_mun.province[0].desc
                         };
                     })
                 };
@@ -177,10 +177,10 @@ $(function () {
             dataType: "json",
             processResults: function (data) {
                 return {
-                    results: $.map(data.data.city_municipalities_with_provinces, function (city_mun_with_prov) {
+                    results: $.map(data.data.city_municipalities, function (city_mun) {
                         return {
-                            id: city_mun_with_prov.code,
-                            text: city_mun_with_prov.desc + ", " + city_mun_with_prov.province[0].desc
+                            id: city_mun.code,
+                            text: city_mun.desc + ", " + city_mun.province[0].desc
                         };
                     })
                 };
@@ -214,38 +214,18 @@ $(function () {
         }
     });
 
-    $("#unemployed_current_status").select2({
-        placeholder: "Select current status"
-    });
-
     $("#unemployed_country").select2({
         placeholder: "Select a country"
     });
 
-    $("#employment_status_radios").find("input[type=radio]").on("change", function () {
-        var checked = $("input[name=employment_status]:checked");
+    $("#unemployed_current_status").select2({
+        placeholder: "Select current status"
+    });
 
-        if (checked[0].id == "employment_status_unemployed") {
-            $("#unemployed_current_status").select2({
-                placeholder: "Select current status",
-                minimumResultsForSearch: Infinity,
-                ajax: {
-                    url: "/unemployed-statuses",
-                    delay: 250,
-                    dataType: "json",
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data.data.unemployed_statuses, function (un_emp_stat) {
-                                return {
-                                    id: un_emp_stat.id,
-                                    text: un_emp_stat.name
-                                };
-                            })
-                        };
-                    },
-                    cache: true
-                }
-            });
+    $("#unemployed_current_status").on("change", function () {
+        if ($(this).val() == "5") {
+            $("#unemployed_country").val("");
+            $("#unemployed_country").text("");
 
             $("#unemployed_country").select2({
                 placeholder: "Select a country",
@@ -271,16 +251,51 @@ $(function () {
                     cache: true
                 }
             });
+            $("#unemployed_country").prop("disabled", false);
+            $("#unemployed_country").focus();
+        } else {
+            $("#unemployed_country").prop("disabled", true);
+        }
+    });
+
+    $("#employment_status_radios").find("input[type=radio]").on("change", function () {
+        $("#unemployed_current_status").val("");
+        $("#unemployed_current_status").text("");
+        $("#unemployed_country").val("");
+        $("#unemployed_country").text("");
+        
+        var checked = $("input[name=employment_status]:checked");
+
+        if ($(checked).val() == "3") {
+            $("#unemployed_current_status").select2({
+                placeholder: "Select current status",
+                minimumResultsForSearch: Infinity,
+                ajax: {
+                    url: "/unemployed-statuses",
+                    delay: 250,
+                    dataType: "json",
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data.data.unemployed_statuses, function (un_emp_stat) {
+                                return {
+                                    id: un_emp_stat.id,
+                                    text: un_emp_stat.name
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            });
             $("#unemployed_current_status").prop("disabled", false);
             $("#unemployed_current_status").focus();
-            $("#unemployed_country").prop("disabled", false);
         } else {
             $("#unemployed_current_status").prop("disabled", true);
             $("#unemployed_country").prop("disabled", true);
         }
     });
 
-    $("#civil_status_other").on("click", function () {
+    $("#civil_status_5").on("click", function () {
         $("#civil_status").prop("disabled", false);
         $("#civil_status").focus();
     });
@@ -288,22 +303,24 @@ $(function () {
     $("#civil_status_radios").find("input[type=radio]").on("change", function () {
         var checked = $("input[name=civil_status]:checked");
 
-        if (checked[0].id == "civil_status_other") {
-            $("input[name=civil_status_other]").prop("disabled", false);
-            $("input[name=civil_status_other]").focus();
+        if ($(checked).val() == "5") {
+            $("input[name=civil_status_5]").prop("disabled", false);
+            $("input[name=civil_status_5]").focus();
         } else {
-            $("input[name=civil_status_other]").prop("disabled", true);
+            $("input[name=civil_status_5]").prop("disabled", true);
+            $("input[name=civil_status_5]").val("");
         }
     });
 
     $("#disability_radios").find("input[type=radio]").on("change", function () {
         var checked = $("input[name=disability]:checked");
 
-        if (checked[0].id == "disability_other") {
-            $("input[name=disability_other]").prop("disabled", false);
-            $("input[name=disability_other]").focus();
+        if ($(checked).val() == "5") {
+            $("input[name=disability_5]").prop("disabled", false);
+            $("input[name=disability_5]").focus();
         } else {
-            $("input[name=disability_other]").prop("disabled", true);
+            $("input[name=disability_5]").prop("disabled", true);
+            $("input[name=disability_5]").val("");
         }
     });
 
@@ -314,7 +331,7 @@ $(function () {
             });
         } else {
             $("#disability_radios").find("input[type=radio]").each(function () {
-                $("input[name=disability_other]").prop("disabled", true);
+                $("input[name=disability_5]").prop("disabled", true);
                 $(this).prop("disabled", true);
                 $(this).prop("checked", false);
             });

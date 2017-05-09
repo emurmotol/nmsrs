@@ -26,7 +26,7 @@ var (
 )
 
 type User struct {
-	ObjectID              bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
+	ObjectID        bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
 	Name            string        `schema:"name" json:"name" bson:"name,omitempty" validate:"required,min=2"`
 	Email           string        `schema:"email" json:"email" bson:"email,omitempty" validate:"required,email"`
 	Password        string        `schema:"password" json:"password" bson:"password,omitempty" validate:"required,min=6"`
