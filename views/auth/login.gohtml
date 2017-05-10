@@ -5,24 +5,26 @@
     </a>
     <div id="alert"></div>
     <div class="form-group">
-        <input type="text" class="form-control input-lg" name="email" id="email" placeholder="Email address">
+        <input type="text" class="form-control input-lg" name="email" id="email" placeholder="Email address" data-parsley-type="email"
+            data-parsley-required="true">
     </div>
     <div class="form-group">
-        <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Password">
+        <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Password" data-parsley-required="true">
     </div>
     <button role="button" type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
 </form>
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        $("#login_form").on("submit", function (e) {
-            e.preventDefault();
-            var validate_fields = [
-                "email",
-                "password"
-            ];
-            makeFormRequest(this, validate_fields);
-        });
+        // $("#login_form").on("submit", function (e) {
+        //     e.preventDefault();
+        //     var validate_fields = [
+        //         "email",
+        //         "password"
+        //     ];
+        //     makeFormRequest(this, validate_fields);
+        // });
+        $("#login_form").parsley();
     });
 
 </script>
