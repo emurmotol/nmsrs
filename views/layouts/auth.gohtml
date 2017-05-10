@@ -18,12 +18,15 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-centered">
-                {{template "content" .}}
+            <div class="col-lg-9">
+                <div class="col-lg-4 col-lg-offset-6">
+                    {{template "content" .}}
+                </div>
             </div>
         </div>
     </div>
     <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/parsley-config.js"></script>
     <script src="/js/parsley.min.js"></script>
     <script src="/js/tether.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>

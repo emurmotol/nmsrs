@@ -1,16 +1,4 @@
 $(function () {
-    $.fn.Parsley.Defaults = {
-        excluded: "input[type=button], input[type=submit], input[type=reset], input[type=hidden], :disabled",
-        successClass: "has-success",
-        errorClass: "has-error",
-        classHandler: function (elem) {
-            return elem.$element.closest(".form-group");
-        },
-        errorsContainer: function (elem) {},
-        errorsWrapper: `<span class="help-block"></span>`,
-        errorTemplate: '<span></span>'
-    };
-
     var alert = $("#alert_container");
 
     setCheckboxBoolValue = function (checkbox) {

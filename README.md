@@ -41,11 +41,9 @@ National Manpower Skills Registration System For The Municipality Of Gasan Marin
 * Always push source to remote
 
 ### Useful Links
-* https://gist.github.com/askehansen/6809825
-* https://gist.github.com/Gerhard-Kanzler/9639082
-* https://github.com/guillaumepotier/Parsley.js
+* https://www.google.com.ph/url?sa=t&rct=j&q=&esrc=s&source=web&cd=5&cad=rja&uact=8&ved=0ahUKEwjts_f3n-XTAhXMybwKHeeTDQ0QFgg8MAQ&url=http%3A%2F%2Fjsfiddle.net%2Fmilz%2FryQu5%2F1%2F&usg=AFQjCNFdjklYQzRr4p0SjxmdnFW9xXTlEQ&sig2=E_9Z9O9OXihfGpIeqAvcPw
+* http://stackoverflow.com/questions/24844591/how-to-configure-parsley-remote-validator-to-handle-my-api-response
 * http://stackoverflow.com/questions/22217735/getting-parsley-2-x-working-with-bootstrap-3-correctly
-* https://github.com/1000hz/bootstrap-validator
 * https://godoc.org/github.com/mitchellh/mapstructure#example-Decode
 * http://stackoverflow.com/questions/18487056/select2-doesnt-work-when-embedded-in-a-bootstrap-modal/19574076#19574076
 * https://github.com/twitter/typeahead.js
