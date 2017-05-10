@@ -1,16 +1,20 @@
 package registrant
 
 import (
+	"encoding/json"
 	"net/http"
 	"strconv"
 
 	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/helpers/str"
 	"github.com/emurmotol/nmsrs/helpers/tpl"
+	"github.com/emurmotol/nmsrs/helpers/vald"
 	"github.com/emurmotol/nmsrs/models/civilstatus"
 	"github.com/emurmotol/nmsrs/models/disability"
 	"github.com/emurmotol/nmsrs/models/employmentstatus"
+	"github.com/emurmotol/nmsrs/models/registrant"
 	"github.com/emurmotol/nmsrs/models/sex"
+	"github.com/mitchellh/mapstructure"
 )
 
 func Create(w http.ResponseWriter, r *http.Request) {
@@ -70,7 +74,20 @@ func Create(w http.ResponseWriter, r *http.Request) {
 }
 
 func Store(w http.ResponseWriter, r *http.Request) {
-	step, err := strconv.Atoi(r.URL.Query()["step"][0]) // TODO: Refactor to values := req.URL.Query() then values.Get("key")
+	d := json.NewDecoder(r.Body)
+	var t map[string]interface{}
+
+	if err := d.Decode(&t); err != nil {
+		res.JSON(w, res.Make{
+			Status: http.StatusInternalServerError,
+			Data:   "",
+			Errors: err.Error(),
+		})
+		return
+	}
+	defer r.Body.Close()
+
+	step, err := strconv.Atoi(r.URL.Query().Get("step"))
 
 	if err != nil {
 		res.JSON(w, res.Make{
@@ -83,6 +100,27 @@ func Store(w http.ResponseWriter, r *http.Request) {
 
 	switch step {
 	case 1:
+		var personalInfo registrant.PersonalInformation
+
+		if err := mapstructure.Decode(t["personal_information"], &personalInfo); err != nil {
+			res.JSON(w, res.Make{
+				Status: http.StatusInternalServerError,
+				Data:   "",
+				Errors: err.Error(),
+			})
+			return
+		}
+		errs := vald.StructHasError(personalInfo)
+
+		if len(errs) != 0 {
+			res.JSON(w, res.Make{
+				Status: http.StatusForbidden,
+				Data:   "",
+				Errors: errs,
+			})
+			return
+		}
+
 		res.JSON(w, res.Make{
 			Status: http.StatusOK,
 			Data: map[string]interface{}{

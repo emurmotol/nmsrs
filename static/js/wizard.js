@@ -346,12 +346,75 @@ $(function () {
 
     $("#step_1_form").on("submit", function (e) {
         e.preventDefault();
-        var promise = makeFormRequest(this, []);
+        var submit_button = $(this).find(":submit");
+        var old_text = submit_button.text();
+        submit_button.prop("disabled", true);
+        submit_button.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Please wait...`);
 
-        promise.then(function (r) {
-            if (r.data.proceed != null && r.data.proceed) {
-                nextStep();
+        var validate_fields = [
+            "family_name",
+            "given_name",
+            "middle_name",
+            "birthdate",
+            "password"
+        ];
+
+        var data = JSON.stringify({
+            "personal_information": {
+                "family_name": $("#family_name").val().toUpperCase(),
+                "given_name": $("#given_name").val().toUpperCase(),
+                "middle_name": $("#middle_name").val().toUpperCase(),
+                "birthdate": $("#birthdate").val(),
+                "password": $("#password").val().toUpperCase()
             }
+        });
+
+        $.ajax({
+            url: $(this).attr("action"),
+            type: $(this).attr("method"),
+            data: data,
+            dataType: "json",
+            success: function (r) {
+                $("#alert_container").empty();
+
+                $.each(validate_fields, function (k, v) {
+                    var field = $("#" + v);
+                    removeFormErrorMarkup(field);
+                });
+                errors = r.errors;
+
+                try {
+                    if (Object.keys(errors).length != 0) {
+                        $.each(errors, function (k, v) {
+                            var field = $("#" + k);
+                            addFormErrorMarkup(field, v);
+                        });
+                    }
+                } catch (e) {
+                    addAlertErrorMarkup(errors);
+                }
+            }, error: function (r) {
+                console.log(r);
+            }
+        }).done(function (r) {
+            if (r.status == 200) {
+                if (r.data.message != null) {
+                    var msg_markup = `<div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <i class="fa fa-check"></i> `+ r.data.message + `
+                    </div>`;
+                    $("#alert_container").html(msg_markup);
+                }
+
+                if (r.data.proceed != null && r.data.proceed) {
+                    nextStep();
+                }
+            }
+            submit_button.prop("disabled", false);
+            submit_button.html(old_text);
+            console.log(r);
         });
     });
 

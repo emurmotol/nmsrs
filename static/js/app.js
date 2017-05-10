@@ -140,7 +140,7 @@ $(function () {
         var data = null;
         var enctype = $(form).prop("enctype");
         submit_button.prop("disabled", true);
-        submit_button.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Please wait...`)
+        submit_button.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Please wait...`);
 
         if (enctype == "multipart/form-data") {
             content_type = false;
