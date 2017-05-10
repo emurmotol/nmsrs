@@ -356,8 +356,44 @@ $(function () {
             "given_name",
             "middle_name",
             "birthdate",
-            "password"
+            "password",
+            "street_subdivision",
+            "city_municipality",
+            "province",
+            "barangay",
+            "place_of_birth",
+            "religion",
+            "sex",
+            "age",
+            "height",
+            "weight",
+            "landline",
+            "mobile",
+            "email",
         ];
+        var civil_status = "";
+
+        if ($("input[name=civil_status]:checked").val() == "5") {
+            civil_status = $("input[name=civil_status_5]").val().toUpperCase();
+
+            if ($.inArray("civil_status", validate_fields) == -1) {
+                validate_fields.push("civil_status");
+            }
+        } else {
+            civil_status = $("input[name=civil_status]:checked").data("name");
+
+            if ($.inArray("civil_status", validate_fields) != -1) {
+                validate_fields.pop("civil_status");
+            }
+        }
+
+        if ($("input[name=civil_status]:checked").length == 0) {
+            if ($.inArray("civil_status", validate_fields) == -1) {
+                validate_fields.push("civil_status");
+            }
+        }
+
+        console.log(validate_fields);
 
         var data = JSON.stringify({
             "personal_information": {
@@ -366,6 +402,25 @@ $(function () {
                 "middle_name": $("#middle_name").val().toUpperCase(),
                 "birthdate": $("#birthdate").val(),
                 "password": $("#password").val().toUpperCase()
+            },
+            "basic_information": {
+                "street_subdivision": $("#street_subdivision").val().toUpperCase(),
+                "city_municipality": $("#city_municipality").text(),
+                "province": $("#province").text(),
+                "barangay": $("#barangay").text(),
+                "place_of_birth": $("#place_of_birth").val().toUpperCase(),
+                "religion": $("#religion").text(),
+                "civil_status": {
+                    "id": $("input[name=civil_status]:checked").val(),
+                    "name": civil_status
+                },
+                "sex": $("input[name=sex]:checked").data("name"),
+                "age": parseInt($("#age").val()),
+                "height": parseFloat($("#height").val()),
+                "weight": parseFloat($("#weight").val()),
+                "landline": $("#landline").val(),
+                "mobile": $("#mobile").val(),
+                "email": $("#email").val(),
             }
         });
 
@@ -378,16 +433,14 @@ $(function () {
                 $("#alert_container").empty();
 
                 $.each(validate_fields, function (k, v) {
-                    var field = $("#" + v);
-                    removeFormErrorMarkup(field);
+                    removeFormErrorMarkup(k);
                 });
                 errors = r.errors;
 
                 try {
                     if (Object.keys(errors).length != 0) {
                         $.each(errors, function (k, v) {
-                            var field = $("#" + k);
-                            addFormErrorMarkup(field, v);
+                            addFormErrorMarkup(k, v);
                         });
                     }
                 } catch (e) {

@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"log"
+
 	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/helpers/str"
 	"github.com/emurmotol/nmsrs/helpers/tpl"
@@ -86,6 +88,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer r.Body.Close()
+	log.Printf("%v\n", t)
 
 	step, err := strconv.Atoi(r.URL.Query().Get("step"))
 
@@ -111,6 +114,28 @@ func Store(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		errs := vald.StructHasError(personalInfo)
+		var basicInfo registrant.BasicInformation
+
+		if err := mapstructure.Decode(t["basic_information"], &basicInfo); err != nil {
+			res.JSON(w, res.Make{
+				Status: http.StatusInternalServerError,
+				Data:   "",
+				Errors: err.Error(),
+			})
+			return
+		}
+
+		for k, v := range vald.StructHasError(basicInfo) {
+			if _, ok := errs[k]; !ok {
+				errs[k] = v
+			}
+		}
+
+		if len(basicInfo.CivilStatus) == 0 {
+			if _, ok := errs["civil_status"]; !ok {
+				errs["civil_status"] = "Civil status is a required field"
+			}
+		}
 
 		if len(errs) != 0 {
 			res.JSON(w, res.Make{
@@ -124,7 +149,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusOK,
 			Data: map[string]interface{}{
-				"proceed": true,
+				"proceed": false,
 			},
 			Errors: "",
 		})

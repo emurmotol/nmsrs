@@ -7,8 +7,21 @@ $(function () {
         });
     }
 
-    removeFormErrorMarkup = function (field) {
-        var fp = field.parent();
+    removeFormErrorMarkup = function (k) {
+        var elem = null;
+
+        if ($("#" + k).length) {
+            elem = $("#" + k);
+        } else {
+            elem = $(`input[name=` + k + `]`);
+        }
+        var fp = null;
+
+        if (elem.prop("type") == "radio") {
+            fp = elem.parent().parent().parent();
+        } else {
+            fp = elem.parent();
+        }
 
         if (fp.hasClass("has-error")) {
             fp.removeClass("has-error");
@@ -19,8 +32,21 @@ $(function () {
         }
     }
 
-    addFormErrorMarkup = function (field, message) {
-        var fp = field.parent();
+    addFormErrorMarkup = function (k, message) {
+        var elem = null;
+
+        if ($("#" + k).length) {
+            elem = $("#" + k);
+        } else {
+            elem = $(`input[name=` + k + `]`);
+        }
+        var fp = null;
+
+        if (elem.prop("type") == "radio") {
+            fp = elem.parent().parent().parent();
+        } else {
+            fp = elem.parent();
+        }
 
         if (!fp.hasClass("has-error")) {
             fp.addClass("has-error");
@@ -112,14 +138,13 @@ $(function () {
             processData: false,
             success: function (r) {
                 alert.empty();
-                removeFormErrorMarkup($(input));
+                removeFormErrorMarkup(input.id);
                 errors = r.errors;
 
                 try {
                     if (Object.keys(errors).length != 0) {
                         $.each(errors, function (k, v) {
-                            var field = $("#" + k);
-                            addFormErrorMarkup(field, v);
+                            addFormErrorMarkup(k, v);
                         });
                     }
                 } catch (e) {
@@ -161,16 +186,14 @@ $(function () {
                 alert.empty();
 
                 $.each(validate_fields, function (k, v) {
-                    var field = $("#" + v);
-                    removeFormErrorMarkup(field);
+                    removeFormErrorMarkup(k);
                 });
                 errors = r.errors;
 
                 try {
                     if (Object.keys(errors).length != 0) {
                         $.each(errors, function (k, v) {
-                            var field = $("#" + k);
-                            addFormErrorMarkup(field, v);
+                            addFormErrorMarkup(k, v);
                         });
                     }
                 } catch (e) {

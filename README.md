@@ -41,6 +41,7 @@ National Manpower Skills Registration System For The Municipality Of Gasan Marin
 * Always push source to remote
 
 ### Useful Links
+* https://github.com/1000hz/bootstrap-validator
 * https://godoc.org/github.com/mitchellh/mapstructure#example-Decode
 * http://stackoverflow.com/questions/18487056/select2-doesnt-work-when-embedded-in-a-bootstrap-modal/19574076#19574076
 * https://github.com/twitter/typeahead.js
