@@ -8,23 +8,26 @@
                     <div class="form-group">
                         <label for="photo">Photo</label><br>
                         <img src="{{.Config.Default.UserPhoto}}" class="img-resopnsive img-rounded" id="preview" height="160" alt="Default">
-                        <input type="file" class="form-control" name="photo" id="photo">
+                        <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change">
                     </div>
                     <div class="form-group">
                         <label for="name">Name <span class="asterisk text-danger">*</span></label>
-                        <input type="text" class="form-control" name="name" id="name">
+                        <input type="text" class="form-control" name="name" id="name" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="focusout">
                     </div>
                     <div class="form-group">
                         <label for="email">Email <span class="asterisk text-danger">*</span></label>
-                        <input type="text" class="form-control" name="email" id="email">
+                        <input type="text" class="form-control" name="email" id="email" data-parsley-required="true" data-parsley-type="email" data-parsley-whitespace="trim"
+                            data-parsley-trigger="focusout">
                     </div>
                     <div class="form-group">
                         <label for="password">Password <span class="asterisk text-danger">*</span></label>
-                        <input type="password" class="form-control" name="password" id="password">
+                        <input type="password" class="form-control" name="password" id="password" data-parsley-required="true" data-parsley-minlength="6"
+                            data-parsley-trigger="focusout">
                     </div>
                     <div class="form-group">
                         <label for="confirm_password">Confirm password <span class="asterisk text-danger">*</span></label>
-                        <input type="password" class="form-control" name="confirm_password" id="confirm_password">
+                        <input type="password" class="form-control" name="confirm_password" id="confirm_password" data-parsley-required="true" data-parsley-equalto="#password"
+                            data-parsley-trigger="focusout">
                     </div>
                     <div class="form-group">
                         <div class="checkbox">
@@ -42,19 +45,12 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        $("#create_user_form").on("submit", function (e) {
-            e.preventDefault();
-            var validate_fields = [
-                "photo",
-                "name",
-                "email",
-                "password",
-                "confirm_password"
-            ];
-            makeFormRequest(this, validate_fields);
+        $("#create_user_form").parsley().on("form:submit", function (e) {
+            // makeFormRequest(this.$element);
+            return false;
         });
 
-        validateImage($("#photo"), parseInt("{{.Config.Default.MaxImageUploadSize}}"));
+        // validateImage($("#photo"), parseInt("{{.Config.Default.MaxImageUploadSize}}"));
         setCheckboxBoolValue($("#is_admin"));
     });
 

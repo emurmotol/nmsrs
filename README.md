@@ -8,7 +8,6 @@ National Manpower Skills Registration System For The Municipality Of Gasan Marin
 * Add CSRF token on forms
 * Finish downgrade markup from BS4 - BS3
 * Add parsley to each form
-* Remove Errors field in JSON struct use Data field to store errors
 * Fix back button after logout
 * Change controllers status 500 to panic
 * Remove unused structs
@@ -17,6 +16,7 @@ National Manpower Skills Registration System For The Municipality Of Gasan Marin
 * Remove validate tag on structs
 
 ### Completed
+* Remove Errors field in JSON struct use Data field to store errors
 * ~~Missing on server Installing gomodifytags FAILED and Installing dlv FAILED~~
 * Load comboBox values
 * Seed database
