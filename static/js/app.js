@@ -258,10 +258,9 @@ $(function () {
             processData: false,
             success: function (r) {
                 alert.empty();
-                errors = r.errors;
 
-                if (errors.length != 0) {
-                    addAlertErrorMarkup(errors);
+                if (r.data.error != null) {
+                    addAlertErrorMarkup(r.data.error);
                 }
             }, error: function (r) {
                 console.log(r);

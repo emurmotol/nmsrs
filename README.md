@@ -2,14 +2,23 @@
 National Manpower Skills Registration System For The Municipality Of Gasan Marinduque Philippines
 
 ### Tasks On Server
-* Load comboBox values
-* Missing on server Installing gomodifytags FAILED and Installing dlv FAILED
 * CRUD for registrant
 * Send email
 * Search all
 * Add CSRF token on forms
+* Finish downgrade markup from BS4 - BS3
+* Add parsley to each form
+* Remove Errors field in JSON struct use Data field to store errors
+* Fix back button after logout
+* Change controllers status 500 to panic
+* Remove unused structs
+* Validate on client side
+* Remove go-validator look for alternative
+* Remove validate tag on structs
 
 ### Completed
+* ~~Missing on server Installing gomodifytags FAILED and Installing dlv FAILED~~
+* Load comboBox values
 * Seed database
 * Create application forms and backend logic
 * ~~Migrate to CouchDB to support 32-bit host pc~~

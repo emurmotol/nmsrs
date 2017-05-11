@@ -41,8 +41,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	if !str.IsPasswordMatched(usr.Password, r.PostFormValue("password")) {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
-			Data:   "",
-			Errors: lang.En["wrong_credentials"],
+			Data: map[string]string{
+				"error": lang.En["wrong_credentials"],
+			},
+			Errors: "",
 		})
 		return
 	}
