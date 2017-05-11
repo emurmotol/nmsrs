@@ -3,25 +3,20 @@ package user
 import (
 	"net/http"
 
-	"github.com/gorilla/mux"
 	"github.com/emurmotol/nmsrs/helpers/img"
 	"github.com/emurmotol/nmsrs/helpers/lang"
 	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/helpers/tpl"
 	"github.com/emurmotol/nmsrs/helpers/vald"
 	"github.com/emurmotol/nmsrs/models/user"
+	"github.com/gorilla/mux"
 )
 
 func Edit(w http.ResponseWriter, r *http.Request) {
 	usr, err := user.FindByID(mux.Vars(r)["id"])
 
 	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	data := map[string]interface{}{
 		"Title": "Edit user",
@@ -33,37 +28,20 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 
 func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseMultipartForm(0); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	photoFieldName := "photo"
 	file, _, err := r.FormFile(photoFieldName)
 	newFileInstance, handler, _ := r.FormFile(photoFieldName) // TODO: Duplicate instance of form file
 
-	if err != nil {
-		if err != http.ErrMissingFile {
-			res.JSON(w, res.Make{
-				Status: http.StatusInternalServerError,
-				Data:   "",
-				Errors: err.Error(),
-			})
-			return
-		}
+	if err != http.ErrMissingFile {
+		panic(err)
 	}
 	delete(r.PostForm, photoFieldName)
 	var profile user.Profile
 
 	if err := decoder.Decode(&profile, r.PostForm); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	errs := vald.StructHasError(profile)
 
@@ -74,10 +52,9 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
-			Errors: err.Error(),
 		})
 		return
-	}
+	} // TODO: Validate on client
 
 	if !sameAsOld {
 		if err := user.CheckEmailIfTaken(profile.Email); err != nil {
@@ -94,21 +71,11 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 					errs[photoFieldName] = err.Error()
 				}
 			} else {
-				res.JSON(w, res.Make{
-					Status: http.StatusInternalServerError,
-					Data:   "",
-					Errors: err.Error(),
-				})
-				return
+				panic(err)
 			}
 		} else {
 			if err := user.SetPhoto(file, id); err != nil {
-				res.JSON(w, res.Make{
-					Status: http.StatusInternalServerError,
-					Data:   "",
-					Errors: err.Error(),
-				})
-				return
+				panic(err)
 			}
 		}
 	}
@@ -116,48 +83,31 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	if len(errs) != 0 {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
-			Data:   "",
-			Errors: errs,
+			Data:   errs,
 		})
 		return
 	}
 
 	if err := user.UpdateProfile(id, profile); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
 			"message": lang.En["user_success_update"],
 		},
-		Errors: "",
 	})
 	return
 }
 
 func ResetPassword(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	var resetPassword user.ResetPassword
 
 	if err := decoder.Decode(&resetPassword, r.PostForm); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	errs := vald.StructHasError(resetPassword)
 
@@ -165,26 +115,19 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
-			Errors: errs,
 		})
 		return
 	}
 	id := mux.Vars(r)["id"]
 
 	if err := user.UpdatePassword(id, resetPassword); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
 			"message": lang.En["password_success_update"],
 		},
-		Errors: "",
 	})
 	return
 }

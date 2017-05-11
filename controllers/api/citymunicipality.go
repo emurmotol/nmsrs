@@ -30,18 +30,12 @@ func CityMunicipalities(w http.ResponseWriter, r *http.Request) {
 	cityMuns, err := citymunicipality.Search(query)
 
 	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]interface{}{
 			"city_municipalities": cityMuns,
 		},
-		Errors: "",
 	})
 }

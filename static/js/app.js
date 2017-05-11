@@ -138,17 +138,9 @@ $(function () {
             processData: false,
             success: function (r) {
                 alert.empty();
-                removeFormErrorMarkup(input.id);
-                errors = r.errors;
-
-                try {
-                    if (Object.keys(errors).length != 0) {
-                        $.each(errors, function (k, v) {
-                            addFormErrorMarkup(k, v);
-                        });
-                    }
-                } catch (e) {
-                    addAlertErrorMarkup(errors);
+                
+                if (r.data.error != null) {
+                    addAlertErrorMarkup(r.data.error);
                 }
             }, error: function (r) {
                 console.log(r);
@@ -157,80 +149,6 @@ $(function () {
             console.log(r);
         });
     }
-
-    // makeFormRequest = function (form, validate_fields) {
-    //     var submit_button = $(form).find(":submit");
-    //     var old_text = submit_button.text();
-    //     var content_type = null;
-    //     var data = null;
-    //     var enctype = $(form).prop("enctype");
-    //     submit_button.prop("disabled", true);
-    //     submit_button.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> Please wait...`);
-
-    //     if (enctype == "multipart/form-data") {
-    //         content_type = false;
-    //         data = new FormData(form);
-    //     } else {
-    //         content_type = enctype;
-    //         data = $(form).serialize();
-    //     }
-
-    //     var call = $.ajax({
-    //         url: $(form).attr("action"),
-    //         type: $(form).attr("method"),
-    //         data: data,
-    //         dataType: "json",
-    //         contentType: content_type,
-    //         processData: false,
-    //         success: function (r) {
-    //             alert.empty();
-
-    //             $.each(validate_fields, function (k, v) {
-    //                 removeFormErrorMarkup(k);
-    //             });
-    //             errors = r.errors;
-
-    //             try {
-    //                 if (Object.keys(errors).length != 0) {
-    //                     $.each(errors, function (k, v) {
-    //                         addFormErrorMarkup(k, v);
-    //                     });
-    //                 }
-    //             } catch (e) {
-    //                 addAlertErrorMarkup(errors);
-    //             }
-    //         }, error: function (r) {
-    //             console.log(r);
-    //         }
-    //     }).done(function (r) {
-    //         if (r.status == 200) {
-    //             if (r.data.message != null) {
-    //                 var msg_markup = `<div class="alert alert-success alert-dismissible" role="alert">
-    //                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    //                         <span aria-hidden="true">&times;</span>
-    //                     </button>
-    //                     <i class="fa fa-check"></i> `+ r.data.message + `
-    //                 </div>`;
-    //                 alert.html(msg_markup);
-    //             }
-
-    //             if (r.data.redirect != null) {
-    //                 window.location.href = r.data.redirect;
-    //             }
-
-    //             $(form).find(":file").each(function () {
-    //                 $(this).val("");
-    //             });
-    //         }
-    //         submit_button.prop("disabled", false);
-    //         submit_button.html(old_text);
-    //         console.log(r);
-    //     });
-
-    //     return call.then(function (r) {
-    //         return r;
-    //     });
-    // }
 
     makeFormRequest = function (form) {
         var submit_button = $(form).find(":submit");

@@ -69,16 +69,16 @@
                             <div class="form-group" id="civil_status_radios">
                                 <label>Civil status <span class="asterisk text-danger">*</span></label> {{range .CivilStatuses}}
                                 {{if eq .ID 5}}
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{.ID}}" value="{{.ID}}"> {{AllCapsToSentenceCase .Name}} (simplify)
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="civil_status" id="civil_status_{{.ID}}" value="{{.ID}}"> {{AllCapsToSentenceCase .Name}} (simplify)
                                     </label>
                                 </div>
                                 <input class="form-control" type="text" name="civil_status_{{.ID}}" style="text-transform: uppercase;"
                                     disabled> {{else}}
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="civil_status" id="civil_status_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"> {{AllCapsToSentenceCase .Name}}
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="civil_status" id="civil_status_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"> {{AllCapsToSentenceCase .Name}}
                                     </label>
                                 </div>
                                 {{end}} {{end}}
@@ -87,9 +87,9 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Sex <span class="asterisk text-danger">*</span></label> {{range .Sexes}}
-                                        <div class="form-check form-check-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="radio" name="sex" id="sex_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"> {{AllCapsToSentenceCase .Name}}
+                                        <div class="radio">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="sex" id="sex_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"> {{AllCapsToSentenceCase .Name}}
                                             </label>
                                         </div>
                                         {{end}}
@@ -141,9 +141,9 @@
                         <div class="col-lg-4">
                             <div class="form-group" id="employment_status_radios">
                                 <label>Employment status <span class="asterisk text-danger">*</span></label> {{range .EmploymentStatuses}}
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="employment_status" id="employment_status_{{.ID}}" value="{{.ID}}"> {{AllCapsToSentenceCase .Name}}
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="employment_status" id="employment_status_{{.ID}}" value="{{.ID}}"> {{AllCapsToSentenceCase .Name}}
                                     </label>
                                 </div>
                                 {{end}}
@@ -204,16 +204,16 @@
                             <div class="form-group" id="disability_radios">
                                 <label>Disability</label> {{range .Disabilities}}
                                 {{if eq .Name "OTHER"}}
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="disability" id="disability_{{.ID}}" value="{{.ID}}" disabled> {{AllCapsToSentenceCase .Name}} (specify)
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="disability" id="disability_{{.ID}}" value="{{.ID}}" disabled> {{AllCapsToSentenceCase .Name}} (specify)
                                     </label>
                                 </div>
                                 <input class="form-control" type="text" name="disability_{{.ID}}" id="disability" style="text-transform: uppercase;"
                                     disabled> {{else}}
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="disability" id="disability_{{.ID}}" value="{{.ID}}" disabled> {{AllCapsToSentenceCase .Name}}
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="disability" id="disability_{{.ID}}" value="{{.ID}}" disabled> {{AllCapsToSentenceCase .Name}}
                                     </label>
                                 </div>
                                 {{end}} {{end}}

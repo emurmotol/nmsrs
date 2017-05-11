@@ -1,14 +1,23 @@
 {{define "content"}}
 <div class="container">
     <div class="row">
-        <div class="col-lg-6 mx-lg-auto">
-            <a href="/">
-                <img src="/img/logo/dole/1144x1024.png" height="256" class="mx-auto d-block pt-4 pb-4" alt="DOLE Logo">
-            </a>
-            <form>
-                <input type="text" class="form-control form-control-lg" placeholder="Search registrants">
-            </form>
+        <div class="col-lg-10">
+            <div class="col-lg-5 col-lg-offset-5" id="search_form_container">
+                <a href="/">
+                    <img src="/img/logo/dole/1144x1024.png" height="180" class="img-resopnsive center-block" alt="DOLE Logo">
+                </a>
+                <form id="search_form">
+                    <input type="text" class="form-control input-lg" id="search" name="search" placeholder="Search">
+                </form>
+            </div>
         </div>
     </div>
 </div>
+{{end}} {{define "script"}}
+<script>
+    $(function () {
+        $("#search").focus();
+    });
+
+</script>
 {{end}}

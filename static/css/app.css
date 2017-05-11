@@ -8,6 +8,10 @@
     border-top: none !important;
 }
 
+#preview {
+    margin-bottom: 1.5rem;
+}
+
 a {
     text-decoration: none !important;
 }
@@ -42,6 +46,14 @@ a {
     margin-top: 20%;
 }
 
+#search_form_container {
+    margin-top: 10%;
+}
+
+#search_form {
+    margin-top: 2rem;
+}
+
 .navbar-default .navbar-nav .open a.dropdown-toggle:focus,
 .navbar-default .navbar-nav .open a.dropdown-toggle:link {
     background-color: #d4eafb;
@@ -49,4 +61,8 @@ a {
 
 .modal-title {
     font-weight: bold;
+}
+
+.panel-actions {
+    margin-bottom: 1.5rem;
 }

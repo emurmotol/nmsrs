@@ -18,5 +18,4 @@ func JSON(w http.ResponseWriter, response interface{}) {
 type Make struct {
 	Status int         `json:"status"`
 	Data   interface{} `json:"data"`
-	Errors interface{} `json:"errors"`
 }

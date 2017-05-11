@@ -20,18 +20,12 @@ func Barangays(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]interface{}{
 			"barangays": brgys,
 		},
-		Errors: "",
 	})
 }

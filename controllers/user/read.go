@@ -3,22 +3,16 @@ package user
 import (
 	"net/http"
 
-	"github.com/gorilla/mux"
-	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/helpers/tpl"
 	"github.com/emurmotol/nmsrs/models/user"
+	"github.com/gorilla/mux"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
 	users, err := user.All()
 
 	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	data := map[string]interface{}{
 		"Title": "Users",
@@ -32,12 +26,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	usr, err := user.FindByID(mux.Vars(r)["id"])
 
 	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	data := map[string]interface{}{
 		"Title": "Show user",

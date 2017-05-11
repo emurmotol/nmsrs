@@ -1,42 +1,42 @@
 {{define "content"}}
-<div class="card">
-    <div class="card-header">
+<div class="panel panel-info">
+    <div class="panel-heading clearfix">
         <span class="pull-left"><i class="fa fa-user-o"></i> Profile</span>
         <span class="pull-right">
-            <a href="/users/{{.User.ObjectID.Hex}}/edit" class="btn btn-outline-primary btn-sm">
+            <a href="/users/{{.User.ObjectID.Hex}}/edit" class="btn btn-primary btn-xs">
                 <i class="fa fa-pencil"></i>
             </a>
-            <button class="btn btn-outline-danger btn-sm" id="delete_user_button" role="button">
+            <button class="btn btn-danger btn-xs" id="delete_user_button" role="button">
                 <i class="fa fa-trash-o"></i>
             </button>
         </span>
     </div>
-    <div class="card-block">
+    <div class="panel-body">
         <a href="/users/{{.User.ObjectID.Hex}}/edit#profile">
-            <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="rounded mb-3"
-                id="preview" height="160" alt="{{.User.Name}}">
+            <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="img-resopnsive img-rounded"
+                height="160" alt="{{.User.Name}}">
         </a>
-        <h6><i class="fa fa-user-o"></i> {{.User.Name}}</h6>
-        <h6><i class="fa fa-envelope-o"></i> <a href="mailto:{{.User.Email}}">{{.User.Email}}</a></h6>
-        <h6><i class="fa fa-calendar-o"></i> Joined {{DateForHumans .User.CreatedAt}}</h6>
-        <h6><i class="fa fa-clock-o"></i> Updated <span data-livestamp="{{.User.UpdatedAt}}"></span></h6>
+        <h5><i class="fa fa-user-o"></i> {{.User.Name}}</h5>
+        <h5><i class="fa fa-envelope-o"></i> <a href="mailto:{{.User.Email}}">{{.User.Email}}</a></h5>
+        <h5><i class="fa fa-calendar-o"></i> Joined {{DateForHumans .User.CreatedAt}}</h5>
+        <h5><i class="fa fa-clock-o"></i> Updated <span data-livestamp="{{.User.UpdatedAt}}"></span></h5>
     </div>
 </div>
 <div class="modal fade" id="confirm_delete_user_modal" data-backdrop="static" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Are you ABSOLUTELY sure?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <h5 class="modal-title">Are you ABSOLUTELY sure?</h5>
             </div>
             <div class="modal-body">
                 This action <strong>CANNOT</strong> be undone. This will permanently delete <span id="delete_user"></span>.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger" id="yes_proceed_deleting_user">Yes, proceed</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="yes_proceed">Yes, proceed</button>
             </div>
         </div>
     </div>
@@ -51,7 +51,7 @@
             $("#confirm_delete_user_modal").modal("show");
         });
 
-        $("#yes_proceed_deleting_user").on("click", function () {
+        $("#yes_proceed").on("click", function () {
             var elem = $(this);
             var old_text = elem.text();
             elem.prop("disabled", true);

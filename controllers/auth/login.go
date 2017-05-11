@@ -44,7 +44,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			Data: map[string]string{
 				"error": lang.En["wrong_credentials"],
 			},
-			Errors: "",
 		})
 		return
 	}
@@ -60,7 +59,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		Data: map[string]string{
 			"redirect": "/",
 		},
-		Errors: "",
 	})
 	return
 }

@@ -1,15 +1,16 @@
 {{define "content"}} {{with .Users}}
-<div class="card card-outline-info">
-    <div class="card-block">
-        <div class="card-title">
-            <a class="btn btn-outline-primary btn-sm" href="/users/create" role="button">
+<div class="panel panel-info">
+    <div class="panel-heading">Users</div>
+    <div class="panel-body">
+        <div class="panel-actions">
+            <a class="btn btn-primary btn-sm" href="/users/create" role="button">
                 <i class="fa fa-plus"></i> Add
             </a>
-            <button class="btn btn-outline-danger btn-sm" id="delete_user_button" role="button" disabled>
-                <i class="fa fa-trash-o"></i> Delete
-            </button>
+            <button class="btn btn-danger btn-sm" id="delete_user_button" role="button" disabled>
+            <i class="fa fa-trash-o"></i> Delete
+        </button>
         </div>
-        <table class="table table-hover mb-0" id="users_table">
+        <table class="table table-hover" id="users_table">
             <thead>
                 <tr>
                     <th><input type="checkbox" id="select_all_users"></th>
@@ -34,26 +35,26 @@
     </div>
 </div>
 {{else}}
-<div class="alert alert-info mb-0" role="alert">
+<div class="alert alert-info" role="alert">
     <h4 class="alert-heading">Collection is empty</h4>
-    <p class="mb-0">Would you like to <a href="/users/create"><strong>add a user</strong></a>?</p>
+    <p>Would you like to <a href="/users/create"><strong>add a user</strong></a>?</p>
 </div>
 {{end}}
 <div class="modal fade" id="confirm_delete_user_modal" data-backdrop="static" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Are you ABSOLUTELY sure?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <h5 class="modal-title">Are you ABSOLUTELY sure?</h5>
             </div>
             <div class="modal-body">
                 This action <strong>CANNOT</strong> be undone. This will permanently delete <span id="delete_user_count"></span>.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger" id="yes_proceed_deleting_user">Yes, proceed</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="yes_proceed">Yes, proceed</button>
             </div>
         </div>
     </div>
@@ -76,7 +77,7 @@
             $("#confirm_delete_user_modal").modal("show");
         });
 
-        $("#yes_proceed_deleting_user").on("click", function () {
+        $("#yes_proceed").on("click", function () {
             var ids = [];
 
             $(".checkbox").each(function () {

@@ -22,37 +22,20 @@ func Create(w http.ResponseWriter, r *http.Request) {
 
 func Store(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseMultipartForm(0); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	photoFieldName := "photo"
 	file, _, err := r.FormFile(photoFieldName)
 	newFileInstance, handler, _ := r.FormFile(photoFieldName) // TODO: Duplicate instance of form file
 
-	if err != nil {
-		if err != http.ErrMissingFile {
-			res.JSON(w, res.Make{
-				Status: http.StatusInternalServerError,
-				Data:   "",
-				Errors: err.Error(),
-			})
-			return
-		}
+	if err != http.ErrMissingFile {
+		panic(err)
 	}
 	delete(r.PostForm, photoFieldName)
 	var usr user.User
 
 	if err := decoder.Decode(&usr, r.PostForm); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	errs := vald.StructHasError(usr)
 
@@ -69,12 +52,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 					errs[photoFieldName] = err.Error()
 				}
 			} else {
-				res.JSON(w, res.Make{
-					Status: http.StatusInternalServerError,
-					Data:   "",
-					Errors: err.Error(),
-				})
-				return
+				panic(err)
 			}
 		}
 	}
@@ -83,46 +61,29 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data:   "",
-			Errors: errs,
 		})
 		return
 	}
 	id, err := usr.Insert()
 
 	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 
 	if file != nil {
 		if err := user.SetPhoto(file, id); err != nil {
-			res.JSON(w, res.Make{
-				Status: http.StatusInternalServerError,
-				Data:   "",
-				Errors: err.Error(),
-			})
-			return
+			panic(err)
 		}
 	} // TODO: Check file != again to capture user id
 
 	if err := flash.Set(r, w, lang.En["user_success_create"]); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
 			"redirect": "/users",
 		},
-		Errors: "",
 	})
 	return
 }

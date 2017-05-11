@@ -10,7 +10,6 @@ import (
 	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/helpers/str"
 	"github.com/emurmotol/nmsrs/helpers/tpl"
-	"github.com/emurmotol/nmsrs/helpers/vald"
 	"github.com/emurmotol/nmsrs/models/civilstatus"
 	"github.com/emurmotol/nmsrs/models/disability"
 	"github.com/emurmotol/nmsrs/models/employmentstatus"
@@ -23,42 +22,22 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	empStats, err := employmentstatus.All()
 
 	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	sexs, err := sex.All()
 
 	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	civStats, err := civilstatus.All()
 
 	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	disabs, err := disability.All()
 
 	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 
 	data := map[string]interface{}{
@@ -80,12 +59,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	var t map[string]interface{}
 
 	if err := d.Decode(&t); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	defer r.Body.Close()
 	log.Printf("%v\n", t)
@@ -93,12 +67,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	step, err := strconv.Atoi(r.URL.Query().Get("step"))
 
 	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 
 	switch step {
@@ -106,52 +75,18 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		var personalInfo registrant.PersonalInformation
 
 		if err := mapstructure.Decode(t["personal_information"], &personalInfo); err != nil {
-			res.JSON(w, res.Make{
-				Status: http.StatusInternalServerError,
-				Data:   "",
-				Errors: err.Error(),
-			})
-			return
+			panic(err)
 		}
-		errs := vald.StructHasError(personalInfo)
 		var basicInfo registrant.BasicInformation
 
 		if err := mapstructure.Decode(t["basic_information"], &basicInfo); err != nil {
-			res.JSON(w, res.Make{
-				Status: http.StatusInternalServerError,
-				Data:   "",
-				Errors: err.Error(),
-			})
-			return
+			panic(err)
 		}
-
-		for k, v := range vald.StructHasError(basicInfo) {
-			if _, ok := errs[k]; !ok {
-				errs[k] = v
-			}
-		}
-
-		if len(basicInfo.CivilStatus) == 0 {
-			if _, ok := errs["civil_status"]; !ok {
-				errs["civil_status"] = "Civil status is a required field"
-			}
-		}
-
-		if len(errs) != 0 {
-			res.JSON(w, res.Make{
-				Status: http.StatusForbidden,
-				Data:   "",
-				Errors: errs,
-			})
-			return
-		}
-
 		res.JSON(w, res.Make{
 			Status: http.StatusOK,
 			Data: map[string]interface{}{
 				"proceed": false,
 			},
-			Errors: "",
 		})
 		return
 	case 2:

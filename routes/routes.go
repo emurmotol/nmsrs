@@ -40,7 +40,7 @@ func Register() *mux.Router {
 	registrants.Path("").Methods("GET").Handler(middlewares.Admin(registrant.Index))
 	registrants.Path("").Methods("POST").Handler(middlewares.Admin(registrant.Store))
 
-	// TODO: Make api routes
+	// TODO: Make api routes middleware
 	router.Path("/city-municipalities/{city_municipality_code}/barangays").Methods("GET").Handler(middlewares.Admin(api.Barangays))
 	router.Path("/city-municipalities/provinces").Methods("GET").Handler(middlewares.Admin(api.CityMunicipalities))
 	router.Path("/religions").Methods("GET").Handler(middlewares.Admin(api.Religions))

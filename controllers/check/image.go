@@ -3,33 +3,21 @@ package check
 import (
 	"net/http"
 
-	"github.com/gorilla/mux"
 	"github.com/emurmotol/nmsrs/helpers/img"
 	"github.com/emurmotol/nmsrs/helpers/lang"
 	"github.com/emurmotol/nmsrs/helpers/res"
+	"github.com/gorilla/mux"
 )
 
 func Image(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseMultipartForm(0); err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusInternalServerError,
-			Data:   "",
-			Errors: err.Error(),
-		})
-		return
+		panic(err)
 	}
 	photoFieldName := mux.Vars(r)["field"]
 	photo, handler, err := r.FormFile(photoFieldName)
 
-	if err != nil {
-		if err != http.ErrMissingFile {
-			res.JSON(w, res.Make{
-				Status: http.StatusInternalServerError,
-				Data:   "",
-				Errors: err.Error(),
-			})
-			return
-		}
+	if err != http.ErrMissingFile {
+		panic(err)
 	}
 
 	if photo != nil {
@@ -39,19 +27,13 @@ func Image(w http.ResponseWriter, r *http.Request) {
 			if err == img.ErrImageNotValid || err == img.ErrImageTooLarge { // TODO: Add new custom err here
 				res.JSON(w, res.Make{
 					Status: http.StatusForbidden,
-					Data:   "",
-					Errors: map[string]string{
-						photoFieldName: err.Error(),
+					Data: map[string]string{
+						"error": err.Error(),
 					},
 				})
 				return
 			}
-			res.JSON(w, res.Make{
-				Status: http.StatusInternalServerError,
-				Data:   "",
-				Errors: err.Error(),
-			})
-			return
+			panic(err)
 		}
 	}
 
@@ -60,7 +42,6 @@ func Image(w http.ResponseWriter, r *http.Request) {
 		Data: map[string]string{
 			"message": lang.En["image_valid"],
 		},
-		Errors: "",
 	})
 	return
 }

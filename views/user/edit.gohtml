@@ -1,70 +1,62 @@
 {{define "content"}}
-<div class="card">
-    <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs pull-left">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#profile">
-                    <i class="fa fa-user-o"></i> Profile
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#reset-password" id="reset_password_tab">
-                    <i class="fa fa-key"></i> Reset Password
-                </a>
-            </li>
-        </ul>
-        <a href="/users/{{.User.ObjectID.Hex}}" class="btn btn-outline-primary btn-sm pull-right">View profile</a>
+<div class="panel panel-info">
+    <div class="panel-heading clearfix">
+        <span class="pull-left"><i class="fa fa-user-o"></i> Profile</span>
+        <span class="pull-right">
+            <a href="/users/{{.User.ObjectID.Hex}}" class="btn btn-primary btn-xs">View profile</a>
+        </span>
     </div>
-    <div class="card-block">
-        <div class="tab-content">
-            <div class="tab-pane active" id="profile">
-                <form action="/users/{{.User.ObjectID.Hex}}#profile" method="PUT" id="edit_user_form" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="photo">Photo</label><br>
-                                <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="rounded mb-3"
-                                    id="preview" height="160" alt="Default">
-                                <input type="file" class="form-control" name="photo" id="photo">
-                            </div>
-                            <div class="form-group">
-                                <label for="name">Name <span class="asterisk text-danger">*</span></label>
-                                <input type="text" class="form-control" name="name" id="name" value="{{.User.Name}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email <span class="asterisk text-danger">*</span></label>
-                                <input type="text" class="form-control" name="email" id="email" value="{{.User.Email}}">
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="is_admin" id="is_admin"{{if .User.IsAdmin}} checked{{end}}> Administrator
-                                    </label>
-                                </div>
-                            </div>
+    <div class="panel-body">
+        <form action="/users/{{.User.ObjectID.Hex}}" method="PUT" id="edit_user_form" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="photo">Photo</label><br>
+                        <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="img-resopnsive img-rounded"
+                            id="preview" height="160" alt="Default">
+                        <input type="file" class="form-control" name="photo" id="photo">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name <span class="asterisk text-danger">*</span></label>
+                        <input type="text" class="form-control" name="name" id="name" value="{{.User.Name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email <span class="asterisk text-danger">*</span></label>
+                        <input type="text" class="form-control" name="email" id="email" value="{{.User.Email}}">
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="is_admin" id="is_admin"{{if .User.IsAdmin}} checked{{end}}> Administrator
+                            </label>
                         </div>
                     </div>
-                    <button role="button" type="submit" class="btn btn-outline-primary">Update profile</button>
-                </form>
+                </div>
             </div>
-            <div class="tab-pane" id="reset-password">
-                <form action="/users/{{.User.ObjectID.Hex}}/reset-password#reset-password" method="POST" id="reset_password_form">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="password">New password <span class="asterisk text-danger">*</span></label>
-                                <input type="password" class="form-control" name="password" id="password">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirm_password">Confirm password <span class="asterisk text-danger">*</span></label>
-                                <input type="password" class="form-control" name="confirm_password" id="confirm_password">
-                            </div>
-                        </div>
+            <button role="button" type="submit" class="btn btn-primary">Update profile</button>
+        </form>
+    </div>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <i class="fa fa-key"></i> Reset Password
+    </div>
+    <div class="panel-body">
+        <form action="/users/{{.User.ObjectID.Hex}}/reset-password" method="POST" id="reset_password_form">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="password">New password <span class="asterisk text-danger">*</span></label>
+                        <input type="password" class="form-control" name="password" id="password">
                     </div>
-                    <button role="button" type="submit" class="btn btn-outline-primary">Update password</button>
-                </form>
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm password <span class="asterisk text-danger">*</span></label>
+                        <input type="password" class="form-control" name="confirm_password" id="confirm_password">
+                    </div>
+                </div>
             </div>
-        </div>
+            <button role="button" type="submit" class="btn btn-primary">Update password</button>
+        </form>
     </div>
 </div>
 {{end}} {{define "script"}}
