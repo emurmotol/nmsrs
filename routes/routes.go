@@ -62,6 +62,7 @@ func Register() *mux.Router {
 	login.Path("").Methods("POST").Handler(middlewares.Web(auth.Login))
 	router.Path("/logout").Methods("GET").Handler(middlewares.Web(auth.Logout))
 	router.Path("/welcome").Methods("GET").Handler(middlewares.Web(home.Welcome))
+	router.Path("/check/email/exists").Methods("GET").Handler(middlewares.Web(auth.CheckEmailExists))
 	router.Path("/").Methods("GET").Handler(middlewares.Web(home.Index))
 
 	router.NotFoundHandler = http.HandlerFunc(controllers.PageNotFound) // TODO: Only works when root/subrouter has path ""

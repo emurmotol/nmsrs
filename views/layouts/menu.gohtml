@@ -67,17 +67,17 @@
         <div class="row">
             <div class="col-lg-2">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation"{{if eq .Request.URL.Path `/registrants`}} class="active"{{end}}>
+                    <li role="presentation" {{if eq .Request.URL.Path `/registrants`}} class="active" {{end}}>
                         <a href="/registrants">
                             <i class="fa fa-users"></i> Registrants
                         </a>
                     </li>
-                    <li role="presentation"{{if eq .Request.URL.Path `/users`}} class="active"{{end}}>
+                    <li role="presentation" {{if eq .Request.URL.Path `/users`}} class="active" {{end}}>
                         <a href="/users">
                             <i class="fa fa-user-o"></i> Users
                         </a>
                     </li>
-                    <li role="presentation"{{if eq .Request.URL.Path `/reports`}} class="active"{{end}}>
+                    <li role="presentation" {{if eq .Request.URL.Path `/reports`}} class="active" {{end}}>
                         <a href="/reports">
                             <i class="fa fa-line-chart"></i> Reports
                         </a>
@@ -98,6 +98,8 @@
             </div>
         </div>
         <script src="/js/jquery-3.1.1.min.js"></script>
+        <script src="/js/parsley-config.js"></script>
+        <script src="/js/parsley.min.js"></script>
         <script src="/js/tether.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/url.min.js"></script>

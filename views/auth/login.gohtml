@@ -3,28 +3,33 @@
     <a href="/">
         <img src="/img/logo/dole/1144x1024.png" class="img-responsive img-logo center-block" alt="DOLE Logo">
     </a>
-    <div id="alert"></div>
+    <div id="alert_container"></div>
     <div class="form-group">
         <input type="text" class="form-control input-lg" name="email" id="email" placeholder="Email address" data-parsley-type="email"
-            data-parsley-required="true">
+            data-parsley-required="true" data-parsley-remote data-parsley-remote-validator="checkEmailExists" data-parsley-trigger="focusout"
+            data-parsley-whitespace="trim" data-parsley-remote-message="">
     </div>
     <div class="form-group">
-        <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Password" data-parsley-required="true">
+        <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Password" data-parsley-required="true"
+            data-parsley-trigger="focusout">
     </div>
     <button role="button" type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
 </form>
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        // $("#login_form").on("submit", function (e) {
-        //     e.preventDefault();
-        //     var validate_fields = [
-        //         "email",
-        //         "password"
-        //     ];
-        //     makeFormRequest(this, validate_fields);
-        // });
-        $("#login_form").parsley();
+        $("#login_form").parsley().on("form:submit", function (e) {
+            makeFormRequest(this.$element);
+            return false;
+        });
+
+        Parsley.addAsyncValidator("checkEmailExists", function (xhr) {
+            if (404 === xhr.status) {
+                r = $.parseJSON(xhr.responseText);
+                this.addError("remote", { message: r.error });
+            }
+            return 200 === xhr.status;
+        }, "/check/email/exists" + $("#email").val());
     });
 
 </script>
