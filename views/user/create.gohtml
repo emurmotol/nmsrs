@@ -7,8 +7,10 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="photo">Photo</label><br>
-                        <img src="{{.Config.Default.UserPhoto}}" data-default="{{.Config.Default.UserPhoto}}" class="img-resopnsive img-rounded" id="preview" height="160" alt="Default">
-                        <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-file-max-megabytes="{{.Config.Default.MaxImageUploadSize}}" data-parsley-file-mime-types="image/jpeg, image/png, image/gif">
+                        <img src="{{.Config.Default.UserPhoto}}" data-default="{{.Config.Default.UserPhoto}}" class="img-resopnsive img-rounded"
+                            id="preview" height="160" alt="Default">
+                        <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-file-max-megabytes="{{.Config.Default.MaxImageUploadSize}}"
+                            data-parsley-file-mime-types="image/jpeg, image/png, image/gif">
                     </div>
                     <div class="form-group">
                         <label for="name">Name <span class="asterisk text-danger">*</span></label>
@@ -17,7 +19,8 @@
                     <div class="form-group">
                         <label for="email">Email <span class="asterisk text-danger">*</span></label>
                         <input type="text" class="form-control" name="email" id="email" data-parsley-required="true" data-parsley-type="email" data-parsley-whitespace="trim"
-                            data-parsley-trigger="focusout">
+                            data-parsley-trigger="focusout" data-parsley-remote data-parsley-remote-validator="checkEmailTaken"
+                            data-parsley-remote-message="">
                     </div>
                     <div class="form-group">
                         <label for="password">Password <span class="asterisk text-danger">*</span></label>
@@ -45,9 +48,11 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        $("#create_user_form").parsley().on("form:submit", function (e) {
-            // makeFormRequest(this.$element);
-            return false;
+        $("#create_user_form").parsley();
+
+        $("#create_user_form").on("submit", function (e) {
+            e.preventDefault();
+            makeFormRequest(this);
         });
 
         Parsley.addValidator("fileMaxMegabytes", {
@@ -62,11 +67,9 @@
                 return file.length === 1 && file[0].size <= maxMB;
             },
             messages: {
-                en: "{{.Lang.ImageTooLarge}}"
+                en: "{{.Lang.ImageTooLarge}}&nbsp;"
             }
-        });
-
-        Parsley.addValidator("fileMimeTypes", {
+        }).addValidator("fileMimeTypes", {
             requirementType: "string",
             validateString: function (value, requirement, field) {
                 var file = field.$element[0].files;
@@ -78,9 +81,17 @@
                 return allowedMimeTypes.indexOf(file[0].type) !== -1;
             },
             messages: {
-                en: "{{.Lang.ImageInvalid}}"
+                en: "{{.Lang.ImageInvalid}}&nbsp;"
             }
-        });
+        })
+        
+        Parsley.addAsyncValidator("checkEmailTaken", function (xhr) {
+            if (404 === xhr.status) {
+                r = $.parseJSON(xhr.responseText);
+                this.addError("remote", { message: r.error });
+            }
+            return 200 === xhr.status;
+        }, "/check/email/taken" + $("#email").val());
 
         previewImage($("#photo"));
         setCheckboxBoolValue($("#is_admin"));

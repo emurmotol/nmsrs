@@ -14,15 +14,15 @@
                         <label for="photo">Photo</label><br>
                         <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" data-default="{{.Config.Default.UserPhoto}}" class="img-resopnsive img-rounded"
                             id="preview" height="160" alt="Default">
-                        <input type="file" class="form-control" name="photo" id="photo">
+                        <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-file-max-megabytes="{{.Config.Default.MaxImageUploadSize}}" data-parsley-file-mime-types="image/jpeg, image/png, image/gif">
                     </div>
                     <div class="form-group">
                         <label for="name">Name <span class="asterisk text-danger">*</span></label>
-                        <input type="text" class="form-control" name="name" id="name" value="{{.User.Name}}">
+                        <input type="text" class="form-control" name="name" id="name" value="{{.User.Name}}" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="focusout">
                     </div>
                     <div class="form-group">
                         <label for="email">Email <span class="asterisk text-danger">*</span></label>
-                        <input type="text" class="form-control" name="email" id="email" value="{{.User.Email}}">
+                        <input type="text" class="form-control" name="email" id="email" value="{{.User.Email}}" data-parsley-required="true" data-parsley-type="email" data-parsley-whitespace="trim" data-parsley-trigger="focusout" data-parsley-remote data-parsley-remote-validator="checkEmailTaken" data-parsley-remote-message="">
                     </div>
                     <div class="form-group">
                         <div class="checkbox">
@@ -47,11 +47,11 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="password">New password <span class="asterisk text-danger">*</span></label>
-                        <input type="password" class="form-control" name="password" id="password">
+                        <input type="password" class="form-control" name="password" id="password" data-parsley-required="true" data-parsley-minlength="6" data-parsley-trigger="focusout">
                     </div>
                     <div class="form-group">
                         <label for="confirm_password">Confirm password <span class="asterisk text-danger">*</span></label>
-                        <input type="password" class="form-control" name="confirm_password" id="confirm_password">
+                        <input type="password" class="form-control" name="confirm_password" id="confirm_password" data-parsley-required="true" data-parsley-equalto="#password" data-parsley-trigger="focusout">
                     </div>
                 </div>
             </div>
@@ -62,21 +62,52 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        $("#reset_password_tab").on("click", function () {
-            $("#reset_password_form")[0].reset();
-        });
+        $("#edit_user_form").parsley();
 
         $("#edit_user_form").on("submit", function (e) {
             e.preventDefault();
-            makeFormRequest(this, ["photo", "name", "email"]);
+            makeFormRequest(this);
         });
+
+        $("#reset_password_form").parsley();
 
         $("#reset_password_form").on("submit", function (e) {
             e.preventDefault();
-            makeFormRequest(this, ["password", "confirm_password"]);
+            makeFormRequest(this);
+            this.reset();
         });
 
-        validateImage($("#photo"), parseInt("{{.Config.Default.MaxImageUploadSize}}"));
+        Parsley.addValidator("fileMaxMegabytes", {
+            requirementType: "string",
+            validateString: function (value, requirement, field) {
+                var file = field.$element[0].files;
+                var maxMB = requirement * 1000000;
+
+                if (file.length == 0) {
+                    return true;
+                }
+                return file.length === 1 && file[0].size <= maxMB;
+            },
+            messages: {
+                en: "{{.Lang.ImageTooLarge}}&nbsp;"
+            }
+        }).addValidator("fileMimeTypes", {
+            requirementType: "string",
+            validateString: function (value, requirement, field) {
+                var file = field.$element[0].files;
+
+                if (file.length == 0) {
+                    return true;
+                }
+                var allowedMimeTypes = requirement.replace(/\s/g, "").split(",");
+                return allowedMimeTypes.indexOf(file[0].type) !== -1;
+            },
+            messages: {
+                en: "{{.Lang.ImageInvalid}}&nbsp;"
+            }
+        });
+
+        previewImage($("#photo"));
     });
 
 </script>

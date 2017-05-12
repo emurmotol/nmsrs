@@ -1,5 +1,5 @@
 $(function () {
-    var alert = $("#alert_container");
+    var alert_container = $("#alert_container");
 
     setCheckboxBoolValue = function (checkbox) {
         checkbox.on("change", function () {
@@ -14,7 +14,7 @@ $(function () {
             </button>
             <i class="fa fa-exclamation-triangle"></i> `+ error + `
         </div>`;
-        alert.html(err_markup);
+        alert_container.html(err_markup);
     }
 
     makeRequest = function (action, method, data) {
@@ -24,7 +24,7 @@ $(function () {
             data: data,
             dataType: "json",
             success: function (r) {
-                alert.empty();
+                alert_container.empty();
                 errors = r.errors;
 
                 if (errors.length != 0) {
@@ -100,7 +100,7 @@ $(function () {
             contentType: content_type,
             processData: false,
             success: function (r) {
-                alert.empty();
+                alert_container.empty();
 
                 if (r.data.error != null) {
                     addAlertErrorMarkup(r.data.error);
@@ -110,6 +110,16 @@ $(function () {
             }
         }).done(function (r) {
             if (r.status == 200) {
+                if (r.data.message != null) {
+                    var msg_markup = `<div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <i class="fa fa-check"></i> `+ r.data.message + `
+                    </div>`;
+                    alert_container.html(msg_markup);
+                }
+
                 if (r.data.redirect != null) {
                     location.href = r.data.redirect;
                 }

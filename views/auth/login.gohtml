@@ -18,9 +18,11 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
-        $("#login_form").parsley().on("form:submit", function (e) {
-            makeFormRequest(this.$element);
-            return false;
+        $("#login_form").parsley();
+        
+        $("#login_form").on("submit", function (e) {
+            e.preventDefault();
+            makeFormRequest(this);
         });
 
         Parsley.addAsyncValidator("checkEmailExists", function (xhr) {

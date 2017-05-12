@@ -39,6 +39,7 @@ func Register() *mux.Router {
 	registrants.Path("/{id}").Methods("DELETE").Handler(middlewares.Admin(registrant.Destroy))
 	registrants.Path("").Methods("GET").Handler(middlewares.Admin(registrant.Index))
 	registrants.Path("").Methods("POST").Handler(middlewares.Admin(registrant.Store))
+	router.Path("/check/email/taken").Methods("GET").Handler(middlewares.Admin(check.EmailTaken))
 
 	// TODO: Make api routes middleware
 	router.Path("/city-municipalities/{city_municipality_code}/barangays").Methods("GET").Handler(middlewares.Admin(api.Barangays))
@@ -51,7 +52,6 @@ func Register() *mux.Router {
 	router.Path("/unemployed-statuses").Methods("GET").Handler(middlewares.Admin(api.UnemployedStatuses))
 
 	// Auth routes
-	router.Path("/check/file/image/{field}").Methods("POST").Handler(middlewares.Auth(check.Image))
 	router.Path("/reports").Methods("GET").Handler(middlewares.Auth(reports.Index))
 	router.Path("/search").Methods("GET").Handler(middlewares.Auth(search.Index))
 	router.Path("/results").Methods("GET").Handler(middlewares.Auth(search.Results))
@@ -62,7 +62,7 @@ func Register() *mux.Router {
 	login.Path("").Methods("POST").Handler(middlewares.Web(auth.Login))
 	router.Path("/logout").Methods("GET").Handler(middlewares.Web(auth.Logout))
 	router.Path("/welcome").Methods("GET").Handler(middlewares.Web(home.Welcome))
-	router.Path("/check/email/exists").Methods("GET").Handler(middlewares.Web(auth.CheckEmailExists))
+	router.Path("/check/email/exists").Methods("GET").Handler(middlewares.Web(check.EmailExists))
 	router.Path("/").Methods("GET").Handler(middlewares.Web(home.Index))
 
 	router.NotFoundHandler = http.HandlerFunc(controllers.PageNotFound) // TODO: Only works when root/subrouter has path ""

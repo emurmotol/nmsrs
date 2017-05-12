@@ -27,10 +27,10 @@ var (
 
 type User struct {
 	ObjectID        bson.ObjectId `schema:"_id" json:"_id" bson:"_id,omitempty"`
-	Name            string        `schema:"name" json:"name" bson:"name,omitempty" validate:"required,min=2"`
-	Email           string        `schema:"email" json:"email" bson:"email,omitempty" validate:"required,email"`
-	Password        string        `schema:"password" json:"password" bson:"password,omitempty" validate:"required,min=6"`
-	ConfirmPassword string        `schema:"confirm_password" json:"confirm_password" bson:"-" validate:"required,eqfield=Password"`
+	Name            string        `schema:"name" json:"name" bson:"name,omitempty"`
+	Email           string        `schema:"email" json:"email" bson:"email,omitempty"`
+	Password        string        `schema:"password" json:"password" bson:"password,omitempty"`
+	ConfirmPassword string        `schema:"confirm_password" json:"confirm_password" bson:"-"`
 	IsAdmin         bool          `schema:"is_admin" json:"is_admin" bson:"isAdmin"`
 	PhotoIsSet      bool          `schema:"photo_is_set" json:"photo_is_set" bson:"photoIsSet"`
 	CreatedAt       int64         `schema:"created_at" json:"created_at" bson:"createdAt,omitempty"`

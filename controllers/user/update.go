@@ -3,11 +3,9 @@ package user
 import (
 	"net/http"
 
-	"github.com/emurmotol/nmsrs/helpers/img"
 	"github.com/emurmotol/nmsrs/helpers/lang"
 	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/helpers/tpl"
-	"github.com/emurmotol/nmsrs/helpers/vald"
 	"github.com/emurmotol/nmsrs/models/user"
 	"github.com/gorilla/mux"
 )
@@ -31,64 +29,28 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	photoFieldName := "photo"
-	file, _, err := r.FormFile(photoFieldName)
-	newFileInstance, handler, _ := r.FormFile(photoFieldName) // TODO: Duplicate instance of form file
-
-	if err != http.ErrMissingFile {
-		panic(err)
-	}
-	delete(r.PostForm, photoFieldName)
-	var profile user.Profile
-
-	if err := decoder.Decode(&profile, r.PostForm); err != nil {
-		panic(err)
-	}
-	errs := vald.StructHasError(profile)
-
-	id := mux.Vars(r)["id"]
-	sameAsOld, err := user.CheckEmailIfSameAsOld(id, profile.Email)
+	photo, _, err := r.FormFile(photoFieldName)
 
 	if err != nil {
-		res.JSON(w, res.Make{
-			Status: http.StatusForbidden,
-			Data:   "",
-		})
-		return
-	} // TODO: Validate on client
+		if err != http.ErrMissingFile {
+			panic(err)
+		}
+	}
+	delete(r.PostForm, photoFieldName)
+	var usr user.User
 
-	if !sameAsOld {
-		if err := user.CheckEmailIfTaken(profile.Email); err != nil {
-			if _, ok := errs["email"]; !ok {
-				errs["email"] = err.Error()
-			}
+	if err := decoder.Decode(&usr, r.PostForm); err != nil {
+		panic(err)
+	}
+	id := mux.Vars(r)["id"]
+
+	if photo != nil {
+		if err := user.SetPhoto(photo, id); err != nil {
+			panic(err)
 		}
 	}
 
-	if file != nil {
-		if err := img.Validate(newFileInstance, handler); err != nil {
-			if err == img.ErrImageNotValid || err == img.ErrImageTooLarge { // TODO: Add new custom err here
-				if _, ok := errs[photoFieldName]; !ok {
-					errs[photoFieldName] = err.Error()
-				}
-			} else {
-				panic(err)
-			}
-		} else {
-			if err := user.SetPhoto(file, id); err != nil {
-				panic(err)
-			}
-		}
-	}
-
-	if len(errs) != 0 {
-		res.JSON(w, res.Make{
-			Status: http.StatusForbidden,
-			Data:   errs,
-		})
-		return
-	}
-
-	if err := user.UpdateProfile(id, profile); err != nil {
+	if err := user.UpdateProfile(id, usr); err != nil {
 		panic(err)
 	}
 	res.JSON(w, res.Make{
@@ -104,23 +66,14 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		panic(err)
 	}
-	var resetPassword user.ResetPassword
+	var usr user.User
 
-	if err := decoder.Decode(&resetPassword, r.PostForm); err != nil {
+	if err := decoder.Decode(&usr, r.PostForm); err != nil {
 		panic(err)
-	}
-	errs := vald.StructHasError(resetPassword)
-
-	if len(errs) != 0 {
-		res.JSON(w, res.Make{
-			Status: http.StatusForbidden,
-			Data:   "",
-		})
-		return
 	}
 	id := mux.Vars(r)["id"]
 
-	if err := user.UpdatePassword(id, resetPassword); err != nil {
+	if err := user.UpdatePassword(id, usr); err != nil {
 		panic(err)
 	}
 	res.JSON(w, res.Make{

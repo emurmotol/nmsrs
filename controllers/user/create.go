@@ -4,11 +4,9 @@ import (
 	"net/http"
 
 	"github.com/emurmotol/nmsrs/helpers/flash"
-	"github.com/emurmotol/nmsrs/helpers/img"
 	"github.com/emurmotol/nmsrs/helpers/lang"
 	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/helpers/tpl"
-	"github.com/emurmotol/nmsrs/helpers/vald"
 	"github.com/emurmotol/nmsrs/models/user"
 )
 
@@ -25,11 +23,12 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	photoFieldName := "photo"
-	file, _, err := r.FormFile(photoFieldName)
-	newFileInstance, handler, _ := r.FormFile(photoFieldName) // TODO: Duplicate instance of form file
+	photo, _, err := r.FormFile(photoFieldName)
 
-	if err != http.ErrMissingFile {
-		panic(err)
+	if err != nil {
+		if err != http.ErrMissingFile {
+			panic(err)
+		}
 	}
 	delete(r.PostForm, photoFieldName)
 	var usr user.User
@@ -37,44 +36,17 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	if err := decoder.Decode(&usr, r.PostForm); err != nil {
 		panic(err)
 	}
-	errs := vald.StructHasError(usr)
-
-	if err := user.CheckEmailIfTaken(usr.Email); err != nil {
-		if _, ok := errs["email"]; !ok {
-			errs["email"] = err.Error()
-		}
-	}
-
-	if file != nil {
-		if err := img.Validate(newFileInstance, handler); err != nil {
-			if err == img.ErrImageNotValid || err == img.ErrImageTooLarge { // TODO: Add new custom err here
-				if _, ok := errs[photoFieldName]; !ok {
-					errs[photoFieldName] = err.Error()
-				}
-			} else {
-				panic(err)
-			}
-		}
-	}
-
-	if len(errs) != 0 {
-		res.JSON(w, res.Make{
-			Status: http.StatusForbidden,
-			Data:   "",
-		})
-		return
-	}
 	id, err := usr.Insert()
 
 	if err != nil {
 		panic(err)
 	}
 
-	if file != nil {
-		if err := user.SetPhoto(file, id); err != nil {
+	if photo != nil {
+		if err := user.SetPhoto(photo, id); err != nil {
 			panic(err)
 		}
-	} // TODO: Check file != again to capture user id
+	}
 
 	if err := flash.Set(r, w, lang.En["UserSuccessCreate"]); err != nil {
 		panic(err)
