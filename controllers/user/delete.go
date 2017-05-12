@@ -33,7 +33,7 @@ func Destroy(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := flash.Set(r, w, lang.En["user_success_delete"]); err != nil {
+	if err := flash.Set(r, w, lang.En["UserSuccessDelete"]); err != nil {
 		panic(err)
 	}
 	res.JSON(w, res.Make{
@@ -73,7 +73,7 @@ func DestroyMany(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	if err := flash.Set(r, w, lang.En["users_success_delete"]); err != nil {
+	if err := flash.Set(r, w, lang.En["UsersSuccessDelete"]); err != nil {
 		panic(err)
 	}
 	res.JSON(w, res.Make{

@@ -94,7 +94,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"message": lang.En["user_success_update"],
+			"message": lang.En["UserSuccessUpdate"],
 		},
 	})
 	return
@@ -126,7 +126,7 @@ func ResetPassword(w http.ResponseWriter, r *http.Request) {
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"message": lang.En["password_success_update"],
+			"message": lang.En["PasswordSuccessUpdate"],
 		},
 	})
 	return

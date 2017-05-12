@@ -40,7 +40,7 @@ func Image(w http.ResponseWriter, r *http.Request) {
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]string{
-			"message": lang.En["image_valid"],
+			"message": lang.En["ImageValid"],
 		},
 	})
 	return

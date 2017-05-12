@@ -76,7 +76,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 		}
 	} // TODO: Check file != again to capture user id
 
-	if err := flash.Set(r, w, lang.En["user_success_create"]); err != nil {
+	if err := flash.Set(r, w, lang.En["UserSuccessCreate"]); err != nil {
 		panic(err)
 	}
 	res.JSON(w, res.Make{

@@ -68,7 +68,7 @@ func IP() string {
 	}
 
 	if SvrEnvironment == "production" {
-		panic(lang.En["network_not_present"])
+		panic(lang.En["NetworkNotPresent"])
 	}
 	return "localhost"
 }

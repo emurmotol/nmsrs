@@ -12,7 +12,7 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="photo">Photo</label><br>
-                        <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" class="img-resopnsive img-rounded"
+                        <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" data-default="{{.Config.Default.UserPhoto}}" class="img-resopnsive img-rounded"
                             id="preview" height="160" alt="Default">
                         <input type="file" class="form-control" name="photo" id="photo">
                     </div>

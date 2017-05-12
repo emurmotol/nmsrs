@@ -108,7 +108,7 @@ func GetAuthID(w http.ResponseWriter, r *http.Request) string {
 		claims, ok := token.Claims.(jwt.MapClaims)
 
 		if !ok && !token.Valid {
-			panic(lang.En["token_invalid"])
+			panic(lang.En["TokenInvalid"])
 		}
 
 		if claims["id"] != nil {

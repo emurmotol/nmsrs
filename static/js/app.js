@@ -7,56 +7,6 @@ $(function () {
         });
     }
 
-    removeFormErrorMarkup = function (k) {
-        var elem = null;
-
-        if ($("#" + k).length) {
-            elem = $("#" + k);
-        } else {
-            elem = $(`input[name=` + k + `]`);
-        }
-        var fp = null;
-
-        if (elem.prop("type") == "radio") {
-            fp = elem.parent().parent().parent();
-        } else {
-            fp = elem.parent();
-        }
-
-        if (fp.hasClass("has-error")) {
-            fp.removeClass("has-error");
-        }
-
-        if (fp.find("span.help-block").get().length == 1) {
-            fp.find("span.help-block").remove();
-        }
-    }
-
-    addFormErrorMarkup = function (k, message) {
-        var elem = null;
-
-        if ($("#" + k).length) {
-            elem = $("#" + k);
-        } else {
-            elem = $(`input[name=` + k + `]`);
-        }
-        var fp = null;
-
-        if (elem.prop("type") == "radio") {
-            fp = elem.parent().parent().parent();
-        } else {
-            fp = elem.parent();
-        }
-
-        if (!fp.hasClass("has-error")) {
-            fp.addClass("has-error");
-        }
-
-        if (fp.find("span.help-block").get().length == 0) {
-            fp.append(`<span class="help-block">` + message + `</span >`);
-        }
-    }
-
     addAlertErrorMarkup = function (error) {
         var err_markup = `<div class="alert alert-danger alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -97,16 +47,16 @@ $(function () {
         });
     }
 
-    validateImage = function (elem, max_upload_size) {
+    previewImage = function (elem) {
         elem.on("change", function () {
-            checkFileRequest("/check/file/image/" + $(this)[0].id, "POST", this)
             var preview = $(this).parent().find("#preview");
-            var old_photo = preview.attr("src");
+            var default_photo = preview.data("default");
+            var maxMB = parseInt($(this).attr("data-parsley-file-max-megabytes")) * 1000000;
 
-            if (this.files[0].size > max_upload_size) {
-                preview.attr("src", old_photo);
+            if (this.files[0].size > maxMB) {
+                preview.attr("src", default_photo);
                 return
-            } // TODO: First check file size and on server side
+            } // TODO: 2nd check file size
 
             if (this.files && this.files[0]) {
                 var reader = new FileReader();
@@ -115,38 +65,13 @@ $(function () {
                     preview.attr("src", e.target.result);
 
                     preview.on("error", function () {
-                        preview.attr("src", old_photo);
+                        preview.attr("src", default_photo);
                     });
                 }
                 reader.readAsDataURL(photo.files[0]);
             } else {
-                preview.attr("src", old_photo);
+                preview.attr("src", default_photo);
             }
-        });
-    }
-
-    checkFileRequest = function (url, method, input) {
-        var data = new FormData();
-        data.append(input.id, input.files[0]);
-
-        $.ajax({
-            url: url,
-            type: method,
-            data: data,
-            dataType: "json",
-            contentType: false,
-            processData: false,
-            success: function (r) {
-                alert.empty();
-                
-                if (r.data.error != null) {
-                    addAlertErrorMarkup(r.data.error);
-                }
-            }, error: function (r) {
-                console.log(r);
-            }
-        }).done(function (r) {
-            console.log(r);
         });
     }
 

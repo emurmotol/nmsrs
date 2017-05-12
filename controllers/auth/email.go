@@ -13,7 +13,7 @@ func CheckEmailExists(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		js, err := json.Marshal(map[string]string{
-			"error": lang.En["email_not_recognized"],
+			"error": lang.En["EmailNotRecognized"],
 		})
 
 		if err != nil {

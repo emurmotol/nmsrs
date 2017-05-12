@@ -7,8 +7,8 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="photo">Photo</label><br>
-                        <img src="{{.Config.Default.UserPhoto}}" class="img-resopnsive img-rounded" id="preview" height="160" alt="Default">
-                        <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change">
+                        <img src="{{.Config.Default.UserPhoto}}" data-default="{{.Config.Default.UserPhoto}}" class="img-resopnsive img-rounded" id="preview" height="160" alt="Default">
+                        <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-file-max-megabytes="{{.Config.Default.MaxImageUploadSize}}" data-parsley-file-mime-types="image/jpeg, image/png, image/gif">
                     </div>
                     <div class="form-group">
                         <label for="name">Name <span class="asterisk text-danger">*</span></label>
@@ -50,7 +50,39 @@
             return false;
         });
 
-        // validateImage($("#photo"), parseInt("{{.Config.Default.MaxImageUploadSize}}"));
+        Parsley.addValidator("fileMaxMegabytes", {
+            requirementType: "string",
+            validateString: function (value, requirement, field) {
+                var file = field.$element[0].files;
+                var maxMB = requirement * 1000000;
+
+                if (file.length == 0) {
+                    return true;
+                }
+                return file.length === 1 && file[0].size <= maxMB;
+            },
+            messages: {
+                en: "{{.Lang.ImageTooLarge}}"
+            }
+        });
+
+        Parsley.addValidator("fileMimeTypes", {
+            requirementType: "string",
+            validateString: function (value, requirement, field) {
+                var file = field.$element[0].files;
+
+                if (file.length == 0) {
+                    return true;
+                }
+                var allowedMimeTypes = requirement.replace(/\s/g, "").split(",");
+                return allowedMimeTypes.indexOf(file[0].type) !== -1;
+            },
+            messages: {
+                en: "{{.Lang.ImageInvalid}}"
+            }
+        });
+
+        previewImage($("#photo"));
         setCheckboxBoolValue($("#is_admin"));
     });
 

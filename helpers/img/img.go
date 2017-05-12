@@ -22,8 +22,8 @@ import (
 
 var (
 	mimes            = []string{"image/jpeg", "image/png", "image/gif"}
-	ErrImageNotValid = errors.New(lang.En["image_invalid"])
-	ErrImageTooLarge = fmt.Errorf(lang.En["image_too_large"], str.BytesForHumans(env.DefaultMaxImageUploadSize))
+	ErrImageNotValid = errors.New(lang.En["ImageInvalid"])
+	ErrImageTooLarge = fmt.Errorf(lang.En["ImageTooLarge"], str.BytesForHumans(env.DefaultMaxImageUploadSize))
 )
 
 func Validate(newFileInstance multipart.File, handler *multipart.FileHeader) error {

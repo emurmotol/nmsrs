@@ -5,8 +5,6 @@ import (
 	"time"
 
 	"os"
-
-	"github.com/emurmotol/nmsrs/helpers/fi"
 )
 
 var (
@@ -84,7 +82,7 @@ func init() {
 	// Default
 	flag.StringVar(&DefaultUserPhoto, "DefaultUserPhoto", "/img/user/default.jpg", "Default user photo")
 	flag.StringVar(&DefaultRegistrantPhoto, "DefaultRegistrantPhoto", "/img/registrant/default.jpg", "Default registrant photo")
-	flag.Int64Var(&DefaultMaxImageUploadSize, "DefaultMaxImageUploadSize", int64(1*fi.MB), "Default max image upload size")
+	flag.Int64Var(&DefaultMaxImageUploadSize, "DefaultMaxImageUploadSize", 1, "Default max image upload size (MB)")
 
 	// Key
 	flag.StringVar(&KeyPrivate, "KeyPrivate", "keys/.ssh/app.rsa", "Key private rsa")  // openssl genrsa -out app.rsa keysize

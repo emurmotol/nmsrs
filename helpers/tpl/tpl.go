@@ -30,7 +30,7 @@ func init() {
 func ParseAllAndRender(w http.ResponseWriter, layout string, name string, data map[string]interface{}) error {
 	tpl, ok := templates[layout+":"+name]
 	if !ok {
-		return fmt.Errorf(lang.En["template_not_found"], name)
+		return fmt.Errorf(lang.En["TemplateNotFound"], name)
 	}
 
 	if err := tpl.ExecuteTemplate(w, layout, data); err != nil {
@@ -50,6 +50,7 @@ func Render(w http.ResponseWriter, r *http.Request, layout string, name string, 
 	t := template.New(fmt.Sprintf("%s:%s", layout, name)).Funcs(funcMap)
 	tpl := template.Must(t.ParseFiles(layoutFile, tplFile))
 
+	data["Lang"] = lang.En
 	data["Config"] = env.Config()
 	data["Request"] = r
 	f, err := flash.Get(r, w)

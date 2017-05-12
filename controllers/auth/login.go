@@ -42,7 +42,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		res.JSON(w, res.Make{
 			Status: http.StatusForbidden,
 			Data: map[string]string{
-				"error": lang.En["wrong_credentials"],
+				"error": lang.En["WrongCredentials"],
 			},
 		})
 		return

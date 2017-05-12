@@ -20,8 +20,8 @@ import (
 )
 
 var (
-	ErrActionNotPermitted = errors.New(lang.En["action_not_permitted"])
-	ErrEmailTaken         = errors.New(lang.En["email_taken"])
+	ErrActionNotPermitted = errors.New(lang.En["ActionNotPermitted"])
+	ErrEmailTaken         = errors.New(lang.En["EmailTaken"])
 	contentDir            = "content/users"
 )
 
