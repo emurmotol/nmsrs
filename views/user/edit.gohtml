@@ -1,7 +1,7 @@
 {{define "content"}}
 <div class="panel panel-info">
     <div class="panel-heading clearfix">
-        <span class="pull-left"><i class="fa fa-user-o"></i> Profile</span>
+        <span class="pull-left"><i class="fa fa-pencil"></i> Edit Profile</span>
         <span class="pull-right">
             <a href="/users/{{.User.ObjectID.Hex}}" class="btn btn-primary btn-xs">View profile</a>
         </span>
@@ -12,17 +12,21 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="photo">Photo</label><br>
-                        <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" data-default="{{.Config.Default.UserPhoto}}" class="img-resopnsive img-rounded"
-                            id="preview" height="160" alt="Default">
-                        <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-file-max-megabytes="{{.Config.Default.MaxImageUploadSize}}" data-parsley-file-mime-types="image/jpeg, image/png, image/gif">
+                        <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" data-default="{{.Config.Default.UserPhoto}}"
+                            class="img-resopnsive img-rounded" id="preview" height="160" alt="Default">
+                        <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-file-max-megabytes="{{.Config.Default.MaxImageUploadSize}}"
+                            data-parsley-file-mime-types="image/jpeg, image/png, image/gif">
                     </div>
                     <div class="form-group">
                         <label for="name">Name <span class="asterisk text-danger">*</span></label>
-                        <input type="text" class="form-control" name="name" id="name" value="{{.User.Name}}" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="focusout">
+                        <input type="text" class="form-control" name="name" id="name" value="{{.User.Name}}" data-parsley-required="true" data-parsley-minlength="2"
+                            data-parsley-trigger="change">
                     </div>
                     <div class="form-group">
                         <label for="email">Email <span class="asterisk text-danger">*</span></label>
-                        <input type="text" class="form-control" name="email" id="email" value="{{.User.Email}}" data-parsley-required="true" data-parsley-type="email" data-parsley-whitespace="trim" data-parsley-trigger="focusout" data-parsley-remote data-parsley-remote-validator="checkEmailTaken" data-parsley-remote-message="">
+                        <input type="text" class="form-control" name="email" id="email" value="{{.User.Email}}" data-parsley-required="true" data-parsley-type="email"
+                            data-parsley-whitespace="trim" data-parsley-trigger="change" data-parsley-remote data-parsley-remote-validator="checkEmailTakenOrSameAsOld"
+                            data-parsley-remote-message="">
                     </div>
                     <div class="form-group">
                         <div class="checkbox">
@@ -47,11 +51,13 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="password">New password <span class="asterisk text-danger">*</span></label>
-                        <input type="password" class="form-control" name="password" id="password" data-parsley-required="true" data-parsley-minlength="6" data-parsley-trigger="focusout">
+                        <input type="password" class="form-control" name="password" id="password" data-parsley-required="true" data-parsley-minlength="6"
+                            data-parsley-trigger="focusout">
                     </div>
                     <div class="form-group">
                         <label for="confirm_password">Confirm password <span class="asterisk text-danger">*</span></label>
-                        <input type="password" class="form-control" name="confirm_password" id="confirm_password" data-parsley-required="true" data-parsley-equalto="#password" data-parsley-trigger="focusout">
+                        <input type="password" class="form-control" name="confirm_password" id="confirm_password" data-parsley-required="true" data-parsley-equalto="#password"
+                            data-parsley-trigger="focusout">
                     </div>
                 </div>
             </div>
@@ -77,24 +83,10 @@
             this.reset();
         });
 
-        Parsley.addValidator("fileMaxMegabytes", {
+        Parsley.addValidator("fileMimeTypes", {
             requirementType: "string",
-            validateString: function (value, requirement, field) {
-                var file = field.$element[0].files;
-                var maxMB = requirement * 1000000;
-
-                if (file.length == 0) {
-                    return true;
-                }
-                return file.length === 1 && file[0].size <= maxMB;
-            },
-            messages: {
-                en: "{{.Lang.ImageTooLarge}}&nbsp;"
-            }
-        }).addValidator("fileMimeTypes", {
-            requirementType: "string",
-            validateString: function (value, requirement, field) {
-                var file = field.$element[0].files;
+            validateString: function (value, requirement, instance) {
+                var file = instance.$element[0].files;
 
                 if (file.length == 0) {
                     return true;
@@ -103,9 +95,37 @@
                 return allowedMimeTypes.indexOf(file[0].type) !== -1;
             },
             messages: {
-                en: "{{.Lang.ImageInvalid}}&nbsp;"
-            }
+                en: "{{.Lang.ImageInvalid}}"
+            },
+            priority: 2
+        }).addValidator("fileMaxMegabytes", {
+            requirementType: "string",
+            validateString: function (value, requirement, instance) {
+                var file = instance.$element[0].files;
+                var maxMB = requirement * 1000000;
+
+                if (file.length == 0) {
+                    return true;
+                }
+                return file.length === 1 && file[0].size <= maxMB;
+            },
+            messages: {
+                en: "{{.Lang.ImageTooLarge}}"
+            },
+            priority: 1
         });
+
+        Parsley.addAsyncValidator("checkEmailTakenOrSameAsOld", function (xhr) {
+            if (404 === xhr.status) {
+                r = $.parseJSON(xhr.responseText);
+                this.addError("remote", { message: r.error });
+            }
+            return 200 === xhr.status;
+        }, "/check/email/taken/or/same/as/old", {
+                "data": {
+                    "id": "{{.User.ObjectID.Hex}}"
+                }
+            });
 
         previewImage($("#photo"));
     });

@@ -9,9 +9,9 @@ import (
 )
 
 func EmailExists(w http.ResponseWriter, r *http.Request) {
-	_, err := user.FindByEmail(r.URL.Query().Get("email"))
+	yes := user.IsEmailTaken(r.URL.Query().Get("email"))
 
-	if err != nil {
+	if !yes {
 		js, err := json.Marshal(map[string]string{
 			"error": lang.En["EmailNotRecognized"],
 		})
@@ -29,9 +29,9 @@ func EmailExists(w http.ResponseWriter, r *http.Request) {
 }
 
 func EmailTaken(w http.ResponseWriter, r *http.Request) {
-	usr, err := user.FindByEmail(r.URL.Query().Get("email"))
+	yes := user.IsEmailTaken(r.URL.Query().Get("email"))
 
-	if err == nil && usr != nil {
+	if yes {
 		js, err := json.Marshal(map[string]string{
 			"error": lang.En["EmailTaken"],
 		})
@@ -43,6 +43,34 @@ func EmailTaken(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write(js)
 		return
+	}
+	w.WriteHeader(http.StatusOK)
+	return
+}
+
+func EmailTakenOrSameAsOld(w http.ResponseWriter, r *http.Request) {
+	sameAsOld, err := user.IsEmailSameAsOld(r.URL.Query().Get("id"), r.URL.Query().Get("email"))
+
+	if err != nil {
+		panic(err)
+	}
+
+	if !sameAsOld {
+		yes := user.IsEmailTaken(r.URL.Query().Get("email"))
+
+		if yes {
+			js, err := json.Marshal(map[string]string{
+				"error": lang.En["EmailTaken"],
+			})
+
+			if err != nil {
+				panic(err)
+			}
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusNotFound)
+			w.Write(js)
+			return
+		}
 	}
 	w.WriteHeader(http.StatusOK)
 	return

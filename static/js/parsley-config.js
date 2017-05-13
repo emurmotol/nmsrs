@@ -1,5 +1,5 @@
 window.ParsleyConfig = {
-    successClass: "has-success",
+    successClass: "", // TODO: Find a way to remove successClass on form:success "has-success"
     errorClass: "has-error",
     classHandler: function (elem) {
         return elem.$element.closest(".form-group");

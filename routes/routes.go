@@ -40,6 +40,7 @@ func Register() *mux.Router {
 	registrants.Path("").Methods("GET").Handler(middlewares.Admin(registrant.Index))
 	registrants.Path("").Methods("POST").Handler(middlewares.Admin(registrant.Store))
 	router.Path("/check/email/taken").Methods("GET").Handler(middlewares.Admin(check.EmailTaken))
+	router.Path("/check/email/taken/or/same/as/old").Methods("GET").Handler(middlewares.Admin(check.EmailTakenOrSameAsOld))
 
 	// TODO: Make api routes middleware
 	router.Path("/city-municipalities/{city_municipality_code}/barangays").Methods("GET").Handler(middlewares.Admin(api.Barangays))

@@ -55,24 +55,10 @@
             makeFormRequest(this);
         });
 
-        Parsley.addValidator("fileMaxMegabytes", {
+        Parsley.addValidator("fileMimeTypes", {
             requirementType: "string",
-            validateString: function (value, requirement, field) {
-                var file = field.$element[0].files;
-                var maxMB = requirement * 1000000;
-
-                if (file.length == 0) {
-                    return true;
-                }
-                return file.length === 1 && file[0].size <= maxMB;
-            },
-            messages: {
-                en: "{{.Lang.ImageTooLarge}}&nbsp;"
-            }
-        }).addValidator("fileMimeTypes", {
-            requirementType: "string",
-            validateString: function (value, requirement, field) {
-                var file = field.$element[0].files;
+            validateString: function (value, requirement, instance) {
+                var file = instance.$element[0].files;
 
                 if (file.length == 0) {
                     return true;
@@ -81,17 +67,33 @@
                 return allowedMimeTypes.indexOf(file[0].type) !== -1;
             },
             messages: {
-                en: "{{.Lang.ImageInvalid}}&nbsp;"
-            }
-        })
-        
+                en: "{{.Lang.ImageInvalid}}"
+            },
+            priority: 2
+        }).addValidator("fileMaxMegabytes", {
+            requirementType: "string",
+            validateString: function (value, requirement, instance) {
+                var file = instance.$element[0].files;
+                var maxMB = requirement * 1000000;
+
+                if (file.length == 0) {
+                    return true;
+                }
+                return file.length === 1 && file[0].size <= maxMB;
+            },
+            messages: {
+                en: "{{.Lang.ImageTooLarge}}"
+            },
+            priority: 1
+        });
+
         Parsley.addAsyncValidator("checkEmailTaken", function (xhr) {
             if (404 === xhr.status) {
                 r = $.parseJSON(xhr.responseText);
                 this.addError("remote", { message: r.error });
             }
             return 200 === xhr.status;
-        }, "/check/email/taken" + $("#email").val());
+        }, "/check/email/taken");
 
         previewImage($("#photo"));
         setCheckboxBoolValue($("#is_admin"));
