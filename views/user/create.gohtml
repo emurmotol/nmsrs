@@ -5,6 +5,7 @@
         <form action="/users" method="POST" id="create_user_form" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-4">
+                    <div class="form-alert"></div>
                     <div class="form-group">
                         <label for="photo">Photo</label><br>
                         <img src="{{.Config.Default.UserPhoto}}" data-default-photo="{{.Config.Default.UserPhoto}}" class="img-resopnsive img-rounded"
@@ -52,7 +53,7 @@
 
         $("#create_user_form").on("submit", function (e) {
             e.preventDefault();
-            var data = new FormData(form);
+            var data = new FormData(this);
             makeFormRequest(this, data);
         });
 

@@ -1,23 +1,13 @@
 $(function () {
-    var alert_container = $("#alert_container");
-
     setCheckboxBoolValue = function (checkbox) {
         checkbox.on("change", function () {
             $(this).val($(this).is(":checked"));
         });
     }
 
-    addAlertErrorMarkup = function (error) {
-        var err_markup = `<div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <i class="fa fa-exclamation-triangle"></i> `+ error + `
-        </div>`;
-        alert_container.html(err_markup);
-    }
-
     makeRequest = function (action, method, data) {
+        var alert_container = $("#alert_container"); // TODO: Deleted on markup
+
         var call = $.ajax({
             url: action,
             type: method,
@@ -28,7 +18,13 @@ $(function () {
                 errors = r.errors;
 
                 if (errors.length != 0) {
-                    addAlertErrorMarkup(errors);
+                    var err_markup = `<div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <i class="fa fa-exclamation-triangle"></i> `+ errors + `
+                    </div>`;
+                    alert_container.html(err_markup);
                 }
             }, error: function (r) {
                 console.log(r);
@@ -76,6 +72,7 @@ $(function () {
     }
 
     makeFormRequest = function (instance, data) {
+        var form_alert = $(instance).find(".form-alert");
         var submit_button = $(instance).find(":submit");
         var old_text = submit_button.text();
         var content_type = null;
@@ -97,10 +94,16 @@ $(function () {
             contentType: content_type,
             processData: false,
             success: function (r) {
-                alert_container.empty();
+                form_alert.empty();
 
                 if (r.data.error != null) {
-                    addAlertErrorMarkup(r.data.error);
+                    var err_markup = `<div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <i class="fa fa-exclamation-triangle"></i> `+ r.data.error + `
+                    </div>`;
+                    form_alert.html(err_markup);
                 }
             }, error: function (r) {
                 console.log(r);
@@ -114,7 +117,7 @@ $(function () {
                         </button>
                         <i class="fa fa-check"></i> `+ r.data.message + `
                     </div>`;
-                    alert_container.html(msg_markup);
+                    form_alert.html(msg_markup);
                 }
 
                 if (r.data.redirect != null) {

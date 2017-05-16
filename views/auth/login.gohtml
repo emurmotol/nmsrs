@@ -3,7 +3,7 @@
     <a href="/">
         <img src="/img/logo/dole/1144x1024.png" class="img-responsive img-logo center-block" alt="DOLE Logo">
     </a>
-    <div id="alert_container"></div>
+    <div class="form-alert"></div>
     <div class="form-group">
         <input type="text" class="form-control input-lg" name="email" id="email" placeholder="Email address" data-parsley-type="email"
             data-parsley-required="true" data-parsley-remote data-parsley-remote-validator="checkEmailExists" data-parsley-trigger="focusout"
@@ -19,12 +19,13 @@
 <script>
     $(function () {
         $("#email").focus();
-        
+
         $("#login_form").parsley();
-        
+
         $("#login_form").on("submit", function (e) {
             e.preventDefault();
-            makeFormRequest(this);
+            data = $(this).serialize();
+            makeFormRequest(this, data);
         });
 
         Parsley.addAsyncValidator("checkEmailExists", function (xhr) {

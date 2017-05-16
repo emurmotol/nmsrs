@@ -10,9 +10,10 @@
         <form action="/users/{{.User.ObjectID.Hex}}" method="PUT" id="edit_user_form" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-4">
+                    <div class="form-alert"></div>
                     <div class="form-group">
                         <label for="photo">Photo</label><br>
-                        <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" data-default-photo="{{.Config.Default.UserPhoto}}"
+                        <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" data-default-photo="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}"
                             class="img-resopnsive img-rounded" id="preview" height="160" alt="Default">
                         <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-file-max-megabytes="{{.Config.Default.MaxImageUploadSize}}"
                             data-parsley-file-mime-types="image/jpeg, image/png, image/gif">
@@ -49,6 +50,7 @@
         <form action="/users/{{.User.ObjectID.Hex}}/reset-password" method="POST" id="reset_password_form">
             <div class="row">
                 <div class="col-lg-4">
+                    <div class="form-alert"></div>
                     <div class="form-group">
                         <label for="password">New password <span class="asterisk text-danger">*</span></label>
                         <input type="password" class="form-control" name="password" id="password" data-parsley-required="true" data-parsley-minlength="6"
@@ -72,7 +74,7 @@
 
         $("#edit_user_form").on("submit", function (e) {
             e.preventDefault();
-            var data = new FormData(form)
+            var data = new FormData(this)
             makeFormRequest(this, data);
         });
 
