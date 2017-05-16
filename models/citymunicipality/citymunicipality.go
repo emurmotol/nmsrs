@@ -52,12 +52,12 @@ func Search(query interface{}) ([]interface{}, error) {
 			},
 		},
 		bson.M{
+			"$match": query,
+		},
+		bson.M{
 			"$sort": bson.M{
 				"desc": 1,
 			},
-		},
-		bson.M{
-			"$match": query,
 		},
 	}
 
