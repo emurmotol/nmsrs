@@ -10,8 +10,8 @@
                         <label for="photo">Photo</label><br>
                         <img src="{{.Config.Default.UserPhoto}}" data-default-photo="{{.Config.Default.UserPhoto}}" class="img-resopnsive img-rounded"
                             id="preview" height="160" alt="Default">
-                        <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-file-max-megabytes="{{.Config.Default.MaxImageUploadSize}}"
-                            data-parsley-file-mime-types="image/jpeg, image/png, image/gif">
+                        <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-maxmegabytes="{{.Config.Default.MaxImageUploadSize}}"
+                            data-parsley-mime-types="image/jpeg, image/png, image/gif">
                     </div>
                     <div class="form-group">
                         <label for="name">Name <span class="asterisk text-danger">*</span></label>
@@ -57,7 +57,7 @@
             makeFormRequest(this, data);
         });
 
-        Parsley.addValidator("fileMimeTypes", {
+        Parsley.addValidator("mimeTypes", {
             requirementType: "string",
             validateString: function (value, requirement, instance) {
                 var file = instance.$element[0].files;
@@ -72,7 +72,7 @@
                 en: "{{.Lang.ImageInvalid}}"
             },
             priority: 2
-        }).addValidator("fileMaxMegabytes", {
+        }).addValidator("maxmegabytes", {
             requirementType: "string",
             validateString: function (value, requirement, instance) {
                 var file = instance.$element[0].files;

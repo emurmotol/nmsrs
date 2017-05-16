@@ -47,24 +47,23 @@ $(function () {
         elem.on("change", function () {
             var preview = $(this).parent().find("#preview");
             var default_photo = preview.data("default-photo");
-            var maxMB = parseInt($(this).attr("data-parsley-file-max-megabytes")) * 1000000;
-
-            if (this.files[0].size > maxMB) {
-                preview.attr("src", default_photo);
-                return
-            } // TODO: 2nd check file size
+            var maxMB = parseInt($(this).attr("data-parsley-maxmegabytes")) * 1000000;
 
             if (this.files && this.files[0]) {
-                var reader = new FileReader();
+                if (this.files[0].size > maxMB) {
+                    preview.attr("src", default_photo);
+                } else {
+                    var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    preview.attr("src", e.target.result);
+                    reader.onload = function (e) {
+                        preview.attr("src", e.target.result);
 
-                    preview.on("error", function () {
-                        preview.attr("src", default_photo);
-                    });
+                        preview.on("error", function () {
+                            preview.attr("src", default_photo);
+                        });
+                    }
+                    reader.readAsDataURL(photo.files[0]);
                 }
-                reader.readAsDataURL(photo.files[0]);
             } else {
                 preview.attr("src", default_photo);
             }
