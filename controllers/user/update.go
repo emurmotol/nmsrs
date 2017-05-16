@@ -44,14 +44,14 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	}
 	id := mux.Vars(r)["id"]
 
-	if photo != nil {
-		if err := user.SetPhoto(photo, id); err != nil {
-			panic(err)
-		}
-	}
-
 	if err := user.UpdateProfile(id, usr); err != nil {
 		panic(err)
+	}
+
+	if photo != nil {
+		if err := user.SetPhoto(id, photo); err != nil {
+			panic(err)
+		}
 	}
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,

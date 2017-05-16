@@ -6,5 +6,5 @@ window.ParsleyConfig = {
     },
     errorsContainer: function (elem) { },
     errorsWrapper: `<span class="help-block"></span>`,
-    errorTemplate: '<span></span>'
+    errorTemplate: "<span></span>"
 };

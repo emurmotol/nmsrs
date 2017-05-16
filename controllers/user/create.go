@@ -43,7 +43,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if photo != nil {
-		if err := user.SetPhoto(photo, id); err != nil {
+		if err := user.SetPhoto(id, photo); err != nil {
 			panic(err)
 		}
 	}

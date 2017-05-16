@@ -12,7 +12,7 @@ var En = map[string]string{
 	"PasswordSuccessUpdate": "Password has been successfully updated.",
 	"ImageValid":            "Image is valid.",
 	"ImageInvalid":          "We only support PNG, GIF, or JPG pictures.",
-	"ImageTooLarge":         "Please select a picture smaller than %s MB.",
+	"ImageTooLarge":         "Please select a picture smaller than or equal to %s MB.",
 	"TokenInvalid":          "Invalid JWT token.",
 	"ObjectIdInvalid":       "Invalid object ID.",
 	"ActionNotPermitted":    "Action not permitted.",

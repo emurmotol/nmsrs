@@ -11,7 +11,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-func SetPhoto(file multipart.File, id string) error {
+func SetPhoto(id string, file multipart.File) error {
 	if IsAdminUser(id) {
 		return ErrActionNotPermitted
 	}
