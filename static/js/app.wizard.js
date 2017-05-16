@@ -1,8 +1,4 @@
 $(function () {
-    $.fn.select2.defaults.set("theme", "bootstrap");
-    var frag = $.url("#");
-    // TODO: Navigate on page
-
     nextStep = function () {
         var li = $(".wizard .nav-pills li.active");
         li.next().removeClass("disabled");
