@@ -75,11 +75,11 @@ $(function () {
         });
     }
 
-    makeFormRequest = function (form, data) {
-        var submit_button = $(form).find(":submit");
+    makeFormRequest = function (instance, data) {
+        var submit_button = $(instance).find(":submit");
         var old_text = submit_button.text();
         var content_type = null;
-        var enctype = $(form).prop("enctype");
+        var enctype = $(instance).prop("enctype");
         submit_button.prop("disabled", true);
         submit_button.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> ` + submit_button.data("loading-text"));
 
@@ -90,8 +90,8 @@ $(function () {
         }
 
         var call = $.ajax({
-            url: $(form).attr("action"),
-            type: $(form).attr("method"),
+            url: $(instance).attr("action"),
+            type: $(instance).attr("method"),
             data: data,
             dataType: "json",
             contentType: content_type,
@@ -121,7 +121,7 @@ $(function () {
                     location.href = r.data.redirect;
                 }
 
-                $(form).find(":file").each(function () {
+                $(instance).find(":file").each(function () {
                     $(this).val("");
                 });
             }
