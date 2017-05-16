@@ -50,7 +50,7 @@ $(function () {
     previewImage = function (elem) {
         elem.on("change", function () {
             var preview = $(this).parent().find("#preview");
-            var default_photo = preview.data("default");
+            var default_photo = preview.data("default-photo");
             var maxMB = parseInt($(this).attr("data-parsley-file-max-megabytes")) * 1000000;
 
             if (this.files[0].size > maxMB) {
@@ -75,21 +75,18 @@ $(function () {
         });
     }
 
-    makeFormRequest = function (form) {
+    makeFormRequest = function (form, data) {
         var submit_button = $(form).find(":submit");
         var old_text = submit_button.text();
         var content_type = null;
-        var data = null;
         var enctype = $(form).prop("enctype");
         submit_button.prop("disabled", true);
         submit_button.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> ` + submit_button.data("loading-text"));
 
         if (enctype == "multipart/form-data") {
             content_type = false;
-            data = new FormData(form);
         } else {
             content_type = enctype;
-            data = $(form).serialize();
         }
 
         var call = $.ajax({

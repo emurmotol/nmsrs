@@ -7,7 +7,7 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="photo">Photo</label><br>
-                        <img src="{{.Config.Default.UserPhoto}}" data-default="{{.Config.Default.UserPhoto}}" class="img-resopnsive img-rounded"
+                        <img src="{{.Config.Default.UserPhoto}}" data-default-photo="{{.Config.Default.UserPhoto}}" class="img-resopnsive img-rounded"
                             id="preview" height="160" alt="Default">
                         <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-file-max-megabytes="{{.Config.Default.MaxImageUploadSize}}"
                             data-parsley-file-mime-types="image/jpeg, image/png, image/gif">
@@ -52,7 +52,8 @@
 
         $("#create_user_form").on("submit", function (e) {
             e.preventDefault();
-            makeFormRequest(this);
+            var data = new FormData(form);
+            makeFormRequest(this, data);
         });
 
         Parsley.addValidator("fileMimeTypes", {

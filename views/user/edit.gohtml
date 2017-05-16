@@ -12,7 +12,7 @@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label for="photo">Photo</label><br>
-                        <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" data-default="{{.Config.Default.UserPhoto}}"
+                        <img src="{{if .User.PhotoIsSet}}/users/{{.User.ObjectID.Hex}}/photo{{else}}{{.Config.Default.UserPhoto}}{{end}}" data-default-photo="{{.Config.Default.UserPhoto}}"
                             class="img-resopnsive img-rounded" id="preview" height="160" alt="Default">
                         <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-file-max-megabytes="{{.Config.Default.MaxImageUploadSize}}"
                             data-parsley-file-mime-types="image/jpeg, image/png, image/gif">
@@ -72,14 +72,16 @@
 
         $("#edit_user_form").on("submit", function (e) {
             e.preventDefault();
-            makeFormRequest(this);
+            var data = new FormData(form)
+            makeFormRequest(this, data);
         });
 
         $("#reset_password_form").parsley();
 
         $("#reset_password_form").on("submit", function (e) {
             e.preventDefault();
-            makeFormRequest(this);
+            data = $(this).serialize();
+            makeFormRequest(this, data);
             this.reset();
         });
 

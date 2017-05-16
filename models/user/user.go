@@ -32,7 +32,7 @@ type User struct {
 	Password        string        `schema:"password" json:"password" bson:"password,omitempty"`
 	ConfirmPassword string        `schema:"confirm_password" json:"confirm_password" bson:"-"`
 	IsAdmin         bool          `schema:"is_admin" json:"is_admin" bson:"isAdmin"`
-	PhotoIsSet      bool          `schema:"photo_is_set" json:"photo_is_set" bson:"photoIsSet"`
+	PhotoIsSet      bool          `schema:"photo_is_set" json:"photo_is_set" bson:"photoIsSet,omitempty"`
 	CreatedAt       int64         `schema:"created_at" json:"created_at" bson:"createdAt,omitempty"`
 	UpdatedAt       int64         `schema:"updated_at" json:"updated_at" bson:"updatedAt,omitempty"`
 }

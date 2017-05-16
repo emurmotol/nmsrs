@@ -18,6 +18,8 @@
 {{end}} {{define "script"}}
 <script>
     $(function () {
+        $("#email").focus();
+        
         $("#login_form").parsley();
         
         $("#login_form").on("submit", function (e) {
