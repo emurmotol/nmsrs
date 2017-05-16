@@ -1,4 +1,4 @@
-package api
+package unemployedstatus
 
 import (
 	"net/http"
@@ -7,7 +7,7 @@ import (
 	"github.com/emurmotol/nmsrs/models/unemployedstatus"
 )
 
-func UnemployedStatuses(w http.ResponseWriter, r *http.Request) {
+func All(w http.ResponseWriter, r *http.Request) {
 	unEmpStats, err := unemployedstatus.All()
 
 	if err != nil {

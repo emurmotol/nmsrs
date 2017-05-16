@@ -1,4 +1,4 @@
-package api
+package religion
 
 import (
 	"net/http"
@@ -9,7 +9,7 @@ import (
 	"github.com/emurmotol/nmsrs/models/religion"
 )
 
-func Religions(w http.ResponseWriter, r *http.Request) {
+func All(w http.ResponseWriter, r *http.Request) {
 	religs, err := religion.Search(bson.M{
 		"name": bson.RegEx{
 			Pattern: r.URL.Query().Get("q"),

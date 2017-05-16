@@ -1,4 +1,4 @@
-package api
+package citymunicipality
 
 import (
 	"net/http"
@@ -9,7 +9,7 @@ import (
 	"github.com/emurmotol/nmsrs/models/citymunicipality"
 )
 
-func CityMunicipalities(w http.ResponseWriter, r *http.Request) {
+func All(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query().Get("q")
 	query := bson.M{
 		"$or": []bson.M{

@@ -2,7 +2,7 @@ $(function () {
     $("#preferred_occupation").select2({
         placeholder: "Select preferred occupation",
         ajax: {
-            url: "/positions",
+            url: "/api/positions",
             delay: 250,
             dataType: "json",
             data: function (params) {
@@ -27,7 +27,7 @@ $(function () {
     $("#language_spoken").select2({
         placeholder: "Select language",
         ajax: {
-            url: "/languages",
+            url: "/api/languages",
             delay: 250,
             dataType: "json",
             data: function (params) {
@@ -52,7 +52,7 @@ $(function () {
     $("#religion").select2({
         placeholder: "Select a religion",
         ajax: {
-            url: "/religions",
+            url: "/api/religions",
             delay: 250,
             dataType: "json",
             data: function (params) {
@@ -77,7 +77,7 @@ $(function () {
     $("#province").select2({
         placeholder: "Select a province",
         ajax: {
-            url: "/provinces",
+            url: "/api/provinces",
             delay: 250,
             dataType: "json",
             data: function (params) {
@@ -102,7 +102,7 @@ $(function () {
     $("#city_municipality").select2({
         placeholder: "Select a city/municipality",
         ajax: {
-            url: "/city-municipalities/provinces",
+            url: "/api/city-municipalities/provinces",
             delay: 250,
             dataType: "json",
             processResults: function (data) {
@@ -131,7 +131,7 @@ $(function () {
         $("#barangay").select2({
             placeholder: "Select a barangay",
             ajax: {
-                url: "/city-municipalities/" + city_municipality_code + "/barangays",
+                url: "/api/city-municipalities/" + city_municipality_code + "/barangays",
                 delay: 250,
                 dataType: "json",
                 data: function (params) {
@@ -158,7 +158,7 @@ $(function () {
     $("#preferred_local_location").select2({
         placeholder: "Select preferred local location",
         ajax: {
-            url: "/city-municipalities/provinces",
+            url: "/api/city-municipalities/provinces",
             delay: 250,
             dataType: "json",
             processResults: function (data) {
@@ -178,7 +178,7 @@ $(function () {
     $("#preferred_overseas_location").select2({
         placeholder: "Select preferred overseas location",
         ajax: {
-            url: "/countries?except=PHILIPPINES",
+            url: "/api/countries?except=PHILIPPINES",
             delay: 250,
             dataType: "json",
             data: function (params) {
@@ -216,7 +216,7 @@ $(function () {
             $("#unemployed_country").select2({
                 placeholder: "Select a country",
                 ajax: {
-                    url: "/countries",
+                    url: "/api/countries",
                     delay: 250,
                     dataType: "json",
                     data: function (params) {
@@ -257,7 +257,7 @@ $(function () {
                 placeholder: "Select current status",
                 minimumResultsForSearch: Infinity,
                 ajax: {
-                    url: "/unemployed-statuses",
+                    url: "/api/unemployed-statuses",
                     delay: 250,
                     dataType: "json",
                     processResults: function (data) {

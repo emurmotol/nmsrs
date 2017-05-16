@@ -1,4 +1,4 @@
-package api
+package barangay
 
 import (
 	"net/http"
@@ -10,7 +10,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func Barangays(w http.ResponseWriter, r *http.Request) {
+func All(w http.ResponseWriter, r *http.Request) {
 	brgys, err := barangay.Search(bson.M{
 		"cityMunicipalityCode": mux.Vars(r)["city_municipality_code"],
 		"desc": bson.RegEx{

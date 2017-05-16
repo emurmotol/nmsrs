@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/emurmotol/nmsrs/helpers/flash"
+	"github.com/emurmotol/nmsrs/helpers/img"
 	"github.com/emurmotol/nmsrs/helpers/lang"
 	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/helpers/tpl"
@@ -12,7 +13,8 @@ import (
 
 func Create(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
-		"Title": "Create user",
+		"Title":     "Create user",
+		"MimeTypes": img.MimeTypes,
 	}
 	funcMap := map[string]interface{}{}
 	tpl.Render(w, r, "menu", "user.create", data, funcMap)

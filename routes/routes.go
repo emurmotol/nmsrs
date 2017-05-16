@@ -4,13 +4,20 @@ import (
 	"net/http"
 
 	"github.com/emurmotol/nmsrs/controllers"
-	"github.com/emurmotol/nmsrs/controllers/api"
 	"github.com/emurmotol/nmsrs/controllers/auth"
+	"github.com/emurmotol/nmsrs/controllers/barangay"
 	"github.com/emurmotol/nmsrs/controllers/check"
+	"github.com/emurmotol/nmsrs/controllers/citymunicipality"
+	"github.com/emurmotol/nmsrs/controllers/country"
 	"github.com/emurmotol/nmsrs/controllers/home"
+	"github.com/emurmotol/nmsrs/controllers/language"
+	"github.com/emurmotol/nmsrs/controllers/position"
+	"github.com/emurmotol/nmsrs/controllers/province"
 	"github.com/emurmotol/nmsrs/controllers/registrant"
+	"github.com/emurmotol/nmsrs/controllers/religion"
 	"github.com/emurmotol/nmsrs/controllers/reports"
 	"github.com/emurmotol/nmsrs/controllers/search"
+	"github.com/emurmotol/nmsrs/controllers/unemployedstatus"
 	"github.com/emurmotol/nmsrs/controllers/user"
 	"github.com/emurmotol/nmsrs/middlewares"
 	"github.com/gorilla/mux"
@@ -43,14 +50,15 @@ func Register() *mux.Router {
 	router.Path("/check/email/taken/or/same/as/old").Methods("GET").Handler(middlewares.Admin(check.EmailTakenOrSameAsOld))
 
 	// TODO: Make api routes middleware
-	router.Path("/city-municipalities/{city_municipality_code}/barangays").Methods("GET").Handler(middlewares.Admin(api.Barangays))
-	router.Path("/city-municipalities/provinces").Methods("GET").Handler(middlewares.Admin(api.CityMunicipalities))
-	router.Path("/religions").Methods("GET").Handler(middlewares.Admin(api.Religions))
-	router.Path("/countries").Methods("GET").Handler(middlewares.Admin(api.Countries))
-	router.Path("/languages").Methods("GET").Handler(middlewares.Admin(api.Languages))
-	router.Path("/positions").Methods("GET").Handler(middlewares.Admin(api.Positions))
-	router.Path("/provinces").Methods("GET").Handler(middlewares.Admin(api.Provinces))
-	router.Path("/unemployed-statuses").Methods("GET").Handler(middlewares.Admin(api.UnemployedStatuses))
+	api := router.PathPrefix("/api").Subrouter()
+	api.Path("/city-municipalities/{city_municipality_code}/barangays").Methods("GET").Handler(middlewares.Admin(barangay.All))
+	api.Path("/city-municipalities/provinces").Methods("GET").Handler(middlewares.Admin(citymunicipality.All))
+	api.Path("/religions").Methods("GET").Handler(middlewares.Admin(religion.All))
+	api.Path("/countries").Methods("GET").Handler(middlewares.Admin(country.All))
+	api.Path("/languages").Methods("GET").Handler(middlewares.Admin(language.All))
+	api.Path("/positions").Methods("GET").Handler(middlewares.Admin(position.All))
+	api.Path("/provinces").Methods("GET").Handler(middlewares.Admin(province.All))
+	api.Path("/unemployed-statuses").Methods("GET").Handler(middlewares.Admin(unemployedstatus.All))
 
 	// Auth routes
 	router.Path("/reports").Methods("GET").Handler(middlewares.Auth(reports.Index))

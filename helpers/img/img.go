@@ -21,13 +21,13 @@ import (
 )
 
 var (
-	mimes            = []string{"image/jpeg", "image/png", "image/gif"}
+	MimeTypes        = []string{"image/jpeg", "image/png", "image/gif"}
 	ErrImageNotValid = errors.New(lang.En["ImageInvalid"])
 	ErrImageTooLarge = fmt.Errorf(lang.En["ImageTooLarge"], str.BytesForHumans(env.DefaultMaxImageUploadSize))
 )
 
 func Validate(newFileInstance multipart.File, handler *multipart.FileHeader) error {
-	for _, mime := range mimes {
+	for _, mime := range MimeTypes {
 		if strings.ToLower(handler.Header.Get("Content-Type")) == mime {
 			size, err := fi.Size(newFileInstance)
 

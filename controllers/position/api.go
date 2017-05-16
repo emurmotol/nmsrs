@@ -1,4 +1,4 @@
-package api
+package position
 
 import (
 	"net/http"
@@ -6,12 +6,12 @@ import (
 	"gopkg.in/mgo.v2/bson"
 
 	"github.com/emurmotol/nmsrs/helpers/res"
-	"github.com/emurmotol/nmsrs/models/province"
+	"github.com/emurmotol/nmsrs/models/position"
 )
 
-func Provinces(w http.ResponseWriter, r *http.Request) {
-	provs, err := province.Search(bson.M{
-		"desc": bson.RegEx{
+func All(w http.ResponseWriter, r *http.Request) {
+	poss, err := position.Search(bson.M{
+		"name": bson.RegEx{
 			Pattern: r.URL.Query().Get("q"),
 			Options: "i",
 		},
@@ -23,7 +23,7 @@ func Provinces(w http.ResponseWriter, r *http.Request) {
 	res.JSON(w, res.Make{
 		Status: http.StatusOK,
 		Data: map[string]interface{}{
-			"provinces": provs,
+			"positions": poss,
 		},
 	})
 }

@@ -3,6 +3,7 @@ package user
 import (
 	"net/http"
 
+	"github.com/emurmotol/nmsrs/helpers/img"
 	"github.com/emurmotol/nmsrs/helpers/lang"
 	"github.com/emurmotol/nmsrs/helpers/res"
 	"github.com/emurmotol/nmsrs/helpers/tpl"
@@ -17,8 +18,9 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	data := map[string]interface{}{
-		"Title": "Edit user",
-		"User":  usr,
+		"Title":     "Edit user",
+		"User":      usr,
+		"MimeTypes": img.MimeTypes,
 	}
 	funcMap := map[string]interface{}{}
 	tpl.Render(w, r, "menu", "user.edit", data, funcMap)

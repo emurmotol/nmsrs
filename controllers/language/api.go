@@ -1,4 +1,4 @@
-package api
+package language
 
 import (
 	"net/http"
@@ -9,7 +9,7 @@ import (
 	"github.com/emurmotol/nmsrs/models/language"
 )
 
-func Languages(w http.ResponseWriter, r *http.Request) {
+func All(w http.ResponseWriter, r *http.Request) {
 	lngs, err := language.Search(bson.M{
 		"name": bson.RegEx{
 			Pattern: r.URL.Query().Get("q"),

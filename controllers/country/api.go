@@ -1,4 +1,4 @@
-package api
+package country
 
 import (
 	"net/http"
@@ -9,7 +9,7 @@ import (
 	"github.com/emurmotol/nmsrs/models/country"
 )
 
-func Countries(w http.ResponseWriter, r *http.Request) {
+func All(w http.ResponseWriter, r *http.Request) {
 	couns, err := country.Search(bson.M{
 		"$and": []bson.M{
 			bson.M{

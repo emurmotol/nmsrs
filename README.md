@@ -50,6 +50,8 @@ National Manpower Skills Registration System For The Municipality Of Gasan Marin
 * Always push source to remote
 
 ### Useful Links
+* https://github.com/oliamb/cutter
+* https://www.socketloop.com/tutorials/golang-crop-image
 * https://github.com/tdewolff/minify
 * http://www.chartjs.org/docs/
 * https://www.google.com.ph/url?sa=t&rct=j&q=&esrc=s&source=web&cd=5&cad=rja&uact=8&ved=0ahUKEwjts_f3n-XTAhXMybwKHeeTDQ0QFgg8MAQ&url=http%3A%2F%2Fjsfiddle.net%2Fmilz%2FryQu5%2F1%2F&usg=AFQjCNFdjklYQzRr4p0SjxmdnFW9xXTlEQ&sig2=E_9Z9O9OXihfGpIeqAvcPw
