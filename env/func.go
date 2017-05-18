@@ -70,5 +70,5 @@ func IP() string {
 	if SvrEnvironment == "production" {
 		panic(lang.En["NetworkNotPresent"])
 	}
-	return "localhost"
+	return "127.0.0.1"
 }
