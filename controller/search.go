@@ -7,8 +7,8 @@ import (
 
 	"reflect"
 
-	"github.com/emurmotol/nmsrs.v4/helper"
-	"github.com/emurmotol/nmsrs.v4/model"
+	"github.com/emurmotol/nmsrs/helper"
+	"github.com/emurmotol/nmsrs/model"
 )
 
 func SearchIndex(w http.ResponseWriter, r *http.Request) {

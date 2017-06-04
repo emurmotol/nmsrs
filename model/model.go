@@ -1,8 +1,8 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs.v4/database"
-	"github.com/emurmotol/nmsrs.v4/env"
+	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/env"
 )
 
 var (

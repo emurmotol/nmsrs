@@ -12,8 +12,8 @@ import (
 	"strings"
 
 	"github.com/disintegration/imaging"
-	"github.com/emurmotol/nmsrs.v4/env"
-	"github.com/emurmotol/nmsrs.v4/lang"
+	"github.com/emurmotol/nmsrs/env"
+	"github.com/emurmotol/nmsrs/lang"
 )
 
 func ValidateImage(header *multipart.FileHeader) error {

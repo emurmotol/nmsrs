@@ -3,7 +3,7 @@ package controller
 import (
 	"net/http"
 
-	"github.com/emurmotol/nmsrs.v4/model"
+	"github.com/emurmotol/nmsrs/model"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {

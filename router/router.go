@@ -3,9 +3,9 @@ package router
 import (
 	"net/http"
 
-	"github.com/emurmotol/nmsrs.v4/controller"
-	"github.com/emurmotol/nmsrs.v4/env"
-	"github.com/emurmotol/nmsrs.v4/helper"
+	"github.com/emurmotol/nmsrs/controller"
+	"github.com/emurmotol/nmsrs/env"
+	"github.com/emurmotol/nmsrs/helper"
 	"github.com/pressly/chi"
 	"github.com/pressly/chi/middleware"
 )

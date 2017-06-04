@@ -3,8 +3,8 @@ package controller
 import (
 	"net/http"
 
-	"github.com/emurmotol/nmsrs.v4/model"
-	"github.com/emurmotol/nmsrs.v4/constant"
+	"github.com/emurmotol/nmsrs/model"
+	"github.com/emurmotol/nmsrs/constant"
 )
 
 func ShowUserProfile(w http.ResponseWriter, r *http.Request) {

@@ -3,8 +3,8 @@ package controller
 import (
 	"html/template"
 
-	"github.com/emurmotol/nmsrs.v4/env"
-	"github.com/emurmotol/nmsrs.v4/gohtml"
+	"github.com/emurmotol/nmsrs/env"
+	"github.com/emurmotol/nmsrs/gohtml"
 	"github.com/gorilla/schema"
 	"github.com/unrolled/render"
 )

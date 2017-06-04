@@ -2,7 +2,7 @@ package lang
 
 import (
 	"github.com/bykovme/gotrans"
-	"github.com/emurmotol/nmsrs.v4/env"
+	"github.com/emurmotol/nmsrs/env"
 )
 
 func init() {

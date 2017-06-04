@@ -14,10 +14,10 @@ import (
 	"strconv"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/emurmotol/nmsrs.v4/database"
-	"github.com/emurmotol/nmsrs.v4/env"
-	"github.com/emurmotol/nmsrs.v4/helper"
-	"github.com/emurmotol/nmsrs.v4/lang"
+	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/env"
+	"github.com/emurmotol/nmsrs/helper"
+	"github.com/emurmotol/nmsrs/lang"
 	"github.com/icrowley/fake"
 	"golang.org/x/crypto/bcrypt"
 )

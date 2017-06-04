@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/emurmotol/nmsrs.v4/controller"
+	"github.com/emurmotol/nmsrs/controller"
 	"github.com/pressly/chi"
 )
 

@@ -3,7 +3,7 @@ package database
 import (
 	"fmt"
 
-	"github.com/emurmotol/nmsrs.v4/env"
+	"github.com/emurmotol/nmsrs/env"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )

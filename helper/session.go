@@ -3,7 +3,7 @@ package helper
 import (
 	"net/http"
 
-	"github.com/emurmotol/nmsrs.v4/env"
+	"github.com/emurmotol/nmsrs/env"
 	"github.com/gorilla/sessions"
 )
 

@@ -8,11 +8,11 @@ import (
 
 	"fmt"
 
-	"github.com/emurmotol/nmsrs.v4/constant"
-	"github.com/emurmotol/nmsrs.v4/database"
-	"github.com/emurmotol/nmsrs.v4/helper"
-	"github.com/emurmotol/nmsrs.v4/lang"
-	"github.com/emurmotol/nmsrs.v4/model"
+	"github.com/emurmotol/nmsrs/constant"
+	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/helper"
+	"github.com/emurmotol/nmsrs/lang"
+	"github.com/emurmotol/nmsrs/model"
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {

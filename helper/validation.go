@@ -1,7 +1,7 @@
 package helper
 
 import (
-	"github.com/emurmotol/nmsrs.v4/env"
+	"github.com/emurmotol/nmsrs/env"
 	"github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
 	"gopkg.in/go-playground/validator.v9"

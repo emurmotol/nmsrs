@@ -7,11 +7,11 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/emurmotol/nmsrs.v4/constant"
-	"github.com/emurmotol/nmsrs.v4/env"
-	"github.com/emurmotol/nmsrs.v4/helper"
-	"github.com/emurmotol/nmsrs.v4/lang"
-	"github.com/emurmotol/nmsrs.v4/model"
+	"github.com/emurmotol/nmsrs/constant"
+	"github.com/emurmotol/nmsrs/env"
+	"github.com/emurmotol/nmsrs/helper"
+	"github.com/emurmotol/nmsrs/lang"
+	"github.com/emurmotol/nmsrs/model"
 	"github.com/goware/jwtauth"
 	"github.com/unrolled/render"
 )

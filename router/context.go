@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/emurmotol/nmsrs.v4/constant"
-	"github.com/emurmotol/nmsrs.v4/controller"
-	"github.com/emurmotol/nmsrs.v4/model"
+	"github.com/emurmotol/nmsrs/constant"
+	"github.com/emurmotol/nmsrs/controller"
+	"github.com/emurmotol/nmsrs/model"
 	"github.com/pressly/chi"
 )
 

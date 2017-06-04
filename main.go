@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"runtime"
 
-	"github.com/emurmotol/nmsrs.v4/env"
-	"github.com/emurmotol/nmsrs.v4/helper"
-	"github.com/emurmotol/nmsrs.v4/model"
-	"github.com/emurmotol/nmsrs.v4/router"
+	"github.com/emurmotol/nmsrs/env"
+	"github.com/emurmotol/nmsrs/helper"
+	"github.com/emurmotol/nmsrs/model"
+	"github.com/emurmotol/nmsrs/router"
 )
 
 func init() {

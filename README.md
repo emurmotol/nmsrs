@@ -1,5 +1,5 @@
 ### Run
-* 32-bit `go build ; ./nmsrs.v4.exe`
+* 32-bit `go build ; ./nmsrs.exe`
 * 64-bit press key `F5`
 
 ### Todo
