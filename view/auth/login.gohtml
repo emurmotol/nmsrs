@@ -1,0 +1,59 @@
+<form action="/login" method="POST" id="login_form">
+    <a href="/">
+        <img src="/assets/img/logo/dole/1144x1024.png" class="img-responsive login-logo center-block" alt="DOLE Logo">
+    </a>
+    {{with .alert}}{{.}}{{end}}
+    <div class="form-group{{with .loginForm.Errors.Email}} has-error{{end}}">
+        <input type="text" class="form-control input-lg" name="email" id="email" value="{{.loginForm.Email}}" placeholder="Email address" data-parsley-type="email"
+            data-parsley-required="true" data-parsley-remote data-parsley-remote-validator="emailExists" data-parsley-trigger="change"
+            data-parsley-whitespace="trim" data-parsley-remote-message="">
+        {{with .loginForm.Errors.Email}}<span class="help-block">{{.}}</span>{{end}}
+    </div>
+    <div class="form-group{{with .loginForm.Errors.Password}} has-error{{end}}">
+        <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Password" data-parsley-required="true"
+            data-parsley-trigger="change">
+        {{with .loginForm.Errors.Password}}<span class="help-block">{{.}}</span>{{end}}
+    </div>
+    <!--todo: below button is ugly without forgot_password_link dunno why-->
+    <a href="#" id="forgot_password_link">I forgot my password</a>
+    <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Authenticating..." role="button">Login</button>
+</form>
+
+{{define "css-auth/login"}}
+<style>
+    #login_form {
+        margin-top: 20%;
+    }
+
+    #forgot_password_link {
+        text-decoration: none !important;
+    }
+    
+    .login-logo {
+        height: 12rem;
+        margin-bottom: 1.5rem;
+    }
+</style>
+{{end}} {{define "script-auth/login"}}
+<script src="/assets/js/parsley/parsley.config.js"></script>
+<script src="/assets/js/parsley/parsley.min.js"></script>
+<script src="/assets/js/parsley/parsley.event.js"></script>
+{{end}} {{define "js-auth/login"}}
+<script>
+    $(function () {
+        $("#login_form").parsley();
+        $("#login_form").on("submit", function() {
+            duringSubmitDo(this);
+        });
+
+        Parsley.addAsyncValidator("emailExists", function (xhr) {
+            if (404 === xhr.status) {
+                r = $.parseJSON(xhr.responseText);
+                this.addError("remote", { message: r.error });
+            }
+            return 200 === xhr.status;
+        }, "users/email/exists");
+    });
+
+</script>
+{{end}}

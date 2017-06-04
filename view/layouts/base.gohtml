@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="{{config.app.lang}}">
+
+<head>
+    <meta charset="{{config.app.charset}}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{config.app.description}}">
+    <meta name="keywords" content="{{config.app.keywords}}">
+    <meta name="author" content="{{config.app.author.username}}">
+    <title>{{.title}}</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/css/product-sans.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-lumen.min.css" rel="stylesheet"> {{partial "stylesheet"}}
+    <link href="/assets/css/app.css" rel="stylesheet"> {{partial "css"}}
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app_navbar_collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img alt="{{config.app.name}}" src="/assets/img/logo/dole/1144x1024.png"><span>{{config.app.name}}</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="app_navbar_collapse">
+                {{with .authUser}}
+                <form action="/search" method="GET" class="form-inline navbar-form navbar-left" role="search" id="navbar_search_form">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="q" id="q" data-provide="typeahead" autocomplete="off">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-info" role="button"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                {{if .IsAdmin}}
+                <ul class="nav navbar-nav">
+                    <li><a href="/users">Users</a></li>
+                    <li><a href="/resgistrants">Registrants</a></li>
+                </ul>
+                {{end}} {{end}}
+                <ul class="nav navbar-nav navbar-right">
+                    {{with .authUser}}
+                    <li class="dropdown nav-user">
+                        <a href="/{{.ID}}" class="dropdown-toggle" id="drop_down_{{.ID}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{if .HasPhoto}}{{photoPath .ID `User`}}{{else}}{{config.default.photo.path}}{{end}}" class="img-rounded" height="30" alt="{{.Name}}">{{.Name}}<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="drop_down_id">
+                            <li><a href="/{{.ID}}">Your profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                    {{else}}
+                    <li><a href="/login">Login</a></li>
+                    {{end}}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        {{with .alert}}{{.}}{{end}}
+        {{yield}}
+
+        <footer class="footer">
+            <p class="text-center text-muted">
+                <i class="fa fa-copyright"></i> {{config.app.copyright.year}} {{config.app.description}}
+            </p>
+        </footer>
+    </div>
+    <script src="/assets/js/jquery/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/bootstrap3-typeahead.min.js"></script>
+    <script src="/assets/js/jquery/url.min.js"></script>
+    <script src="/assets/js/app/app.search.js"></script>
+    {{partial "script"}}
+    <script src="/assets/js/app/app.js"></script>
+    {{partial "js"}}
+</body>
+
+</html>

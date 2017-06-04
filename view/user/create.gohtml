@@ -1,0 +1,108 @@
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading"><i class="fa fa-user-plus"></i> {{.title}}</div>
+            <div class="panel-body">
+                <form action="/users" method="POST" id="create_user_form" enctype="multipart/form-data">
+                    <div class="form-group{{with .createUserForm.Errors.Photo}} has-error{{end}}">
+                        <label for="photo">Photo</label><br>
+                        <img src="{{config.default.photo.path}}" data-default-photo="{{config.default.photo.path}}" class="img-resopnsive img-rounded"
+                            id="preview" height="160" alt="User Photo">
+                        <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-maxmegabytes="{{config.default.photo.maxSize}}"
+                            data-parsley-mimes="{{config.default.photo.mimes}}">
+                        {{with .createUserForm.Errors.Photo}}<span class="help-block">{{.}}</span>{{end}}
+                    </div>
+                    <div class="form-group{{with .createUserForm.Errors.Name}} has-error{{end}}">
+                        <label for="name">Name <span class="asterisk text-danger">*</span></label>
+                        <input type="text" class="form-control" name="name" id="name" value="{{.createUserForm.Name}}" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
+                        {{with .createUserForm.Errors.Name}}<span class="help-block">{{.}}</span>{{end}}
+                    </div>
+                    <div class="form-group{{with .createUserForm.Errors.Email}} has-error{{end}}">
+                        <label for="email">Email <span class="asterisk text-danger">*</span></label>
+                        <input type="text" class="form-control" name="email" id="email" value="{{.createUserForm.Email}}" data-parsley-required="true" data-parsley-type="email" data-parsley-whitespace="trim"
+                            data-parsley-trigger="change" data-parsley-remote data-parsley-remote-validator="emailTaken" data-parsley-remote-message="">
+                        {{with .createUserForm.Errors.Email}}<span class="help-block">{{.}}</span>{{end}}
+                    </div>
+                    <div class="form-group{{with .createUserForm.Errors.Password}} has-error{{end}}">
+                        <label for="password">Password <span class="asterisk text-danger">*</span></label>
+                        <input type="password" class="form-control" name="password" id="password" data-parsley-required="true" data-parsley-minlength="6"
+                            data-parsley-trigger="change">
+                        {{with .createUserForm.Errors.Password}}<span class="help-block">{{.}}</span>{{end}}
+                    </div>
+                    <div class="form-group{{with .createUserForm.Errors.ConfirmPassword}} has-error{{end}}">
+                        <label for="confirm_password">Confirm password <span class="asterisk text-danger">*</span></label>
+                        <input type="password" class="form-control" name="confirm_password" id="confirm_password" data-parsley-required="true" data-parsley-equalto="#password"
+                            data-parsley-trigger="change">
+                        {{with .createUserForm.Errors.ConfirmPassword}}<span class="help-block">{{.}}</span>{{end}}
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="is_admin" id="is_admin" value="{{.createUserForm.IsAdmin}}"> Administrator
+                            </label>
+                        </div>
+                    </div>
+                    <button role="button" type="submit" class="btn btn-primary" data-loading-text="Creating user...">Create user</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{define "script-user/create"}}
+<script src="/assets/js/parsley/parsley.config.js"></script>
+<script src="/assets/js/parsley/parsley.min.js"></script>
+<script src="/assets/js/parsley/parsley.event.js"></script>
+{{end}} {{define "js-user/create"}}
+<script>
+    $(function () {
+        $("#create_user_form").parsley();
+        $("#create_user_form").on("submit", function (e) {
+            duringSubmitDo(this);
+        });
+
+        Parsley.addValidator("mimes", {
+            requirementType: "string",
+            validateString: function (value, requirement, instance) {
+                var file = instance.$element[0].files;
+
+                if (file.length == 0) {
+                    return true;
+                }
+                var allowedMimeTypes = requirement.replace(/[\[\]]+/g, "").split(" ");
+                return allowedMimeTypes.indexOf(file[0].type) !== -1;
+            },
+            messages: {
+                en: "{{lang `image_invalid`}}"
+            },
+            priority: 2
+        }).addValidator("maxmegabytes", {
+            requirementType: "string",
+            validateString: function (value, requirement, instance) {
+                var file = instance.$element[0].files;
+                var maxMB = requirement * 1048576;
+
+                if (file.length == 0) {
+                    return true;
+                }
+                return file.length === 1 && file[0].size <= maxMB;
+            },
+            messages: {
+                en: "{{lang `image_too_large`}}"
+            },
+            priority: 1
+        });
+
+        Parsley.addAsyncValidator("emailTaken", function (xhr) {
+            if (404 === xhr.status) {
+                r = $.parseJSON(xhr.responseText);
+                this.addError("remote", { message: r.error });
+            }
+            return 200 === xhr.status;
+        }, "/users/email/taken");
+
+        previewImage($("#photo"));
+        setCheckboxBoolValue($("#is_admin"));
+    });
+
+</script>
+{{end}}

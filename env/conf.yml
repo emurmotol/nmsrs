@@ -1,0 +1,65 @@
+app:
+    name: NMSRS
+    version: v4
+    charset: utf-8
+    lang: en
+    author:
+        name: Klarizon Emar Motol
+        username: emurmotol
+        email: emurmotol@gmail.com
+        link: https://github.com/emurmotol
+    keywords: nmsrs
+    description: National Manpower Skills Registration System
+    copyright:
+        year: 2017
+server:
+    host: localhost
+    port: 8080
+    protocol: http://
+    basepath:
+        api: /api
+pkg:
+    sessions:
+        flash: flash-session
+        secret: secret
+    helper:
+        pagination:
+            limit: 25
+            interval: 5
+    gorm:
+        dialect: mysql
+        logMode: true
+        name: nmsrs
+        host: localhost
+        port: 3306
+        user: root
+        pwd: 
+        charset: utf8
+        parseTime: true
+        loc: Local
+        reset: false
+    render:
+        dir: view
+        layout: layouts/base
+        ext: .gohtml
+        indentJSON: true
+        isDev: true
+    jwtauth:
+        tokenName: jwt
+        secret: secret
+        setExpiryDuration: 672
+dir:
+    static: static
+    content: content
+default:
+    photo:
+        path: /assets/img/photo/default.jpg
+        mimes:
+            - image/jpeg
+            - image/png
+            - image/gif
+        maxSize: 1
+superuser:
+    name: Superuser
+    email: admin@gasan.gov.info
+    pwd: secret

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{{config.app.lang}}">
+
+<head>
+    <meta charset="{{config.app.charset}}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{config.app.description}}">
+    <meta name="keywords" content="{{config.app.keywords}}">
+    <meta name="author" content="{{config.app.author.username}}">
+    <title>{{.title}}</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/css/product-sans.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-lumen.min.css" rel="stylesheet"> {{partial "css"}}
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="col-lg-4 col-lg-offset-6">
+                    {{yield}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/js/jquery/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    {{partial "script"}}
+    <script src="/assets/js/app/app.js"></script>
+    {{partial "js"}}
+</body>
+
+</html>

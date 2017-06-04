@@ -1,0 +1,102 @@
+{{if ne .q ""}}
+<div class="row">
+    <div class="col-lg-10">
+        <h3 class="text-muted">Results for query: <strong>{{.q}}</strong></h3>
+        {{if eq (len .searchResults) 0}}
+        <p class="text-muted">{{len .searchResults}} records found.</p>
+        {{else}}
+        <p class="text-muted">Showing {{.pagination.StartIndex}} - {{.pagination.EndIndex}} of {{.pagination.Count}}</p>
+        {{end}}
+        <ul class="result-list">
+            {{if ne (len .searchResults) 0}} {{range .searchResults}}
+            <li>
+                <hr> {{if eq .Type `User`}}
+                <div class="row">
+                    <div class="col-lg-1">
+                        <a href="{{if .HasPhoto}}{{photoPath .ID `User`}}{{else}}{{config.default.photo.path}}{{end}}">
+                            <img src="{{if .HasPhoto}}{{photoPath .ID `User`}}{{else}}{{config.default.photo.path}}{{end}}" class="img-rounded" height="60"
+                                alt="{{.Name}}">
+                        </a>
+                    </div>
+                    <div class="col-lg-10">
+                        <h4><a href="/{{.ID}}">{{.Name}}</a></h4>
+                        <ul class="list-inline text-muted">
+                            <li><i class="fa fa-envelope-o"></i> <a href="mailto:{{.Email}}">{{.Email}}</a></li>
+                            <li><i class="fa fa-object-group"></i> {{.Type}}</li>
+                            <li><i class="fa fa-calendar-o"></i> {{dateForHumans .CreatedAt.Unix}}</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-1 col-view">
+                        <a href="/{{.ID}}" class="btn btn-primary" target="_blank">View</a>
+                    </div>
+                </div>
+                {{end}}
+            </li>
+            {{end}}
+            <nav class="nav-pagination text-center">{{.pagination.Markup}}</nav>
+            {{end}}
+        </ul>
+    </div>
+    <div class="col-lg-2">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <span class="pull-left"><i class="fa fa-object-group"></i> Type</span>
+                <span class="pull-right">
+                    <button class="btn btn-primary btn-xs" id="reset_type_button" role="button">
+                        <i class="fa fa-refresh"></i> Reset
+                    </button>
+                </span>
+            </div>
+            <ul class="list-group type">
+                <a href="" class="list-group-item{{if eq .type `User`}} active{{end}}" data-type="User">User</a>
+                <a href="" class="list-group-item{{if eq .type `Registrant`}} active{{end}}" data-type="Registrant">Registrant</a>
+            </ul>
+        </div>
+    </div>
+</div>
+{{else}}
+<div class="text-center">
+    <h1 class="text-muted"><strong>Looking for something?</strong></h1>
+    <h3 class="text-muted">Type a keyword on the <i class="fa fa-search"></i> search box to begin...</h3>
+    <h1 class="text-muted"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></h1>
+</div>
+{{end}} {{define "script-search/index"}}
+<script src="/assets/js/responsive-paginate.min.js"></script>
+{{end}} {{define "js-search/index"}}
+<script>
+    $(function () {
+        $(".type a").on("click", function (e) {
+            e.preventDefault();
+            var jsonURL = $.url("?");
+
+            if (jsonURL == null) {
+                jsonURL = {};
+            }
+
+            if (jsonURL.page != null) {
+                delete jsonURL.page
+            }
+            jsonURL["type"] = $(this).data("type");
+            location.href = $.url("path") + "?" + $.param(jsonURL);
+        });
+
+        $("#reset_type_button").on("click", function () {
+            var jsonURL = $.url("?");
+
+            if (jsonURL == null) {
+                jsonURL = {};
+            }
+
+            if (jsonURL.page != null) {
+                delete jsonURL.page
+            }
+
+            if (jsonURL.type != null) {
+                delete jsonURL.type
+            }
+            location.href = $.url("path") + "?" + $.param(jsonURL);
+        });
+    });
+
+</script>
+{{end}}
