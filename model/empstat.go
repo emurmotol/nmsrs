@@ -8,13 +8,13 @@ type EmpStat struct {
 }
 
 func EmpStatSeeder() {
-	var empStats = []string{
+	data := []string{
 		"WAGED EMPLOYED",
 		"SELF EMPLOYED",
 		"UNEMPLOYED",
 	}
 
-	for _, name := range empStats {
+	for _, name := range data {
 		empStat := EmpStat{Name: name}
 
 		if _, err := empStat.Create(); err != nil {

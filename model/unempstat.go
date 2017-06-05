@@ -8,7 +8,7 @@ type UnEmpStat struct {
 }
 
 func UnEmpStatSeeder() {
-	var unEmpStats = []string{
+	data := []string{
 		"NEW ENTRANT/FRESH GRADUATE",
 		"FINISHED CONTRACT",
 		"RESIGNED",
@@ -16,7 +16,7 @@ func UnEmpStatSeeder() {
 		"TERMINATED/LAID OFF, OVERSEAS",
 	}
 
-	for _, name := range unEmpStats {
+	for _, name := range data {
 		unEmpStat := UnEmpStat{Name: name}
 
 		if _, err := unEmpStat.Create(); err != nil {

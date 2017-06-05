@@ -1,0 +1,47 @@
+package model
+
+import "github.com/emurmotol/nmsrs/database"
+
+type Skill struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+
+func SkillSeeder() {
+	data := []string{
+		"COMPUTER LITERATE",
+		"DRIVER",
+		"AUTO MECHANIC",
+		"CARPENTRY WORK",
+		"MASONRY",
+		"ELECTRICIAN",
+		"STENOGRAPHY",
+		"PAINTING JOBS",
+		"EMBROIDERY",
+		"SEWING DRESSES",
+		"TAILORING",
+		"BEAUTICIAN",
+		"DOMESTIC CHORES",
+		"GARDENING",
+		"PHOTOGRAPHY",
+		"PAINTER/ARTIST",
+	}
+
+	for _, name := range data {
+		skill := Skill{Name: name}
+
+		if _, err := skill.Create(); err != nil {
+			panic(err)
+		}
+	}
+}
+
+func (skill *Skill) Create() (*Skill, error) {
+	db := database.Conn()
+	defer db.Close()
+
+	if err := db.Create(&skill).Error; err != nil {
+		return nil, err
+	}
+	return skill, nil
+}
