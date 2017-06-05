@@ -1,6 +1,10 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"strings"
+
+	"github.com/emurmotol/nmsrs/database"
+)
 
 type Sex struct {
 	ID   int    `json:"id"`
@@ -10,11 +14,11 @@ type Sex struct {
 func SexSeeder() {
 	data := []string{
 		"MALE",
-	"FEMALE",
+		"FEMALE",
 	}
 
 	for _, name := range data {
-		sex := Sex{Name: name}
+		sex := Sex{Name: strings.ToUpper(name)}
 
 		if _, err := sex.Create(); err != nil {
 			panic(err)

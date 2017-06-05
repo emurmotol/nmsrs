@@ -1,6 +1,10 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"strings"
+
+	"github.com/emurmotol/nmsrs/database"
+)
 
 type Skill struct {
 	ID   int    `json:"id"`
@@ -28,7 +32,7 @@ func SkillSeeder() {
 	}
 
 	for _, name := range data {
-		skill := Skill{Name: name}
+		skill := Skill{Name: strings.ToUpper(name)}
 
 		if _, err := skill.Create(); err != nil {
 			panic(err)

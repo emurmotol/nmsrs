@@ -1,6 +1,10 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"strings"
+
+	"github.com/emurmotol/nmsrs/database"
+)
 
 type CivilStat struct {
 	ID   int    `json:"id"`
@@ -17,7 +21,7 @@ func CivilStatSeeder() {
 	}
 
 	for _, name := range data {
-		civilStat := CivilStat{Name: name}
+		civilStat := CivilStat{Name: strings.ToUpper(name)}
 
 		if _, err := civilStat.Create(); err != nil {
 			panic(err)

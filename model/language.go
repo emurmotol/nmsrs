@@ -1,6 +1,10 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"strings"
+
+	"github.com/emurmotol/nmsrs/database"
+)
 
 type Language struct {
 	ID   int    `json:"id"`
@@ -246,7 +250,7 @@ func LanguageSeeder() {
 	}
 
 	for _, name := range data {
-		language := Language{Name: name}
+		language := Language{Name: strings.ToUpper(name)}
 
 		if _, err := language.Create(); err != nil {
 			panic(err)

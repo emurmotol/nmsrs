@@ -1,6 +1,10 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"strings"
+
+	"github.com/emurmotol/nmsrs/database"
+)
 
 type License struct {
 	ID   int    `json:"id"`
@@ -12,7 +16,6 @@ func LicenseSeeder() {
 		"CERTIFIED PUBLIC ACCOUNTANT",
 		"AGRICULTURAL ENGINEER",
 		"ARCHITECT",
-		"INTERIOR DESIGNER",
 		"LANDSCAPE ARCHITECT",
 		"CHEMICAL ENGINEER",
 		"CHEMIST",
@@ -125,7 +128,7 @@ func LicenseSeeder() {
 	}
 
 	for _, name := range data {
-		license := License{Name: name}
+		license := License{Name: strings.ToUpper(name)}
 
 		if _, err := license.Create(); err != nil {
 			panic(err)

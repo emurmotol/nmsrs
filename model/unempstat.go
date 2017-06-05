@@ -1,6 +1,10 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"strings"
+
+	"github.com/emurmotol/nmsrs/database"
+)
 
 type UnEmpStat struct {
 	ID   int    `json:"id"`
@@ -17,7 +21,7 @@ func UnEmpStatSeeder() {
 	}
 
 	for _, name := range data {
-		unEmpStat := UnEmpStat{Name: name}
+		unEmpStat := UnEmpStat{Name: strings.ToUpper(name)}
 
 		if _, err := unEmpStat.Create(); err != nil {
 			panic(err)

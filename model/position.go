@@ -1,6 +1,9 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"github.com/emurmotol/nmsrs/database"
+	"strings"
+)
 
 type Position struct {
 	ID   int    `json:"id"`
@@ -934,7 +937,6 @@ func PositionSeeder() {
 		"LIVELIHOOD CHIEF B (GOV)",
 		"LIVELIHOOD CHIEF C (GOV)",
 		"MACHINE SHOP FOREMAN (GOV)",
-		"MACHINE SHOP FOREMAN (GOV)",
 		"MACHINE SHOP FOREMAN",
 		"MACHINE SHOP GENERAL FOREMAN (GOV)",
 		"MAINTENANCE GENERAL FOREMAN (GOV)",
@@ -1445,7 +1447,6 @@ func PositionSeeder() {
 		"GOVERNMENT CORPORATE ATTORNEY IV (GOV)",
 		"GOVERNMENT CORPORATE COUNSEL (GOV)",
 		"EXECUTIVE CLERK OF COURT (GOV)",
-		"SENIOR CORPORATE ATTORNEY (GOV)",
 		"GRAFT INVESTIGATION OFFICER I (GOV)",
 		"GRAFT INVESTIGATION OFFICER II (GOV)",
 		"GRAFT INVESTIGATION OFFICER III (GOV)",
@@ -3364,7 +3365,6 @@ func PositionSeeder() {
 		"HEALTH PROGRAM OFFICER II (GOV)",
 		"HEALTH PROGRAM RESEARCHER (GOV)",
 		"HOSPITAL ADMINISTRATION SPECIALIST (GOV)",
-		"INDUSTRIAL SECURITY GUARD (GOV)",
 		"INMATE GUIDANCE OFFICER I (GOV)",
 		"INMATE GUIDANCE OFFICER II (GOV)",
 		"SECURITY OFFICER I (GOV)",
@@ -6382,7 +6382,6 @@ func PositionSeeder() {
 		"THERMITE WELDER",
 		"SENIOR WELDER (GOV)",
 		"WELDER (GOV)",
-		"WELDER (GOV)",
 		"PIPE WELDER",
 		"STRUCTURAL WELDER",
 		"ORBITAL WELDER",
@@ -8193,7 +8192,7 @@ func PositionSeeder() {
 	}
 
 	for _, name := range data {
-		position := Position{Name: name}
+		position := Position{Name: strings.ToUpper(name)}
 
 		if _, err := position.Create(); err != nil {
 			panic(err)

@@ -1,6 +1,10 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"strings"
+
+	"github.com/emurmotol/nmsrs/database"
+)
 
 type Industry struct {
 	ID   int    `json:"id"`
@@ -29,7 +33,7 @@ func IndustrySeeder() {
 	}
 
 	for _, name := range data {
-		industry := Industry{Name: name}
+		industry := Industry{Name: strings.ToUpper(name)}
 
 		if _, err := industry.Create(); err != nil {
 			panic(err)

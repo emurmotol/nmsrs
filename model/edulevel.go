@@ -1,6 +1,10 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"strings"
+
+	"github.com/emurmotol/nmsrs/database"
+)
 
 type EduLevel struct {
 	ID   int    `json:"id"`
@@ -38,7 +42,7 @@ func EduLevelSeeder() {
 	}
 
 	for _, name := range data {
-		eduLevel := EduLevel{Name: name}
+		eduLevel := EduLevel{Name: strings.ToUpper(name)}
 
 		if _, err := eduLevel.Create(); err != nil {
 			panic(err)

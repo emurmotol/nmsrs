@@ -1,6 +1,10 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"strings"
+
+	"github.com/emurmotol/nmsrs/database"
+)
 
 type Country struct {
 	ID   int    `json:"id"`
@@ -8,7 +12,7 @@ type Country struct {
 }
 
 func CountrySeeder() {
-	countries := []string{
+	data := []string{
 		"AFGHANISTAN",
 		"ALBANIA",
 		"ALGERIA",
@@ -207,8 +211,8 @@ func CountrySeeder() {
 		"ZIMBABWE",
 	}
 
-	for _, name := range countries {
-		country := Country{Name: name}
+	for _, name := range data {
+		country := Country{Name: strings.ToUpper(name)}
 
 		if _, err := country.Create(); err != nil {
 			panic(err)

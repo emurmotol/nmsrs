@@ -1,6 +1,10 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"strings"
+
+	"github.com/emurmotol/nmsrs/database"
+)
 
 type Disability struct {
 	ID   int    `json:"id"`
@@ -17,7 +21,7 @@ func DisabilitySeeder() {
 	}
 
 	for _, name := range data {
-		disability := Disability{Name: name}
+		disability := Disability{Name: strings.ToUpper(name)}
 
 		if _, err := disability.Create(); err != nil {
 			panic(err)

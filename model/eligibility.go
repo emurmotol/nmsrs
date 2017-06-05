@@ -1,6 +1,10 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"strings"
+
+	"github.com/emurmotol/nmsrs/database"
+)
 
 type Eligibility struct {
 	ID   int    `json:"id"`
@@ -24,7 +28,7 @@ func EligibilitySeeder() {
 	}
 
 	for _, name := range data {
-		eligibility := Eligibility{Name: name}
+		eligibility := Eligibility{Name: strings.ToUpper(name)}
 
 		if _, err := eligibility.Create(); err != nil {
 			panic(err)

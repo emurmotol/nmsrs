@@ -1,6 +1,10 @@
 package model
 
-import "github.com/emurmotol/nmsrs/database"
+import (
+	"strings"
+
+	"github.com/emurmotol/nmsrs/database"
+)
 
 type Religion struct {
 	ID   int    `json:"id"`
@@ -51,7 +55,7 @@ func ReligionSeeder() {
 	}
 
 	for _, name := range data {
-		religion := Religion{Name: name}
+		religion := Religion{Name: strings.ToUpper(name)}
 
 		if _, err := religion.Create(); err != nil {
 			panic(err)
