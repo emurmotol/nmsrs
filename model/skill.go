@@ -13,22 +13,22 @@ type Skill struct {
 
 func SkillSeeder() {
 	data := []string{
-		"COMPUTER LITERATE",
-		"DRIVER",
 		"AUTO MECHANIC",
-		"CARPENTRY WORK",
-		"MASONRY",
-		"ELECTRICIAN",
-		"STENOGRAPHY",
-		"PAINTING JOBS",
-		"EMBROIDERY",
-		"SEWING DRESSES",
-		"TAILORING",
 		"BEAUTICIAN",
+		"CARPENTRY WORK",
+		"COMPUTER LITERATE",
 		"DOMESTIC CHORES",
+		"DRIVER",
+		"ELECTRICIAN",
+		"EMBROIDERY",
 		"GARDENING",
-		"PHOTOGRAPHY",
+		"MASONRY",
 		"PAINTER/ARTIST",
+		"PAINTING JOBS",
+		"PHOTOGRAPHY",
+		"SEWING DRESSES",
+		"STENOGRAPHY",
+		"TAILORING",
 	}
 
 	for _, name := range data {
