@@ -16,8 +16,6 @@ server:
     host: localhost
     port: 8080
     protocol: http://
-    basepath:
-        api: /api
 pkg:
     sessions:
         flash: flash-session

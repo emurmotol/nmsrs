@@ -323,7 +323,10 @@ func UserSeeder() {
 			Password: string(hashed),
 			IsAdmin:  true,
 		}
-		user.Create()
+
+		if _, err := user.Create(); err != nil {
+			panic(err)
+		}
 	}
 }
 

@@ -47,14 +47,18 @@ func up() {
 	db.CreateTable(&Registrant{})
 	db.CreateTable(&PeInfo{})
 	db.Model(&PeInfo{}).AddForeignKey("registrant_id", "registrants(id)", "RESTRICT", "RESTRICT")
-	db.CreateTable(&Stat{})
-	db.CreateTable(&UnempStat{})
+	db.CreateTable(&EmpStat{})
+	db.CreateTable(&UnEmpStat{})
 	db.CreateTable(&Country{})
 	db.CreateTable(&Emp{})
 	db.Model(&Emp{}).AddForeignKey("registrant_id", "registrants(id)", "RESTRICT", "RESTRICT")
-	db.Model(&Emp{}).AddForeignKey("stat_id", "stats(id)", "RESTRICT", "RESTRICT")
-	db.Model(&Emp{}).AddForeignKey("unemp_stat_id", "unemp_stats(id)", "RESTRICT", "RESTRICT")
+	db.Model(&Emp{}).AddForeignKey("es_id", "emp_stats(id)", "RESTRICT", "RESTRICT")
+	db.Model(&Emp{}).AddForeignKey("ues_id", "un_emp_stats(id)", "RESTRICT", "RESTRICT")
 	db.Model(&Emp{}).AddForeignKey("toc_id", "countries(id)", "RESTRICT", "RESTRICT")
+	db.CreateTable(&Region{})
+	db.CreateTable(&Province{})
+	db.CreateTable(&CityMun{})
+	db.CreateTable(&Barangay{})
 }
 
 func down() {
@@ -63,11 +67,15 @@ func down() {
 
 	db.DropTableIfExists(&User{})
 	db.DropTableIfExists(&Emp{})
-	db.DropTableIfExists(&Stat{})
-	db.DropTableIfExists(&UnempStat{})
+	db.DropTableIfExists(&EmpStat{})
+	db.DropTableIfExists(&UnEmpStat{})
 	db.DropTableIfExists(&Country{})
 	db.DropTableIfExists(&PeInfo{})
 	db.DropTableIfExists(&Registrant{})
+	db.DropTableIfExists(&Region{})
+	db.DropTableIfExists(&Province{})
+	db.DropTableIfExists(&CityMun{})
+	db.DropTableIfExists(&Barangay{})
 }
 
 func migrate() {
@@ -75,14 +83,25 @@ func migrate() {
 	defer db.Close()
 
 	db.AutoMigrate(&User{})
-	db.AutoMigrate(&Stat{})
-	db.AutoMigrate(&UnempStat{})
+	db.AutoMigrate(&EmpStat{})
+	db.AutoMigrate(&UnEmpStat{})
 	db.AutoMigrate(&Country{})
 	db.AutoMigrate(&Emp{})
 	db.AutoMigrate(&Registrant{})
 	db.AutoMigrate(&PeInfo{})
+	db.AutoMigrate(&Region{})
+	db.AutoMigrate(&Province{})
+	db.AutoMigrate(&CityMun{})
+	db.AutoMigrate(&Barangay{})
 }
 
 func seed() {
 	go UserSeeder()
+	go CountrySeeder()
+	go EmpStatSeeder()
+	go UnEmpStatSeeder()
+	go RegionSeeder()
+	go ProvinceSeeder()
+	go CityMunSeeder()
+	go BarangaySeeder()
 }

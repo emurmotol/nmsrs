@@ -5,7 +5,6 @@ import (
 
 	"github.com/emurmotol/nmsrs/controller"
 	"github.com/emurmotol/nmsrs/env"
-	"github.com/emurmotol/nmsrs/helper"
 	"github.com/pressly/chi"
 	"github.com/pressly/chi/middleware"
 )
@@ -37,7 +36,7 @@ func Handler() chi.Router {
 
 	r.Group(func(r chi.Router) {
 		r.Use(loggedInOnly)
-		r.Mount(helper.ApiBasePath(""), apiRoutes())
+		r.Mount("/api", apiRoutes())
 		r.Mount("/users", userRoutes())
 		// r.Mount("/registrants", registrantRoutes())
 		r.Mount("/", profileRoutes())

@@ -8,12 +8,6 @@ import (
 	"github.com/emurmotol/nmsrs/env"
 )
 
-func ApiBasePath(append string) string {
-	strictSlash(append)
-	api, _ := env.Conf.String("server.basepath.api")
-	return api + append
-}
-
 func BaseURL(append string) string {
 	strictSlash(append)
 	protocol, _ := env.Conf.String("server.protocol")
