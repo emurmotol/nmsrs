@@ -50,6 +50,23 @@ func apiRoutes() chi.Router {
 	r := chi.NewRouter()
 	r.Use(adminOnly)
 	r.Get("/search", controller.SearchIndex)
+	r.Get("/barangays", controller.BarangayIndex)
+	r.Get("/certificates", controller.CertificateIndex)
+	r.Get("/citymuns", controller.CityMunIndex)
+	r.Get("/countries", controller.CountryIndex)
+	r.Get("/courses", controller.CourseIndex)
+	r.Get("/edulevels", controller.EduLevelIndex)
+	r.Get("/eligibilities", controller.EligibilityIndex)
+	r.Get("/industries", controller.IndustryIndex)
+	r.Get("/languages", controller.LanguageIndex)
+	r.Get("/licenses", controller.LicenseIndex)
+	r.Get("/positions", controller.PositionIndex)
+	r.Get("/provinces", controller.ProvinceIndex)
+	r.Get("/regions", controller.RegionIndex)
+	r.Get("/religions", controller.ReligionIndex)
+	r.Get("/schools", controller.SchoolIndex)
+	r.Get("/skills/other", controller.OtherSkillIndex)
+	r.Get("/skills", controller.SkillIndex)
 	return r
 }
 

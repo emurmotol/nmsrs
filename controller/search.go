@@ -29,8 +29,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 	typ := r.URL.Query().Get("type")
 
 	user := model.User{}
-	// registrant := model.Registrant{}
-
+	registrant := model.Registrant{}
 	searchResults := []model.SearchResult{}
 
 	if q != "" {
@@ -38,7 +37,7 @@ func GetSearch(w http.ResponseWriter, r *http.Request) {
 		case reflect.TypeOf(user).Name():
 			searchResults = model.SearchUsers(q)
 			break
-		case "Registrant": // reflect.TypeOf(registrant).Name()
+		case reflect.TypeOf(registrant).Name():
 			break
 		case "":
 			users := model.SearchUsers(q)
