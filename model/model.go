@@ -45,8 +45,8 @@ func up() {
 
 	db.CreateTable(&User{})
 	db.CreateTable(&Registrant{})
-	db.CreateTable(&PeInfo{})
-	db.Model(&PeInfo{}).AddForeignKey("registrant_id", "registrants(id)", "RESTRICT", "RESTRICT")
+	db.CreateTable(&PersonalInfo{})
+	db.Model(&PersonalInfo{}).AddForeignKey("registrant_id", "registrants(id)", "RESTRICT", "RESTRICT")
 	db.CreateTable(&EmpStat{})
 	db.CreateTable(&UnEmpStat{})
 	db.CreateTable(&Country{})
@@ -73,6 +73,7 @@ func up() {
 	db.CreateTable(&Religion{})
 	db.CreateTable(&School{})
 	db.CreateTable(&Sex{})
+	db.CreateTable(&Skill{})
 }
 
 func down() {
@@ -84,7 +85,7 @@ func down() {
 	db.DropTableIfExists(&EmpStat{})
 	db.DropTableIfExists(&UnEmpStat{})
 	db.DropTableIfExists(&Country{})
-	db.DropTableIfExists(&PeInfo{})
+	db.DropTableIfExists(&PersonalInfo{})
 	db.DropTableIfExists(&Registrant{})
 	db.DropTableIfExists(&Region{})
 	db.DropTableIfExists(&Province{})
@@ -104,6 +105,7 @@ func down() {
 	db.DropTableIfExists(&Religion{})
 	db.DropTableIfExists(&School{})
 	db.DropTableIfExists(&Sex{})
+	db.DropTableIfExists(&Skill{})
 }
 
 func migrate() {
@@ -116,7 +118,7 @@ func migrate() {
 	db.AutoMigrate(&Country{})
 	db.AutoMigrate(&Emp{})
 	db.AutoMigrate(&Registrant{})
-	db.AutoMigrate(&PeInfo{})
+	db.AutoMigrate(&PersonalInfo{})
 	db.AutoMigrate(&Region{})
 	db.AutoMigrate(&Province{})
 	db.AutoMigrate(&CityMun{})
@@ -135,6 +137,7 @@ func migrate() {
 	db.AutoMigrate(&Religion{})
 	db.AutoMigrate(&School{})
 	db.AutoMigrate(&Sex{})
+	db.AutoMigrate(&Skill{})
 }
 
 func seed() {
@@ -160,4 +163,5 @@ func seed() {
 	go ReligionSeeder()
 	go SchoolSeeder()
 	go SexSeeder()
+	go SkillSeeder()
 }
