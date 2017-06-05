@@ -39,6 +39,7 @@ func Handler() chi.Router {
 		r.Use(loggedInOnly)
 		r.Mount(helper.ApiBasePath(""), apiRoutes())
 		r.Mount("/users", userRoutes())
+		// r.Mount("/registrants", registrantRoutes())
 		r.Mount("/", profileRoutes())
 		r.Get("/search", controller.GetSearch)
 	})

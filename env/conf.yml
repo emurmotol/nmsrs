@@ -37,7 +37,7 @@ pkg:
         charset: utf8
         parseTime: true
         loc: Local
-        reset: false
+        reset: true
     render:
         dir: view
         layout: layouts/base

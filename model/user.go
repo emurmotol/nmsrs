@@ -159,9 +159,9 @@ func (user *User) Delete() error {
 	if err := db.Unscoped().Delete(&user).Error; err != nil {
 		return err
 	}
-	dir := filepath.Join(contentDir, strconv.Itoa(int(user.ID)))
+	dir := filepath.Join(contentDir, "users", strconv.Itoa(int(user.ID)))
 
-	if _, err := os.Stat(dir); os.IsExist(err) {
+	if _, err := os.Stat(dir); !os.IsNotExist(err) {
 		if err := os.RemoveAll(dir); err != nil {
 			return err
 		}
@@ -197,7 +197,7 @@ func (user *User) Create() (*User, error) {
 	return user, nil
 }
 
-func (user *User) Update(update map[string]interface{}) (*User, error) {
+func (user *User) update(update map[string]interface{}) (*User, error) {
 	db := database.Conn()
 	defer db.Close()
 
@@ -213,7 +213,7 @@ func (user *User) UpdateProfile() error {
 	update["email"] = user.Email
 	update["is_admin"] = user.IsAdmin
 
-	if _, err := user.Update(update); err != nil {
+	if _, err := user.update(update); err != nil {
 		return err
 	}
 	return nil
@@ -228,7 +228,7 @@ func (user *User) ResetPassword() error {
 	update := make(map[string]interface{})
 	update["password"] = string(hashed)
 
-	if _, err := user.Update(update); err != nil {
+	if _, err := user.update(update); err != nil {
 		return err
 	}
 	return nil
@@ -356,7 +356,7 @@ func GetAuthorizedUser(r *http.Request) (*User, error) {
 func (user *User) SetPhoto(file multipart.File) error {
 	photoPath, _ := env.Conf.String("default.photo.path")
 	id := strconv.Itoa(int(user.ID))
-	name := filepath.Join(contentDir, id, "photo", filepath.Base(photoPath))
+	name := filepath.Join(contentDir, "users", id, "photo", filepath.Base(photoPath))
 
 	if err := helper.SaveAsJPEG(file, name); err != nil {
 		return err
@@ -372,7 +372,7 @@ func (user *User) SetPhoto(file multipart.File) error {
 
 func (user *User) GetPhoto() string {
 	photoPath, _ := env.Conf.String("default.photo.path")
-	return path.Join(contentDir, strconv.Itoa(int(user.ID)), "photo", filepath.Base(photoPath))
+	return path.Join(contentDir, "users", strconv.Itoa(int(user.ID)), "photo", filepath.Base(photoPath))
 }
 
 func (user *User) IsSuperuser() bool {
