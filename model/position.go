@@ -8210,3 +8210,17 @@ func (position *Position) Create() (*Position, error) {
 	}
 	return position, nil
 }
+
+func (position Position) Search(q string) []Position {
+	db := database.Conn()
+	defer db.Close()
+
+	positions := []Position{}
+	results := make(chan []Position)
+
+	go func() {
+		db.Find(&positions, "name LIKE ?", database.WrapLike(q))
+		results <- positions
+	}()
+	return <-results
+}

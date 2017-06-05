@@ -55,3 +55,17 @@ func (region *Region) Create() (*Region, error) {
 	}
 	return region, nil
 }
+
+func (region Region) Search(q string) []Region {
+	db := database.Conn()
+	defer db.Close()
+
+	regions := []Region{}
+	results := make(chan []Region)
+
+	go func() {
+		db.Find(&regions, "name LIKE ?", database.WrapLike(q))
+		results <- regions
+	}()
+	return <-results
+}

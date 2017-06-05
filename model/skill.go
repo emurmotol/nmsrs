@@ -45,3 +45,17 @@ func (skill *Skill) Create() (*Skill, error) {
 	}
 	return skill, nil
 }
+
+func (skill Skill) Search(q string) []Skill {
+	db := database.Conn()
+	defer db.Close()
+
+	skills := []Skill{}
+	results := make(chan []Skill)
+
+	go func() {
+		db.Find(&skills, "name LIKE ?", database.WrapLike(q))
+		results <- skills
+	}()
+	return <-results
+}

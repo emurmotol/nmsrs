@@ -82,3 +82,17 @@ func (otherSkill *OtherSkill) Create() (*OtherSkill, error) {
 	}
 	return otherSkill, nil
 }
+
+func (otherSkill OtherSkill) Search(q string) []OtherSkill {
+	db := database.Conn()
+	defer db.Close()
+
+	otherSkills := []OtherSkill{}
+	results := make(chan []OtherSkill)
+
+	go func() {
+		db.Find(&otherSkills, "name LIKE ?", database.WrapLike(q))
+		results <- otherSkills
+	}()
+	return <-results
+}

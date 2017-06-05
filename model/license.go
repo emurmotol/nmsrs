@@ -142,3 +142,17 @@ func (license *License) Create() (*License, error) {
 	}
 	return license, nil
 }
+
+func (license License) Search(q string) []License {
+	db := database.Conn()
+	defer db.Close()
+
+	licenses := []License{}
+	results := make(chan []License)
+
+	go func() {
+		db.Find(&licenses, "name LIKE ?", database.WrapLike(q))
+		results <- licenses
+	}()
+	return <-results
+}

@@ -58,3 +58,17 @@ func (province *Province) Create() (*Province, error) {
 	}
 	return province, nil
 }
+
+func (province Province) Search(q string) []Province {
+	db := database.Conn()
+	defer db.Close()
+
+	provinces := []Province{}
+	results := make(chan []Province)
+
+	go func() {
+		db.Find(&provinces, "name LIKE ?", database.WrapLike(q))
+		results <- provinces
+	}()
+	return <-results
+}

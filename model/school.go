@@ -2400,3 +2400,17 @@ func (school *School) Create() (*School, error) {
 	}
 	return school, nil
 }
+
+func (school School) Search(q string) []School {
+	db := database.Conn()
+	defer db.Close()
+
+	schools := []School{}
+	results := make(chan []School)
+
+	go func() {
+		db.Find(&schools, "name LIKE ?", database.WrapLike(q))
+		results <- schools
+	}()
+	return <-results
+}

@@ -46,3 +46,17 @@ func (industry *Industry) Create() (*Industry, error) {
 	}
 	return industry, nil
 }
+
+func (industry Industry) Search(q string) []Industry {
+	db := database.Conn()
+	defer db.Close()
+
+	industries := []Industry{}
+	results := make(chan []Industry)
+
+	go func() {
+		db.Find(&industries, "name LIKE ?", database.WrapLike(q))
+		results <- industries
+	}()
+	return <-results
+}

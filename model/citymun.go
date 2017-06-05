@@ -61,3 +61,17 @@ func (cityMun *CityMun) Create() (*CityMun, error) {
 	}
 	return cityMun, nil
 }
+
+func (cityMun CityMun) Search(q string) []CityMun {
+	db := database.Conn()
+	defer db.Close()
+
+	cityMuns := []CityMun{}
+	results := make(chan []CityMun)
+
+	go func() {
+		db.Find(&cityMuns, "name LIKE ?", database.WrapLike(q))
+		results <- cityMuns
+	}()
+	return <-results
+}

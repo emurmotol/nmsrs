@@ -225,3 +225,17 @@ func (country *Country) Create() (*Country, error) {
 	}
 	return country, nil
 }
+
+func (country Country) Search(q string) []Country {
+	db := database.Conn()
+	defer db.Close()
+
+	countries := []Country{}
+	results := make(chan []Country)
+
+	go func() {
+		db.Find(&countries, "name LIKE ?", database.WrapLike(q))
+		results <- countries
+	}()
+	return <-results
+}

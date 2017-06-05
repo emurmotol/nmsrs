@@ -1856,3 +1856,17 @@ func (course *Course) Create() (*Course, error) {
 	}
 	return course, nil
 }
+
+func (course Course) Search(q string) []Course {
+	db := database.Conn()
+	defer db.Close()
+
+	courses := []Course{}
+	results := make(chan []Course)
+
+	go func() {
+		db.Find(&courses, "name LIKE ?", database.WrapLike(q))
+		results <- courses
+	}()
+	return <-results
+}

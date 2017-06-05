@@ -263,3 +263,17 @@ func (language *Language) Create() (*Language, error) {
 	}
 	return language, nil
 }
+
+func (language Language) Search(q string) []Language {
+	db := database.Conn()
+	defer db.Close()
+
+	languages := []Language{}
+	results := make(chan []Language)
+
+	go func() {
+		db.Find(&languages, "name LIKE ?", database.WrapLike(q))
+		results <- languages
+	}()
+	return <-results
+}

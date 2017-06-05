@@ -68,3 +68,17 @@ func (religion *Religion) Create() (*Religion, error) {
 	}
 	return religion, nil
 }
+
+func (religion Religion) Search(q string) []Religion {
+	db := database.Conn()
+	defer db.Close()
+
+	religions := []Religion{}
+	results := make(chan []Religion)
+
+	go func() {
+		db.Find(&religions, "name LIKE ?", database.WrapLike(q))
+		results <- religions
+	}()
+	return <-results
+}

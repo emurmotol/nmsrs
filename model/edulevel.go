@@ -55,3 +55,17 @@ func (eduLevel *EduLevel) Create() (*EduLevel, error) {
 	}
 	return eduLevel, nil
 }
+
+func (eduLevel EduLevel) Search(q string) []EduLevel {
+	db := database.Conn()
+	defer db.Close()
+
+	eduLevels := []EduLevel{}
+	results := make(chan []EduLevel)
+
+	go func() {
+		db.Find(&eduLevels, "name LIKE ?", database.WrapLike(q))
+		results <- eduLevels
+	}()
+	return <-results
+}

@@ -61,3 +61,17 @@ func (barangay *Barangay) Create() (*Barangay, error) {
 	}
 	return barangay, nil
 }
+
+func (barangay Barangay) Search(q string) []Barangay {
+	db := database.Conn()
+	defer db.Close()
+
+	barangays := []Barangay{}
+	results := make(chan []Barangay)
+
+	go func() {
+		db.Find(&barangays, "name LIKE ?", database.WrapLike(q))
+		results <- barangays
+	}()
+	return <-results
+}

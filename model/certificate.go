@@ -678,3 +678,17 @@ func (certificate *Certificate) Create() (*Certificate, error) {
 	}
 	return certificate, nil
 }
+
+func (certificate Certificate) Search(q string) []Certificate {
+	db := database.Conn()
+	defer db.Close()
+
+	certificates := []Certificate{}
+	results := make(chan []Certificate)
+
+	go func() {
+		db.Find(&certificates, "name LIKE ?", database.WrapLike(q))
+		results <- certificates
+	}()
+	return <-results
+}

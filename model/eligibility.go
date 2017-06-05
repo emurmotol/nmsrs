@@ -41,3 +41,17 @@ func (eligibility *Eligibility) Create() (*Eligibility, error) {
 	}
 	return eligibility, nil
 }
+
+func (eligibility Eligibility) Search(q string) []Eligibility {
+	db := database.Conn()
+	defer db.Close()
+
+	eligibilities := []Eligibility{}
+	results := make(chan []Eligibility)
+
+	go func() {
+		db.Find(&eligibilities, "name LIKE ?", database.WrapLike(q))
+		results <- eligibilities
+	}()
+	return <-results
+}
