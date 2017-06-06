@@ -19,7 +19,7 @@ func userCtx(next http.Handler) http.Handler {
 			controller.NotFound(w, r)
 			return
 		}
-		user := model.UserByID(int64(id))
+		user := model.UserByID(uint64(id))
 
 		if user == nil {
 			controller.NotFound(w, r)
@@ -38,7 +38,7 @@ func userCtx(next http.Handler) http.Handler {
 // 			controller.NotFound(w, r)
 // 			return
 // 		}
-// 		registrant, err := model.RegistrantByID(int64(id))
+// 		registrant, err := model.RegistrantByID(uint64(id))
 
 // 		if err != nil {
 // 			controller.NotFound(w, r)

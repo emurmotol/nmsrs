@@ -3,7 +3,7 @@ package model
 import "time"
 
 type Registrant struct {
-	ID         int64      `json:"id"`
+	ID         uint64      `json:"id"`
 	CreatedAt  time.Time  `json:"created_at"`
 	UpdatedAt  time.Time  `json:"updated_at"`
 	DeletedAt  *time.Time `json:"deleted_at"`
@@ -73,7 +73,7 @@ type Registrant struct {
 // 	return nil
 // }
 
-// func DeleteManyRegistrant(ids []int64) error {
+// func DeleteManyRegistrant(ids []uint64) error {
 // 	db := database.Conn()
 // 	defer db.Close()
 
@@ -123,7 +123,7 @@ type Registrant struct {
 // 	return nil
 // }
 
-// func RegistrantByID(id int64) (*Registrant, error) {
+// func RegistrantByID(id uint64) (*Registrant, error) {
 // 	db := database.Conn()
 // 	defer db.Close()
 
@@ -160,7 +160,7 @@ type Registrant struct {
 // 	return false, nil
 // }
 
-// func RegistrantEmailSameAsOld(id int64, email string) (bool, error) {
+// func RegistrantEmailSameAsOld(id uint64, email string) (bool, error) {
 // 	registrant, err := RegistrantByID(id)
 
 // 	if err != nil {

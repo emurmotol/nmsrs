@@ -6,7 +6,7 @@ import (
 )
 
 type Position struct {
-	ID   int    `json:"id"`
+	ID   uint    `json:"id"`
 	Name string `json:"name"`
 }
 

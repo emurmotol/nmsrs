@@ -30,7 +30,7 @@ func strictSlash(str string) {
 	}
 }
 
-func PhotoPath(id int64, typ string) string {
+func PhotoPath(id uint64, typ string) string {
 	switch typ {
 	case "User":
 		return fmt.Sprintf("/users/%d/photo", id)

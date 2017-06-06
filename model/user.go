@@ -27,7 +27,7 @@ var (
 )
 
 type User struct {
-	ID        int64      `json:"id"`
+	ID        uint64     `json:"id"`
 	CreatedAt time.Time  `json:"created_at"`
 	UpdatedAt time.Time  `json:"updated_at"`
 	DeletedAt *time.Time `json:"deleted_at"`
@@ -88,7 +88,7 @@ func (form *CreateUserForm) IsValid() bool {
 }
 
 type EditProfileForm struct {
-	ID          int64                 `schema:"-"`
+	ID          uint64                `schema:"-"`
 	Name        string                `schema:"name" validate:"required"`
 	Email       string                `schema:"email" validate:"required,email"`
 	IsAdmin     bool                  `schema:"is_admin"`
@@ -168,7 +168,7 @@ func (user *User) Delete() {
 	}
 }
 
-func DeleteManyUser(ids []int64) {
+func DeleteManyUser(ids []uint64) {
 	db := database.Conn()
 	defer db.Close()
 
@@ -217,7 +217,7 @@ func (user *User) ResetPassword() {
 	user.update(update)
 }
 
-func UserByID(id int64) *User {
+func UserByID(id uint64) *User {
 	db := database.Conn()
 	defer db.Close()
 	user := new(User)
@@ -248,7 +248,7 @@ func UserEmailTaken(email string) bool {
 	return false
 }
 
-func UserEmailSameAsOld(id int64, email string) bool {
+func UserEmailSameAsOld(id uint64, email string) bool {
 	user := UserByID(id)
 
 	if user.Email != email {
@@ -312,7 +312,7 @@ func GetAuthorizedUser(r *http.Request) (*User, error) {
 	}
 	claims := jwtToken.Claims
 	id := claims["userID"].(float64)
-	return UserByID(int64(id)), nil
+	return UserByID(uint64(id)), nil
 }
 
 func (user *User) SetPhoto(file multipart.File) error {

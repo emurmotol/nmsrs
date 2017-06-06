@@ -106,6 +106,7 @@ $(function () {
                         return {
                             id: data.city_mun_code,
                             text: data.city_mun_desc + ", " + data.prov_desc,
+                            prov_code: data.prov_code,
                             prov_desc: data.prov_desc
                         };
                     })
@@ -117,8 +118,9 @@ $(function () {
 
     $("#city_mun").on("change", function () {
         var city_mun_code = $(this).val();
-        var prov_desc = $(this).select2("data")[0].prov_desc;
-        $("#province").val(prov_desc);
+        var data = $(this).select2("data")[0];
+        $("#province").prop("data-code", data.prov_code);
+        $("#province").val(data.prov_desc);
 
         $("#barangay").select2({
             placeholder: "Select barangay",

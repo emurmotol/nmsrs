@@ -4,7 +4,7 @@ import "github.com/emurmotol/nmsrs/database"
 import "strings"
 
 type Certificate struct {
-	ID   int    `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 

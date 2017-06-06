@@ -44,17 +44,6 @@ func up() {
 	defer db.Close()
 
 	db.CreateTable(&User{})
-	db.CreateTable(&Registrant{})
-	db.CreateTable(&RegistInfo{})
-	db.Model(&RegistInfo{}).AddForeignKey("registrant_id", "registrants(id)", "RESTRICT", "RESTRICT")
-	db.CreateTable(&EmpStat{})
-	db.CreateTable(&UnEmpStat{})
-	db.CreateTable(&Country{})
-	db.CreateTable(&RegistEmp{})
-	db.Model(&RegistEmp{}).AddForeignKey("registrant_id", "registrants(id)", "RESTRICT", "RESTRICT")
-	db.Model(&RegistEmp{}).AddForeignKey("emp_stat_id", "emp_stats(id)", "RESTRICT", "RESTRICT")
-	db.Model(&RegistEmp{}).AddForeignKey("un_emp_stat_id", "un_emp_stats(id)", "RESTRICT", "RESTRICT")
-	db.Model(&RegistEmp{}).AddForeignKey("toc_id", "countries(id)", "RESTRICT", "RESTRICT")
 	db.CreateTable(&Region{})
 	db.CreateTable(&Province{})
 	db.CreateTable(&CityMun{})
@@ -74,6 +63,22 @@ func up() {
 	db.CreateTable(&School{})
 	db.CreateTable(&Sex{})
 	db.CreateTable(&Skill{})
+	db.CreateTable(&Registrant{})
+	db.CreateTable(&RegistInfo{})
+	db.Model(&RegistInfo{}).AddForeignKey("registrant_id", "registrants(id)", "CASCADE", "CASCADE")
+	db.Model(&RegistInfo{}).AddForeignKey("city_mun_code", "city_muns(code)", "CASCADE", "CASCADE")
+	db.Model(&RegistInfo{}).AddForeignKey("prov_code", "provinces(code)", "CASCADE", "CASCADE")
+	db.Model(&RegistInfo{}).AddForeignKey("brgy_code", "barangays(code)", "CASCADE", "CASCADE")
+	db.Model(&RegistInfo{}).AddForeignKey("civil_stat_id", "civil_stats(id)", "CASCADE", "CASCADE")
+	db.Model(&RegistInfo{}).AddForeignKey("sex_id", "sexes(id)", "CASCADE", "CASCADE")
+	db.CreateTable(&EmpStat{})
+	db.CreateTable(&UnEmpStat{})
+	db.CreateTable(&Country{})
+	db.CreateTable(&RegistEmp{})
+	db.Model(&RegistEmp{}).AddForeignKey("registrant_id", "registrants(id)", "CASCADE", "CASCADE")
+	db.Model(&RegistEmp{}).AddForeignKey("emp_stat_id", "emp_stats(id)", "CASCADE", "CASCADE")
+	db.Model(&RegistEmp{}).AddForeignKey("un_emp_stat_id", "un_emp_stats(id)", "CASCADE", "CASCADE")
+	db.Model(&RegistEmp{}).AddForeignKey("toc_id", "countries(id)", "CASCADE", "CASCADE")
 }
 
 func down() {
@@ -113,12 +118,6 @@ func migrate() {
 	defer db.Close()
 
 	db.AutoMigrate(&User{})
-	db.AutoMigrate(&EmpStat{})
-	db.AutoMigrate(&UnEmpStat{})
-	db.AutoMigrate(&Country{})
-	db.AutoMigrate(&RegistEmp{})
-	db.AutoMigrate(&Registrant{})
-	db.AutoMigrate(&RegistInfo{})
 	db.AutoMigrate(&Region{})
 	db.AutoMigrate(&Province{})
 	db.AutoMigrate(&CityMun{})
@@ -138,6 +137,12 @@ func migrate() {
 	db.AutoMigrate(&School{})
 	db.AutoMigrate(&Sex{})
 	db.AutoMigrate(&Skill{})
+	db.AutoMigrate(&EmpStat{})
+	db.AutoMigrate(&UnEmpStat{})
+	db.AutoMigrate(&Country{})
+	db.AutoMigrate(&RegistEmp{})
+	db.AutoMigrate(&RegistInfo{})
+	db.AutoMigrate(&Registrant{})
 }
 
 func seed() {
@@ -165,4 +170,5 @@ func seed() {
 	go schoolSeeder()
 	go sexSeeder()
 	go skillSeeder()
+	// todo seed reg_ assoc last
 }

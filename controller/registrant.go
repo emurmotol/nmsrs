@@ -254,7 +254,7 @@ func CreateRegistrant(w http.ResponseWriter, r *http.Request) {
 // 	}
 
 // 	if r.PostFormValue("_method") == "DELETE" {
-// 		var ids []int64
+// 		var ids []uint64
 
 // 		if err := json.Unmarshal([]byte(r.PostFormValue("ids")), &ids); err != nil {
 // 			panic(err)

@@ -9,8 +9,7 @@ import (
 )
 
 type Region struct {
-	ID       int    `json:"id"`
-	Code     string `json:"code"`
+	Code     string `gorm:"primary_key" json:"code"`
 	Desc     string `json:"desc"`
 	PsgcCode string `json:"psgc_code"`
 }
