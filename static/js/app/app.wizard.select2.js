@@ -104,9 +104,9 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.city_mun_code,
+                            id: data.city_mun_id,
                             text: data.city_mun_desc + ", " + data.prov_desc,
-                            prov_code: data.prov_code,
+                            prov_code: data.prov_id,
                             prov_desc: data.prov_desc
                         };
                     })
@@ -117,22 +117,22 @@ $(function () {
     });
 
     $("#city_mun").on("change", function () {
-        var city_mun_code = $(this).val();
+        var city_mun_id = $(this).val();
         var data = $(this).select2("data")[0];
-        $("#province").prop("data-code", data.prov_code);
+        $("#province").prop("data-id", data.prov_id);
         $("#province").val(data.prov_desc);
 
         $("#barangay").select2({
             placeholder: "Select barangay",
             ajax: {
-                url: "/api/citymuns/" + city_mun_code + "/barangays",
+                url: "/api/citymuns/" + city_mun_id + "/barangays",
                 delay: 250,
                 dataType: "json",
                 processResults: function (r) {
                     return {
                         results: $.map(r, function (data) {
                             return {
-                                id: data.code,
+                                id: data.id,
                                 text: data.desc
                             };
                         })

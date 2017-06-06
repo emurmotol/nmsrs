@@ -14,12 +14,12 @@ type RegistInfo struct {
 	Password       string    `gorm:"not null" json:"password"`
 	HasPhoto       bool      `gorm:"type:tinyint(1);default:false;not null" json:"has_photo"`
 	StSub          string    `gorm:"not null" json:"st_sub"`
-	CityMun        CityMun   `gorm:"ForeignKey:CityMunCode;AssociationForeignKey:Code"`
-	CityMunCode    string    `json:"city_mun_code"`
-	Province       Province  `gorm:"ForeignKey:ProvCode;AssociationForeignKey:Code"`
-	ProvCode       string    `json:"prov_code"`
-	Barangay       Barangay  `gorm:"ForeignKey:BrgyCode;AssociationForeignKey:Code"`
-	BrgyCode       string    `json:"brgy_code"`
+	CityMun        CityMun   `gorm:"ForeignKey:CityMunID"`
+	CityMunID      uint      `json:"city_mun_id"`
+	Province       Province  `gorm:"ForeignKey:ProvID"`
+	ProvID         uint      `json:"prov_id"`
+	Barangay       Barangay  `gorm:"ForeignKey:BrgyID"`
+	BrgyID         uint      `json:"brgy_id"`
 	CivilStat      CivilStat `gorm:"ForeignKey:CivilStatID"`
 	CivilStatID    uint      `json:"civil_stat_id"`
 	CivilStatOther string    `json:"civil_stat_other"`

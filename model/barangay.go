@@ -9,7 +9,8 @@ import (
 )
 
 type Barangay struct {
-	Code        string `gorm:"primary_key" json:"code"`
+	ID          uint   `json:"id"`
+	Code        string `json:"code"`
 	Desc        string `json:"desc"`
 	RegCode     string `json:"reg_code"`
 	ProvCode    string `json:"prov_code"`

@@ -9,7 +9,8 @@ import (
 )
 
 type CityMun struct {
-	Code     string `gorm:"primary_key" json:"code"`
+	ID       uint   `json:"id"`
+	Code     string `json:"code"`
 	Desc     string `json:"desc"`
 	PsgcCode string `json:"psgc_code"`
 	RegCode  string `json:"reg_code"`
@@ -17,9 +18,9 @@ type CityMun struct {
 }
 
 type CityMunProv struct {
-	CityMunCode string `json:"city_mun_code"`
+	CityMunID   uint   `json:"city_mun_id"`
 	CityMunDesc string `json:"city_mun_desc"`
-	ProvCode    string `json:"prov_code"`
+	ProvID      uint   `json:"prov_id"`
 	ProvDesc    string `json:"prov_desc"`
 }
 
@@ -72,7 +73,7 @@ func (cityMun CityMun) ProvinceIndex(q string) []CityMunProv {
 	results := make(chan []CityMunProv)
 
 	go func() {
-		if err := db.Raw("SELECT city_muns.code as city_mun_code, city_muns.desc as city_mun_desc, provinces.code as prov_code, provinces.desc as prov_desc, CONCAT(city_muns.desc, ', ', provinces.desc) AS name FROM provinces INNER JOIN city_muns ON city_muns.prov_code = provinces.code HAVING name LIKE ?", database.WrapLike(q)).Scan(&cityMunProv).Error; err != nil {
+		if err := db.Raw("SELECT city_muns.id as city_mun_id, city_muns.desc as city_mun_desc, provinces.id as prov_id, provinces.desc as prov_desc, CONCAT(city_muns.desc, ', ', provinces.desc) AS name FROM provinces INNER JOIN city_muns ON city_muns.prov_code = provinces.code HAVING name LIKE ?", database.WrapLike(q)).Scan(&cityMunProv).Error; err != nil {
 			panic(err)
 		}
 		results <- cityMunProv

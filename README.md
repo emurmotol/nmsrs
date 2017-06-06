@@ -17,7 +17,7 @@
 * add error logs
 * handle redirects
 * ok: set in php.ini for mysql client `post_max_size=80M`, `upload_max_filesize=200M`, `max_execution_time=5000`, `max_input_time=5000`, `memory_limit=1024M`
-* set id for .json seeded obj
+* ok: set id for .json seeded obj
 
 ### Study
 * https://github.com/disintegration/imaging
