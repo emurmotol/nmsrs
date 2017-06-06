@@ -34,24 +34,21 @@ func industrySeeder() {
 
 	for _, name := range data {
 		industry := Industry{Name: strings.ToUpper(name)}
-
-		if _, err := industry.Create(); err != nil {
-			panic(err)
-		}
+		industry.Create()
 	}
 }
 
-func (industry *Industry) Create() (*Industry, error) {
+func (industry *Industry) Create() *Industry {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&industry).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return industry, nil
+	return industry
 }
 
-func (industry Industry) Search(q string) []Industry {
+func (industry Industry) Index(q string) []Industry {
 	db := database.Conn()
 	defer db.Close()
 

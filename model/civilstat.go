@@ -22,19 +22,27 @@ func civilStatSeeder() {
 
 	for _, name := range data {
 		civilStat := CivilStat{Name: strings.ToUpper(name)}
-
-		if _, err := civilStat.Create(); err != nil {
-			panic(err)
-		}
+		civilStat.Create()
 	}
 }
 
-func (civilStat *CivilStat) Create() (*CivilStat, error) {
+func (civilStat *CivilStat) Create() *CivilStat {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&civilStat).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return civilStat, nil
+	return civilStat
+}
+
+func CivilStats() []CivilStat {
+	db := database.Conn()
+	defer db.Close()
+	civilStats := []CivilStat{}
+
+	if err := db.Find(&civilStats).Error; err != nil {
+		panic(err)
+	}
+	return civilStats
 }

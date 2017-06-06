@@ -4,76 +4,81 @@ import (
 	"net/http"
 
 	"github.com/emurmotol/nmsrs/model"
+	"github.com/pressly/chi"
 )
 
-func BarangayIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
-}
-
 func CertificateIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	certificate := model.Certificate{}
+	rd.JSON(w, http.StatusOK, certificate.Index(r.URL.Query().Get("q")))
 }
 
-func CityMunWithProvinceIndex(w http.ResponseWriter, r *http.Request) {
-	rd.JSON(w, http.StatusOK, model.CityMunWithProvince(r.URL.Query().Get("q")))
+func CityMunBarangayIndex(w http.ResponseWriter, r *http.Request) {
+	cityMun := model.CityMun{}
+	cityMun.Code = chi.URLParam(r, "cityMunCode")
+	rd.JSON(w, http.StatusOK, cityMun.BarangayIndex(r.URL.Query().Get("q")))
 }
 
-func CityMunIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+func CityMunProvinceIndex(w http.ResponseWriter, r *http.Request) {
+	cityMun := model.CityMun{}
+	rd.JSON(w, http.StatusOK, cityMun.ProvinceIndex(r.URL.Query().Get("q")))
 }
 
 func CountryIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	country := model.Country{}
+	rd.JSON(w, http.StatusOK, country.Index(r.URL.Query().Get("q")))
 }
 
 func CourseIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	course := model.Course{}
+	rd.JSON(w, http.StatusOK, course.Index(r.URL.Query().Get("q")))
 }
 
 func EduLevelIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	eduLevel := model.EduLevel{}
+	rd.JSON(w, http.StatusOK, eduLevel.Index(r.URL.Query().Get("q")))
 }
 
 func EligibilityIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	eligibility := model.Eligibility{}
+	rd.JSON(w, http.StatusOK, eligibility.Index(r.URL.Query().Get("q")))
 }
 
 func IndustryIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	industry := model.Industry{}
+	rd.JSON(w, http.StatusOK, industry.Index(r.URL.Query().Get("q")))
 }
 
 func LanguageIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	language := model.Language{}
+	rd.JSON(w, http.StatusOK, language.Index(r.URL.Query().Get("q")))
 }
 
 func LicenseIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	license := model.License{}
+	rd.JSON(w, http.StatusOK, license.Index(r.URL.Query().Get("q")))
 }
 
 func OtherSkillIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	otherSkill := model.OtherSkill{}
+	rd.JSON(w, http.StatusOK, otherSkill.Index(r.URL.Query().Get("q")))
 }
 
 func PositionIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
-}
-
-func ProvinceIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
-}
-
-func RegionIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	position := model.Position{}
+	rd.JSON(w, http.StatusOK, position.Index(r.URL.Query().Get("q")))
 }
 
 func ReligionIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	religion := model.Religion{}
+	rd.JSON(w, http.StatusOK, religion.Index(r.URL.Query().Get("q")))
 }
 
 func SchoolIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	school := model.School{}
+	rd.JSON(w, http.StatusOK, school.Index(r.URL.Query().Get("q")))
 }
 
 func SkillIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
+	skill := model.Skill{}
+	rd.JSON(w, http.StatusOK, skill.Index(r.URL.Query().Get("q")))
 }

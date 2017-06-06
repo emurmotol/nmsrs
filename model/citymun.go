@@ -51,44 +51,46 @@ func cityMunSeeder() {
 			RegCode:  refCityMun.RegCode,
 			ProvCode: refCityMun.ProvCode,
 		}
-
-		if _, err := cityMun.Create(); err != nil {
-			panic(err)
-		}
+		cityMun.Create()
 	}
 }
 
-func (cityMun *CityMun) Create() (*CityMun, error) {
+func (cityMun *CityMun) Create() *CityMun {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&cityMun).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return cityMun, nil
+	return cityMun
 }
 
-func (cityMun CityMun) Search(q string) []CityMun {
+func (cityMun CityMun) ProvinceIndex(q string) []CityMunProv {
 	db := database.Conn()
 	defer db.Close()
-
-	cityMuns := []CityMun{}
-	results := make(chan []CityMun)
+	cityMunProv := []CityMunProv{}
+	results := make(chan []CityMunProv)
 
 	go func() {
-		db.Find(&cityMuns, "name LIKE ?", database.WrapLike(q))
-		results <- cityMuns
+		if err := db.Raw("SELECT city_muns.code as city_mun_code, city_muns.desc as city_mun_desc, provinces.desc as prov_desc, CONCAT(city_muns.desc, ', ', provinces.desc) AS name FROM provinces INNER JOIN city_muns ON city_muns.prov_code = provinces.code HAVING name LIKE ?", database.WrapLike(q)).Scan(&cityMunProv).Error; err != nil {
+			panic(err)
+		}
+		results <- cityMunProv
 	}()
 	return <-results
 }
 
-func CityMunWithProvince(q string) []CityMunProv {
+func (cityMun *CityMun) BarangayIndex(q string) []Barangay {
 	db := database.Conn()
 	defer db.Close()
-	cityMunProv := []CityMunProv{}
+	barangays := []Barangay{}
+	results := make(chan []Barangay)
 
-	if err := db.Raw("SELECT city_muns.code as city_mun_code, city_muns.desc as city_mun_desc, provinces.desc as prov_desc, CONCAT(city_muns.desc, ', ', provinces.desc) AS name FROM provinces INNER JOIN city_muns ON city_muns.prov_code = provinces.code HAVING name LIKE ?", database.WrapLike(q)).Scan(&cityMunProv).Error; err != nil {
-		panic(err)
-	}
-	return cityMunProv
+	go func() {
+		if err := db.Where("city_mun_code = ? AND `desc` LIKE ?", cityMun.Code, database.WrapLike(q)).Find(&barangays).Error; err != nil {
+			panic(err)
+		}
+		results <- barangays
+	}()
+	return <-results
 }

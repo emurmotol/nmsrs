@@ -13,15 +13,15 @@ import (
 
 func userCtx(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		id, err := strconv.Atoi(chi.URLParam(r, "id"))
+		id, err := strconv.Atoi(chi.URLParam(r, "userID"))
 
 		if err != nil {
 			controller.NotFound(w, r)
 			return
 		}
-		user, err := model.UserByID(int64(id))
+		user := model.UserByID(int64(id))
 
-		if err != nil {
+		if user == nil {
 			controller.NotFound(w, r)
 			return
 		}
@@ -32,7 +32,7 @@ func userCtx(next http.Handler) http.Handler {
 
 // func registrantCtx(next http.Handler) http.Handler {
 // 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-// 		id, err := strconv.Atoi(chi.URLParam(r, "id"))
+// 		id, err := strconv.Atoi(chi.URLParam(r, "registrantID"))
 
 // 		if err != nil {
 // 			controller.NotFound(w, r)

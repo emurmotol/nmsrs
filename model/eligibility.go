@@ -29,24 +29,21 @@ func eligibilitySeeder() {
 
 	for _, name := range data {
 		eligibility := Eligibility{Name: strings.ToUpper(name)}
-
-		if _, err := eligibility.Create(); err != nil {
-			panic(err)
-		}
+		eligibility.Create()
 	}
 }
 
-func (eligibility *Eligibility) Create() (*Eligibility, error) {
+func (eligibility *Eligibility) Create() *Eligibility {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&eligibility).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return eligibility, nil
+	return eligibility
 }
 
-func (eligibility Eligibility) Search(q string) []Eligibility {
+func (eligibility Eligibility) Index(q string) []Eligibility {
 	db := database.Conn()
 	defer db.Close()
 

@@ -39,33 +39,16 @@ func regionSeeder() {
 			Desc:     strings.ToUpper(refRegion.RegDesc),
 			PsgcCode: refRegion.PsgcCode,
 		}
-
-		if _, err := region.Create(); err != nil {
-			panic(err)
-		}
+		region.Create()
 	}
 }
 
-func (region *Region) Create() (*Region, error) {
+func (region *Region) Create() *Region {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&region).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return region, nil
-}
-
-func (region Region) Search(q string) []Region {
-	db := database.Conn()
-	defer db.Close()
-
-	regions := []Region{}
-	results := make(chan []Region)
-
-	go func() {
-		db.Find(&regions, "name LIKE ?", database.WrapLike(q))
-		results <- regions
-	}()
-	return <-results
+	return region
 }

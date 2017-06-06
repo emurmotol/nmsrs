@@ -33,24 +33,21 @@ func skillSeeder() {
 
 	for _, name := range data {
 		skill := Skill{Name: strings.ToUpper(name)}
-
-		if _, err := skill.Create(); err != nil {
-			panic(err)
-		}
+		skill.Create()
 	}
 }
 
-func (skill *Skill) Create() (*Skill, error) {
+func (skill *Skill) Create() *Skill {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&skill).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return skill, nil
+	return skill
 }
 
-func (skill Skill) Search(q string) []Skill {
+func (skill Skill) Index(q string) []Skill {
 	db := database.Conn()
 	defer db.Close()
 

@@ -1700,24 +1700,21 @@ func courseSeeder() {
 
 	for _, name := range data {
 		course := Course{Name: strings.ToUpper(name)}
-
-		if _, err := course.Create(); err != nil {
-			panic(err)
-		}
+		course.Create()
 	}
 }
 
-func (course *Course) Create() (*Course, error) {
+func (course *Course) Create() *Course {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&course).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return course, nil
+	return course
 }
 
-func (course Course) Search(q string) []Course {
+func (course Course) Index(q string) []Course {
 	db := database.Conn()
 	defer db.Close()
 

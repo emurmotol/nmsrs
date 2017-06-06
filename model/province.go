@@ -42,33 +42,16 @@ func provinceSeeder() {
 			PsgcCode: refProvince.PsgcCode,
 			RegCode:  refProvince.RegCode,
 		}
-
-		if _, err := province.Create(); err != nil {
-			panic(err)
-		}
+		province.Create()
 	}
 }
 
-func (province *Province) Create() (*Province, error) {
+func (province *Province) Create() *Province {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&province).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return province, nil
-}
-
-func (province Province) Search(q string) []Province {
-	db := database.Conn()
-	defer db.Close()
-
-	provinces := []Province{}
-	results := make(chan []Province)
-
-	go func() {
-		db.Find(&provinces, "name LIKE ?", database.WrapLike(q))
-		results <- provinces
-	}()
-	return <-results
+	return province
 }

@@ -49,30 +49,25 @@ $(function () {
     //     }
     // });
 
-    // $("#religion").select2({
-    //     placeholder: "Select religion",
-    //     ajax: {
-    //         url: "/api/religions",
-    //         delay: 250,
-    //         dataType: "json",
-    //         data: function (params) {
-    //             return {
-    //                 q: params.term
-    //             };
-    //         },
-    //         processResults: function (data) {
-    //             return {
-    //                 results: $.map(data.data.religions, function (relig) {
-    //                     return {
-    //                         id: relig.id,
-    //                         text: relig.name
-    //                     };
-    //                 })
-    //             };
-    //         },
-    //         cache: true
-    //     }
-    // });
+    $("#religion").select2({
+        placeholder: "Select religion",
+        ajax: {
+            url: "/api/religions",
+            delay: 250,
+            dataType: "json",
+            processResults: function (r) {
+                return {
+                    results: $.map(r, function (data) {
+                        return {
+                            id: data.id,
+                            text: data.name
+                        };
+                    })
+                };
+            },
+            cache: true
+        }
+    });
 
     // $("#province").select2({
     //     placeholder: "Select province",

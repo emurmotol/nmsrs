@@ -70,24 +70,21 @@ func otherSkillSeeder() {
 
 	for _, name := range data {
 		otherSkill := OtherSkill{Name: strings.ToUpper(name)}
-
-		if _, err := otherSkill.Create(); err != nil {
-			panic(err)
-		}
+		otherSkill.Create()
 	}
 }
 
-func (otherSkill *OtherSkill) Create() (*OtherSkill, error) {
+func (otherSkill *OtherSkill) Create() *OtherSkill {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&otherSkill).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return otherSkill, nil
+	return otherSkill
 }
 
-func (otherSkill OtherSkill) Search(q string) []OtherSkill {
+func (otherSkill OtherSkill) Index(q string) []OtherSkill {
 	db := database.Conn()
 	defer db.Close()
 

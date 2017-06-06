@@ -22,19 +22,16 @@ func unEmpStatSeeder() {
 
 	for _, name := range data {
 		unEmpStat := UnEmpStat{Name: strings.ToUpper(name)}
-
-		if _, err := unEmpStat.Create(); err != nil {
-			panic(err)
-		}
+		unEmpStat.Create()
 	}
 }
 
-func (unEmpStat *UnEmpStat) Create() (*UnEmpStat, error) {
+func (unEmpStat *UnEmpStat) Create() *UnEmpStat {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&unEmpStat).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return unEmpStat, nil
+	return unEmpStat
 }

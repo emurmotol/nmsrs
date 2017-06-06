@@ -129,24 +129,21 @@ func licenseSeeder() {
 
 	for _, name := range data {
 		license := License{Name: strings.ToUpper(name)}
-
-		if _, err := license.Create(); err != nil {
-			panic(err)
-		}
+		license.Create()
 	}
 }
 
-func (license *License) Create() (*License, error) {
+func (license *License) Create() *License {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&license).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return license, nil
+	return license
 }
 
-func (license License) Search(q string) []License {
+func (license License) Index(q string) []License {
 	db := database.Conn()
 	defer db.Close()
 

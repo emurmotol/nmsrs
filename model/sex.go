@@ -19,19 +19,16 @@ func sexSeeder() {
 
 	for _, name := range data {
 		sex := Sex{Name: strings.ToUpper(name)}
-
-		if _, err := sex.Create(); err != nil {
-			panic(err)
-		}
+		sex.Create()
 	}
 }
 
-func (sex *Sex) Create() (*Sex, error) {
+func (sex *Sex) Create() *Sex {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&sex).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return sex, nil
+	return sex
 }

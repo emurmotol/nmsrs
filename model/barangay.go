@@ -45,33 +45,16 @@ func barangaySeeder() {
 			ProvCode:    refBarangay.ProvCode,
 			CityMunCode: refBarangay.CityMunCode,
 		}
-
-		if _, err := barangay.Create(); err != nil {
-			panic(err)
-		}
+		barangay.Create()
 	}
 }
 
-func (barangay *Barangay) Create() (*Barangay, error) {
+func (barangay *Barangay) Create() *Barangay {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&barangay).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return barangay, nil
-}
-
-func (barangay Barangay) Search(q string) []Barangay {
-	db := database.Conn()
-	defer db.Close()
-
-	barangays := []Barangay{}
-	results := make(chan []Barangay)
-
-	go func() {
-		db.Find(&barangays, "name LIKE ?", database.WrapLike(q))
-		results <- barangays
-	}()
-	return <-results
+	return barangay
 }

@@ -22,19 +22,16 @@ func disabilitySeeder() {
 
 	for _, name := range data {
 		disability := Disability{Name: strings.ToUpper(name)}
-
-		if _, err := disability.Create(); err != nil {
-			panic(err)
-		}
+		disability.Create()
 	}
 }
 
-func (disability *Disability) Create() (*Disability, error) {
+func (disability *Disability) Create() *Disability {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&disability).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return disability, nil
+	return disability
 }

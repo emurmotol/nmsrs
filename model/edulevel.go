@@ -43,24 +43,21 @@ func eduLevelSeeder() {
 
 	for _, name := range data {
 		eduLevel := EduLevel{Name: strings.ToUpper(name)}
-
-		if _, err := eduLevel.Create(); err != nil {
-			panic(err)
-		}
+		eduLevel.Create()
 	}
 }
 
-func (eduLevel *EduLevel) Create() (*EduLevel, error) {
+func (eduLevel *EduLevel) Create() *EduLevel {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&eduLevel).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return eduLevel, nil
+	return eduLevel
 }
 
-func (eduLevel EduLevel) Search(q string) []EduLevel {
+func (eduLevel EduLevel) Index(q string) []EduLevel {
 	db := database.Conn()
 	defer db.Close()
 

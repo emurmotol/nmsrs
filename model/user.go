@@ -51,7 +51,7 @@ func (form *LoginForm) IsValid() bool {
 		form.Errors = errs
 	}
 
-	if taken, _ := UserEmailTaken(form.Email); !taken {
+	if taken := UserEmailTaken(form.Email); !taken {
 		form.Errors["Email"] = lang.Get("email_not_recognized")
 	}
 	return len(form.Errors) == 0
@@ -75,7 +75,7 @@ func (form *CreateUserForm) IsValid() bool {
 		form.Errors = errs
 	}
 
-	if taken, _ := UserEmailTaken(form.Email); taken {
+	if taken := UserEmailTaken(form.Email); taken {
 		form.Errors["Email"] = lang.Get("email_taken")
 	}
 
@@ -104,8 +104,8 @@ func (form *EditProfileForm) IsValid() bool {
 		form.Errors = errs
 	}
 
-	if same, _ := UserEmailSameAsOld(form.ID, form.Email); !same {
-		if taken, _ := UserEmailTaken(form.Email); taken {
+	if same := UserEmailSameAsOld(form.ID, form.Email); !same {
+		if taken := UserEmailTaken(form.Email); taken {
 			form.Errors["Email"] = lang.Get("email_taken")
 		}
 	}
@@ -148,143 +148,116 @@ func (user User) Search(q string) []User {
 	return <-results
 }
 
-func (user *User) Delete() error {
+func (user *User) Delete() {
 	if user.IsSuperuser() {
-		return errActionNotPermitted
+		panic(errActionNotPermitted)
 	}
 
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Unscoped().Delete(&user).Error; err != nil {
-		return err
+		panic(err)
 	}
 	dir := filepath.Join(contentDir, "users", strconv.Itoa(int(user.ID)))
 
 	if _, err := os.Stat(dir); !os.IsNotExist(err) {
 		if err := os.RemoveAll(dir); err != nil {
-			return err
+			panic(err)
 		}
 	}
-	return nil
 }
 
-func DeleteManyUser(ids []int64) error {
+func DeleteManyUser(ids []int64) {
 	db := database.Conn()
 	defer db.Close()
 
 	for _, id := range ids {
-		user, err := UserByID(id)
-
-		if err != nil {
-			return err
-		}
-
-		if err := user.Delete(); err != nil {
-			return err
-		}
+		user := UserByID(id)
+		user.Delete()
 	}
-	return nil
 }
 
-func (user *User) Create() (*User, error) {
+func (user *User) Create() *User {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&user).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return user, nil
+	return user
 }
 
-func (user *User) update(update map[string]interface{}) (*User, error) {
+func (user *User) update(update map[string]interface{}) *User {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Model(&user).Updates(update).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return user, nil
+	return user
 }
 
-func (user *User) UpdateProfile() error {
+func (user *User) UpdateProfile() {
 	update := make(map[string]interface{})
 	update["name"] = user.Name
 	update["email"] = user.Email
 	update["is_admin"] = user.IsAdmin
-
-	if _, err := user.update(update); err != nil {
-		return err
-	}
-	return nil
+	user.update(update)
 }
 
-func (user *User) ResetPassword() error {
+func (user *User) ResetPassword() {
 	hashed, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 
 	if err != nil {
-		return err
+		panic(err)
 	}
 	update := make(map[string]interface{})
 	update["password"] = string(hashed)
-
-	if _, err := user.update(update); err != nil {
-		return err
-	}
-	return nil
+	user.update(update)
 }
 
-func UserByID(id int64) (*User, error) {
+func UserByID(id int64) *User {
 	db := database.Conn()
 	defer db.Close()
+	user := new(User)
 
-	user := User{}
-
-	if err := db.First(&user, id).Error; err != nil {
-		return nil, err
+	if notFound := db.First(&user, id).RecordNotFound(); notFound {
+		return nil
 	}
-	return &user, nil
+	return user
 }
 
-func UserByEmail(email string) (*User, error) {
+func UserByEmail(email string) *User {
 	db := database.Conn()
 	defer db.Close()
+	user := new(User)
 
-	user := User{}
-
-	if err := db.Where("email = ?", email).First(&user).Error; err != nil {
-		return nil, err
+	if notFound := db.Where("email = ?", email).First(&user).RecordNotFound(); notFound {
+		return nil
 	}
-	return &user, nil
+	return user
 }
 
-func UserEmailTaken(email string) (bool, error) {
-	user, err := UserByEmail(email)
-
-	if err != nil {
-		return false, err
-	}
+func UserEmailTaken(email string) bool {
+	user := UserByEmail(email)
 
 	if user != nil {
-		return true, nil
+		return true
 	}
-	return false, nil
+	return false
 }
 
-func UserEmailSameAsOld(id int64, email string) (bool, error) {
-	user, err := UserByID(id)
-
-	if err != nil {
-		return false, err
-	}
+func UserEmailSameAsOld(id int64, email string) bool {
+	user := UserByID(id)
 
 	if user.Email != email {
-		return false, nil
+		return false
 	}
-	return true, nil
+	return true
 }
 
-func createSuperUser() error {
+func createSuperUser() {
 	name, _ := env.Conf.String("superuser.name")
 	pwd, _ := env.Conf.String("superuser.pwd")
 	hashed, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
@@ -299,11 +272,7 @@ func createSuperUser() error {
 		Password: string(hashed),
 		IsAdmin:  true,
 	}
-
-	if _, err := user.Create(); err != nil {
-		return err
-	}
-	return nil
+	user.Create()
 }
 
 func userSeeder() {
@@ -321,10 +290,7 @@ func userSeeder() {
 			Password: string(hashed),
 			IsAdmin:  true,
 		}
-
-		if _, err := user.Create(); err != nil {
-			panic(err)
-		}
+		user.Create()
 	}
 }
 
@@ -345,13 +311,8 @@ func GetAuthorizedUser(r *http.Request) (*User, error) {
 		return nil, err
 	}
 	claims := jwtToken.Claims
-	id := claims["id"].(float64)
-	user, err := UserByID(int64(id))
-
-	if err != nil {
-		return nil, err
-	}
-	return user, nil
+	id := claims["userID"].(float64)
+	return UserByID(int64(id)), nil
 }
 
 func (user *User) SetPhoto(file multipart.File) error {

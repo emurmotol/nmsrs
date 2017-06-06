@@ -136,11 +136,7 @@ func StoreUser(w http.ResponseWriter, r *http.Request) {
 		Password: createUserForm.Password,
 		IsAdmin:  createUserForm.IsAdmin,
 	}
-	newUser, err := user.Create()
-
-	if err != nil {
-		panic(err)
-	}
+	newUser := user.Create()
 
 	if createUserForm.PhotoFile != nil {
 		if err := newUser.SetPhoto(createUserForm.PhotoFile); err != nil {
@@ -214,10 +210,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 			Email:   editProfileForm.Email,
 			IsAdmin: editProfileForm.IsAdmin,
 		}
-
-		if err := user.UpdateProfile(); err != nil {
-			panic(err)
-		}
+		user.UpdateProfile()
 
 		if editProfileForm.PhotoFile != nil {
 			if err := user.SetPhoto(editProfileForm.PhotoFile); err != nil {
@@ -261,10 +254,7 @@ func UserPasswordReset(w http.ResponseWriter, r *http.Request) {
 			ID:       userCtx.ID,
 			Password: passwordResetForm.NewPassword,
 		}
-
-		if err := user.ResetPassword(); err != nil {
-			panic(err)
-		}
+		user.ResetPassword()
 		helper.SetFlash(w, r, "alert", helper.Alert{
 			Type:    "success",
 			Content: fmt.Sprintf(lang.Get("password_success_update")),
@@ -286,11 +276,7 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 
 	if r.PostFormValue("_method") == "DELETE" {
 		userCtx := r.Context().Value(constant.UserCtxKey).(*model.User)
-
-		if err := userCtx.Delete(); err != nil {
-			panic(err)
-		}
-
+		userCtx.Delete()
 		helper.SetFlash(w, r, "alert", helper.Alert{
 			Type:    "success",
 			Content: fmt.Sprintf(lang.Get("user_success_delete"), userCtx.Name),
@@ -316,11 +302,7 @@ func DeleteManyUser(w http.ResponseWriter, r *http.Request) {
 		if err := json.Unmarshal([]byte(r.PostFormValue("ids")), &ids); err != nil {
 			panic(err)
 		}
-
-		if err := model.DeleteManyUser(ids); err != nil {
-			http.Redirect(w, r, "/users", http.StatusFound)
-			return
-		}
+		model.DeleteManyUser(ids)
 		helper.SetFlash(w, r, "alert", helper.Alert{
 			Type:    "success",
 			Content: fmt.Sprintf(lang.Get("user_success_delete"), fmt.Sprintf("%d users ", len(ids))),
@@ -341,7 +323,7 @@ func UserPhoto(w http.ResponseWriter, r *http.Request) {
 }
 
 func UserEmailTaken(w http.ResponseWriter, r *http.Request) {
-	if taken, _ := model.UserEmailTaken(r.URL.Query().Get("email")); taken {
+	if taken := model.UserEmailTaken(r.URL.Query().Get("email")); taken {
 		data := make(map[string]string)
 		data["error"] = lang.Get("email_taken")
 		rd.JSON(w, http.StatusNotFound, data)
@@ -351,7 +333,7 @@ func UserEmailTaken(w http.ResponseWriter, r *http.Request) {
 }
 
 func UserEmailExists(w http.ResponseWriter, r *http.Request) {
-	if taken, _ := model.UserEmailTaken(r.URL.Query().Get("email")); !taken {
+	if taken := model.UserEmailTaken(r.URL.Query().Get("email")); !taken {
 		data := make(map[string]string)
 		data["error"] = lang.Get("email_not_recognized")
 		rd.JSON(w, http.StatusNotFound, data)
@@ -363,8 +345,8 @@ func UserEmailExists(w http.ResponseWriter, r *http.Request) {
 func UserEmailCheck(w http.ResponseWriter, r *http.Request) {
 	userCtx := r.Context().Value(constant.UserCtxKey).(*model.User)
 
-	if same, _ := model.UserEmailSameAsOld(userCtx.ID, r.URL.Query().Get("email")); !same {
-		if taken, _ := model.UserEmailTaken(r.URL.Query().Get("email")); taken {
+	if same := model.UserEmailSameAsOld(userCtx.ID, r.URL.Query().Get("email")); !same {
+		if taken := model.UserEmailTaken(r.URL.Query().Get("email")); taken {
 			data := make(map[string]string)
 			data["error"] = lang.Get("email_taken")
 			rd.JSON(w, http.StatusNotFound, data)

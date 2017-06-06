@@ -13,7 +13,7 @@ func userRoutes() chi.Router {
 	r.Get("/create", controller.CreateUser)
 	r.Post("/delete", controller.DeleteManyUser)
 	r.Get("/email/taken", controller.UserEmailTaken)
-	r.Route("/:id", func(r chi.Router) {
+	r.Route("/:userID", func(r chi.Router) {
 		r.Use(userCtx)
 		r.Get("/", controller.ShowUser)
 		r.Post("/", controller.UpdateProfile)
@@ -34,7 +34,7 @@ func registrantRoutes() chi.Router {
 	r.Get("/create", controller.CreateRegistrant)
 	// r.Post("/delete", controller.DeleteManyRegistrant)
 	// r.Get("/email/taken", controller.RegistrantEmailTaken)
-	// r.Route("/:id", func(r chi.Router) {
+	// r.Route("/:registrantID", func(r chi.Router) {
 	// 	r.Use(registrantCtx)
 	// 	r.Get("/", controller.ShowRegistrant)
 	// 	r.Post("/", controller.UpdateRegistrant)
@@ -50,10 +50,9 @@ func apiRoutes() chi.Router {
 	r := chi.NewRouter()
 	r.Use(adminOnly)
 	r.Get("/search", controller.SearchIndex)
-	r.Get("/barangays", controller.BarangayIndex)
 	r.Get("/certificates", controller.CertificateIndex)
-	r.Get("/citymuns/provinces", controller.CityMunWithProvinceIndex)
-	r.Get("/citymuns", controller.CityMunIndex)
+	r.Get("/citymuns/provinces", controller.CityMunProvinceIndex)
+	r.Get("/citymuns/:cityMunCode/barangays", controller.CityMunBarangayIndex)
 	r.Get("/countries", controller.CountryIndex)
 	r.Get("/courses", controller.CourseIndex)
 	r.Get("/edulevels", controller.EduLevelIndex)
@@ -63,8 +62,6 @@ func apiRoutes() chi.Router {
 	r.Get("/licenses", controller.LicenseIndex)
 	r.Get("/otherskills", controller.OtherSkillIndex)
 	r.Get("/positions", controller.PositionIndex)
-	r.Get("/provinces", controller.ProvinceIndex)
-	r.Get("/regions", controller.RegionIndex)
 	r.Get("/religions", controller.ReligionIndex)
 	r.Get("/schools", controller.SchoolIndex)
 	r.Get("/skills", controller.SkillIndex)
@@ -73,7 +70,7 @@ func apiRoutes() chi.Router {
 
 func profileRoutes() chi.Router {
 	r := chi.NewRouter()
-	r.Route("/:id", func(r chi.Router) {
+	r.Route("/:userID", func(r chi.Router) {
 		r.Use(userCtx)
 		r.Get("/", controller.ShowUserProfile)
 		r.Get("/edit", controller.EditUserProfile)

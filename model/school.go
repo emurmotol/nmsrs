@@ -2368,24 +2368,21 @@ func schoolSeeder() {
 
 	for _, name := range data {
 		school := School{Name: strings.ToUpper(name)}
-
-		if _, err := school.Create(); err != nil {
-			panic(err)
-		}
+		school.Create()
 	}
 }
 
-func (school *School) Create() (*School, error) {
+func (school *School) Create() *School {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&school).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return school, nil
+	return school
 }
 
-func (school School) Search(q string) []School {
+func (school School) Index(q string) []School {
 	db := database.Conn()
 	defer db.Close()
 

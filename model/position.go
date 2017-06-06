@@ -8193,24 +8193,21 @@ func positionSeeder() {
 
 	for _, name := range data {
 		position := Position{Name: strings.ToUpper(name)}
-
-		if _, err := position.Create(); err != nil {
-			panic(err)
-		}
+		position.Create()
 	}
 }
 
-func (position *Position) Create() (*Position, error) {
+func (position *Position) Create() *Position {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&position).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return position, nil
+	return position
 }
 
-func (position Position) Search(q string) []Position {
+func (position Position) Index(q string) []Position {
 	db := database.Conn()
 	defer db.Close()
 

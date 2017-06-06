@@ -63,7 +63,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	claims.SetIssuedNow()
 	setExpiryDuration, _ := env.Conf.Int("pkg.jwtauth.setExpiryDuration")
 	claims.SetExpiry(time.Now().Add(time.Hour * time.Duration(setExpiryDuration))) // 2 weeks
-	claims["id"] = user.ID
+	claims["userID"] = user.ID
 	tokenAuth := r.Context().Value(constant.TokenAuthCtxKey).(*jwtauth.JwtAuth)
 	_, tokenString, _ := tokenAuth.Encode(claims)
 	tokenName, _ := env.Conf.String("pkg.jwtauth.tokenName")
@@ -96,7 +96,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 }
 
 func authenticate(email, password string) *model.User {
-	user, _ := model.UserByEmail(email)
+	user := model.UserByEmail(email)
 
 	if user == nil {
 		return nil

@@ -20,19 +20,16 @@ func empStatSeeder() {
 
 	for _, name := range data {
 		empStat := EmpStat{Name: strings.ToUpper(name)}
-
-		if _, err := empStat.Create(); err != nil {
-			panic(err)
-		}
+		empStat.Create()
 	}
 }
 
-func (empStat *EmpStat) Create() (*EmpStat, error) {
+func (empStat *EmpStat) Create() *EmpStat {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&empStat).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return empStat, nil
+	return empStat
 }

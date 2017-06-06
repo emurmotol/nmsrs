@@ -656,24 +656,21 @@ func certificateSeeder() {
 
 	for _, name := range data {
 		certificate := Certificate{Name: strings.ToUpper(name)}
-
-		if _, err := certificate.Create(); err != nil {
-			panic(err)
-		}
+		certificate.Create()
 	}
 }
 
-func (certificate *Certificate) Create() (*Certificate, error) {
+func (certificate *Certificate) Create() *Certificate {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&certificate).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return certificate, nil
+	return certificate
 }
 
-func (certificate Certificate) Search(q string) []Certificate {
+func (certificate Certificate) Index(q string) []Certificate {
 	db := database.Conn()
 	defer db.Close()
 

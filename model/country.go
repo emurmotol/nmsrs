@@ -213,24 +213,21 @@ func countrySeeder() {
 
 	for _, name := range data {
 		country := Country{Name: strings.ToUpper(name)}
-
-		if _, err := country.Create(); err != nil {
-			panic(err)
-		}
+		country.Create()
 	}
 }
 
-func (country *Country) Create() (*Country, error) {
+func (country *Country) Create() *Country {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&country).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return country, nil
+	return country
 }
 
-func (country Country) Search(q string) []Country {
+func (country Country) Index(q string) []Country {
 	db := database.Conn()
 	defer db.Close()
 

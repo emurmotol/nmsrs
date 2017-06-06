@@ -56,24 +56,21 @@ func religionSeeder() {
 
 	for _, name := range data {
 		religion := Religion{Name: strings.ToUpper(name)}
-
-		if _, err := religion.Create(); err != nil {
-			panic(err)
-		}
+		religion.Create()
 	}
 }
 
-func (religion *Religion) Create() (*Religion, error) {
+func (religion *Religion) Create() *Religion {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&religion).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return religion, nil
+	return religion
 }
 
-func (religion Religion) Search(q string) []Religion {
+func (religion Religion) Index(q string) []Religion {
 	db := database.Conn()
 	defer db.Close()
 

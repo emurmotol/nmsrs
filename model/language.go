@@ -251,24 +251,21 @@ func languageSeeder() {
 
 	for _, name := range data {
 		language := Language{Name: strings.ToUpper(name)}
-
-		if _, err := language.Create(); err != nil {
-			panic(err)
-		}
+		language.Create()
 	}
 }
 
-func (language *Language) Create() (*Language, error) {
+func (language *Language) Create() *Language {
 	db := database.Conn()
 	defer db.Close()
 
 	if err := db.Create(&language).Error; err != nil {
-		return nil, err
+		panic(err)
 	}
-	return language, nil
+	return language
 }
 
-func (language Language) Search(q string) []Language {
+func (language Language) Index(q string) []Language {
 	db := database.Conn()
 	defer db.Close()
 
