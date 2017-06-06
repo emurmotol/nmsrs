@@ -12,4 +12,5 @@ type RegistInfo struct {
 	MiddleName   string    `gorm:"not null" json:"middle_name"`
 	Birthdate    time.Time `json:"birthdate"`
 	Password     string    `gorm:"not null" json:"password"`
+	HasPhoto     bool      `gorm:"type:tinyint(1);default:false;not null" json:"has_photo"`
 }

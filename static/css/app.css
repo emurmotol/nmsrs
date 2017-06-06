@@ -12,6 +12,12 @@
     border-color: #5fc1e8;
 }
 
+.nav-pills li.active a,
+.nav-pills li.active a:hover,
+.nav-pills li.active a:focus {
+    background-color: #75caeb;
+}
+
 .list-group-item.active,
 .list-group-item.active:hover,
 .list-group-item.active:focus {

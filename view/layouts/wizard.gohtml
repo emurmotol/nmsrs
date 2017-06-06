@@ -12,8 +12,15 @@
     <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
     <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="/assets/css/product-sans.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-lumen.min.css" rel="stylesheet"> {{partial "stylesheet"}}
-    <link href="/assets/css/app.css" rel="stylesheet"> {{partial "css"}}
+    <link href="/assets/css/bootstrap-lumen.min.css" rel="stylesheet">
+    <link href="/assets/css/select2.min.css" rel="stylesheet">
+    <link href="/assets/css/select2-bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/app.css" rel="stylesheet">
+    <style>
+        .uppercase {
+            text-transform: uppercase;
+        }
+    </style>
 </head>
 
 <body>
@@ -69,8 +76,60 @@
     </nav>
     <div class="container">
         {{with .alert}}{{.}}{{end}}
-        {{yield}}
-
+        <div class="row">
+            <div class="col-lg-4 wizard">
+                <ul class="nav nav-pills nav-stacked" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#step-1" data-toggle="tab" role="tab">
+                            <i class="fa fa-user-o"></i> Registrant Profile
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#step-2" data-toggle="tab" role="tab">
+                            <i class="fa fa-graduation-cap"></i> Formal Education
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#step-3" data-toggle="tab" role="tab">
+                            <i class="fa fa-id-card-o"></i> Professional License
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#step-4" data-toggle="tab" role="tab">
+                            <i class="fa fa-gavel"></i> Eligibility
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#step-5" data-toggle="tab" role="tab">
+                            <i class="fa fa-file-text-o"></i> Vocational/Technical Training And Relevant Experience
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#step-6" data-toggle="tab" role="tab">
+                            <i class="fa fa-certificate"></i> Certificate Of Competence
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#step-7" data-toggle="tab" role="tab">
+                            <i class="fa fa-briefcase"></i> Work Experience
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#step-8" data-toggle="tab" role="tab">
+                            <i class="fa fa-file-o"></i> Other Skills Aquired Without Formal Training
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#step-9" data-toggle="tab" role="tab">
+                            <i class="fa fa-check"></i> Certification/Authorization
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-8">
+                {{yield}}
+            </div>
+        </div>
         <footer class="footer">
             <p class="text-center text-muted">
                 <i class="fa fa-copyright"></i> {{config.app.copyright.year}} {{config.app.description}}
@@ -81,10 +140,18 @@
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/bootstrap3-typeahead.min.js"></script>
     <script src="/assets/js/jquery/url.min.js"></script>
+    <script src="/assets/js/parsley/parsley.config.js"></script>
+    <script src="/assets/js/parsley/parsley.min.js"></script>
+    <script src="/assets/js/parsley/parsley.event.js"></script>
+    <script src="/assets/js/select2/select2.config.js"></script>
+    <script src="/assets/js/select2/select2.full.min.js"></script>
+    <script src="/assets/js/moment.min.js"></script>
+    <script src="/assets/js/livestamp.min.js"></script>
     <script src="/assets/js/app/app.search.js"></script>
-    {{partial "script"}}
     <script src="/assets/js/app/app.js"></script>
-    {{partial "js"}}
+    <script src="/assets/js/app/app.wizard.select2.js"></script>
+    <script src="/assets/js/app/app.wizard.js"></script>
+    <script src="/assets/js/app/app.wizard.forms.js"></script>
 </body>
 
 </html>

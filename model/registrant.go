@@ -3,12 +3,12 @@ package model
 import "time"
 
 type Registrant struct {
-	ID        int64      `json:"id"`
-	CreatedAt time.Time  `json:"created_at"`
-	UpdatedAt time.Time  `json:"updated_at"`
-	DeletedAt *time.Time `json:"deleted_at"`
-	RegistInfo   RegistInfo
-	RegistEmp    RegistEmp
+	ID         int64      `json:"id"`
+	CreatedAt  time.Time  `json:"created_at"`
+	UpdatedAt  time.Time  `json:"updated_at"`
+	DeletedAt  *time.Time `json:"deleted_at"`
+	RegistInfo RegistInfo
+	RegistEmp  RegistEmp
 }
 
 // type CreateRegistrantForm struct {

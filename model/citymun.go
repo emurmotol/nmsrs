@@ -17,6 +17,12 @@ type CityMun struct {
 	ProvCode string `json:"prov_code"`
 }
 
+type CityMunProv struct {
+	CityMunCode string `json:"city_mun_code"`
+	CityMunDesc string `json:"city_mun_desc"`
+	ProvDesc    string `json:"prov_desc"`
+}
+
 type RefCityMun struct {
 	PsgcCode    string `json:"psgcCode"`
 	CityMunDesc string `json:"cityMunDesc"`
@@ -74,4 +80,15 @@ func (cityMun CityMun) Search(q string) []CityMun {
 		results <- cityMuns
 	}()
 	return <-results
+}
+
+func CityMunWithProvince(q string) []CityMunProv {
+	db := database.Conn()
+	defer db.Close()
+	cityMunProv := []CityMunProv{}
+
+	if err := db.Raw("SELECT city_muns.code as city_mun_code, city_muns.desc as city_mun_desc, provinces.desc as prov_desc, CONCAT(city_muns.desc, ', ', provinces.desc) AS name FROM provinces INNER JOIN city_muns ON city_muns.prov_code = provinces.code HAVING name LIKE ?", database.WrapLike(q)).Scan(&cityMunProv).Error; err != nil {
+		panic(err)
+	}
+	return cityMunProv
 }

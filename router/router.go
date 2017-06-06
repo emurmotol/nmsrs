@@ -32,15 +32,14 @@ func Handler() chi.Router {
 	staticDir, _ := env.Conf.String("dir.static")
 	r.FileServer("/assets", http.Dir(staticDir))
 
-	r.NotFound(controller.NotFound)
-
 	r.Group(func(r chi.Router) {
 		r.Use(loggedInOnly)
 		r.Mount("/api", apiRoutes())
 		r.Mount("/users", userRoutes())
-		// r.Mount("/registrants", registrantRoutes())
+		r.Mount("/registrants", registrantRoutes())
 		r.Mount("/", profileRoutes())
 		r.Get("/search", controller.GetSearch)
 	})
+	r.NotFound(controller.NotFound)
 	return r
 }

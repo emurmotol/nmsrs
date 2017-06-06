@@ -1,62 +1,61 @@
 package controller
 
-// func GetRegistrants(w http.ResponseWriter, r *http.Request) {
-// 	db := database.Conn()
-// 	defer db.Close()
-// 	query := db.Model(&model.Registrant{}).Not("email", model.SuperregistrantEmail)
+import (
+	"html/template"
+	"net/http"
+	"strconv"
 
-// 	if val, ok := r.URL.Query()["is_admin"]; ok {
-// 		isAdmin, err := strconv.Atoi(val[0])
+	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/helper"
+	"github.com/emurmotol/nmsrs/model"
+	"github.com/unrolled/render"
+)
 
-// 		if err == nil {
-// 			query = query.Where("is_admin = ?", isAdmin)
-// 		}
-// 	}
+func GetRegistrants(w http.ResponseWriter, r *http.Request) {
+	db := database.Conn()
+	defer db.Close()
 
-// 	if val, ok := r.URL.Query()["q"]; ok {
-// 		q := database.WrapLike(val[0])
-// 		query = query.Where("name LIKE ? OR email LIKE ?", q, q)
-// 	}
-// 	query.Count(&count)
-// 	page, err := strconv.Atoi(r.URL.Query().Get("page"))
+	query := db.Model(&model.Registrant{})
+	query.Count(&count)
+	page, err := strconv.Atoi(r.URL.Query().Get("page"))
 
-// 	if err != nil {
-// 		page = 1
-// 	}
+	if err != nil {
+		page = 1
+	}
 
-// 	pagination := &helper.Paginator{
-// 		Page:     page,
-// 		Limit:    limit,
-// 		Count:    count,
-// 		Interval: interval,
-// 		QueryURL: r.URL.Query(),
-// 	}
+	pagination := &helper.Paginator{
+		Page:     page,
+		Limit:    limit,
+		Count:    count,
+		Interval: interval,
+		QueryURL: r.URL.Query(),
+	}
 
-// 	if page > pagination.PageCount() {
-// 		pagination.Page = 1
-// 	}
-// 	registrants := []model.Registrant{}
-// 	query.Offset(pagination.Offset()).Limit(limit).Find(&registrants)
+	if page > pagination.PageCount() {
+		pagination.Page = 1
+	}
+	registrants := []model.Registrant{}
+	query.Offset(pagination.Offset()).Limit(limit).Find(&registrants)
 
-// 	data := make(map[string]interface{})
-// 	data["title"] = "Registrants"
-// 	data["authUser"] = authUser(r)
-// 	data["registrants"] = registrants
-// 	data["q"] = r.URL.Query().Get("q")
-// 	data["pagination"] = helper.Pager{
-// 		Markup:     template.HTML(pagination.String()),
-// 		Count:      pagination.Count,
-// 		StartIndex: pagination.StartIndex(),
-// 		EndIndex:   pagination.EndIndex(),
-// 	}
-// 	flashAlert := helper.GetFlash(w, r, "alert")
+	data := make(map[string]interface{})
+	data["title"] = "Registrants"
+	data["authUser"] = authUser(r)
+	data["registrants"] = registrants
+	data["q"] = r.URL.Query().Get("q")
+	data["pagination"] = helper.Pager{
+		Markup:     template.HTML(pagination.String()),
+		Count:      pagination.Count,
+		StartIndex: pagination.StartIndex(),
+		EndIndex:   pagination.EndIndex(),
+	}
+	flashAlert := helper.GetFlash(w, r, "alert")
 
-// 	if flashAlert != nil {
-// 		alert := flashAlert.(helper.Alert)
-// 		data["alert"] = template.HTML(alert.String())
-// 	}
-// 	rd.HTML(w, http.StatusOK, "registrant/index", data)
-// }
+	if flashAlert != nil {
+		alert := flashAlert.(helper.Alert)
+		data["alert"] = template.HTML(alert.String())
+	}
+	rd.HTML(w, http.StatusOK, "registrant/index", data)
+}
 
 // func ShowRegistrant(w http.ResponseWriter, r *http.Request) {
 // 	data := make(map[string]interface{})
@@ -72,23 +71,23 @@ package controller
 // 	rd.HTML(w, http.StatusOK, "registrant/show", data)
 // }
 
-// func CreateRegistrant(w http.ResponseWriter, r *http.Request) {
-// 	data := make(map[string]interface{})
-// 	flashAlert := helper.GetFlash(w, r, "alert")
+func CreateRegistrant(w http.ResponseWriter, r *http.Request) {
+	data := make(map[string]interface{})
+	flashAlert := helper.GetFlash(w, r, "alert")
 
-// 	if flashAlert != nil {
-// 		alert := flashAlert.(helper.Alert)
-// 		data["alert"] = template.HTML(alert.String())
-// 	}
-// 	createRegistrantForm := helper.GetFlash(w, r, "createRegistrantForm")
+	if flashAlert != nil {
+		alert := flashAlert.(helper.Alert)
+		data["alert"] = template.HTML(alert.String())
+	}
+	// createRegistrantForm := helper.GetFlash(w, r, "createRegistrantForm")
 
-// 	if createRegistrantForm != nil {
-// 		data["createRegistrantForm"] = createRegistrantForm.(model.CreateRegistrantForm)
-// 	}
-// 	data["title"] = "Create Registrant"
-// 	data["authUser"] = authUser(r)
-// 	rd.HTML(w, http.StatusOK, "registrant/create", data)
-// }
+	// if createRegistrantForm != nil {
+	// 	data["createRegistrantForm"] = createRegistrantForm.(model.CreateRegistrantForm)
+	// }
+	data["title"] = "Create Registrant"
+	data["authUser"] = authUser(r)
+	rd.HTML(w, http.StatusOK, "registrant/create", data, render.HTMLOptions{Layout: "layouts/wizard"})
+}
 
 // func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 // 	if err := r.ParseMultipartForm(0); err != nil {
