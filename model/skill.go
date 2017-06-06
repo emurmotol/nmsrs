@@ -11,7 +11,7 @@ type Skill struct {
 	Name string `json:"name"`
 }
 
-func SkillSeeder() {
+func skillSeeder() {
 	data := []string{
 		"AUTO MECHANIC",
 		"BEAUTICIAN",

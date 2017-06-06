@@ -11,7 +11,7 @@ type EmpStat struct {
 	Name string `json:"name"`
 }
 
-func EmpStatSeeder() {
+func empStatSeeder() {
 	data := []string{
 		"WAGED EMPLOYED",
 		"SELF EMPLOYED",

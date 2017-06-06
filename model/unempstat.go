@@ -11,7 +11,7 @@ type UnEmpStat struct {
 	Name string `json:"name"`
 }
 
-func UnEmpStatSeeder() {
+func unEmpStatSeeder() {
 	data := []string{
 		"NEW ENTRANT/FRESH GRADUATE",
 		"FINISHED CONTRACT",

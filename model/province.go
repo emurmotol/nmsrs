@@ -23,7 +23,7 @@ type RefProvince struct {
 	ProvCode string `json:"provCode"`
 }
 
-func ProvinceSeeder() {
+func provinceSeeder() {
 	data, err := ioutil.ReadFile("model/data/refprovince.json")
 
 	if err != nil {

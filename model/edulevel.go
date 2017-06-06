@@ -11,7 +11,7 @@ type EduLevel struct {
 	Name string `json:"name"`
 }
 
-func EduLevelSeeder() {
+func eduLevelSeeder() {
 	data := []string{
 		"1ST YEAR COLLEGE LEVEL",
 		"1ST YEAR HIGH SCHOOL/GRADE VII (FOR K TO 12)",

@@ -11,7 +11,7 @@ type Disability struct {
 	Name string `json:"name"`
 }
 
-func DisabilitySeeder() {
+func disabilitySeeder() {
 	data := []string{
 		"VISUAL IMPAIRMENT",
 		"HEARING IMPAIRMENT",

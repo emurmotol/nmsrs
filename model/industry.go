@@ -11,7 +11,7 @@ type Industry struct {
 	Name string `json:"name"`
 }
 
-func IndustrySeeder() {
+func industrySeeder() {
 	data := []string{
 		"ACTIVITIES OF PRIVATE HOUSEHOLDS AS EMPLOYERS AND UNDIFFENTIATED PRODUCTION ACTIVITIES OF PRIVATE",
 		"AGRICULTURE",

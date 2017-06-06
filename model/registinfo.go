@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-type PersonalInfo struct {
+type RegistInfo struct {
 	ID           int64     `json:"id"`
 	RegistrantID int64     `json:"registrant_id"`
 	FamilyName   string    `gorm:"not null" json:"family_name"`

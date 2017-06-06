@@ -11,7 +11,7 @@ type Sex struct {
 	Name string `json:"name"`
 }
 
-func SexSeeder() {
+func sexSeeder() {
 	data := []string{
 		"MALE",
 		"FEMALE",

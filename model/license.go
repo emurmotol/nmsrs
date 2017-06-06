@@ -11,7 +11,7 @@ type License struct {
 	Name string `json:"name"`
 }
 
-func LicenseSeeder() {
+func licenseSeeder() {
 	data := []string{
 		"AERONAUTICAL ENGINEER",
 		"AGRICULTURAL ENGINEER",

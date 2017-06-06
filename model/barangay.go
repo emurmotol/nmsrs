@@ -25,7 +25,7 @@ type RefBarangay struct {
 	CityMunCode string `json:"cityMunCode"`
 }
 
-func BarangaySeeder() {
+func barangaySeeder() {
 	data, err := ioutil.ReadFile("model/data/refbarangay.json")
 
 	if err != nil {

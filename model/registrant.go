@@ -7,8 +7,8 @@ type Registrant struct {
 	CreatedAt time.Time  `json:"created_at"`
 	UpdatedAt time.Time  `json:"updated_at"`
 	DeletedAt *time.Time `json:"deleted_at"`
-	PersonalInfo    PersonalInfo
-	Emp       Emp
+	RegistInfo   RegistInfo
+	RegistEmp    RegistEmp
 }
 
 // type CreateRegistrantForm struct {

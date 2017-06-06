@@ -10,7 +10,7 @@ type Position struct {
 	Name string `json:"name"`
 }
 
-func PositionSeeder() {
+func positionSeeder() {
 	data := []string{
 		"ABACA FARMER",
 		"ABBATOIR BUTCHER",

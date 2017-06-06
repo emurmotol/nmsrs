@@ -42,6 +42,10 @@ func LicenseIndex(w http.ResponseWriter, r *http.Request) {
 	// todo
 }
 
+func OtherSkillIndex(w http.ResponseWriter, r *http.Request) {
+	// todo
+}
+
 func PositionIndex(w http.ResponseWriter, r *http.Request) {
 	// todo
 }
@@ -59,10 +63,6 @@ func ReligionIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func SchoolIndex(w http.ResponseWriter, r *http.Request) {
-	// todo
-}
-
-func OtherSkillIndex(w http.ResponseWriter, r *http.Request) {
 	// todo
 }
 

@@ -11,7 +11,7 @@ type CivilStat struct {
 	Name string `json:"name"`
 }
 
-func CivilStatSeeder() {
+func civilStatSeeder() {
 	data := []string{
 		"SINGLE",
 		"WIDOWED",

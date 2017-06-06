@@ -11,7 +11,7 @@ type Language struct {
 	Name string `json:"name"`
 }
 
-func LanguageSeeder() {
+func languageSeeder() {
 	data := []string{
 		"AGTA",
 		"AGUTAYNON",

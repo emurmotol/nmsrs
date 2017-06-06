@@ -11,7 +11,7 @@ type OtherSkill struct {
 	Name string `json:"name"`
 }
 
-func OtherSkillSeeder() {
+func otherSkillSeeder() {
 	data := []string{
 		"ANALYZING",
 		"ANTICIPATING",

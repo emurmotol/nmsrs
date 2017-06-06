@@ -11,7 +11,7 @@ type Religion struct {
 	Name string `json:"name"`
 }
 
-func ReligionSeeder() {
+func religionSeeder() {
 	data := []string{
 		"AGLIPAYAN",
 		"ASSEMBLY OF GOD",

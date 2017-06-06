@@ -11,7 +11,7 @@ type Course struct {
 	Name string `json:"name"`
 }
 
-func CourseSeeder() {
+func courseSeeder() {
 	data := []string{
 		"ACCOUNTANCY PROGRAMS",
 		"ADVERTISING ARTS",

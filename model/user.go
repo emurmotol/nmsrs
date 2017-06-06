@@ -284,7 +284,7 @@ func UserEmailSameAsOld(id int64, email string) (bool, error) {
 	return true, nil
 }
 
-func CreateSuperUser() error {
+func createSuperUser() error {
 	name, _ := env.Conf.String("superuser.name")
 	pwd, _ := env.Conf.String("superuser.pwd")
 	hashed, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
@@ -306,9 +306,7 @@ func CreateSuperUser() error {
 	return nil
 }
 
-func UserSeeder() {
-	CreateSuperUser()
-
+func userSeeder() {
 	for i := 0; i < 50; i++ {
 		password := "secret"
 		hashed, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)

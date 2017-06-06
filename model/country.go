@@ -11,7 +11,7 @@ type Country struct {
 	Name string `json:"name"`
 }
 
-func CountrySeeder() {
+func countrySeeder() {
 	data := []string{
 		"AFGHANISTAN",
 		"ALBANIA",

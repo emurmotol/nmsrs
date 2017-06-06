@@ -11,7 +11,7 @@ type School struct {
 	Name string `json:"name"`
 }
 
-func SchoolSeeder() {
+func schoolSeeder() {
 	data := []string{
 		"ABADA COLLEGE",
 		"ABE INTERNATIONAL COLLEGE OF BUSINESS AND ACCOUNTANCY, CEBU CITY",

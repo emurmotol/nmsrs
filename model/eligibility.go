@@ -11,7 +11,7 @@ type Eligibility struct {
 	Name string `json:"name"`
 }
 
-func EligibilitySeeder() {
+func eligibilitySeeder() {
 	data := []string{
 		"CAREER EXECUTIVE OFFICER ELIGIBILITY",
 		"CAREER EXECUTIVE SERVICE OFFICER",

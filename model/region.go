@@ -21,7 +21,7 @@ type RefRegion struct {
 	RegCode  string `json:"regCode"`
 }
 
-func RegionSeeder() {
+func regionSeeder() {
 	data, err := ioutil.ReadFile("model/data/refregion.json")
 
 	if err != nil {

@@ -8,7 +8,7 @@ type Certificate struct {
 	Name string `json:"name"`
 }
 
-func CertificateSeeder() {
+func certificateSeeder() {
 	data := []string{
 		"(NEW) AUTOMOTIVE SERVICE TECHNICIAN (LIGHT DUTY) (COMPETENCY LEADING TO NL)",
 		"(NEW) AUTOMOTIVE SERVICE TECHNICIAN (LIGHT DUTY) (NATIONAL CERTIFICATE I)",

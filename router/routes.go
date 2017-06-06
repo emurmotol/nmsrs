@@ -60,12 +60,12 @@ func apiRoutes() chi.Router {
 	r.Get("/industries", controller.IndustryIndex)
 	r.Get("/languages", controller.LanguageIndex)
 	r.Get("/licenses", controller.LicenseIndex)
+	r.Get("/otherskills", controller.OtherSkillIndex)
 	r.Get("/positions", controller.PositionIndex)
 	r.Get("/provinces", controller.ProvinceIndex)
 	r.Get("/regions", controller.RegionIndex)
 	r.Get("/religions", controller.ReligionIndex)
 	r.Get("/schools", controller.SchoolIndex)
-	r.Get("/skills/other", controller.OtherSkillIndex)
 	r.Get("/skills", controller.SkillIndex)
 	return r
 }
