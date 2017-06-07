@@ -9,11 +9,12 @@ import (
 )
 
 type Province struct {
-	ID       uint   `json:"id"`
-	Code     string `json:"code"`
-	Desc     string `json:"desc"`
-	PsgcCode string `json:"psgc_code"`
-	RegCode  string `json:"reg_code"`
+	ID       uint     `json:"id"`
+	Code     string   `json:"code"`
+	Desc     string   `json:"desc"`
+	PsgcCode string   `json:"psgc_code"`
+	Regions  []Region `gorm:"ForeignKey:Code;AssociationForeignKey:RegCode"`
+	RegCode  string   `json:"reg_code"`
 }
 
 type RefProvince struct {

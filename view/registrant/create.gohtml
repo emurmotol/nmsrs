@@ -1,9 +1,18 @@
 <div class="tab-content">
-    <div class="tab-pane active" id="step-1" role="tabpanel">
+    <div class="tab-pane active" id="step_1" role="tabpanel">
         <form class="form-horizontal" action="/registrants?step=1" method="POST" id="step_1_form">
-            <div class="panel panel-default" id="personal-information">
+            <div class="panel panel-default" id="regist_personal_info">
                 <div class="panel-heading">Personal Information</div>
                 <div class="panel-body">
+                    <div class="col-lg-8 col-lg-offset-3">
+                        <img src="{{config.default.photo.path}}" class="img-resopnsive img-rounded" id="preview" height="160" alt="Registrant Photo">
+                    </div>
+                    <div class="form-group">
+                        <label for="photo" class="col-lg-3 control-label">Photo <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input type="file" class="form-control" name="photo" id="photo">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="family_name" class="col-lg-3 control-label">Family Name <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
@@ -36,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default" id="basic-information">
+            <div class="panel panel-default" id="regist_basic_info">
                 <div class="panel-heading">Basic Information</div>
                 <div class="panel-body">
                     <div class="form-group">
@@ -46,21 +55,21 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="city_mun" class="col-lg-3 control-label">City/Municipality <span class="asterisk text-danger">*</span></label>
+                        <label for="city_mun_id" class="col-lg-3 control-label">City/Municipality <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="city_mun" id="city_mun"></select>
+                            <select class="form-control" name="city_mun_id" id="city_mun_id"></select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="province" class="col-lg-3 control-label">Province <span class="asterisk text-danger">*</span></label>
+                        <label for="prov_id" class="col-lg-3 control-label">Province <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="province" id="province">
+                            <input type="text" class="form-control uppercase" name="prov_id" id="prov_id">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="barangay" class="col-lg-3 control-label">Barangay <span class="asterisk text-danger">*</span></label>
+                        <label for="brgy_id" class="col-lg-3 control-label">Barangay <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="barangay" id="barangay" disabled></select>
+                            <select class="form-control" name="brgy_id" id="brgy_id" disabled></select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -70,21 +79,33 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="religion" class="col-lg-3 control-label">Religion <span class="asterisk text-danger">*</span></label>
+                        <label for="religion_id" class="col-lg-3 control-label">Religion <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="religion" id="religion"></select>
+                            <select class="form-control" name="religion_id" id="religion_id"></select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="civil_stat_radios">
+                        <label for="civil_stat_id" class="col-lg-3 control-label">Civil Status <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            {{range .civilStats}}
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="civil_stat_id" id="civil_stat_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"> {{.Name}}
+                                </label>
+                            </div>
+                            {{if eq .ID 5}}
+                            <input class="form-control uppercase input-below-radio" type="text" name="civil_stat_other" id="civil_stat_other" disabled>
+                            {{end}} {{end}}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="civil_status" class="col-lg-3 control-label">Civil Status <span class="asterisk text-danger">*</span></label>
+                        <label for="sex_id" class="col-lg-3 control-label">Sex <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            Radio
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="sex" class="col-lg-3 control-label">Sex <span class="asterisk text-danger">*</span></label>
-                        <div class="col-lg-8">
-                            Radio
+                            {{range .sexes}}
+                            <label class="radio-inline">
+                                <input type="radio" name="sex_id" id="sex_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"> {{.Name}}
+                            </label>
+                            {{end}}
                         </div>
                     </div>
                     <div class="form-group">
@@ -107,23 +128,103 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default" id="employment">
+            <div class="panel panel-default" id="regist_emps">
                 <div class="panel-heading">Employment</div>
                 <div class="panel-body">
+                    <div class="form-group" id="emp_stat_radios">
+                        <label for="emp_stat_id" class="col-lg-3 control-label">Employment Status <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            {{range .empStats}}
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="emp_stat_id" id="emp_stat_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"> {{.Name}}
+                                </label>
+                            </div>
+                            {{if eq .ID 3}}
+                            <div class="radio-above-input"></div>
+                            <select class="form-control" name="un_emp_stat_id" id="un_emp_stat_id" disabled></select>
+                            {{end}} {{end}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <select class="form-control" name="toc_id" id="toc_id" disabled></select>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="alfw" name="alfw"> Actively looking for work?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pref_occ_ids" class="col-lg-3 control-label">Preferred Occupation <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <select class="form-control" name="pref_occ_ids[]" id="pref_occ_ids" multiple="multiple"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pref_local_loc_id" class="col-lg-3 control-label">Local Location <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <select class="form-control" name="pref_local_loc_id" id="pref_local_loc_id"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pref_overseas_loc_id" class="col-lg-3 control-label">Overseas Location <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <select class="form-control" name="pref_overseas_loc_id" id="pref_overseas_loc_id"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="passport_no" class="col-lg-3 control-label">Passport Number <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control uppercase" name="passport_no" id="passport_no">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pned" class="col-lg-3 control-label">Expiry Date <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input type="date" class="form-control uppercase" name="pned" id="pned">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="panel panel-default" id="disability">
+            <div class="panel panel-default" id="regist_disabilities">
                 <div class="panel-heading">Disability</div>
                 <div class="panel-body">
+                    <div class="form-group" id="disability_radios">
+                        <label for="disability_id" class="col-lg-3 control-label">Disability <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="disabled" name="disabled"> Disabled?
+                                </label>
+                            </div>
+                            {{range .disabilities}}
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="disability_id" id="disability_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}" disabled> {{.Name}}
+                                </label>
+                            </div>
+                            {{if eq .ID 5}}
+                            <input class="form-control uppercase input-below-radio" type="text" name="disability_other" id="disability_other" disabled>
+                            {{end}} {{end}}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="panel panel-default" id="language">
+            <div class="panel panel-default" id="regist_languages">
                 <div class="panel-heading">Language</div>
                 <div class="panel-body">
+                    <div class="form-group">
+                        <label for="language_ids" class="col-lg-3 control-label">Language <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <select class="form-control" name="language_ids[]" id="language_ids" multiple="multiple"></select>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="pull-right">
-                <button role="button" type="submit" class="btn btn-primary">Next</button>
+                <button role="button" type="submit" class="btn btn-primary" data-loading-text="Checking...">Next</button>
             </div>
         </form>
     </div>

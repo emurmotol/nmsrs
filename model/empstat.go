@@ -7,7 +7,7 @@ import (
 )
 
 type EmpStat struct {
-	ID   uint    `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -32,4 +32,15 @@ func (empStat *EmpStat) Create() *EmpStat {
 		panic(err)
 	}
 	return empStat
+}
+
+func EmpStats() []EmpStat {
+	db := database.Conn()
+	defer db.Close()
+	empStats := []EmpStat{}
+
+	if err := db.Find(&empStats).Error; err != nil {
+		panic(err)
+	}
+	return empStats
 }

@@ -7,7 +7,7 @@ import (
 )
 
 type Sex struct {
-	ID   uint    `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -31,4 +31,15 @@ func (sex *Sex) Create() *Sex {
 		panic(err)
 	}
 	return sex
+}
+
+func Sexes() []Sex {
+	db := database.Conn()
+	defer db.Close()
+	sexes := []Sex{}
+
+	if err := db.Find(&sexes).Error; err != nil {
+		panic(err)
+	}
+	return sexes
 }

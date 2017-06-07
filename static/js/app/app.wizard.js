@@ -1,4 +1,6 @@
 $(function () {
+    setCheckboxBoolValue($("#alfw"));
+
     nextStep = function () {
         var li = $(".wizard .nav-pills li.active");
         li.next().removeClass("disabled");
@@ -15,32 +17,49 @@ $(function () {
         }
     });
 
-    $("#civil_status_5").on("click", function () {
-        $("#civil_status").prop("disabled", false);
-        $("#civil_status").focus();
-    });
-
-    $("#civil_status_radios").find("input[type=radio]").on("change", function () {
-        var checked = $("input[name=civil_status]:checked");
+    $("#civil_stat_radios").find("input[type=radio]").on("change", function () {
+        var checked = $("input[name=civil_stat_id]:checked");
 
         if ($(checked).val() == "5") {
-            $("input[name=civil_status_5]").prop("disabled", false);
-            $("input[name=civil_status_5]").focus();
+            $("#civil_stat_other").prop("disabled", false);
+            $("#civil_stat_other").prop("placeholder", "Simplify");
+            $("#civil_stat_other").focus();
         } else {
-            $("input[name=civil_status_5]").prop("disabled", true);
-            $("input[name=civil_status_5]").val("");
+            $("#civil_stat_other").val("");
+            $("#civil_stat_other").prop("disabled", true);
+            $("#civil_stat_other").removeAttr("placeholder");
+        }
+    });
+
+    $("#emp_stat_radios").find("input[type=radio]").on("change", function () {
+        var checked = $("input[name=emp_stat_id]:checked");
+
+        if ($(checked).val() == "3") {
+            $("#un_emp_stat_id").val("");
+            loadUnEmpStat();
+            $("#un_emp_stat_id").prop("disabled", false);
+            $("#un_emp_stat_id").focus();
+        } else {
+            $("#un_emp_stat_id").val("");
+            $("#un_emp_stat_id").select2();
+            $("#un_emp_stat_id").prop("disabled", true);
+            $("#toc_id").val("");
+            $("#toc_id").select2();
+            $("#toc_id").prop("disabled", true);
         }
     });
 
     $("#disability_radios").find("input[type=radio]").on("change", function () {
-        var checked = $("input[name=disability]:checked");
+        var checked = $("input[name=disability_id]:checked");
 
         if ($(checked).val() == "5") {
-            $("input[name=disability_5]").prop("disabled", false);
-            $("input[name=disability_5]").focus();
+            $("#disability_other").prop("disabled", false);
+            $("#disability_other").prop("placeholder", "Simplify");
+            $("#disability_other").focus();
         } else {
-            $("input[name=disability_5]").prop("disabled", true);
-            $("input[name=disability_5]").val("");
+            $("#disability_other").val("");
+            $("#disability_other").prop("disabled", true);
+            $("#disability_other").removeAttr("placeholder");
         }
     });
 
@@ -51,10 +70,12 @@ $(function () {
             });
         } else {
             $("#disability_radios").find("input[type=radio]").each(function () {
-                $("input[name=disability_5]").prop("disabled", true);
                 $(this).prop("disabled", true);
                 $(this).prop("checked", false);
             });
+            $("#disability_other").val("");
+            $("#disability_other").prop("disabled", true);
+            $("#disability_other").removeAttr("placeholder");
         }
     });
 });

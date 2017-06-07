@@ -30,7 +30,7 @@ func registrantRoutes() chi.Router {
 	r := chi.NewRouter()
 	r.Use(adminOnly)
 	r.Get("/", controller.GetRegistrants)
-	// r.Post("/", controller.StoreRegistrant)
+	r.Post("/", controller.StoreRegistrant)
 	r.Get("/create", controller.CreateRegistrant)
 	// r.Post("/delete", controller.DeleteManyRegistrant)
 	// r.Get("/email/taken", controller.RegistrantEmailTaken)
@@ -52,7 +52,7 @@ func apiRoutes() chi.Router {
 	r.Get("/search", controller.SearchIndex)
 	r.Get("/certificates", controller.CertificateIndex)
 	r.Get("/citymuns/provinces", controller.CityMunProvinceIndex)
-	r.Get("/citymuns/:cityMunCode/barangays", controller.CityMunBarangayIndex)
+	r.Get("/citymuns/:cityMunID/barangays", controller.CityMunBarangayIndex)
 	r.Get("/countries", controller.CountryIndex)
 	r.Get("/courses", controller.CourseIndex)
 	r.Get("/edulevels", controller.EduLevelIndex)
@@ -65,6 +65,7 @@ func apiRoutes() chi.Router {
 	r.Get("/religions", controller.ReligionIndex)
 	r.Get("/schools", controller.SchoolIndex)
 	r.Get("/skills", controller.SkillIndex)
+	r.Get("/unempstats", controller.UnEmpStatIndex)
 	return r
 }
 

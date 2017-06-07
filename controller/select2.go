@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/emurmotol/nmsrs/model"
 	"github.com/pressly/chi"
@@ -13,8 +14,12 @@ func CertificateIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func CityMunBarangayIndex(w http.ResponseWriter, r *http.Request) {
-	cityMun := model.CityMun{}
-	cityMun.Code = chi.URLParam(r, "cityMunCode")
+	id, err := strconv.Atoi(chi.URLParam(r, "cityMunID"))
+
+	if err != nil {
+		panic(err)
+	}
+	cityMun := model.CityMunByID(uint(id))
 	rd.JSON(w, http.StatusOK, cityMun.BarangayIndex(r.URL.Query().Get("q")))
 }
 
@@ -81,4 +86,8 @@ func SchoolIndex(w http.ResponseWriter, r *http.Request) {
 func SkillIndex(w http.ResponseWriter, r *http.Request) {
 	skill := model.Skill{}
 	rd.JSON(w, http.StatusOK, skill.Index(r.URL.Query().Get("q")))
+}
+
+func UnEmpStatIndex(w http.ResponseWriter, r *http.Request) {
+	rd.JSON(w, http.StatusOK, model.UnEmpStats())
 }

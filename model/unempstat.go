@@ -7,7 +7,7 @@ import (
 )
 
 type UnEmpStat struct {
-	ID   uint    `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -34,4 +34,15 @@ func (unEmpStat *UnEmpStat) Create() *UnEmpStat {
 		panic(err)
 	}
 	return unEmpStat
+}
+
+func UnEmpStats() []UnEmpStat {
+	db := database.Conn()
+	defer db.Close()
+	unEmpStats := []UnEmpStat{}
+
+	if err := db.Find(&unEmpStats).Error; err != nil {
+		panic(err)
+	}
+	return unEmpStats
 }

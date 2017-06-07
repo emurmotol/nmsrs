@@ -7,7 +7,7 @@ import (
 )
 
 type Disability struct {
-	ID   uint    `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -34,4 +34,15 @@ func (disability *Disability) Create() *Disability {
 		panic(err)
 	}
 	return disability
+}
+
+func Disabilities() []Disability {
+	db := database.Conn()
+	defer db.Close()
+	disabilities := []Disability{}
+
+	if err := db.Find(&disabilities).Error; err != nil {
+		panic(err)
+	}
+	return disabilities
 }

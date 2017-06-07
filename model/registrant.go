@@ -1,9 +1,12 @@
 package model
 
-import "time"
+import (
+	"mime/multipart"
+	"time"
+)
 
 type Registrant struct {
-	ID         uint64      `json:"id"`
+	ID         uint64     `json:"id"`
 	CreatedAt  time.Time  `json:"created_at"`
 	UpdatedAt  time.Time  `json:"updated_at"`
 	DeletedAt  *time.Time `json:"deleted_at"`
@@ -11,16 +14,41 @@ type Registrant struct {
 	RegistEmp  RegistEmp
 }
 
-// type CreateRegistrantForm struct {
-// 	Name            string                `schema:"name" validate:"required"`
-// 	Email           string                `schema:"email" validate:"required,email"`
-// 	Password        string                `schema:"password" validate:"required"`
-// 	ConfirmPassword string                `schema:"confirm_password" validate:"eqfield=Password"`
-// 	IsAdmin         bool                  `schema:"is_admin"`
-// 	PhotoFile       multipart.File        `schema:"-"`
-// 	PhotoHeader     *multipart.FileHeader `schema:"-"`
-// 	Errors          map[string]string     `schema:"-"`
-// }
+type CreateRegistrantForm struct {
+	FamilyName        string                `schema:"family_name" validate:"required"`
+	GivenName         string                `schema:"given_name" validate:"required"`
+	MiddleName        string                `schema:"middle_name" validate:"required"`
+	Birthdate         time.Time             `schema:"birthdate" validate:"required"`
+	Password          string                `schema:"password" validate:"required"`
+	PhotoFile         multipart.File        `schema:"-"`
+	PhotoHeader       *multipart.FileHeader `schema:"-"`
+	StSub             string                `schema:"st_sub" validate:"required"`
+	CityMunID         uint                  `schema:"city_mun_id" validate:"required"`
+	ProvID            uint                  `schema:"prov_id" validate:"required"`
+	BrgyID            uint                  `schema:"brgy_id" validate:"required"`
+	PlaceOfBirth      string                `schema:"place_of_birth" validate:"required"`
+	ReligionID        uint                  `schema:"religion_id" validate:"required"`
+	CivilStatID       uint                  `schema:"civil_stat_id" validate:"required"`
+	CivilStatOther    string                `schema:"civil_stat_other" validate:"required"`
+	SexID             uint                  `schema:"sex_id" validate:"required"`
+	Age               int                   `schema:"age" validate:"required"`
+	Height            float32               `schema:"height" validate:"required"`
+	Weight            float32               `schema:"weight" validate:"required"`
+	EmpStatID         uint                  `schema:"emp_stat_id" validate:"required"`
+	UnEmpStatID       uint                  `schema:"un_emp_stat_id" validate:"required"`
+	TocID             uint                  `schema:"toc_id" validate:"required"`
+	Alfw              bool                  `schema:"alfw"`
+	PrefOccIDs        []int                 `schema:"pref_occ_ids" validate:"required"`
+	PrefLocalLocID    uint                  `schema:"pref_local_loc_id"`
+	PrefOverseasLocID uint                  `schema:"pref_overseas_loc_id"`
+	PassportNo        string                `schema:"passport_no" validate:"required"`
+	Pned              time.Time             `schema:"pned" validate:"required"`
+	Disabled          bool                  `schema:"disabled"`
+	DisabilityID      uint                  `schema:"disability_id" validate:"required"`
+	DisabilityOther   uint                  `schema:"disability_other" validate:"required"`
+	LanguageIDs       []int                 `schema:"language_ids" validate:"required"`
+	Errors            map[string]string     `schema:"-"`
+}
 
 // func (form *CreateRegistrantForm) IsValid() bool {
 // 	form.Errors = make(map[string]string)

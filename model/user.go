@@ -222,7 +222,7 @@ func UserByID(id uint64) *User {
 	defer db.Close()
 	user := new(User)
 
-	if notFound := db.First(&user, id).RecordNotFound(); notFound {
+	if notFound := db.First(user, id).RecordNotFound(); notFound {
 		return nil
 	}
 	return user
@@ -233,7 +233,7 @@ func UserByEmail(email string) *User {
 	defer db.Close()
 	user := new(User)
 
-	if notFound := db.Where("email = ?", email).First(&user).RecordNotFound(); notFound {
+	if notFound := db.Where("email = ?", email).First(user).RecordNotFound(); notFound {
 		return nil
 	}
 	return user

@@ -9,12 +9,14 @@ import (
 )
 
 type CityMun struct {
-	ID       uint   `json:"id"`
-	Code     string `json:"code"`
-	Desc     string `json:"desc"`
-	PsgcCode string `json:"psgc_code"`
-	RegCode  string `json:"reg_code"`
-	ProvCode string `json:"prov_code"`
+	ID        uint       `json:"id"`
+	Code      string     `json:"code"`
+	Desc      string     `json:"desc"`
+	PsgcCode  string     `json:"psgc_code"`
+	Regions   []Region   `gorm:"ForeignKey:Code;AssociationForeignKey:RegCode"`
+	RegCode   string     `json:"reg_code"`
+	Provinces []Province `gorm:"ForeignKey:Code;AssociationForeignKey:ProvCode"`
+	ProvCode  string     `json:"prov_code"`
 }
 
 type CityMunProv struct {
@@ -62,6 +64,17 @@ func (cityMun *CityMun) Create() *CityMun {
 
 	if err := db.Create(&cityMun).Error; err != nil {
 		panic(err)
+	}
+	return cityMun
+}
+
+func CityMunByID(id uint) *CityMun {
+	db := database.Conn()
+	defer db.Close()
+	cityMun := new(CityMun)
+
+	if notFound := db.First(&cityMun, id).RecordNotFound(); notFound {
+		return nil
 	}
 	return cityMun
 }

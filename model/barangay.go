@@ -9,12 +9,15 @@ import (
 )
 
 type Barangay struct {
-	ID          uint   `json:"id"`
-	Code        string `json:"code"`
-	Desc        string `json:"desc"`
-	RegCode     string `json:"reg_code"`
-	ProvCode    string `json:"prov_code"`
-	CityMunCode string `json:"city_mun_code"`
+	ID          uint       `json:"id"`
+	Code        string     `json:"code"`
+	Desc        string     `json:"desc"`
+	Regions     []Region   `gorm:"ForeignKey:Code;AssociationForeignKey:RegCode"`
+	RegCode     string     `json:"reg_code"`
+	Provinces   []Province `gorm:"ForeignKey:Code;AssociationForeignKey:ProvCode"`
+	ProvCode    string     `json:"prov_code"`
+	CityMuns    []CityMun  `gorm:"ForeignKey:Code;AssociationForeignKey:CityMunCode"`
+	CityMunCode string     `json:"city_mun_code"`
 }
 
 type RefBarangay struct {
