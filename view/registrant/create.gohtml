@@ -1,34 +1,32 @@
-<div class="tab-content">
-    <div class="tab-pane active" id="step_1" role="tabpanel">
-        <form class="form-horizontal" action="/registrants?step=1" method="POST" id="step_1_form">
-            <div class="panel panel-default" id="regist_personal_info">
+<form class="form-horizontal" action="/registrants" method="POST" id="create_registrant_form">
+    <div class="tab-content">
+        <div class="tab-pane active" role="tabpanel" id="step_1">
+            <div class="panel panel-default">
                 <div class="panel-heading">Personal Information</div>
                 <div class="panel-body">
-                    <div class="col-lg-8 col-lg-offset-3">
-                        <img src="{{config.default.photo.path}}" class="img-resopnsive img-rounded" id="preview" height="160" alt="Registrant Photo">
-                    </div>
                     <div class="form-group">
                         <label for="photo" class="col-lg-3 control-label">Photo <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="file" class="form-control" name="photo" id="photo">
+                            <img src="{{config.default.photo.path}}" data-default-photo="{{config.default.photo.path}}" class="img-resopnsive img-rounded" id="preview" height="160" alt="Registrant Photo">
+                            <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-maxmegabytes="{{config.default.photo.maxSize}}" data-parsley-mimes="{{config.default.photo.mimes}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="family_name" class="col-lg-3 control-label">Family Name <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="family_name" id="family_name">
+                            <input type="text" class="form-control uppercase" name="family_name" id="family_name" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="given_name" class="col-lg-3 control-label">Given Name <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="given_name" id="given_name">
+                            <input type="text" class="form-control uppercase" name="given_name" id="given_name" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="middle_name" class="col-lg-3 control-label">Middle Name <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="middle_name" id="middle_name">
+                            <input type="text" class="form-control uppercase" name="middle_name" id="middle_name" data-parsley-required="true" data-parsley-minlength="1" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
@@ -45,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default" id="regist_basic_info">
+            <div class="panel panel-default">
                 <div class="panel-heading">Basic Information</div>
                 <div class="panel-body">
                     <div class="form-group">
@@ -128,7 +126,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default" id="regist_emps">
+            <div class="panel panel-default">
                 <div class="panel-heading">Employment</div>
                 <div class="panel-body">
                     <div class="form-group" id="emp_stat_radios">
@@ -188,7 +186,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default" id="regist_disabilities">
+            <div class="panel panel-default">
                 <div class="panel-heading">Disability</div>
                 <div class="panel-body">
                     <div class="form-group" id="disability_radios">
@@ -212,7 +210,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default" id="regist_languages">
+            <div class="panel panel-default">
                 <div class="panel-heading">Language</div>
                 <div class="panel-body">
                     <div class="form-group">
@@ -223,9 +221,34 @@
                     </div>
                 </div>
             </div>
-            <div class="pull-right">
-                <button role="button" type="submit" class="btn btn-primary" data-loading-text="Checking...">Next</button>
+        </div>
+        <div class="tab-pane" role="tabpanel" id="step_2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Formal Education</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control uppercase" name="qwe" id="qwe" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>
+        </div>
+        <div class="tab-pane" role="tabpanel" id="step_3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Professional License</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-nav">
+            <button role="button" class="btn btn-primary prev-tab pull-left">Previous</button>
+            <button role="button" class="btn btn-primary next-tab pull-right" data-loading-text="Checking...">Next</button>
+            <button role="button" type="submit" class="btn btn-primary pull-right" data-loading-text="Creating registrant...">Finish</button>
+        </div>
     </div>
-</div>
+</form>

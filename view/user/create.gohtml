@@ -5,7 +5,7 @@
             <div class="panel-body">
                 <form action="/users" method="POST" id="create_user_form" enctype="multipart/form-data">
                     <div class="form-group{{with .createUserForm.Errors.Photo}} has-error{{end}}">
-                        <label for="photo">Photo</label><br>
+                        <label for="photo" class="control-label">Photo</label><br>
                         <img src="{{config.default.photo.path}}" data-default-photo="{{config.default.photo.path}}" class="img-resopnsive img-rounded"
                             id="preview" height="160" alt="User Photo">
                         <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-maxmegabytes="{{config.default.photo.maxSize}}"
@@ -13,31 +13,31 @@
                         {{with .createUserForm.Errors.Photo}}<span class="help-block">{{.}}</span>{{end}}
                     </div>
                     <div class="form-group{{with .createUserForm.Errors.Name}} has-error{{end}}">
-                        <label for="name">Name <span class="asterisk text-danger">*</span></label>
+                        <label for="name" class="control-label">Name <span class="asterisk text-danger">*</span></label>
                         <input type="text" class="form-control" name="name" id="name" value="{{.createUserForm.Name}}" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
                         {{with .createUserForm.Errors.Name}}<span class="help-block">{{.}}</span>{{end}}
                     </div>
                     <div class="form-group{{with .createUserForm.Errors.Email}} has-error{{end}}">
-                        <label for="email">Email <span class="asterisk text-danger">*</span></label>
+                        <label for="email" class="control-label">Email <span class="asterisk text-danger">*</span></label>
                         <input type="text" class="form-control" name="email" id="email" value="{{.createUserForm.Email}}" data-parsley-required="true" data-parsley-type="email" data-parsley-whitespace="trim"
                             data-parsley-trigger="change" data-parsley-remote data-parsley-remote-validator="emailTaken" data-parsley-remote-message="">
                         {{with .createUserForm.Errors.Email}}<span class="help-block">{{.}}</span>{{end}}
                     </div>
                     <div class="form-group{{with .createUserForm.Errors.Password}} has-error{{end}}">
-                        <label for="password">Password <span class="asterisk text-danger">*</span></label>
+                        <label for="password" class="control-label">Password <span class="asterisk text-danger">*</span></label>
                         <input type="password" class="form-control" name="password" id="password" data-parsley-required="true" data-parsley-minlength="6"
                             data-parsley-trigger="change">
                         {{with .createUserForm.Errors.Password}}<span class="help-block">{{.}}</span>{{end}}
                     </div>
                     <div class="form-group{{with .createUserForm.Errors.ConfirmPassword}} has-error{{end}}">
-                        <label for="confirm_password">Confirm password <span class="asterisk text-danger">*</span></label>
+                        <label for="confirm_password" class="control-label">Confirm password <span class="asterisk text-danger">*</span></label>
                         <input type="password" class="form-control" name="confirm_password" id="confirm_password" data-parsley-required="true" data-parsley-equalto="#password"
                             data-parsley-trigger="change">
                         {{with .createUserForm.Errors.ConfirmPassword}}<span class="help-block">{{.}}</span>{{end}}
                     </div>
                     <div class="form-group">
                         <div class="checkbox">
-                            <label>
+                            <label class="control-label">
                                 <input type="checkbox" name="is_admin" id="is_admin" value="{{.createUserForm.IsAdmin}}"> Administrator
                             </label>
                         </div>

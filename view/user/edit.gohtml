@@ -11,7 +11,7 @@
                 <form action="/users/{{.user.ID}}" method="POST" id="edit_profile_form" enctype="multipart/form-data">
                     <input type="hidden" name="_method" value="PUT">
                     <div class="form-group{{with .editProfileForm.Errors.Photo}} has-error{{end}}">
-                        <label for="photo">Photo</label><br>
+                        <label for="photo" class="control-label">Photo</label><br>
                         <img src="{{if .user.HasPhoto}}{{photoPath .user.ID `User`}}{{else}}{{config.default.photo.path}}{{end}}" data-default-photo="{{if .user.HasPhoto}}{{photoPath .user.ID `User`}}{{else}}{{config.default.photo.path}}{{end}}"
                             class="img-resopnsive img-rounded" id="preview" height="160" alt="User Photo">
                         <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-maxmegabytes="{{config.default.photo.maxSize}}"
@@ -19,13 +19,13 @@
                         {{with .editProfileForm.Errors.Photo}}<span class="help-block">{{.}}</span>{{end}}
                     </div>
                     <div class="form-group{{with .editProfileForm.Errors.Name}} has-error{{end}}">
-                        <label for="name">Name <span class="asterisk text-danger">*</span></label>
+                        <label for="name" class="control-label">Name <span class="asterisk text-danger">*</span></label>
                         <input type="text" class="form-control" name="name" id="name" value="{{.user.Name}}" data-parsley-required="true" data-parsley-minlength="2"
                             data-parsley-trigger="change">
                         {{with .editProfileForm.Errors.Name}}<span class="help-block">{{.}}</span>{{end}}
                     </div>
                     <div class="form-group{{with .editProfileForm.Errors.Email}} has-error{{end}}">
-                        <label for="email">Email <span class="asterisk text-danger">*</span></label>
+                        <label for="email" class="control-label">Email <span class="asterisk text-danger">*</span></label>
                         <input type="text" class="form-control" name="email" id="email" value="{{.user.Email}}" data-parsley-required="true" data-parsley-type="email"
                             data-parsley-whitespace="trim" data-parsley-trigger="change" data-parsley-remote data-parsley-remote-validator="emailCheck"
                             data-parsley-remote-message="">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group">
                         <div class="checkbox">
-                            <label>
+                            <label class="control-label">
                                 <input type="checkbox" name="is_admin" id="is_admin"{{if .user.IsAdmin}} checked{{end}}> Administrator
                             </label>
                         </div>
@@ -52,13 +52,13 @@
                 <form action="/users/{{.user.ID}}/password/reset" method="POST" id="password_reset_form">
                     <input type="hidden" name="_method" value="PUT">
                     <div class="form-group{{with .passwordResetForm.Errors.NewPassword}} has-error{{end}}">
-                        <label for="new_password">New password <span class="asterisk text-danger">*</span></label>
+                        <label for="new_password" class="control-label">New password <span class="asterisk text-danger">*</span></label>
                         <input type="password" class="form-control" name="new_password" id="new_password" data-parsley-required="true" data-parsley-minlength="6"
                             data-parsley-trigger="change">
                         {{with .passwordResetForm.Errors.NewPassword}}<span class="help-block">{{.}}</span>{{end}}
                     </div>
                     <div class="form-group{{with .passwordResetForm.Errors.ConfirmPassword}} has-error{{end}}">
-                        <label for="confirm_password">Confirm password <span class="asterisk text-danger">*</span></label>
+                        <label for="confirm_password" class="control-label">Confirm password <span class="asterisk text-danger">*</span></label>
                         <input type="password" class="form-control" name="confirm_password" id="confirm_password" data-parsley-required="true" data-parsley-equalto="#new_password"
                             data-parsley-trigger="change">
                         {{with .passwordResetForm.Errors.ConfirmPassword}}<span class="help-block">{{.}}</span>{{end}}

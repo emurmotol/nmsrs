@@ -25,7 +25,7 @@ func Load(reset bool) {
 		down()
 		up()
 		migrate()
-		// seed()
+		seed()
 	}
 }
 

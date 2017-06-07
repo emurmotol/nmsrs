@@ -37,7 +37,7 @@
                 </a>
                 <h4><strong><i class="fa fa-user-o"></i> {{.user.Name}}</strong></h4>
                 <h5><i class="fa fa-envelope-o"></i> <a href="mailto:{{.user.Email}}">{{.user.Email}}</a></h5>
-                <h5><i class="fa fa-calendar-o"></i> Joined {{dateForHumans .user.CreatedAt.Unix}}</h5>
+                <h5><i class="fa fa-calendar-o"></i> Created At {{dateForHumans .user.CreatedAt.Unix}}</h5>
                 <h5><i class="fa fa-clock-o"></i> Updated <span data-livestamp="{{.user.UpdatedAt.Unix}}"></span></h5>
             </div>
         </div>

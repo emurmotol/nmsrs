@@ -122,6 +122,10 @@ $(function () {
     });
 
     $("#brgy_id").select2();
+    $("#brgy_id").on("change", function () {
+        $("#place_of_birth").focus();
+    });
+
     $("#city_mun_id").on("change", function () {
         var city_mun_id = $(this).val();
         var data = $(this).select2("data")[0];
@@ -150,6 +154,7 @@ $(function () {
                 cache: true
             }
         }).prop("disabled", false);
+        $("#brgy_id").focus();
     });
 
     $("#un_emp_stat_id").select2();

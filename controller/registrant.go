@@ -1,14 +1,12 @@
 package controller
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
 
 	"github.com/emurmotol/nmsrs/database"
 	"github.com/emurmotol/nmsrs/helper"
-	"github.com/emurmotol/nmsrs/lang"
 	"github.com/emurmotol/nmsrs/model"
 	"github.com/unrolled/render"
 )
@@ -107,44 +105,44 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 
 	switch step {
 	case 1:
-		photoFile, photoHeader, err := r.FormFile("photo")
+		// photoFile, photoHeader, err := r.FormFile("photo")
 
-		if err != nil {
-			if err != http.ErrMissingFile {
-				panic(err)
-			}
-		}
-		delete(r.PostForm, "photo")
-		step1Form := model.Step1Form{}
+		// if err != nil {
+		// 	if err != http.ErrMissingFile {
+		// 		panic(err)
+		// 	}
+		// }
+		// delete(r.PostForm, "photo")
+		// step1Form := model.Step1Form{}
 
-		if err := decoder.Decode(&step1Form, r.PostForm); err != nil {
-			panic(err)
-		}
-		step1Form.PhotoFile = photoFile
-		step1Form.PhotoHeader = photoHeader
+		// if err := decoder.Decode(&step1Form, r.PostForm); err != nil {
+		// 	panic(err)
+		// }
+		// step1Form.PhotoFile = photoFile
+		// step1Form.PhotoHeader = photoHeader
 
-		if !step1Form.IsValid() {
-			helper.SetFlash(w, r, "step1Form", step1Form)
-			CreateRegistrant(w, r)
-			return
-		}
-		registrant := model.Registrant{}
-		newRegistrant, err := registrant.Create()
+		// if !step1Form.IsValid() {
+		// 	helper.SetFlash(w, r, "step1Form", step1Form)
+		// 	CreateRegistrant(w, r)
+		// 	return
+		// }
+		// registrant := model.Registrant{}
+		// newRegistrant, err := registrant.Create()
 
-		if err != nil {
-			panic(err)
-		}
+		// if err != nil {
+		// 	panic(err)
+		// }
 
-		if step1Form.PhotoFile != nil {
-			if err := newRegistrant.SetPhoto(step1Form.PhotoFile); err != nil {
-				panic(err)
-			}
-		}
-		helper.SetFlash(w, r, "alert", helper.Alert{
-			Type:    "success",
-			Content: fmt.Sprintf(lang.Get("registrant_success_create"), newRegistrant.Name),
-		})
-		http.Redirect(w, r, "/registrants", http.StatusFound)
+		// if step1Form.PhotoFile != nil {
+		// 	if err := newRegistrant.SetPhoto(step1Form.PhotoFile); err != nil {
+		// 		panic(err)
+		// 	}
+		// }
+		// helper.SetFlash(w, r, "alert", helper.Alert{
+		// 	Type:    "success",
+		// 	Content: fmt.Sprintf(lang.Get("registrant_success_create"), newRegistrant.Name),
+		// })
+		// http.Redirect(w, r, "/registrants", http.StatusFound)
 		return
 	}
 }

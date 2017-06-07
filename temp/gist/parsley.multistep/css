@@ -1,0 +1,29 @@
+.form-section {
+  position: absolute;
+  padding-left: 15px;
+  border-left: 2px solid #FF851B;
+  visibility:hidden;
+  opacity:0;
+  transition: opacity 1.75s ;
+   -moz-transition: opacity 1.75s ;
+   -webkit-transition: opacity 1.75s ;
+}
+.form-section.current {
+ position: relative;
+  visibility:visible;
+  opacity:1;
+  transition: opacity 1.75s ease-in-out;
+   -moz-transition: opacity 1.75s ease-in-out;
+   -webkit-transition: opacity 1.75s ease-in-out;
+}
+.btn-info, .btn-default {
+  margin-top: 10px;
+}
+html.codepen body {
+  margin: 1em;
+}
+.form-navigation{
+ transition: all 1.75s ease-in-out;
+   -moz-transition: all 1.75s ease-in-out;
+   -webkit-transition: all 1.75s ease-in-out; 
+}
