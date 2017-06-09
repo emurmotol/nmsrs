@@ -223,7 +223,6 @@ $(function () {
                 delay: 250,
                 dataType: "json",
                 processResults: function (r) {
-                    console.log(r);
                     return {
                         results: $.map(r, function (data) {
                             return {
@@ -248,7 +247,6 @@ $(function () {
                 delay: 250,
                 dataType: "json",
                 processResults: function (r) {
-                    console.log(r);
                     return {
                         results: $.map(r, function (data) {
                             return {

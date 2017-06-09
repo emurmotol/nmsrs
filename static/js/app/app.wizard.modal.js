@@ -13,9 +13,9 @@ $(function () {
         }
         var formal_edu_index = 1 + $("#formal_edu_table tbody tr").length++;
         var row = `
-        <tr id="formal_edu_` + formal_edu_index + `" data-index="` + formal_edu_index + `">
+        <tr data-index="` + formal_edu_index + `">
             <td class="formal-edu-checkbox">
-                <input type="checkbox" class="checkbox" id="formal_edu_checkbox_` + formal_edu_index + `" value="` + formal_edu_index + `">
+                <input type="checkbox" class="checkbox" id="formal_edu_checkbox_` + formal_edu_index + `">
             </td>
             <td class="high-grade-comp">
                 <span>` + $("#high_grade_comp_id").select2("data")[0].text + `</span>
@@ -33,7 +33,8 @@ $(function () {
             <td class="text-center">
                 <a href="#" class="formal-edu-edit-link"><i class="fa fa-pencil"></i></a>
             </td>
-        </tr>`;
+        </tr>
+        `;
 
         $("#formal_edu_table tbody").append(row);
         $(".formal-edu-checkbox input").on("change", function () {
