@@ -8218,5 +8218,8 @@ func (position Position) Index(q string) []Position {
 		db.Find(&positions, "name LIKE ?", database.WrapLike(q))
 		results <- positions
 	}()
-	return <-results
+
+	positions = <-results
+	close(results)
+	return positions
 }

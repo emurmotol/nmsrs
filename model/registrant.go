@@ -84,7 +84,10 @@ type CreateRegistrantForm struct {
 // 		db.Find(&registrants, "name LIKE ? OR email LIKE ?", like, like)
 // 		results <- registrants
 // 	}()
-// 	return <-results
+// 	
+// 	registrants = <-results
+// 	close(results)
+// 	return registrants
 // }
 
 // func (registrant *Registrant) Delete() error {

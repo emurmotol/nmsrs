@@ -7,7 +7,7 @@ import (
 )
 
 type Language struct {
-	ID   uint    `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -276,5 +276,8 @@ func (language Language) Index(q string) []Language {
 		db.Find(&languages, "name LIKE ?", database.WrapLike(q))
 		results <- languages
 	}()
-	return <-results
+
+	languages = <-results
+	close(results)
+	return languages
 }

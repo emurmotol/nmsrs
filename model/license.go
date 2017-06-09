@@ -7,7 +7,7 @@ import (
 )
 
 type License struct {
-	ID   uint    `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -154,5 +154,8 @@ func (license License) Index(q string) []License {
 		db.Find(&licenses, "name LIKE ?", database.WrapLike(q))
 		results <- licenses
 	}()
-	return <-results
+
+	licenses = <-results
+	close(results)
+	return licenses
 }

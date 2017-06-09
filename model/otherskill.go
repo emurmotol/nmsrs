@@ -95,5 +95,8 @@ func (otherSkill OtherSkill) Index(q string) []OtherSkill {
 		db.Find(&otherSkills, "name LIKE ?", database.WrapLike(q))
 		results <- otherSkills
 	}()
-	return <-results
+
+	otherSkills = <-results
+	close(results)
+	return otherSkills
 }

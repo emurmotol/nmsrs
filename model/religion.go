@@ -81,5 +81,8 @@ func (religion Religion) Index(q string) []Religion {
 		db.Find(&religions, "name LIKE ?", database.WrapLike(q))
 		results <- religions
 	}()
-	return <-results
+
+	religions = <-results
+	close(results)
+	return religions
 }

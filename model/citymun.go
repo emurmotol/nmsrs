@@ -91,7 +91,10 @@ func (cityMun CityMun) ProvinceIndex(q string) []CityMunProv {
 		}
 		results <- cityMunProv
 	}()
-	return <-results
+	
+	cityMunProv = <-results
+	close(results)
+	return cityMunProv
 }
 
 func (cityMun *CityMun) BarangayIndex(q string) []Barangay {
@@ -106,5 +109,8 @@ func (cityMun *CityMun) BarangayIndex(q string) []Barangay {
 		}
 		results <- barangays
 	}()
-	return <-results
+
+	barangays = <-results
+	close(results)
+	return barangays
 }

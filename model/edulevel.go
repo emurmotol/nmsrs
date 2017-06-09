@@ -7,7 +7,7 @@ import (
 )
 
 type EduLevel struct {
-	ID   uint    `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -68,5 +68,8 @@ func (eduLevel EduLevel) Index(q string) []EduLevel {
 		db.Find(&eduLevels, "name LIKE ?", database.WrapLike(q))
 		results <- eduLevels
 	}()
-	return <-results
+	
+	eduLevels = <-results
+	close(results)
+	return eduLevels
 }

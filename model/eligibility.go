@@ -7,7 +7,7 @@ import (
 )
 
 type Eligibility struct {
-	ID   uint    `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -54,5 +54,7 @@ func (eligibility Eligibility) Index(q string) []Eligibility {
 		db.Find(&eligibilities, "name LIKE ?", database.WrapLike(q))
 		results <- eligibilities
 	}()
-	return <-results
+	eligibilities = <-results
+	close(results)
+	return eligibilities
 }

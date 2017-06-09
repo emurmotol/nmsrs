@@ -681,5 +681,7 @@ func (certificate Certificate) Index(q string) []Certificate {
 		db.Find(&certificates, "name LIKE ?", database.WrapLike(q))
 		results <- certificates
 	}()
-	return <-results
+	certificates = <-results
+	close(results)
+	return certificates
 }

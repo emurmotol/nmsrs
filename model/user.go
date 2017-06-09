@@ -145,7 +145,10 @@ func (user User) Search(q string) []User {
 		db.Not("email", SuperuserEmail).Find(&users, "name LIKE ? OR email LIKE ?", like, like)
 		results <- users
 	}()
-	return <-results
+
+	users = <-results
+	close(results)
+	return users
 }
 
 func (user *User) Delete() {

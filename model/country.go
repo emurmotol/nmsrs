@@ -7,7 +7,7 @@ import (
 )
 
 type Country struct {
-	ID   uint    `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -238,5 +238,8 @@ func (country Country) Index(q string) []Country {
 		db.Find(&countries, "name LIKE ?", database.WrapLike(q))
 		results <- countries
 	}()
-	return <-results
+
+	countries = <-results
+	close(results)
+	return countries
 }

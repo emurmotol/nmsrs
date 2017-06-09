@@ -2392,5 +2392,8 @@ func (school School) Index(q string) []School {
 		db.Find(&schools, "name LIKE ?", database.WrapLike(q))
 		results <- schools
 	}()
-	return <-results
+
+	schools = <-results
+	close(results)
+	return schools
 }
