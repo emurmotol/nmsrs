@@ -20,6 +20,7 @@
 * ok: set id for .json seeded obj
 * register/create.gohtml: Calling validate on a parsley form without passing arguments as an object is deprecated.
 * ok: remove console.log()
+* update a table row instead of replacing it
 
 ### Study
 * https://github.com/disintegration/imaging
