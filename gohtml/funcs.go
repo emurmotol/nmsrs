@@ -10,10 +10,11 @@ import (
 
 func Funcs() template.FuncMap {
 	return template.FuncMap{
-		"baseURL":       helper.BaseURL,
-		"config":        env.Map,
-		"lang":          lang.Get,
-		"dateForHumans": helper.DateForHumans,
-		"photoPath":     helper.PhotoPath,
+		"baseURL":        helper.BaseURL,
+		"config":         env.Map,
+		"lang":           lang.Get,
+		"dateForHumans":  helper.DateForHumans,
+		"parsleyDateNow": helper.ParsleyDateNow,
+		"photoPath":      helper.PhotoPath,
 	}
 }

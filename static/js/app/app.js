@@ -1,10 +1,4 @@
 $(function () {
-    setCheckboxBoolValue = function (checkbox) {
-        checkbox.on("change", function () {
-            $(this).val($(this).is(":checked"));
-        });
-    }
-
     makeRequest = function (action, method, data) {
         var alert_container = $("#alert_container"); // TODO: Deleted on markup
 

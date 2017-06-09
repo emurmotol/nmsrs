@@ -12,14 +12,6 @@
     border-color: #5fc1e8;
 }
 
-.radio-above-input {
-    padding-bottom: 1rem;
-}
-
-.input-below-radio {
-    margin-top: 1rem;
-}
-
 .uppercase {
     text-transform: uppercase;
 }

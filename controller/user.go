@@ -299,7 +299,7 @@ func DeleteManyUser(w http.ResponseWriter, r *http.Request) {
 	if r.PostFormValue("_method") == "DELETE" {
 		var ids []uint64
 
-		if err := json.Unmarshal([]byte(r.PostFormValue("ids")), &ids); err != nil {
+		if err := json.Unmarshal([]byte(r.PostFormValue("user_ids")), &ids); err != nil {
 			panic(err)
 		}
 		model.DeleteManyUser(ids)

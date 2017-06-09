@@ -1,11 +1,11 @@
-<form class="form-horizontal" action="/registrants" method="POST" id="create_registrant_form">
+<form class="form-horizontal" action="/registrants" method="POST" id="create_registrant_form" enctype="multipart/form-data">
     <div class="tab-content">
         <div class="tab-pane active" role="tabpanel" id="step_1">
             <div class="panel panel-default">
                 <div class="panel-heading">Personal Information</div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="photo" class="col-lg-3 control-label">Photo <span class="asterisk text-danger">*</span></label>
+                        <label for="photo" class="col-lg-3 control-label">Photo</label>
                         <div class="col-lg-8">
                             <img src="{{config.default.photo.path}}" data-default-photo="{{config.default.photo.path}}" class="img-resopnsive img-rounded" id="preview" height="160" alt="Registrant Photo">
                             <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-maxmegabytes="{{config.default.photo.maxSize}}" data-parsley-mimes="{{config.default.photo.mimes}}">
@@ -32,13 +32,13 @@
                     <div class="form-group">
                         <label for="birthdate" class="col-lg-3 control-label">Birthdate <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="date" class="form-control uppercase" name="birthdate" id="birthdate">
+                            <input type="date" class="form-control uppercase" name="birthdate" id="birthdate" data-parsley-required="true" data-parsley-min="{{parsleyDateNow}}" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="col-lg-3 control-label">Password <span class="asterisk text-danger">*</span></label>
+                        <label for="password" class="col-lg-3 control-label">Password</label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="password" id="password">
+                            <input type="text" class="form-control uppercase" name="password" id="password" data-parsley-minlength="3" data-parsley-trigger="change">
                         </div>
                     </div>
                 </div>
@@ -49,37 +49,40 @@
                     <div class="form-group">
                         <label for="st_sub" class="col-lg-3 control-label">Street/Subdivision <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="st_sub" id="st_sub">
+                            <input type="text" class="form-control uppercase" name="st_sub" id="st_sub" data-parsley-required="true" data-parsley-minlength="1" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="city_mun_id" class="col-lg-3 control-label">City/Municipality <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="city_mun_id" id="city_mun_id"></select>
+                            <select class="form-control" name="city_mun_id" id="city_mun_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#city_mun_id_err"></select>
+                            <span id="city_mun_id_err"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="prov_id" class="col-lg-3 control-label">Province <span class="asterisk text-danger">*</span></label>
+                        <label for="prov_id" class="col-lg-3 control-label">Province</label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="prov_id" id="prov_id">
+                            <input type="text" class="form-control uppercase" name="prov_id" id="prov_id" data-parsley-minlength="2" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="brgy_id" class="col-lg-3 control-label">Barangay <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="brgy_id" id="brgy_id" disabled></select>
+                            <select class="form-control" name="brgy_id" id="brgy_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#brgy_id_err" disabled></select>
+                            <span id="brgy_id_err"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="place_of_birth" class="col-lg-3 control-label">Place Of Birth <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="place_of_birth" id="place_of_birth">
+                            <input type="text" class="form-control uppercase" name="place_of_birth" id="place_of_birth" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="religion_id" class="col-lg-3 control-label">Religion <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="religion_id" id="religion_id"></select>
+                            <select class="form-control" name="religion_id" id="religion_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#religion_id_err"></select>
+                            <span id="religion_id_err"></span>
                         </div>
                     </div>
                     <div class="form-group" id="civil_stat_radios">
@@ -88,12 +91,16 @@
                             {{range .civilStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="civil_stat_id" id="civil_stat_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"> {{.Name}}
+                                    <input type="radio" name="civil_stat_id" id="civil_stat_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"{{if eq .ID 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#civil_stat_id_err"{{end}}> {{.Name}}
                                 </label>
                             </div>
-                            {{if eq .ID 5}}
-                            <input class="form-control uppercase input-below-radio" type="text" name="civil_stat_other" id="civil_stat_other" disabled>
-                            {{end}} {{end}}
+                            {{end}}
+                            <span id="civil_stat_id_err"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <input class="form-control uppercase" type="text" name="civil_stat_other" id="civil_stat_other" data-parsley-minlength="2" data-parsley-trigger="change" disabled>
                         </div>
                     </div>
                     <div class="form-group">
@@ -101,27 +108,46 @@
                         <div class="col-lg-8">
                             {{range .sexes}}
                             <label class="radio-inline">
-                                <input type="radio" name="sex_id" id="sex_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"> {{.Name}}
+                                <input type="radio" name="sex_id" id="sex_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"{{if eq .ID 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#sex_id_err"{{end}}> {{.Name}}
                             </label>
                             {{end}}
+                            <span id="sex_id_err"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="age" class="col-lg-3 control-label">Age <span class="asterisk text-danger">*</span></label>
+                        <label for="age" class="col-lg-3 control-label">Age</label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control" name="age" id="age">
+                            <input type="number" class="form-control" name="age" id="age" data-parsley-min="18" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="height" class="col-lg-3 control-label">Height (cm) <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control" name="height" id="height">
+                            <input type="number" class="form-control" name="height" id="height" data-parsley-required="true" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="weight" class="col-lg-3 control-label">Weight (kg) <span class="asterisk text-danger">*</span></label>
+                        <label for="weight" class="col-lg-3 control-label">Weight (kg)</label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control" name="weight" id="weight">
+                            <input type="number" class="form-control" name="weight" id="weight" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="landline_no" class="col-lg-3 control-label">Landline Number</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" name="landline_no" id="landline_no" data-parsley-type="digits" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile_no" class="col-lg-3 control-label">Mobile Number</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" name="mobile_no" id="mobile_no" data-parsley-type="digits" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-lg-3 control-label">Email</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" name="email" id="email" data-parsley-type="email" data-parsley-whitespace="trim" data-parsley-trigger="change" data-parsley-remote data-parsley-remote-validator="emailTaken" data-parsley-remote-message="">
                         </div>
                     </div>
                 </div>
@@ -135,18 +161,27 @@
                             {{range .empStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="emp_stat_id" id="emp_stat_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"> {{.Name}}
+                                    <input type="radio" name="emp_stat_id" id="emp_stat_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"{{if eq .ID 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#emp_stat_id_err"{{end}}> {{.Name}}
                                 </label>
                             </div>
-                            {{if eq .ID 3}}
-                            <div class="radio-above-input"></div>
-                            <select class="form-control" name="un_emp_stat_id" id="un_emp_stat_id" disabled></select>
-                            {{end}} {{end}}
+                            {{end}}
+                            <span id="emp_stat_id_err"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
-                            <select class="form-control" name="toc_id" id="toc_id" disabled></select>
+                            <select class="form-control" name="un_emp_stat_id" id="un_emp_stat_id" data-parsley-trigger="change" data-parsley-errors-container="#un_emp_stat_id_err" disabled></select>
+                            <span id="un_emp_stat_id_err"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <select class="form-control" name="toc_id" id="toc_id" data-parsley-trigger="change" data-parsley-errors-container="#toc_id_err" disabled></select>
+                            <span id="toc_id_err"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" id="alfw" name="alfw"> Actively looking for work?
@@ -157,31 +192,34 @@
                     <div class="form-group">
                         <label for="pref_occ_ids" class="col-lg-3 control-label">Preferred Occupation <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="pref_occ_ids[]" id="pref_occ_ids" multiple="multiple"></select>
+                            <select class="form-control" name="pref_occ_ids[]" id="pref_occ_ids" multiple="multiple" data-parsley-validate-if-empty data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#pref_occ_ids_err"></select>
+                            <span id="pref_occ_ids_err"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="pref_local_loc_id" class="col-lg-3 control-label">Local Location <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="pref_local_loc_id" id="pref_local_loc_id"></select>
+                            <select class="form-control" name="pref_local_loc_id" id="pref_local_loc_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#pref_local_loc_id_err"></select>
+                            <span id="pref_local_loc_id_err"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="pref_overseas_loc_id" class="col-lg-3 control-label">Overseas Location <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="pref_overseas_loc_id" id="pref_overseas_loc_id"></select>
+                            <select class="form-control" name="pref_overseas_loc_id" id="pref_overseas_loc_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#pref_overseas_loc_id_err"></select>
+                            <span id="pref_overseas_loc_id_err"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="passport_no" class="col-lg-3 control-label">Passport Number <span class="asterisk text-danger">*</span></label>
+                        <label for="passport_no" class="col-lg-3 control-label">Passport Number</label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="passport_no" id="passport_no">
+                            <input type="text" class="form-control uppercase" name="passport_no" id="passport_no" data-parsley-trigger="change" data-parsley-type="alphanum">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="pned" class="col-lg-3 control-label">Expiry Date <span class="asterisk text-danger">*</span></label>
+                        <label for="pned" class="col-lg-3 control-label">Expiry Date</label>
                         <div class="col-lg-8">
-                            <input type="date" class="form-control uppercase" name="pned" id="pned">
+                            <input type="date" class="form-control uppercase" name="pned" id="pned" data-parsley-min="{{parsleyDateNow}}" data-parsley-trigger="change">
                         </div>
                     </div>
                 </div>
@@ -190,7 +228,7 @@
                 <div class="panel-heading">Disability</div>
                 <div class="panel-body">
                     <div class="form-group" id="disability_radios">
-                        <label for="disability_id" class="col-lg-3 control-label">Disability <span class="asterisk text-danger">*</span></label>
+                        <label for="disability_id" class="col-lg-3 control-label">Disability</label>
                         <div class="col-lg-8">
                             <div class="checkbox">
                                 <label>
@@ -200,12 +238,16 @@
                             {{range .disabilities}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="disability_id" id="disability_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}" disabled> {{.Name}}
+                                    <input type="radio" name="disability_id" id="disability_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"{{if eq .ID 1}} data-parsley-trigger="change" data-parsley-errors-container="#disability_id_err"{{end}} disabled> {{.Name}}
                                 </label>
                             </div>
-                            {{if eq .ID 5}}
-                            <input class="form-control uppercase input-below-radio" type="text" name="disability_other" id="disability_other" disabled>
-                            {{end}} {{end}}
+                            {{end}}
+                            <span id="disability_id_err"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <input class="form-control uppercase" type="text" name="disability_other" id="disability_other" data-parsley-minlength="2" data-parsley-trigger="change" disabled>
                         </div>
                     </div>
                 </div>
@@ -214,9 +256,10 @@
                 <div class="panel-heading">Language</div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="language_ids" class="col-lg-3 control-label">Language <span class="asterisk text-danger">*</span></label>
+                        <label for="language_ids" class="col-lg-3 control-label">Language</label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="language_ids[]" id="language_ids" multiple="multiple"></select>
+                            <select class="form-control" name="language_ids[]" id="language_ids" multiple="multiple" data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#language_ids_err"></select>
+                            <span id="language_ids_err"></span>
                         </div>
                     </div>
                 </div>
@@ -224,13 +267,30 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="step_2">
             <div class="panel panel-default">
-                <div class="panel-heading">Formal Education</div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control uppercase" name="qwe" id="qwe" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
-                        </div>
-                    </div>
+                <div class="panel-heading clearfix">
+                    <span class="pull-left">Formal Education</span>
+                    <span class="pull-right">
+                        <button class="btn btn-success btn-xs" id="add_formal_edu_button" role="button">
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                        <button class="btn btn-danger btn-xs" id="delete_formal_edu_button" role="button" disabled>
+                            <i class="fa fa-trash-o"></i> Delete
+                        </button>
+                    </span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="formal_edu_table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select_all_formal_edu"></th>
+                                <th>Highest Grade Completed</th>
+                                <th>Course/Degree</th>
+                                <th>School/University</th>
+                                <th class="text-center">Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -252,3 +312,104 @@
         </div>
     </div>
 </form>
+<form class="form-horizontal" id="formal_edu_form">
+    <div class="modal fade" id="formal_edu_modal" data-backdrop="static" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Formal Education</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="high_grade_comp_id" class="col-lg-3 control-label">Highest Grade Completed <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <select class="form-control" id="high_grade_comp_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#high_grade_comp_err"></select>
+                            <span id="high_grade_comp_err"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="course_degree_id" class="col-lg-3 control-label">Course/Degree <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <select class="form-control" id="course_degree_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#course_degree_err"></select>
+                            <span id="course_degree_err"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="school_univ_id" class="col-lg-3 control-label">School/University <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <select class="form-control" id="school_univ_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#school_univ_err"></select>
+                            <span id="school_univ_err"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="sunl"> School/University not listed?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <input class="form-control uppercase" type="text" id="school_univ_other" data-parsley-minlength="2" data-parsley-trigger="change" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Cancel</button>
+                    <button type="submit" class="btn btn-success" role="button"><i class="fa fa-check"></i> Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{{define "js-registrant/create"}}
+<script>
+    $(function () {
+        Parsley.addValidator("mimes", {
+            requirementType: "string",
+            validateString: function (value, requirement, instance) {
+                var file = instance.$element[0].files;
+
+                if (file.length == 0) {
+                    return true;
+                }
+                var allowedMimeTypes = requirement.replace(/[\[\]]+/g, "").split(" ");
+                return allowedMimeTypes.indexOf(file[0].type) !== -1;
+            },
+            messages: {
+                en: "{{lang `image_invalid`}}"
+            },
+            priority: 2
+        }).addValidator("maxmegabytes", {
+            requirementType: "string",
+            validateString: function (value, requirement, instance) {
+                var file = instance.$element[0].files;
+                var maxMB = requirement * 1048576;
+
+                if (file.length == 0) {
+                    return true;
+                }
+                return file.length === 1 && file[0].size <= maxMB;
+            },
+            messages: {
+                en: "{{lang `image_too_large`}}"
+            },
+            priority: 1
+        });
+
+        Parsley.addAsyncValidator("emailTaken", function (xhr) {
+            if (404 === xhr.status) {
+                r = $.parseJSON(xhr.responseText);
+                this.addError("remote", { message: r.error });
+            }
+            return 200 === xhr.status;
+        }, "/registrants/email/taken");
+    });
+
+</script>
+{{end}}

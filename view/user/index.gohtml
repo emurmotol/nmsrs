@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-10">
-        <div class="panel panel-default" id="table_panel">
+        <div class="panel panel-default">
             <div class="panel-heading clearfix">
                 <span class="pull-left"><i class="fa fa-user-o"></i> Users</span>
                 <span class="pull-right">
@@ -10,29 +10,6 @@
                     <button class="btn btn-danger btn-xs" id="delete_user_button" role="button" disabled>
                         <i class="fa fa-user-times"></i> Delete
                     </button>
-                    <div class="modal fade" id="delete_user_modal" data-backdrop="static" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h4 class="modal-title">Are you <strong>ABSOLUTELY</strong> sure?</h4>
-                                </div>
-                                <div class="modal-body">
-                                    This action <strong>CANNOT</strong> be undone. This will permanently delete <strong id="to_del"></strong> user/s.
-                                </div>
-                                <div class="modal-footer">
-                                    <form action="/users/delete" method="POST" id="delete_user_form">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="ids">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal" role="button">No</button>
-                                        <button type="submit" class="btn btn-danger" data-loading-text="Deleting user/s..." role="button">Yes, proceed</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </span>
             </div>
             <div class="panel-body">
@@ -51,26 +28,40 @@
                     <thead>
                         <tr>
                             <th><input type="checkbox" id="select_all_users"></th>
-                            <th>Photo</th>
+                            <th>ID</th>
+                            <th class="text-center">Photo</th>
                             <th>Name</th>
                             <th><i class="fa fa-envelope-o"></i> Email Address</th>
-                            <th>Edit</th>
                             <th><i class="fa fa-calendar-o"></i> Created At</th>
+                            <th class="text-center">Edit</th>
                         </tr>
                     </thead>
                     <tbody>
                         {{range .users}}
                         <tr data-id="{{.ID}}">
-                            <td><input type="checkbox" class="checkbox" value="{{.ID}}"></td>
+                            <td>
+                                <input type="checkbox" class="checkbox user-checkbox" value="{{.ID}}">
+                            </td>
+                            <td>
+                                {{.ID}}
+                            </td>
                             <td>
                                 <a href="{{if .HasPhoto}}{{photoPath .ID `User`}}{{else}}{{config.default.photo.path}}{{end}}">
                                     <img src="{{if .HasPhoto}}{{photoPath .ID `User`}}{{else}}{{config.default.photo.path}}{{end}}" class="img-rounded" height="45" alt="{{.Name}}">
                                 </a>
                             </td>
-                            <td><a href="/users/{{.ID}}">{{.Name}}</a></td>
-                            <td><a href="mailto:{{.Email}}">{{.Email}}</a></td>
-                            <td><a href="/users/{{.ID}}/edit"><i class="fa fa-pencil"></i></a></td>
-                            <td data-created-at-unix="{{.CreatedAt.Unix}}">{{dateForHumans .CreatedAt.Unix}}</td>
+                            <td>
+                                <a href="/users/{{.ID}}">{{.Name}}</a>
+                            </td>
+                            <td>
+                                <a href="mailto:{{.Email}}">{{.Email}}</a>
+                            </td>
+                            <td data-created-at-unix="{{.CreatedAt.Unix}}">
+                                {{dateForHumans .CreatedAt.Unix}}
+                            </td>
+                            <td class="text-center">
+                                <a href="/users/{{.ID}}/edit"><i class="fa fa-pencil"></i></a>
+                            </td>
                         </tr>
                         {{end}}
                     </tbody>
@@ -98,6 +89,29 @@
                         <input type="radio" name="is_admin" value="0" autocomplete="off"> No
                     </label>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="delete_user_modal" data-backdrop="static" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Are you <strong>ABSOLUTELY</strong> sure?</h4>
+            </div>
+            <div class="modal-body">
+                This action <strong>CANNOT</strong> be undone. This will permanently delete <strong id="to_del"></strong> user/s.
+            </div>
+            <div class="modal-footer">
+                <form action="/users/delete" method="POST" id="delete_user_form">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="user_ids">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" role="button">No</button>
+                    <button type="submit" class="btn btn-danger" data-loading-text="Deleting user/s..." role="button">Yes, proceed</button>
+                </form>
             </div>
         </div>
     </div>
@@ -157,37 +171,37 @@
         var delete_user_button = $("#delete_user_button")
 
         delete_user_button.on("click", function () {
-            $("#to_del").text($(".checkbox:checked").length);
+            $("#to_del").text($(".user-checkbox:checked").length);
             $("#delete_user_modal").modal("show");
         });
 
         $("#delete_user_form").on("submit", function (e) {
-            var ids = [];
+            var user_ids = [];
 
-            $(".checkbox").each(function () {
+            $(".user-checkbox").each(function () {
                 if ($(this).prop("checked")) {
-                    ids.push(parseInt($(this).val()));
+                    user_ids.push(parseInt($(this).val()));
                 }
             });
-            $(this).find("input[type=hidden][name=ids]").val(JSON.stringify(ids));
+            $(this).find("input[type=hidden][name=user_ids]").val(JSON.stringify(user_ids));
             duringSubmitDo(this);
         });
 
-        select_all_users.change(function () {
-            $(".checkbox").prop("checked", $(this).prop("checked"));
+        select_all_users.on("change", function () {
+            $(".user-checkbox").prop("checked", $(this).prop("checked"));
             delete_user_button.prop("disabled", !$(this).prop("checked"));
         });
 
-        $(".checkbox").change(function () {
+        $(".user-checkbox").on("change", function () {
             if ($(this).prop("checked") == false) {
                 select_all_users.prop("checked", false);
             }
 
-            if ($(".checkbox:checked").length == $(".checkbox").length) {
+            if ($(".user-checkbox:checked").length == $(".user-checkbox").length) {
                 select_all_users.prop("checked", true);
             }
 
-            if ($(".checkbox:checked").length == 0) {
+            if ($(".user-checkbox:checked").length == 0) {
                 delete_user_button.prop("disabled", true);
             } else {
                 delete_user_button.prop("disabled", false);
