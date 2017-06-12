@@ -1,6 +1,7 @@
 <form class="form-horizontal" action="/registrants" method="POST" id="create_registrant_form" enctype="multipart/form-data">
     <div class="tab-content">
         <div class="tab-pane active" role="tabpanel" id="step_1">
+        <!--<div class="tab-pane" role="tabpanel" id="step_1">-->
             <div class="panel panel-default">
                 <div class="panel-heading">Personal Information</div>
                 <div class="panel-body">
@@ -91,7 +92,7 @@
                             {{range .civilStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="civil_stat_id" id="civil_stat_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"{{if eq .ID 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#civil_stat_id_err"{{end}}> {{.Name}}
+                                    <input type="radio" name="civil_stat_id" id="civil_stat_{{.ID}}" value="{{.ID}}"{{if eq .ID 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#civil_stat_id_err"{{end}}> {{.Name}}
                                 </label>
                             </div>
                             {{end}}
@@ -100,7 +101,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
-                            <input class="form-control uppercase" type="text" name="civil_stat_other" id="civil_stat_other" data-parsley-minlength="2" data-parsley-trigger="change" disabled>
+                            <input class="form-control uppercase" type="text" name="civil_stat_other" id="civil_stat_other" data-parsley-minlength="2" data-parsley-trigger="change" placeholder="Simplify" disabled>
                         </div>
                     </div>
                     <div class="form-group">
@@ -161,7 +162,7 @@
                             {{range .empStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="emp_stat_id" id="emp_stat_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"{{if eq .ID 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#emp_stat_id_err"{{end}}> {{.Name}}
+                                    <input type="radio" name="emp_stat_id" id="emp_stat_{{.ID}}" value="{{.ID}}"{{if eq .ID 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#emp_stat_id_err"{{end}}> {{.Name}}
                                 </label>
                             </div>
                             {{end}}
@@ -238,7 +239,7 @@
                             {{range .disabilities}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="disability_id" id="disability_{{.ID}}" value="{{.ID}}" data-name="{{.Name}}"{{if eq .ID 1}} data-parsley-trigger="change" data-parsley-errors-container="#disability_id_err"{{end}} disabled> {{.Name}}
+                                    <input type="radio" name="disability_id" id="disability_{{.ID}}" value="{{.ID}}"{{if eq .ID 1}} data-parsley-trigger="change" data-parsley-errors-container="#disability_id_err"{{end}} disabled> {{.Name}}
                                 </label>
                             </div>
                             {{end}}
@@ -247,7 +248,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
-                            <input class="form-control uppercase" type="text" name="disability_other" id="disability_other" data-parsley-minlength="2" data-parsley-trigger="change" disabled>
+                            <input class="form-control uppercase" type="text" name="disability_other" id="disability_other" data-parsley-minlength="2" data-parsley-trigger="change" placeholder="Simplify" disabled>
                         </div>
                     </div>
                 </div>
@@ -266,14 +267,15 @@
             </div>
         </div>
         <div class="tab-pane" role="tabpanel" id="step_2">
+        <!--<div class="tab-pane active" role="tabpanel" id="step_2">-->
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <span class="pull-left">Formal Education</span>
                     <span class="pull-right">
-                        <button class="btn btn-success btn-xs" id="add_formal_edu_button" role="button">
+                        <button type="button" class="btn btn-success btn-xs" id="add_formal_edu_button" role="button">
                             <i class="fa fa-plus"></i> Add
                         </button>
-                        <button class="btn btn-danger btn-xs" id="delete_formal_edu_button" role="button" disabled>
+                        <button type="button" class="btn btn-danger btn-xs" id="delete_formal_edu_button" role="button" disabled>
                             <i class="fa fa-trash-o"></i> Delete
                         </button>
                     </span>
@@ -292,6 +294,7 @@
                         <tbody></tbody>
                     </table>
                 </div>
+                <input type="hidden">
             </div>
         </div>
         <div class="tab-pane" role="tabpanel" id="step_3">
@@ -306,9 +309,9 @@
             </div>
         </div>
         <div class="form-nav">
-            <button role="button" class="btn btn-primary prev-tab pull-left">Previous</button>
-            <button role="button" class="btn btn-primary next-tab pull-right" data-loading-text="Checking...">Next</button>
-            <button role="button" type="submit" class="btn btn-primary pull-right" data-loading-text="Creating registrant...">Finish</button>
+            <button type="button" role="button" class="btn btn-primary prev-tab pull-left">Previous</button>
+            <button type="button" role="button" class="btn btn-primary next-tab pull-right" data-loading-text="Checking...">Next</button>
+            <button type="submit" role="button" class="btn btn-primary pull-right" data-loading-text="Creating registrant...">Finish</button>
         </div>
     </div>
 </form>
@@ -355,7 +358,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
-                            <input class="form-control uppercase" type="text" id="school_univ_other" data-parsley-minlength="2" data-parsley-trigger="change" disabled>
+                            <input class="form-control uppercase" type="text" id="school_univ_other" data-parsley-minlength="2" data-parsley-trigger="change" placeholder="School/University Name" disabled>
                         </div>
                     </div>
                 </div>

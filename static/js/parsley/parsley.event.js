@@ -4,12 +4,4 @@ window.Parsley.on("field:success", function() {
     if (span.length) {
         span.remove();
     }
-});
-
-// window.Parsley.on("field:error", function() {
-//     var formGroup = this.$element.closest(".form-group")
-
-//     if (this.$element.prop("id") == "pref_occ_ids") {
-//         formGroup.addClass("has-error")
-//     }
-// });
+}); // clear error message on success validation

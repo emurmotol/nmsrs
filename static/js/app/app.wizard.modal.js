@@ -1,42 +1,59 @@
 $(function () {
-    var select_all_formal_edu = $("#select_all_formal_edu")
-    var delete_formal_edu_button = $("#delete_formal_edu_button")
+    var select_all_formal_edu = $("#select_all_formal_edu");
+    var delete_formal_edu_button = $("#delete_formal_edu_button");
 
     $("#formal_edu_form").parsley();
     $("#formal_edu_form").on("submit", function (e) {
         e.preventDefault();
-        var school_univ_id_text = $("#school_univ_other").val().toUpperCase();
+        var school_univ_text = $("#school_univ_other").val().toUpperCase();
         var school_univ_id_val = $("#school_univ_id").select2("val") != null ? $("#school_univ_id").select2("val") : "";
 
         if (!$("#sunl").prop("checked")) {
-            school_univ_id_text = $("#school_univ_id").select2("data")[0].text;
+            school_univ_text = $("#school_univ_id").select2("data")[0].text;
         }
-        var formal_edu_index = 1 + $("#formal_edu_table tbody tr").length++;
-        var row = `
-        <tr data-index="` + formal_edu_index + `">
-            <td class="formal-edu-checkbox">
-                <input type="checkbox" class="checkbox" id="formal_edu_checkbox_` + formal_edu_index + `">
-            </td>
-            <td class="high-grade-comp">
-                <span>` + $("#high_grade_comp_id").select2("data")[0].text + `</span>
-                <input type="hidden" name="high_grade_comp_id[]" value="` + $("#high_grade_comp_id").select2("val") + `">
-            </td>
-            <td class="course-degree">
-                <span>` + $("#course_degree_id").select2("data")[0].text + `</span>
-                <input type="hidden" name="course_degree_id[]" value="` + $("#course_degree_id").select2("val") + `">
-            </td>
-            <td class="school-univ">
-                <span>` + school_univ_id_text + `</span>
-                <input type="hidden" name="school_univ_id[]" value="` + school_univ_id_val + `">
-                <input type="hidden" name="school_univ_other[]" value="` + $("#school_univ_other").val() + `">
-            </td>
-            <td class="text-center">
-                <a href="#" class="formal-edu-edit-link"><i class="fa fa-pencil"></i></a>
-            </td>
-        </tr>
-        `;
 
-        $("#formal_edu_table tbody").append(row);
+        switch ($(this).attr("data-action")) {
+            case "add":
+                var formal_edu_index = 1 + $("#formal_edu_table tbody tr").length++;
+                var row = `
+                <tr data-index="` + formal_edu_index + `">
+                    <td class="formal-edu-checkbox">
+                        <input type="checkbox" class="checkbox" id="formal_edu_checkbox_` + formal_edu_index + `">
+                    </td>
+                    <td class="high-grade-comp">
+                        <span>` + $("#high_grade_comp_id").select2("data")[0].text + `</span>
+                        <input type="hidden" name="high_grade_comp_id[]" value="` + $("#high_grade_comp_id").select2("val") + `">
+                    </td>
+                    <td class="course-degree">
+                        <span>` + $("#course_degree_id").select2("data")[0].text + `</span>
+                        <input type="hidden" name="course_degree_id[]" value="` + $("#course_degree_id").select2("val") + `">
+                    </td>
+                    <td class="school-univ">
+                        <span>` + school_univ_text + `</span>
+                        <input type="hidden" name="school_univ_id[]" value="` + school_univ_id_val + `">
+                        <input type="hidden" name="school_univ_other[]" value="` + $("#school_univ_other").val() + `">
+                    </td>
+                    <td class="text-center">
+                        <a href="#" class="formal-edu-edit-link"><i class="fa fa-pencil"></i></a>
+                    </td>
+                </tr>
+                `;
+
+                $("#formal_edu_table tbody").append(row);
+                break;
+            case "edit":
+                var tr = $("#formal_edu_table tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
+                tr.find(".high-grade-comp").find("span").text($("#high_grade_comp_id").select2("data")[0].text);
+                tr.find(".high-grade-comp").find('input[name="high_grade_comp_id[]"]').val($("#high_grade_comp_id").select2("val"));
+                tr.find(".course-degree").find("span").text($("#course_degree_id").select2("data")[0].text);
+                tr.find(".course-degree").find('input[name="course_degree_id[]"]').val($("#course_degree_id").select2("val"));
+                tr.find(".school-univ").find("span").text(school_univ_text);
+                tr.find(".school-univ").find('input[name="school_univ_id[]"]').val(school_univ_id_val);
+                tr.find(".school-univ").find('input[name="school_univ_other[]"]').val($("#school_univ_other").val());
+                $(this).removeAttr("data-edit-index");
+                break;
+        }
+
         $(".formal-edu-checkbox input").on("change", function () {
             if ($(this).prop("checked") == false) {
                 select_all_formal_edu.prop("checked", false);
@@ -57,7 +74,7 @@ $(function () {
             var tr = $(this).closest("tr");
             var high_grade_comp_id_val = tr.find(".high-grade-comp").find('input[name="high_grade_comp_id[]"]').val();
             var course_degree_id_val = tr.find(".course-degree").find('input[name="course_degree_id[]"]').val();
-            var school_univ_id_val = tr.find(".school-univ").find('input[name="school_univ_id[]"]').val();
+            school_univ_id_val = tr.find(".school-univ").find('input[name="school_univ_id[]"]').val();
 
             $("#high_grade_comp_id").val(parseInt(high_grade_comp_id_val)).trigger("change");
             $("#course_degree_id").val(parseInt(course_degree_id_val)).trigger("change");
@@ -69,7 +86,8 @@ $(function () {
             } else {
                 $("#school_univ_id").val(parseInt(school_univ_id_val)).trigger("change");
             }
-            tr.remove();
+            $("#formal_edu_form").attr("data-edit-index", tr.data("index"));
+            $("#formal_edu_form").attr("data-action", "edit");
             $("#formal_edu_modal").modal("show");
         });
         select_all_formal_edu.prop("checked", false);
@@ -97,39 +115,40 @@ $(function () {
     });
 
     $("#formal_edu_modal").on("hidden.bs.modal", function () {
+        $("#formal_edu_form").removeAttr("data-action");
+
         if ($("#school_univ_id").prop("disabled")) {
             $("#school_univ_id").prop("disabled", false);
             $("#school_univ_other").prop("disabled", true);
         }
+        $("#high_grade_comp_id").removeAttr("data-parsley-required");
         $("#high_grade_comp_id").val(null).trigger("change");
-        $("#high_grade_comp_id").parsley().reset();
+        $("#high_grade_comp_id").attr("data-parsley-required", true);
+        $("#course_degree_id").removeAttr("data-parsley-required");
         $("#course_degree_id").val(null).trigger("change");
-        $("#course_degree_id").parsley().reset();
-        $("#school_univ_id").val(null).trigger("change");
+        $("#course_degree_id").attr("data-parsley-required", true);
         $("#sunl").prop("checked", false).trigger("change");
     });
 
     $("#add_formal_edu_button").on("click", function () {
+        $("#formal_edu_form").attr("data-action", "add");
         $("#formal_edu_modal").modal("show");
     });
 
     $("#sunl").on("change", function () {
-        $("#school_univ_id").parsley().reset();
+        $("#school_univ_id").removeAttr("data-parsley-required");
+        $("#school_univ_id").val(null).trigger("change");
 
         if ($(this).prop("checked")) {
-            $("#school_univ_id").removeAttr("data-parsley-required");
-            $("#school_univ_id").val(null).trigger("change");
             $("#school_univ_id").prop("disabled", true);
-            $("#school_univ_other").attr("data-parsley-required", "true");
-            $("#school_univ_other").prop("placeholder", "School/University Name");
+            $("#school_univ_other").attr("data-parsley-required", true);
             $("#school_univ_other").prop("disabled", false);
             $("#school_univ_other").focus();
         } else {
-            $("#school_univ_other").parsley().reset();
-            $("#school_univ_other").val("");
             $("#school_univ_other").removeAttr("data-parsley-required");
+            $("#school_univ_other").val(null).trigger("change");
             $("#school_univ_other").prop("disabled", true);
-            $("#school_univ_id").attr("data-parsley-required", "true");
+            $("#school_univ_id").attr("data-parsley-required", true);
             $("#school_univ_id").prop("disabled", false);
             $("#school_univ_id").focus();
         }

@@ -2,26 +2,24 @@ $(function () {
     var tabPane = $(".tab-pane");
 
     function navigateTo(index) {
-        tabPane.removeClass("current").eq(index).addClass("current");
         $(".form-nav .prev-tab").toggle(index > 0);
         var at_the_end = index >= tabPane.length - 1;
         $(".form-nav .next-tab").toggle(!at_the_end);
         $(".form-nav [type=submit]").toggle(at_the_end);
     }
 
-    function currentIndex() {
-        return tabPane.index(tabPane.filter(".current"));
+    function activeIndex() {
+        return tabPane.index(tabPane.filter(".active"));
     }
 
-    $(".form-nav .prev-tab").click(function () {
-        navigateTo(currentIndex() - 1);
+    $(".form-nav .prev-tab").on("click", function () {
+        navigateTo(activeIndex() - 1);
         $(".wizard .nav-pills li.active").prev().find('a[data-toggle="tab"]').tab("show");
     });
 
-    $(".form-nav .next-tab").click(function () {
-        if ($("#create_registrant_form").parsley().validate("block-" + currentIndex())) {
-            navigateTo(currentIndex() + 1);
-
+    $(".form-nav .next-tab").on("click", function () {
+        if ($("#create_registrant_form").parsley("").validate("block-" + activeIndex())) {
+            navigateTo(activeIndex() + 1);
             var li = $(".wizard .nav-pills li.active");
             li.next().removeClass("disabled");
             li.next().find('a[data-toggle="tab"]').tab("show");

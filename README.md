@@ -20,7 +20,9 @@
 * ok: set id for .json seeded obj
 * register/create.gohtml: Calling validate on a parsley form without passing arguments as an object is deprecated.
 * ok: remove console.log()
-* update a table row instead of replacing it
+* ok: update a table row instead of replacing it
+* pref occ err ui not adding attr has-error
+* block-0 modal shows when enter key is pressed
 
 ### Study
 * https://github.com/disintegration/imaging
@@ -37,3 +39,4 @@
 * https://github.com/renstrom/fuzzysearch
 * https://play.golang.org/p/DIQ2XtC8C4
 * https://support.microsoft.com/en-us/help/196271/when-you-try-to-connect-from-tcp-ports-greater-than-5000-you-receive-the-error-wsaenobufs-10055
+* http://parsleyjs.org/doc/annotated-source/defaults.html

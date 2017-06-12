@@ -18,7 +18,7 @@ $(function () {
             cache: true
         }
     });
-    
+
     $("#course_degree_id").select2({
         placeholder: "SELECT COURSE/DEGREE",
         ajax: {
@@ -59,10 +59,6 @@ $(function () {
         }
     });
 
-    $("#pref_occ_ids").on("change", function () {
-        $(this).parsley().validate();
-    });
-
     $("#pref_occ_ids").select2({
         placeholder: "SELECT PREFERRED OCCUPATION(S)",
         ajax: {
@@ -83,10 +79,6 @@ $(function () {
         }
     });
 
-    $("#pref_local_loc_id").on("change", function () {
-        $(this).parsley().validate();
-    });
-
     $("#pref_local_loc_id").select2({
         placeholder: "SELECT PREFERRED LOCAL LOCATION",
         ajax: {
@@ -105,10 +97,6 @@ $(function () {
             },
             cache: true
         }
-    });
-
-    $("#pref_overseas_loc_id").on("change", function () {
-        $(this).parsley().validate();
     });
 
     $("#pref_overseas_loc_id").select2({
@@ -151,10 +139,6 @@ $(function () {
         }
     });
 
-    $("#language_ids").on("change", function () {
-        $(this).parsley().validate();
-    });
-
     $("#religion_id").select2({
         placeholder: "SELECT RELIGION",
         ajax: {
@@ -175,8 +159,9 @@ $(function () {
         }
     });
 
-    $("#religion_id").on("change", function () {
-        $(this).parsley().validate();
+    $("#brgy_id").select2({ placeholder: "SELECT BARANGAY" });
+    $("#brgy_id").on("change", function () {
+        $("#place_of_birth").focus();
     });
 
     $("#city_mun_id").select2({
@@ -201,25 +186,19 @@ $(function () {
         }
     });
 
-    $("#brgy_id").select2();
-    $("#brgy_id").on("change", function () {
-        $(this).parsley().validate();
-        $("#place_of_birth").focus();
-    });
-
     $("#city_mun_id").on("change", function () {
-        $(this).parsley().validate();
-        var city_mun_id = $(this).val();
         var data = $(this).select2("data")[0];
 
         $("#prov_id").prop("data-id", data.prov_id);
         $("#prov_id").val(data.prov_desc);
 
+        $("#brgy_id").removeAttr("data-parsley-required");
         $("#brgy_id").val(null).trigger("change");
+        $("#brgy_id").attr("data-parsley-required", true);
         $("#brgy_id").select2({
             placeholder: "SELECT BARANGAY",
             ajax: {
-                url: "/api/citymuns/" + city_mun_id + "/barangays",
+                url: "/api/citymuns/" + $("#city_mun_id").select2("val") + "/barangays",
                 delay: 250,
                 dataType: "json",
                 processResults: function (r) {
@@ -234,70 +213,67 @@ $(function () {
                 },
                 cache: true
             }
-        }).prop("disabled", false);
+        });
+        $("#brgy_id").prop("disabled", false);
         $("#brgy_id").focus();
     });
 
-    $("#un_emp_stat_id").select2();
-    loadUnEmpStat = function () {
-        $("#un_emp_stat_id").select2({
-            placeholder: "SELECT UNEMPLOYED STATUS",
-            ajax: {
-                url: "/api/unempstats",
-                delay: 250,
-                dataType: "json",
-                processResults: function (r) {
-                    return {
-                        results: $.map(r, function (data) {
-                            return {
-                                id: data.id,
-                                text: data.name
-                            };
-                        })
-                    };
-                },
-                cache: true
+    $("#toc_id").select2({
+        placeholder: "SELECT COUNTRY GOT TERMINATED",
+        ajax: {
+            url: "/api/countries",
+            delay: 250,
+            dataType: "json",
+            processResults: function (r) {
+                return {
+                    results: $.map(r, function (data) {
+                        return {
+                            id: data.id,
+                            text: data.name
+                        };
+                    })
+                };
             },
-            minimumResultsForSearch: Infinity
-        });
-    }
+            cache: true
+        }
+    });
 
-    $("#toc_id").select2();
-    $("#toc_id").on("change", function () {
-        $(this).parsley().validate();
+    $("#un_emp_stat_id").select2({
+        placeholder: "SELECT UNEMPLOYED STATUS",
+        ajax: {
+            url: "/api/unempstats",
+            delay: 250,
+            dataType: "json",
+            processResults: function (r) {
+                return {
+                    results: $.map(r, function (data) {
+                        return {
+                            id: data.id,
+                            text: data.name
+                        };
+                    })
+                };
+            },
+            cache: true
+        }
     });
 
     $("#un_emp_stat_id").on("change", function () {
-        $(this).parsley().validate();
         if ($(this).val() == "5") {
-            $("#toc_id").val(null).trigger("change");
-            $("#toc_id").select2({
-                placeholder: "SELECT COUNTRY GOT TERMINATED",
-                ajax: {
-                    url: "/api/countries",
-                    delay: 250,
-                    dataType: "json",
-                    processResults: function (r) {
-                        return {
-                            results: $.map(r, function (data) {
-                                return {
-                                    id: data.id,
-                                    text: data.name
-                                };
-                            })
-                        };
-                    },
-                    cache: true
-                }
-            }).prop("disabled", false);
-            $("#toc_id").attr("data-parsley-required", "true");
+            $("#toc_id").attr("data-parsley-required", true);
+            $("#toc_id").prop("disabled", false);
             $("#toc_id").focus();
         } else {
-            $("#toc_id").parsley().reset();
-            $("#toc_id").select2();
             $("#toc_id").removeAttr("data-parsley-required");
             $("#toc_id").val(null).trigger("change");
             $("#toc_id").prop("disabled", true);
         }
     });
+
+    $("select").on("change", function() {
+        var instance = $(this).parsley();
+        if (instance.isValid()) {
+            instance.reset();
+        }
+    }); // todo: temporary fix for select2 on change not working properly
 });

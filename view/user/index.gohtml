@@ -7,7 +7,7 @@
                     <a href="/users/create" class="btn btn-success btn-xs" role="button">
                         <i class="fa fa-user-plus"></i> Add
                     </a>
-                    <button class="btn btn-danger btn-xs" id="delete_user_button" role="button" disabled>
+                    <button type="button" class="btn btn-danger btn-xs" id="delete_user_button" role="button" disabled>
                         <i class="fa fa-user-times"></i> Delete
                     </button>
                 </span>
@@ -76,7 +76,7 @@
             <div class="panel-heading clearfix">
                 <span class="pull-left"><i class="fa fa-sliders"></i> Filter</span>
                 <span class="pull-right">
-                    <button class="btn btn-primary btn-xs" id="reset_filter_button" role="button"><i class="fa fa-refresh"></i> Reset</button>
+                    <button type="button" class="btn btn-primary btn-xs" id="reset_filter_button" role="button"><i class="fa fa-refresh"></i> Reset</button>
                 </span>
             </div>
             <div class="panel-body">
@@ -167,8 +167,8 @@
             }
             location.href = $.url("path") + "?" + $.param(jsonURL);
         });
-        var select_all_users = $("#select_all_users")
-        var delete_user_button = $("#delete_user_button")
+        var select_all_users = $("#select_all_users");
+        var delete_user_button = $("#delete_user_button");
 
         delete_user_button.on("click", function () {
             $("#to_del").text($(".user-checkbox:checked").length);

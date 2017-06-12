@@ -29,7 +29,7 @@ $(function () {
                     location.href = r.data.redirect;
                 }
             }
-            console.log(r)
+            console.log(r);
         });
 
         return call.then(function (r) {
