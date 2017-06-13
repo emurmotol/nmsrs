@@ -1,4 +1,24 @@
 $(function () {
+    $("#plt_id").select2({
+        placeholder: "SELECT LICENSE TITLE",
+        ajax: {
+            url: "/api/licenses",
+            delay: 250,
+            dataType: "json",
+            processResults: function (r) {
+                return {
+                    results: $.map(r, function (data) {
+                        return {
+                            id: data.id,
+                            text: data.name
+                        };
+                    })
+                };
+            },
+            cache: true
+        }
+    });
+
     $("#school_univ_id").select2({
         placeholder: "SELECT SCHOOL/UNIVERSITY",
         ajax: {

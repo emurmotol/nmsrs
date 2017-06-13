@@ -1,7 +1,7 @@
 <form class="form-horizontal" action="/registrants" method="POST" id="create_registrant_form" enctype="multipart/form-data">
     <div class="tab-content">
-        <div class="tab-pane active" role="tabpanel" id="step_1">
-        <!--<div class="tab-pane" role="tabpanel" id="step_1">-->
+        <!--<div class="tab-pane active" role="tabpanel" id="step_1">-->
+        <div class="tab-pane" role="tabpanel" id="step_1">
             <div class="panel panel-default">
                 <div class="panel-heading">Personal Information</div>
                 <div class="panel-body">
@@ -267,7 +267,6 @@
             </div>
         </div>
         <div class="tab-pane" role="tabpanel" id="step_2">
-        <!--<div class="tab-pane active" role="tabpanel" id="step_2">-->
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <span class="pull-left">Formal Education</span>
@@ -297,15 +296,33 @@
                 <input type="hidden">
             </div>
         </div>
-        <div class="tab-pane" role="tabpanel" id="step_3">
+        <!--<div class="tab-pane" role="tabpanel" id="step_3">-->
+        <div class="tab-pane active" role="tabpanel" id="step_3">
             <div class="panel panel-default">
-                <div class="panel-heading">Professional License</div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-6">
-                        </div>
-                    </div>
+                <div class="panel-heading clearfix">
+                    <span class="pull-left">Professional License</span>
+                    <span class="pull-right">
+                        <button type="button" class="btn btn-success btn-xs" id="add_pro_license_button" role="button">
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs" id="delete_pro_license_button" role="button" disabled>
+                            <i class="fa fa-trash-o"></i> Delete
+                        </button>
+                    </span>
                 </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="pro_license_table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select_all_pro_license"></th>
+                                <th>License Title</th>
+                                <th>Expiry Date</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <input type="hidden">
             </div>
         </div>
         <div class="form-nav">
@@ -359,6 +376,39 @@
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
                             <input class="form-control uppercase" type="text" id="school_univ_other" data-parsley-minlength="2" data-parsley-trigger="change" placeholder="School/University Name" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Cancel</button>
+                    <button type="submit" class="btn btn-success" role="button"><i class="fa fa-check"></i> Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<form class="form-horizontal" id="pro_license_form">
+    <div class="modal fade" id="pro_license_modal" data-backdrop="static" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Professional License</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="plt_id" class="col-lg-3 control-label">License Title <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <select class="form-control" name="plt_id" id="plt_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#plt_id_err"></select>
+                            <span id="plt_id_err"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pled" class="col-lg-3 control-label">Birthdate <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input type="date" class="form-control uppercase" name="pled" id="pled" data-parsley-required="true" data-parsley-min="{{parsleyDateNow}}" data-parsley-trigger="change">
                         </div>
                     </div>
                 </div>

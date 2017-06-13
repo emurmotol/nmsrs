@@ -8,7 +8,8 @@ $(function () {
             $("#civil_stat_other").focus();
         } else {
             $("#civil_stat_other").removeAttr("data-parsley-required");
-            $("#civil_stat_other").val(null).trigger("change");
+            $("#civil_stat_other").val("");
+            $("#civil_stat_other").parsley().reset();
             $("#civil_stat_other").prop("disabled", true);
         }
     });
@@ -40,7 +41,8 @@ $(function () {
             $("#disability_other").focus();
         } else {
             $("#disability_other").removeAttr("data-parsley-required");
-            $("#disability_other").val(null).trigger("change");
+            $("#disability_other").val("");
+            $("#disability_other").parsley().reset();
             $("#disability_other").prop("disabled", true);
         }
     });
