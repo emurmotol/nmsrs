@@ -1,4 +1,14 @@
 $(function () {
+    $("#birthdate").datetimepicker({
+        viewMode: "years",
+        format: "YYYY-MM-DD"
+    });
+
+    $("#pned").datetimepicker({
+        viewMode: "years",
+        format: "YYYY-MM"
+    });
+
     $("#civil_stat_radios").find("input[type=radio]").on("change", function () {
         var checked = $("input[name=civil_stat_id]:checked");
 

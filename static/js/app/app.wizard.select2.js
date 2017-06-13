@@ -1,4 +1,24 @@
 $(function () {
+    $("#et_id").select2({
+        placeholder: "SELECT ELIGIBILITY TITLE",
+        ajax: {
+            url: "/api/eligibilities",
+            delay: 250,
+            dataType: "json",
+            processResults: function (r) {
+                return {
+                    results: $.map(r, function (data) {
+                        return {
+                            id: data.id,
+                            text: data.name
+                        };
+                    })
+                };
+            },
+            cache: true
+        }
+    });
+
     $("#plt_id").select2({
         placeholder: "SELECT LICENSE TITLE",
         ajax: {
