@@ -1,7 +1,7 @@
-window.Parsley.on("field:success", function() {
-    var span = this.$element.closest(".help-block")
+// window.Parsley.on("field:success", function() {
+//     var span = this.$element.closest(".help-block")
 
-    if (span.length) {
-        span.remove();
-    }
-}); // clear error message on success validation
+//     if (span.length) {
+//         span.remove();
+//     }
+// });
