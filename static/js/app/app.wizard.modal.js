@@ -15,8 +15,13 @@ $(function () {
     $("#formal_edu_form").parsley();
     $("#formal_edu_form").on("submit", function (e) {
         e.preventDefault();
-        var school_univ_text = $("#school_univ_other").val().toUpperCase();
+        var high_grade_comp_id_val = $("#high_grade_comp_id").select2("val");
+        var course_degree_id_val = $("#course_degree_id").select2("val");
         var school_univ_id_val = $("#school_univ_id").select2("val") != null ? $("#school_univ_id").select2("val") : "";
+        var school_univ_other_val = $("#school_univ_other").val().toUpperCase();
+        var school_univ_text = school_univ_other_val;
+        var year_graduated_val = $("#year_graduated").val();
+        var last_attended_val = $("#last_attended").val();
 
         if (!$("#sunl").prop("checked")) {
             school_univ_text = $("#school_univ_id").select2("data")[0].text;
@@ -32,24 +37,24 @@ $(function () {
                     </td>
                     <td class="high-grade-comp">
                         <span>` + $("#high_grade_comp_id").select2("data")[0].text + `</span>
-                        <input type="hidden" name="high_grade_comp_id[]" value="` + $("#high_grade_comp_id").select2("val") + `">
+                        <input type="hidden" name="high_grade_comp_id[]" value="` + high_grade_comp_id_val + `">
                     </td>
                     <td class="course-degree">
                         <span>` + $("#course_degree_id").select2("data")[0].text + `</span>
-                        <input type="hidden" name="course_degree_id[]" value="` + $("#course_degree_id").select2("val") + `">
+                        <input type="hidden" name="course_degree_id[]" value="` + course_degree_id_val + `">
                     </td>
                     <td class="school-univ">
                         <span>` + school_univ_text + `</span>
                         <input type="hidden" name="school_univ_id[]" value="` + school_univ_id_val + `">
-                        <input type="hidden" name="school_univ_other[]" value="` + $("#school_univ_other").val().toUpperCase() + `">
+                        <input type="hidden" name="school_univ_other[]" value="` + school_univ_other_val + `">
                     </td>
                     <td class="year-graduated">
-                        <span>` + $("#year_graduated").val() + `</span>
-                        <input type="hidden" name="year_graduated[]" value="` + $("#year_graduated").val() + `">
+                        <span>` + year_graduated_val + `</span>
+                        <input type="hidden" name="year_graduated[]" value="` + year_graduated_val + `">
                     </td>
                     <td class="last-attended">
-                        <span>` + $("#last_attended").val() + `</span>
-                        <input type="hidden" name="last_attended[]" value="` + $("#last_attended").val() + `">
+                        <span>` + last_attended_val + `</span>
+                        <input type="hidden" name="last_attended[]" value="` + last_attended_val + `">
                     </td>
                     <td class="text-center">
                         <a href="#" class="formal-edu-edit-link"><i class="fa fa-pencil"></i></a>
@@ -62,16 +67,16 @@ $(function () {
             case "edit":
                 var tr = $("#formal_edu_table tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
                 tr.find(".high-grade-comp").find("span").text($("#high_grade_comp_id").select2("data")[0].text);
-                tr.find(".high-grade-comp").find('input[name="high_grade_comp_id[]"]').val($("#high_grade_comp_id").select2("val"));
+                tr.find(".high-grade-comp").find('input[name="high_grade_comp_id[]"]').val(high_grade_comp_id_val);
                 tr.find(".course-degree").find("span").text($("#course_degree_id").select2("data")[0].text);
-                tr.find(".course-degree").find('input[name="course_degree_id[]"]').val($("#course_degree_id").select2("val"));
+                tr.find(".course-degree").find('input[name="course_degree_id[]"]').val(course_degree_id_val);
                 tr.find(".school-univ").find("span").text(school_univ_text);
                 tr.find(".school-univ").find('input[name="school_univ_id[]"]').val(school_univ_id_val);
-                tr.find(".school-univ").find('input[name="school_univ_other[]"]').val($("#school_univ_other").val());
-                tr.find(".year-graduated").find("span").text($("#year_graduated").val());
-                tr.find(".year-graduated").find('input[name="year_graduated[]"]').val($("#year_graduated").val());
-                tr.find(".last-attended").find("span").text($("#last_attended").val());
-                tr.find(".last-attended").find('input[name="last_attended[]"]').val($("#last_attended").val());
+                tr.find(".school-univ").find('input[name="school_univ_other[]"]').val(school_univ_other_val);
+                tr.find(".year-graduated").find("span").text(year_graduated_val);
+                tr.find(".year-graduated").find('input[name="year_graduated[]"]').val(year_graduated_val);
+                tr.find(".last-attended").find("span").text(last_attended_val);
+                tr.find(".last-attended").find('input[name="last_attended[]"]').val(last_attended_val);
                 $(this).removeAttr("data-edit-index");
                 break;
         }
@@ -96,7 +101,7 @@ $(function () {
             var tr = $(this).closest("tr");
             var high_grade_comp_id_val = tr.find(".high-grade-comp").find('input[name="high_grade_comp_id[]"]').val();
             var course_degree_id_val = tr.find(".course-degree").find('input[name="course_degree_id[]"]').val();
-            school_univ_id_val = tr.find(".school-univ").find('input[name="school_univ_id[]"]').val();
+            var school_univ_id_val = tr.find(".school-univ").find('input[name="school_univ_id[]"]').val();
             var year_graduated_val = tr.find(".year-graduated").find('input[name="year_graduated[]"]').val();
             var last_attended_val = tr.find(".last-attended").find('input[name="last_attended[]"]').val();
 
@@ -193,6 +198,7 @@ $(function () {
     $("#pro_license_form").on("submit", function (e) {
         e.preventDefault();
         var plt_id_val = $("#plt_id").select2("val");
+        var pled_val = $("#pled").val().toUpperCase();
 
         switch ($(this).attr("data-action")) {
             case "add":
@@ -204,11 +210,11 @@ $(function () {
                     </td>
                     <td class="plt">
                         <span>` + $("#plt_id").select2("data")[0].text + `</span>
-                        <input type="hidden" name="plt_id[]" value="` + $("#plt_id").select2("val") + `">
+                        <input type="hidden" name="plt_id[]" value="` + plt_id_val + `">
                     </td>
                     <td class="pled">
-                        <span>` + $("#pled").val().toUpperCase() + `</span>
-                        <input type="hidden" name="pled[]" value="` + $("#pled").val().toUpperCase() + `">
+                        <span>` + pled_val + `</span>
+                        <input type="hidden" name="pled[]" value="` + pled_val + `">
                     </td>
                     <td class="text-center">
                         <a href="#" class="pro-license-edit-link"><i class="fa fa-pencil"></i></a>
@@ -221,9 +227,9 @@ $(function () {
             case "edit":
                 var tr = $("#pro_license_table tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
                 tr.find(".plt").find("span").text($("#plt_id").select2("data")[0].text);
-                tr.find(".plt").find('input[name="plt_id[]"]').val($("#plt_id").select2("val"));
-                tr.find(".pled").find("span").text($("#pled").val());
-                tr.find(".pled").find('input[name="pled[]"]').val($("#pled").val());
+                tr.find(".plt").find('input[name="plt_id[]"]').val(plt_id_val);
+                tr.find(".pled").find("span").text(pled_val);
+                tr.find(".pled").find('input[name="pled[]"]').val(pled_val);
                 $(this).removeAttr("data-edit-index");
                 break;
         }
@@ -303,7 +309,8 @@ $(function () {
     $("#eligibility_form").parsley();
     $("#eligibility_form").on("submit", function (e) {
         e.preventDefault();
-        var et_val = $("#et_id").select2("val");
+        var et_id_val = $("#et_id").select2("val");
+        var eyt_val = $("#eyt").val().toUpperCase();
 
         switch ($(this).attr("data-action")) {
             case "add":
@@ -315,11 +322,11 @@ $(function () {
                     </td>
                     <td class="et">
                         <span>` + $("#et_id").select2("data")[0].text + `</span>
-                        <input type="hidden" name="et_id[]" value="` + $("#et_id").select2("val") + `">
+                        <input type="hidden" name="et_id[]" value="` + et_id_val + `">
                     </td>
                     <td class="eyt">
-                        <span>` + $("#eyt").val().toUpperCase() + `</span>
-                        <input type="hidden" name="eyt[]" value="` + $("#eyt").val().toUpperCase() + `">
+                        <span>` + eyt_val + `</span>
+                        <input type="hidden" name="eyt[]" value="` + eyt_val + `">
                     </td>
                     <td class="text-center">
                         <a href="#" class="eligibility-edit-link"><i class="fa fa-pencil"></i></a>
@@ -332,9 +339,9 @@ $(function () {
             case "edit":
                 var tr = $("#eligibility_table tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
                 tr.find(".et").find("span").text($("#et_id").select2("data")[0].text);
-                tr.find(".et").find('input[name="et_id[]"]').val($("#et_id").select2("val"));
-                tr.find(".eyt").find("span").text($("#eyt").val());
-                tr.find(".eyt").find('input[name="eyt[]"]').val($("#eyt").val());
+                tr.find(".et").find('input[name="et_id[]"]').val(et_id_val);
+                tr.find(".eyt").find("span").text(eyt_val);
+                tr.find(".eyt").find('input[name="eyt[]"]').val(eyt_val);
                 $(this).removeAttr("data-edit-index");
                 break;
         }
@@ -358,7 +365,7 @@ $(function () {
         $(".eligibility-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
             var et_id_val = tr.find(".et").find('input[name="et_id[]"]').val();
-            var eyt_val = tr.find(".eyt").find('input[name="eyt[]"]').val();
+            var eyt_val = tr.find(".eyt").find('input[name="eyt[]"]').val().toUpperCase();
 
             $("#et_id").val(parseInt(et_id_val)).trigger("change");
             $("#eyt").val(eyt_val).trigger("change");
@@ -402,5 +409,144 @@ $(function () {
     $("#add_eligibility_button").on("click", function () {
         $("#eligibility_form").attr("data-action", "add");
         $("#eligibility_modal").modal("show");
+    });
+    var select_all_vttare = $("#select_all_vttare");
+    var delete_vttare_button = $("#delete_vttare_button");
+
+    $("#vttare_form").parsley();
+    $("#vttare_form").on("submit", function (e) {
+        e.preventDefault();
+        var vttare_not_val = $("#vttare_not").val().toUpperCase();
+        var vttare_sa_val = $("#vttare_sa").val().toUpperCase();
+        var vttare_pote_val = $("#vttare_pote").val().toUpperCase();
+        var vttare_cr_val = $("#vttare_cr").val().toUpperCase();
+        var vttare_isa_val = $("#vttare_isa").val().toUpperCase();
+
+        switch ($(this).attr("data-action")) {
+            case "add":
+                var vttare_index = 1 + $("#vttare_table tbody tr").length++;
+                var row = `
+                <tr data-index="` + vttare_index + `">
+                    <td class="vttare-checkbox">
+                        <input type="checkbox" class="checkbox" id="vttare_checkbox_` + vttare_index + `">
+                    </td>
+                    <td class="vttare-not">
+                        <span>` + vttare_not_val + `</span>
+                        <input type="hidden" name="vttare_not[]" value="` + vttare_not_val + `">
+                    </td>
+                    <td class="vttare-sa">
+                        <span>` + vttare_sa_val + `</span>
+                        <input type="hidden" name="vttare_sa[]" value="` + vttare_sa_val + `">
+                    </td>
+                    <td class="vttare-pote">
+                        <span>` + vttare_pote_val + `</span>
+                        <input type="hidden" name="vttare_pote[]" value="` + vttare_pote_val + `">
+                    </td>
+                    <td class="vttare-cr">
+                        <span>` + vttare_cr_val + `</span>
+                        <input type="hidden" name="vttare_cr[]" value="` + vttare_cr_val + `">
+                    </td>
+                    <td class="vttare-isa">
+                        <span>` + vttare_isa_val + `</span>
+                        <input type="hidden" name="vttare_isa[]" value="` + vttare_isa_val + `">
+                    </td>
+                    <td class="text-center">
+                        <a href="#" class="vttare-edit-link"><i class="fa fa-pencil"></i></a>
+                    </td>
+                </tr>
+                `;
+
+                $("#vttare_table tbody").append(row);
+                break;
+            case "edit":
+                var tr = $("#vttare_table tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
+                tr.find(".vttare-not").find("span").text(vttare_not_val);
+                tr.find(".vttare-not").find('input[name="vttare_not[]"]').val(vttare_not_val);
+                tr.find(".vttare-sa").find("span").text(vttare_sa_val);
+                tr.find(".vttare-sa").find('input[name="vttare_sa[]"]').val(vttare_sa_val);
+                tr.find(".vttare-pote").find("span").text(vttare_pote_val);
+                tr.find(".vttare-pote").find('input[name="vttare_pote[]"]').val(vttare_pote_val);
+                tr.find(".vttare-cr").find("span").text(vttare_cr_val);
+                tr.find(".vttare-cr").find('input[name="vttare_cr[]"]').val(vttare_cr_val);
+                tr.find(".vttare-isa").find("span").text(vttare_isa_val);
+                tr.find(".vttare-isa").find('input[name="vttare_isa[]"]').val(vttare_isa_val);
+                $(this).removeAttr("data-edit-index");
+                break;
+        }
+
+        $(".vttare-checkbox input").on("change", function () {
+            if ($(this).prop("checked") == false) {
+                select_all_vttare.prop("checked", false);
+            }
+
+            if ($(".vttare-checkbox input:checked").length == $(".vttare-checkbox input").length) {
+                select_all_vttare.prop("checked", true);
+            }
+
+            if ($(".vttare-checkbox input:checked").length == 0) {
+                delete_vttare_button.prop("disabled", true);
+            } else {
+                delete_vttare_button.prop("disabled", false);
+            }
+        });
+
+        $(".vttare-edit-link").on("click", function () {
+            var tr = $(this).closest("tr");
+            var vttare_not_val = tr.find(".vttare-not").find('input[name="vttare_not[]"]').val();
+            var vttare_sa_val = tr.find(".vttare-sa").find('input[name="vttare_sa[]"]').val();
+            var vttare_pote_val = tr.find(".vttare-pote").find('input[name="vttare_pote[]"]').val();
+            var vttare_cr_val = tr.find(".vttare-cr").find('input[name="vttare_cr[]"]').val();
+            var vttare_isa_val = tr.find(".vttare-isa").find('input[name="vttare_isa[]"]').val();
+
+            $("#vttare_not").val(vttare_not_val).trigger("change");
+            $("#vttare_sa").val(vttare_sa_val).trigger("change");
+            $("#vttare_pote").val(vttare_pote_val).trigger("change");
+            $("#vttare_cr").val(vttare_cr_val).trigger("change");
+            $("#vttare_isa").val(vttare_isa_val).trigger("change");
+            $("#vttare_form").attr("data-edit-index", tr.data("index"));
+            $("#vttare_form").attr("data-action", "edit");
+            $("#vttare_modal").modal("show");
+        });
+        select_all_vttare.prop("checked", false);
+        $("#vttare_modal").modal("hide");
+    });
+
+    select_all_vttare.on("change", function () {
+        if ($(".vttare-checkbox input").length > 0) {
+            $(".vttare-checkbox input").prop("checked", $(this).prop("checked"));
+            delete_vttare_button.prop("disabled", !$(this).prop("checked"));
+        }
+    });
+
+    delete_vttare_button.on("click", function () {
+        $(".vttare-checkbox input").each(function () {
+            if ($(this).prop("checked")) {
+                $(this).closest("tr").remove();
+                select_all_vttare.prop("checked", false);
+            }
+        });
+
+        if ($("#vttare_table tbody tr").length == 0) {
+            $(this).prop("disabled", true);
+        }
+    });
+
+    $("#vttare_modal").on("hidden.bs.modal", function () {
+        $("#vttare_form").removeAttr("data-action");
+        $("#vttare_not").val("");
+        $("#vttare_not").parsley().reset();
+        $("#vttare_sa").val("");
+        $("#vttare_sa").parsley().reset();
+        $("#vttare_pote").val("");
+        $("#vttare_pote").parsley().reset();
+        $("#vttare_cr").val("");
+        $("#vttare_cr").parsley().reset();
+        $("#vttare_isa").val("");
+        $("#vttare_isa").parsley().reset();
+    });
+
+    $("#add_vttare_button").on("click", function () {
+        $("#vttare_form").attr("data-action", "add");
+        $("#vttare_modal").modal("show");
     });
 });

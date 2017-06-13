@@ -310,10 +310,10 @@ $(function () {
         }
     });
 
-    $("select").on("change", function() {
+    $("select").on("change", function () {
         var instance = $(this).parsley();
         if (instance.isValid()) {
             instance.reset();
         }
-    }); // todo: temporary fix for select2 on change not working properly
+    });
 });
