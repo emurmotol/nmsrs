@@ -75,7 +75,7 @@ func otherSkillSeeder() {
 }
 
 func (otherSkill *OtherSkill) Create() *OtherSkill {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&otherSkill).Error; err != nil {
@@ -85,7 +85,7 @@ func (otherSkill *OtherSkill) Create() *OtherSkill {
 }
 
 func (otherSkill OtherSkill) Index(q string) []OtherSkill {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	otherSkills := []OtherSkill{}

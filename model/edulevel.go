@@ -48,7 +48,7 @@ func eduLevelSeeder() {
 }
 
 func (eduLevel *EduLevel) Create() *EduLevel {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&eduLevel).Error; err != nil {
@@ -58,7 +58,7 @@ func (eduLevel *EduLevel) Create() *EduLevel {
 }
 
 func (eduLevel EduLevel) Index(q string) []EduLevel {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	eduLevels := []EduLevel{}

@@ -16,7 +16,7 @@ import (
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 	query := db.Model(&model.User{}).Not("email", model.SuperuserEmail)
 

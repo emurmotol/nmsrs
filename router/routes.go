@@ -33,7 +33,7 @@ func registrantRoutes() chi.Router {
 	r.Post("/", controller.StoreRegistrant)
 	r.Get("/create", controller.CreateRegistrant)
 	// r.Post("/delete", controller.DeleteManyRegistrant)
-	// r.Get("/email/taken", controller.RegistrantEmailTaken)
+	r.Get("/email/taken", controller.RegistrantEmailTaken)
 	// r.Route("/:registrantID", func(r chi.Router) {
 	// 	r.Use(registrantCtx)
 	// 	r.Get("/", controller.ShowRegistrant)

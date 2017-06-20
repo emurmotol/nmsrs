@@ -2372,7 +2372,7 @@ func schoolSeeder() {
 }
 
 func (school *School) Create() *School {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&school).Error; err != nil {
@@ -2382,7 +2382,7 @@ func (school *School) Create() *School {
 }
 
 func (school School) Index(q string) []School {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	schools := []School{}

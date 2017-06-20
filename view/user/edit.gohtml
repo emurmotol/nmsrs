@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label class="control-label">
-                                <input type="checkbox" name="is_admin" id="is_admin"{{if .user.IsAdmin}} checked{{end}}> Administrator
+                                <input type="checkbox" name="is_admin" id="is_admin" value="{{.user.IsAdmin}}"{{if .user.IsAdmin}} checked{{end}}> Administrator
                             </label>
                         </div>
                     </div>
@@ -76,13 +76,17 @@
 {{end}} {{define "js-user/edit"}}
 <script>
     $(function () {
+        $("#is_admin").on("change", function() {
+            $(this).val($(this).prop("checked"));
+        });
+
         $("#edit_profile_form").parsley();
-        $("#edit_profile_form").on("submit", function (e) {
+        $("#edit_profile_form").on("submit", function () {
             duringSubmitDo(this);
         });
 
         $("#password_reset_form").parsley();
-        $("#password_reset_form").on("submit", function (e) {
+        $("#password_reset_form").on("submit", function () {
             duringSubmitDo(this);
         });
 

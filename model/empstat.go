@@ -25,7 +25,7 @@ func empStatSeeder() {
 }
 
 func (empStat *EmpStat) Create() *EmpStat {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&empStat).Error; err != nil {
@@ -35,7 +35,7 @@ func (empStat *EmpStat) Create() *EmpStat {
 }
 
 func EmpStats() []EmpStat {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 	empStats := []EmpStat{}
 

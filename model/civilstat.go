@@ -27,7 +27,7 @@ func civilStatSeeder() {
 }
 
 func (civilStat *CivilStat) Create() *CivilStat {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&civilStat).Error; err != nil {
@@ -37,7 +37,7 @@ func (civilStat *CivilStat) Create() *CivilStat {
 }
 
 func CivilStats() []CivilStat {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 	civilStats := []CivilStat{}
 

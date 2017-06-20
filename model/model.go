@@ -40,7 +40,7 @@ func clearContentDir() {
 }
 
 func up() {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	db.CreateTable(&User{})
@@ -92,7 +92,7 @@ func up() {
 }
 
 func down() {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	db.DropTableIfExists(&User{})
@@ -124,7 +124,7 @@ func down() {
 }
 
 func migrate() {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	db.AutoMigrate(&User{})

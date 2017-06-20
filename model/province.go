@@ -48,7 +48,7 @@ func provinceSeeder() {
 }
 
 func (province *Province) Create() *Province {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&province).Error; err != nil {

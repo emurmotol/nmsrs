@@ -38,7 +38,7 @@ func skillSeeder() {
 }
 
 func (skill *Skill) Create() *Skill {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&skill).Error; err != nil {
@@ -48,7 +48,7 @@ func (skill *Skill) Create() *Skill {
 }
 
 func (skill Skill) Index(q string) []Skill {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	skills := []Skill{}

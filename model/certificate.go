@@ -661,7 +661,7 @@ func certificateSeeder() {
 }
 
 func (certificate *Certificate) Create() *Certificate {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&certificate).Error; err != nil {
@@ -671,7 +671,7 @@ func (certificate *Certificate) Create() *Certificate {
 }
 
 func (certificate Certificate) Index(q string) []Certificate {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	certificates := []Certificate{}

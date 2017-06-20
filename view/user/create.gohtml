@@ -55,8 +55,12 @@
 {{end}} {{define "js-user/create"}}
 <script>
     $(function () {
+        $("#is_admin").on("change", function() {
+            $(this).val($(this).prop("checked"));
+        });
+        
         $("#create_user_form").parsley();
-        $("#create_user_form").on("submit", function (e) {
+        $("#create_user_form").on("submit", function () {
             duringSubmitDo(this);
         });
 

@@ -26,7 +26,7 @@ func init() {
 	logMode, _ = env.Conf.Bool("pkg.gorm.logMode")
 }
 
-func Conn() *gorm.DB {
+func Con() *gorm.DB {
 	db, err := gorm.Open(dialect, args)
 	db.LogMode(logMode)
 

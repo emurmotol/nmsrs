@@ -34,7 +34,7 @@ func eligibilitySeeder() {
 }
 
 func (eligibility *Eligibility) Create() *Eligibility {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&eligibility).Error; err != nil {
@@ -44,7 +44,7 @@ func (eligibility *Eligibility) Create() *Eligibility {
 }
 
 func (eligibility Eligibility) Index(q string) []Eligibility {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	eligibilities := []Eligibility{}

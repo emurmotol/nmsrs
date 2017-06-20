@@ -103,3 +103,7 @@ a {
 .col-view {
     padding-top: 1rem;
 }
+
+h4.lh {
+    line-height: 1.5;
+}

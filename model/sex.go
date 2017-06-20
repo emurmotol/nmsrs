@@ -24,7 +24,7 @@ func sexSeeder() {
 }
 
 func (sex *Sex) Create() *Sex {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&sex).Error; err != nil {
@@ -34,7 +34,7 @@ func (sex *Sex) Create() *Sex {
 }
 
 func Sexes() []Sex {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 	sexes := []Sex{}
 

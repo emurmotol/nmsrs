@@ -218,7 +218,7 @@ func countrySeeder() {
 }
 
 func (country *Country) Create() *Country {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&country).Error; err != nil {
@@ -228,7 +228,7 @@ func (country *Country) Create() *Country {
 }
 
 func (country Country) Index(q string) []Country {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	countries := []Country{}

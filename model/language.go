@@ -256,7 +256,7 @@ func languageSeeder() {
 }
 
 func (language *Language) Create() *Language {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&language).Error; err != nil {
@@ -266,7 +266,7 @@ func (language *Language) Create() *Language {
 }
 
 func (language Language) Index(q string) []Language {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	languages := []Language{}

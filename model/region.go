@@ -44,7 +44,7 @@ func regionSeeder() {
 }
 
 func (region *Region) Create() *Region {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&region).Error; err != nil {

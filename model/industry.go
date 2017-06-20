@@ -39,7 +39,7 @@ func industrySeeder() {
 }
 
 func (industry *Industry) Create() *Industry {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&industry).Error; err != nil {
@@ -49,7 +49,7 @@ func (industry *Industry) Create() *Industry {
 }
 
 func (industry Industry) Index(q string) []Industry {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	industries := []Industry{}

@@ -1705,7 +1705,7 @@ func courseSeeder() {
 }
 
 func (course *Course) Create() *Course {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&course).Error; err != nil {
@@ -1715,7 +1715,7 @@ func (course *Course) Create() *Course {
 }
 
 func (course Course) Index(q string) []Course {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	courses := []Course{}

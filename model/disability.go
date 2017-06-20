@@ -27,7 +27,7 @@ func disabilitySeeder() {
 }
 
 func (disability *Disability) Create() *Disability {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&disability).Error; err != nil {
@@ -37,7 +37,7 @@ func (disability *Disability) Create() *Disability {
 }
 
 func Disabilities() []Disability {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 	disabilities := []Disability{}
 

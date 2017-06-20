@@ -1,5 +1,65 @@
 $(function () {
-    $("#et_id").select2({
+    $("#work_exp_ph_id").select2({
+        placeholder: "SELECT POSITION",
+        ajax: {
+            url: "/api/positions",
+            delay: 250,
+            dataType: "json",
+            processResults: function (r) {
+                return {
+                    results: $.map(r, function (data) {
+                        return {
+                            id: data.id,
+                            text: data.name
+                        };
+                    })
+                };
+            },
+            cache: true
+        }
+    });
+
+    $("#skill_ids").select2({
+        placeholder: "SELECT SKILL(S)",
+        ajax: {
+            url: "/api/otherskills",
+            delay: 250,
+            dataType: "json",
+            processResults: function (r) {
+                return {
+                    results: $.map(r, function (data) {
+                        return {
+                            id: data.id,
+                            text: data.name
+                        };
+                    })
+                };
+            },
+            cache: true
+        }
+    });
+
+    $("#coc_t_id").select2({
+        placeholder: "SELECT CERTIFICATE TITLE",
+        ajax: {
+            url: "/api/certificates",
+            delay: 250,
+            dataType: "json",
+            processResults: function (r) {
+                return {
+                    results: $.map(r, function (data) {
+                        return {
+                            id: data.id,
+                            text: data.name
+                        };
+                    })
+                };
+            },
+            cache: true
+        }
+    });
+
+    $("#elig_t_id").select2({
         placeholder: "SELECT ELIGIBILITY TITLE",
         ajax: {
             url: "/api/eligibilities",
@@ -19,7 +79,7 @@ $(function () {
         }
     });
 
-    $("#plt_id").select2({
+    $("#pro_license_t_id").select2({
         placeholder: "SELECT LICENSE TITLE",
         ajax: {
             url: "/api/licenses",
@@ -39,7 +99,7 @@ $(function () {
         }
     });
 
-    $("#school_univ_id").select2({
+    $("#formal_edu_su_id").select2({
         placeholder: "SELECT SCHOOL/UNIVERSITY",
         ajax: {
             url: "/api/schools",
@@ -59,7 +119,7 @@ $(function () {
         }
     });
 
-    $("#course_degree_id").select2({
+    $("#formal_edu_cd_id").select2({
         placeholder: "SELECT COURSE/DEGREE",
         ajax: {
             url: "/api/courses",
@@ -79,7 +139,7 @@ $(function () {
         }
     });
 
-    $("#high_grade_comp_id").select2({
+    $("#formal_edu_hgc_id").select2({
         placeholder: "SELECT HIGHEST GRADE COMPLETED",
         ajax: {
             url: "/api/edulevels",

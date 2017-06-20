@@ -134,7 +134,7 @@ func (form *PasswordResetForm) IsValid() bool {
 }
 
 func (user User) Search(q string) []User {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	users := []User{}
@@ -156,7 +156,7 @@ func (user *User) Delete() {
 		panic(errActionNotPermitted)
 	}
 
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Unscoped().Delete(&user).Error; err != nil {
@@ -172,7 +172,7 @@ func (user *User) Delete() {
 }
 
 func DeleteManyUser(ids []uint64) {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	for _, id := range ids {
@@ -182,7 +182,7 @@ func DeleteManyUser(ids []uint64) {
 }
 
 func (user *User) Create() *User {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&user).Error; err != nil {
@@ -192,7 +192,7 @@ func (user *User) Create() *User {
 }
 
 func (user *User) update(update map[string]interface{}) *User {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Model(&user).Updates(update).Error; err != nil {
@@ -221,7 +221,7 @@ func (user *User) ResetPassword() {
 }
 
 func UserByID(id uint64) *User {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 	user := new(User)
 
@@ -232,7 +232,7 @@ func UserByID(id uint64) *User {
 }
 
 func UserByEmail(email string) *User {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 	user := new(User)
 
@@ -326,7 +326,7 @@ func (user *User) SetPhoto(file multipart.File) error {
 	if err := helper.SaveAsJPEG(file, name); err != nil {
 		return err
 	}
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Model(&User{}).Where("id = ?", id).Update("has_photo", true).Error; err != nil {

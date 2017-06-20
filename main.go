@@ -1,14 +1,12 @@
 package main
 
 import (
-	"encoding/gob"
 	"fmt"
 	"log"
 	"net/http"
 	"runtime"
 
 	"github.com/emurmotol/nmsrs/env"
-	"github.com/emurmotol/nmsrs/helper"
 	"github.com/emurmotol/nmsrs/model"
 	"github.com/emurmotol/nmsrs/router"
 )
@@ -21,7 +19,7 @@ func main() {
 	reset, _ := env.Conf.Bool("pkg.gorm.reset")
 	model.Load(reset)
 
-	gob.Register(helper.Alert{}) // info: register the struct so encoding/gob knows about it
+	// gob.Register(helper.Alert{}) // info: register the struct so encoding/gob knows about it
 
 	port, _ := env.Conf.Int("server.port")
 	addr := fmt.Sprintf(":%d", port)

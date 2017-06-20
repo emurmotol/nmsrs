@@ -28,4 +28,7 @@ type RegistInfo struct {
 	Age            int       `json:"age"`
 	Height         float32   `json:"height"`
 	Weight         float32   `json:"weight"`
+	LandlineNo     string    `json:"landline_no"`
+	MobileNo       string    `json:"mobile_no"`
+	Email          string    `json:"email"`
 }

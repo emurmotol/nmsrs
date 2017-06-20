@@ -8198,7 +8198,7 @@ func positionSeeder() {
 }
 
 func (position *Position) Create() *Position {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&position).Error; err != nil {
@@ -8208,7 +8208,7 @@ func (position *Position) Create() *Position {
 }
 
 func (position Position) Index(q string) []Position {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	positions := []Position{}

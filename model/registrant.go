@@ -3,6 +3,10 @@ package model
 import (
 	"mime/multipart"
 	"time"
+
+	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/helper"
+	"github.com/emurmotol/nmsrs/lang"
 )
 
 type Registrant struct {
@@ -50,200 +54,56 @@ type CreateRegistrantForm struct {
 	DisabilityID      uint                  `schema:"disability_id"`
 	DisabilityOther   uint                  `schema:"disability_other"`
 	LanguageIDs       []int                 `schema:"language_ids"`
+	RegDate           time.Time             `schema:"reg_date"`
 	Errors            map[string]string     `schema:"-"`
 }
 
-// func (form *CreateRegistrantForm) IsValid() bool {
-// 	form.Errors = make(map[string]string)
+func (form *CreateRegistrantForm) IsValid() bool {
+	form.Errors = make(map[string]string)
 
-// 	if errs := helper.ValidateForm(form); len(errs) != 0 {
-// 		form.Errors = errs
-// 	}
+	if errs := helper.ValidateForm(form); len(errs) != 0 {
+		form.Errors = errs
+	}
 
-// 	if taken, _ := RegistrantEmailTaken(form.Email); taken {
-// 		form.Errors["Email"] = lang.Get("email_taken")
-// 	}
+	if taken := RegistrantEmailTaken(form.Email); taken {
+		form.Errors["Email"] = lang.Get("email_taken")
+	}
 
-// 	if form.PhotoFile != nil {
-// 		if err := helper.ValidateImage(form.PhotoHeader); err != nil {
-// 			form.Errors["Photo"] = err.Error()
-// 		}
-// 	}
-// 	return len(form.Errors) == 0
-// }
+	if form.PhotoFile != nil {
+		if err := helper.ValidateImage(form.PhotoHeader); err != nil {
+			form.Errors["Photo"] = err.Error()
+		}
+	}
+	return len(form.Errors) == 0
+}
 
-// func (registrant Registrant) Search(q string) []Registrant {
-// 	db := database.Conn()
-// 	defer db.Close()
+func RegistrantByID(id uint64) *Registrant {
+	db := database.Con()
+	defer db.Close()
+	registrant := new(Registrant)
 
-// 	registrants := []Registrant{}
-// 	results := make(chan []Registrant)
-// 	like := database.WrapLike(q)
+	if notFound := db.First(registrant, id).RecordNotFound(); notFound {
+		return nil
+	}
+	return registrant
+}
 
-// 	go func() {
-// 		db.Find(&registrants, "name LIKE ? OR email LIKE ?", like, like)
-// 		results <- registrants
-// 	}()
-// 	
-// 	registrants = <-results
-// 	close(results)
-// 	return registrants
-// }
+func RegistrantByEmail(email string) *Registrant {
+	db := database.Con()
+	defer db.Close()
+	registInfo := RegistInfo{}
 
-// func (registrant *Registrant) Delete() error {
-// 	db := database.Conn()
-// 	defer db.Close()
+	if notFound := db.Where("email = ?", email).First(&registInfo).RecordNotFound(); notFound {
+		return nil
+	}
+	return RegistrantByID(registInfo.RegistrantID)
+}
 
-// 	if err := db.Unscoped().Delete(&registrant).Error; err != nil {
-// 		return err
-// 	}
-// 	dir := filepath.Join(contentDir, "registrants", strconv.Itoa(int(registrant.ID)))
+func RegistrantEmailTaken(email string) bool {
+	registrant := RegistrantByEmail(email)
 
-// 	if _, err := os.Stat(dir); !os.IsNotExist(err) {
-// 		if err := os.RemoveAll(dir); err != nil {
-// 			return err
-// 		}
-// 	}
-// 	return nil
-// }
-
-// func DeleteManyRegistrant(ids []uint64) error {
-// 	db := database.Conn()
-// 	defer db.Close()
-
-// 	for _, id := range ids {
-// 		registrant, err := RegistrantByID(id)
-
-// 		if err != nil {
-// 			return err
-// 		}
-
-// 		if err := registrant.Delete(); err != nil {
-// 			return err
-// 		}
-// 	}
-// 	return nil
-// }
-
-// func (registrant *Registrant) Create() (*Registrant, error) {
-// 	db := database.Conn()
-// 	defer db.Close()
-
-// 	if err := db.Create(&registrant).Error; err != nil {
-// 		return nil, err
-// 	}
-// 	return registrant, nil
-// }
-
-// func (registrant *Registrant) update(update map[string]interface{}) (*Registrant, error) {
-// 	db := database.Conn()
-// 	defer db.Close()
-
-// 	if err := db.Model(&registrant).Updates(update).Error; err != nil {
-// 		return nil, err
-// 	}
-// 	return registrant, nil
-// }
-
-// func (registrant *Registrant) UpdateRegistrant() error {
-// 	update := make(map[string]interface{})
-// 	update["name"] = registrant.Name
-// 	update["email"] = registrant.Email
-// 	update["is_admin"] = registrant.IsAdmin
-
-// 	if _, err := registrant.update(update); err != nil {
-// 		return err
-// 	}
-// 	return nil
-// }
-
-// func RegistrantByID(id uint64) (*Registrant, error) {
-// 	db := database.Conn()
-// 	defer db.Close()
-
-// 	registrant := Registrant{}
-
-// 	if err := db.First(&registrant, id).Error; err != nil {
-// 		return nil, err
-// 	}
-// 	return &registrant, nil
-// }
-
-// func RegistrantByEmail(email string) (*Registrant, error) {
-// 	db := database.Conn()
-// 	defer db.Close()
-
-// 	registrant := Registrant{}
-
-// 	if err := db.Where("email = ?", email).First(&registrant).Error; err != nil {
-// 		return nil, err
-// 	}
-// 	return &registrant, nil
-// }
-
-// func RegistrantEmailTaken(email string) (bool, error) {
-// 	registrant, err := RegistrantByEmail(email)
-
-// 	if err != nil {
-// 		return false, err
-// 	}
-
-// 	if registrant != nil {
-// 		return true, nil
-// 	}
-// 	return false, nil
-// }
-
-// func RegistrantEmailSameAsOld(id uint64, email string) (bool, error) {
-// 	registrant, err := RegistrantByID(id)
-
-// 	if err != nil {
-// 		return false, err
-// 	}
-
-// 	if registrant.Email != email {
-// 		return false, nil
-// 	}
-// 	return true, nil
-// }
-
-// func RegistrantSeeder() {
-// 	for i := 0; i < 50; i++ {
-// 		password := "secret"
-// 		hashed, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-
-// 		if err != nil {
-// 			panic(err)
-// 		}
-
-// 		registrant := Registrant{
-// 			Name:     fake.FullName(),
-// 			Email:    strings.ToLower(fake.EmailAddress()),
-// 			Password: string(hashed),
-// 			IsAdmin:  true,
-// 		}
-// 		registrant.Create()
-// 	}
-// }
-
-// func (registrant *Registrant) SetPhoto(file multipart.File) error {
-// 	photoPath, _ := env.Conf.String("default.photo.path")
-// 	id := strconv.Itoa(int(registrant.ID))
-// 	name := filepath.Join(contentDir, "registrants", id, "photo", filepath.Base(photoPath))
-
-// 	if err := helper.SaveAsJPEG(file, name); err != nil {
-// 		return err
-// 	}
-// 	db := database.Conn()
-// 	defer db.Close()
-
-// 	if err := db.Model(&Registrant{}).Where("id = ?", id).Update("has_photo", true).Error; err != nil {
-// 		return err
-// 	}
-// 	return nil
-// }
-
-// func (registrant *Registrant) GetPhoto() string {
-// 	photoPath, _ := env.Conf.String("default.photo.path")
-// 	return path.Join(contentDir, "registrants", strconv.Itoa(int(registrant.ID)), "photo", filepath.Base(photoPath))
-// }
+	if registrant != nil {
+		return true
+	}
+	return false
+}

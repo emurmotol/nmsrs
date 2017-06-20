@@ -4,8 +4,12 @@
             <div class="panel-heading clearfix">
                 <span class="pull-left"><i class="fa fa-user-circle"></i> Profile</span>
                 <span class="pull-right">
-                    <a href="/users/{{.user.ID}}/edit" class="btn btn-primary btn-xs">Edit</a>
-                    <button type="button" class="btn btn-danger btn-xs" id="delete_user_button" role="button">Delete</button>
+                    <a href="/users/{{.user.ID}}/edit" class="btn btn-primary btn-xs">
+                        <i class="fa fa-pencil"></i> Edit
+                    </a>
+                    <button type="button" class="btn btn-danger btn-xs" id="delete_user_button" role="button">
+                        <i class="fa fa-user-times"></i> Delete
+                    </button>
                 </span>
             </div>
             <div class="panel-body text-center">
@@ -13,8 +17,9 @@
                     <img src="{{if .user.HasPhoto}}{{photoPath .user.ID `User`}}{{else}}{{config.default.photo.path}}{{end}}" class="img-resopnsive img-rounded"
                         height="160" alt="{{.user.Name}}">
                 </a>
-                <h4><strong><i class="fa fa-user-o"></i> {{.user.Name}}</strong></h4>
+                <h4><strong>{{.user.Name}}</strong></h4>
                 <h5><i class="fa fa-envelope-o"></i> <a href="mailto:{{.user.Email}}">{{.user.Email}}</a></h5>
+                <h5><i class="fa fa-user-o"></i> {{if .user.IsAdmin}}Administrator{{else}}User{{end}}</h5>
                 <h5><i class="fa fa-calendar-o"></i> Created At {{dateForHumans .user.CreatedAt.Unix}}</h5>
                 <h5><i class="fa fa-clock-o"></i> Updated <span data-livestamp="{{.user.UpdatedAt.Unix}}"></span></h5>
             </div>
@@ -53,7 +58,7 @@
             $("#delete_user_modal").modal("show");
         });
 
-        $("#delete_user_form").on("submit", function (e) {
+        $("#delete_user_form").on("submit", function () {
             duringSubmitDo(this);
         });
     });

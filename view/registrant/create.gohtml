@@ -1,7 +1,7 @@
 <form class="form-horizontal" action="/registrants" method="POST" id="create_registrant_form" enctype="multipart/form-data">
     <div class="tab-content">
-        <!--<div class="tab-pane active" role="tabpanel" id="step-1">-->
-        <div class="tab-pane" role="tabpanel" id="step-1">
+        <div class="tab-pane active" role="tabpanel" id="step-1">
+        <!--<div class="tab-pane" role="tabpanel" id="step-1">-->
             <div class="panel panel-default">
                 <div class="panel-heading">Personal Information</div>
                 <div class="panel-body">
@@ -145,10 +145,11 @@
                             <input type="text" class="form-control" name="mobile_no" id="mobile_no" data-parsley-type="digits" data-parsley-trigger="change">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group{{with .createRegistrantForm.Errors.Email}} has-error{{end}}">
                         <label for="email" class="col-lg-3 control-label">Email</label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control" name="email" id="email" data-parsley-type="email" data-parsley-whitespace="trim" data-parsley-trigger="change" data-parsley-remote data-parsley-remote-validator="emailTaken" data-parsley-remote-message="">
+                            <input type="text" class="form-control" name="email" id="email" value="{{.createRegistrantForm.Email}}" data-parsley-type="email" data-parsley-whitespace="trim" data-parsley-trigger="change" data-parsley-remote data-parsley-remote-validator="emailTaken" data-parsley-remote-message="">
+                            {{with .createRegistrantForm.Errors.Email}}<span class="help-block">{{.}}</span>{{end}}
                         </div>
                     </div>
                 </div>
@@ -185,7 +186,7 @@
                         <div class="col-lg-8 col-lg-offset-3">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="alfw" name="alfw"> Actively looking for work?
+                                    <input type="checkbox" id="alfw" name="alfw" value="false"> Actively looking for work?
                                 </label>
                             </div>
                         </div>
@@ -233,7 +234,7 @@
                         <div class="col-lg-8">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="disabled" name="disabled"> Disabled?
+                                    <input type="checkbox" id="disabled" name="disabled" value="false"> Disabled?
                                 </label>
                             </div>
                             {{range .disabilities}}
@@ -334,19 +335,19 @@
                 <div class="panel-heading clearfix">
                     <span class="pull-left">Eligibility</span>
                     <span class="pull-right">
-                        <button type="button" class="btn btn-success btn-xs" id="add_eligibility_button" role="button">
+                        <button type="button" class="btn btn-success btn-xs" id="add_elig_button" role="button">
                             <i class="fa fa-plus"></i> Add
                         </button>
-                        <button type="button" class="btn btn-danger btn-xs" id="delete_eligibility_button" role="button" disabled>
+                        <button type="button" class="btn btn-danger btn-xs" id="delete_elig_button" role="button" disabled>
                             <i class="fa fa-trash-o"></i> Delete
                         </button>
                     </span>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover" id="eligibility_table">
+                    <table class="table table-striped table-hover" id="elig_table">
                         <thead>
                             <tr>
-                                <th><input type="checkbox" id="select_all_eligibility"></th>
+                                <th><input type="checkbox" id="select_all_elig"></th>
                                 <th>Title</th>
                                 <th>Year Taken</th>
                             </tr>
@@ -357,8 +358,8 @@
                 <input type="hidden">
             </div>
         </div>
-        <!--<div class="tab-pane" role="tabpanel" id="step-5">-->
-        <div class="tab-pane active" role="tabpanel" id="step-5">
+        <div class="tab-pane" role="tabpanel" id="step-5">
+        <!--<div class="tab-pane active" role="tabpanel" id="step-5">-->
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <span class="pull-left">Vocational/Technical Training And Relevant Experience</span>
@@ -389,6 +390,130 @@
                 <input type="hidden">
             </div>
         </div>
+        <div class="tab-pane" role="tabpanel" id="step-6">
+        <!--<div class="tab-pane active" role="tabpanel" id="step-6">-->
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <span class="pull-left">Certificate Of Competence</span>
+                    <span class="pull-right">
+                        <button type="button" class="btn btn-success btn-xs" id="add_coc_button" role="button">
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs" id="delete_coc_button" role="button" disabled>
+                            <i class="fa fa-trash-o"></i> Delete
+                        </button>
+                    </span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="coc_table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select_all_coc"></th>
+                                <th>Title</th>
+                                <th>Rating</th>
+                                <th>Issued By</th>
+                                <th>Date Issued</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <input type="hidden">
+            </div>
+        </div>
+        <div class="tab-pane" role="tabpanel" id="step-7">
+        <!--<div class="tab-pane active" role="tabpanel" id="step-7">-->
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <span class="pull-left">Work Experience</span>
+                    <span class="pull-right">
+                        <button type="button" class="btn btn-success btn-xs" id="add_work_exp_button" role="button">
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs" id="delete_work_exp_button" role="button" disabled>
+                            <i class="fa fa-trash-o"></i> Delete
+                        </button>
+                    </span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="work_exp_table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select_all_work_exp"></th>
+                                <th>Name Of Company/Firm</th>
+                                <th>Address</th>
+                                <th>Position Held</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Related To Formal Education</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <input type="hidden">
+            </div>
+        </div>
+        <div class="tab-pane" role="tabpanel" id="step-8">
+        <!--<div class="tab-pane active" role="tabpanel" id="step-8">-->
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <span class="pull-left">Other Skills Aquired Without Formal Training</span>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="skill_ids" class="col-lg-3 control-label">Skills </label>
+                        <div class="col-lg-8">
+                            <select class="form-control" name="skill_ids[]" id="skill_ids" multiple="multiple" data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#skill_ids_err"></select>
+                            <span id="skill_ids_err"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="skill_nl" value="false"> Skill not listed?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <input class="form-control uppercase" type="text" name="skill_other" id="skill_other" data-parsley-minlength="2" data-parsley-trigger="change" placeholder="Skill" disabled>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden">
+            </div>
+        </div>
+        <div class="tab-pane" role="tabpanel" id="step-9">
+        <!--<div class="tab-pane active" role="tabpanel" id="step-9">-->
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <span class="pull-left">Certification/Authorization</span>
+                </div>
+                <div class="panel-body">
+                    <h4 class="text-justify lh">This is to certify that all information that I have provided in this form are true to the best of my knowledge. This is also authorize the Department of Labor and Employment (DOLE) to include me in the National Manpower Skill Registry, which is maintained in the PHIL-JOBNET. It is understood that my name shall be made available to employers who may have access to the Register. I am also aware that DOLE is not obligated to seek employment on my behalf.</h4>
+                    <br>
+                    <div class="form-group">
+                        <label for="reg_date" class="col-lg-3 control-label">Registration Date <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control uppercase" name="reg_date" id="reg_date" data-parsley-required="true" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="i_accept" id="i_accept" value="false" data-parsley-required="true" data-parsley-trigger="change"><strong> I ACCEPT</strong>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden">
+            </div>
+        </div>
         <div class="form-nav">
             <button type="button" role="button" class="btn btn-primary prev-tab pull-left">Previous</button>
             <button type="button" role="button" class="btn btn-primary next-tab pull-right" data-loading-text="Checking...">Next</button>
@@ -408,50 +533,50 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="high_grade_comp_id" class="col-lg-3 control-label">Highest Grade Completed <span class="asterisk text-danger">*</span></label>
+                        <label for="formal_edu_hgc_id" class="col-lg-3 control-label">Highest Grade Completed <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" id="high_grade_comp_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#high_grade_comp_err"></select>
-                            <span id="high_grade_comp_err"></span>
+                            <select class="form-control" id="formal_edu_hgc_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formal_edu_hgc_err"></select>
+                            <span id="formal_edu_hgc_err"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="course_degree_id" class="col-lg-3 control-label">Course/Degree <span class="asterisk text-danger">*</span></label>
+                        <label for="formal_edu_cd_id" class="col-lg-3 control-label">Course/Degree <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" id="course_degree_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#course_degree_err"></select>
-                            <span id="course_degree_err"></span>
+                            <select class="form-control" id="formal_edu_cd_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formal_edu_cd_err"></select>
+                            <span id="formal_edu_cd_err"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="school_univ_id" class="col-lg-3 control-label">School/University <span class="asterisk text-danger">*</span></label>
+                        <label for="formal_edu_su_id" class="col-lg-3 control-label">School/University <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" id="school_univ_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#school_univ_err"></select>
-                            <span id="school_univ_err"></span>
+                            <select class="form-control" id="formal_edu_su_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formal_edu_su_err"></select>
+                            <span id="formal_edu_su_err"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="sunl"> School/University not listed?
+                                    <input type="checkbox" id="formal_edu_sunl" value="false"> School/University not listed?
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
-                            <input class="form-control uppercase" type="text" id="school_univ_other" data-parsley-minlength="2" data-parsley-trigger="change" placeholder="School/University Name" disabled>
+                            <input class="form-control uppercase" type="text" id="formal_edu_su_other" data-parsley-minlength="2" data-parsley-trigger="change" placeholder="School/University Name" disabled>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="year_graduated" class="col-lg-3 control-label">Year Graduated</label>
+                        <label for="formal_edu_yg" class="col-lg-3 control-label">Year Graduated</label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="year_graduated" id="year_graduated" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="formal_edu_yg" id="formal_edu_yg" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="last_attended" class="col-lg-3 control-label">Last Attended</label>
+                        <label for="formal_edu_la" class="col-lg-3 control-label">Last Attended</label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="last_attended" id="last_attended" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="formal_edu_la" id="formal_edu_la" data-parsley-trigger="change">
                         </div>
                     </div>
                 </div>
@@ -475,16 +600,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="plt_id" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
+                        <label for="pro_license_t_id" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="plt_id" id="plt_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#plt_id_err"></select>
-                            <span id="plt_id_err"></span>
+                            <select class="form-control" name="pro_license_t_id" id="pro_license_t_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#pro_license_t_id_err"></select>
+                            <span id="pro_license_t_id_err"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="pled" class="col-lg-3 control-label">Expiry Date <span class="asterisk text-danger">*</span></label>
+                        <label for="pro_license_ed" class="col-lg-3 control-label">Expiry Date <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="pled" id="pled" data-parsley-required="true" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="pro_license_ed" id="pro_license_ed" data-parsley-required="true" data-parsley-trigger="change">
                         </div>
                     </div>
                 </div>
@@ -496,8 +621,8 @@
         </div>
     </div>
 </form>
-<form class="form-horizontal" id="eligibility_form">
-    <div class="modal fade" id="eligibility_modal" data-backdrop="static" role="dialog">
+<form class="form-horizontal" id="elig_form">
+    <div class="modal fade" id="elig_modal" data-backdrop="static" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -508,16 +633,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="et_id" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
+                        <label for="elig_t_id" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="et_id" id="et_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#et_id_err"></select>
-                            <span id="et_id_err"></span>
+                            <select class="form-control" name="elig_t_id" id="elig_t_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#elig_t_id_err"></select>
+                            <span id="elig_t_id_err"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="eyt" class="col-lg-3 control-label">Year Taken <span class="asterisk text-danger">*</span></label>
+                        <label for="elig_yt" class="col-lg-3 control-label">Year Taken <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="eyt" id="eyt" data-parsley-required="true" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="elig_yt" id="elig_yt" data-parsley-required="true" data-parsley-trigger="change">
                         </div>
                     </div>
                 </div>
@@ -543,31 +668,136 @@
                     <div class="form-group">
                         <label for="vttare_not" class="col-lg-4 control-label">Name Of Training <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-7">
-                            <input type="text" class="form-control uppercase" name="vttare_not" id="vttare_not" data-parsley-required="true" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="vttare_not" id="vttare_not" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="vttare_sa" class="col-lg-4 control-label">Skills Acquired</label>
                         <div class="col-lg-7">
-                            <input type="text" class="form-control uppercase" name="vttare_sa" id="vttare_sa" data-parsley-required="true" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="vttare_sa" id="vttare_sa" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="vttare_pote" class="col-lg-4 control-label">Period Of Training/Experience <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-7">
-                            <input type="text" class="form-control uppercase" name="vttare_pote" id="vttare_pote" data-parsley-required="true" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="vttare_pote" id="vttare_pote" data-parsley-required="true" data-parsley-minlength="1" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="vttare_cr" class="col-lg-4 control-label">Certificate Received</label>
                         <div class="col-lg-7">
-                            <input type="text" class="form-control uppercase" name="vttare_cr" id="vttare_cr" data-parsley-required="true" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="vttare_cr" id="vttare_cr" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="vttare_isa" class="col-lg-4 control-label">Issuing School/Agency <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-7">
-                            <input type="text" class="form-control uppercase" name="vttare_isa" id="vttare_isa" data-parsley-required="true" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="vttare_isa" id="vttare_isa" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Cancel</button>
+                    <button type="submit" class="btn btn-success" role="button"><i class="fa fa-check"></i> Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<form class="form-horizontal" id="coc_form">
+    <div class="modal fade" id="coc_modal" data-backdrop="static" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Certificate Of Competence</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="coc_t_id" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <select class="form-control" name="coc_t_id" id="coc_t_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#coc_t_id_err"></select>
+                            <span id="coc_t_id_err"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="coc_r" class="col-lg-3 control-label">Rating</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control uppercase" name="coc_r" id="coc_r" data-parsley-minlength="2" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="coc_ib" class="col-lg-3 control-label">Issued By <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control uppercase" name="coc_ib" id="coc_ib" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="coc_di" class="col-lg-3 control-label">Date Issued <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control uppercase" name="coc_di" id="coc_di" data-parsley-required="true" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Cancel</button>
+                    <button type="submit" class="btn btn-success" role="button"><i class="fa fa-check"></i> Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<form class="form-horizontal" id="work_exp_form">
+    <div class="modal fade" id="work_exp_modal" data-backdrop="static" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Work Experience</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="work_exp_nocf" class="col-lg-4 control-label">Name Of Company/Firm <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control uppercase" name="work_exp_nocf" id="work_exp_nocf" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="work_exp_a" class="col-lg-4 control-label">Address <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control uppercase" name="work_exp_a" id="work_exp_a" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="work_exp_ph_id" class="col-lg-4 control-label">Position Held <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-7">
+                            <select class="form-control" name="work_exp_ph_id" id="work_exp_ph_id" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#work_exp_ph_id_err"></select>
+                            <span id="work_exp_ph_id_err"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="work_exp_f" class="col-lg-4 control-label">From <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control uppercase" name="work_exp_f" id="work_exp_f" data-parsley-required="true" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="work_exp_t" class="col-lg-4 control-label">To <span class="asterisk text-danger">*</span></label>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control uppercase" name="work_exp_t" id="work_exp_t" data-parsley-required="true" data-parsley-trigger="change">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-7 col-lg-offset-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="work_exp_rtfe" value="false"> Related to formal education?
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>

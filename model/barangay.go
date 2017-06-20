@@ -53,7 +53,7 @@ func barangaySeeder() {
 }
 
 func (barangay *Barangay) Create() *Barangay {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&barangay).Error; err != nil {

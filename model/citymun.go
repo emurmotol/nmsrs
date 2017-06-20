@@ -59,7 +59,7 @@ func cityMunSeeder() {
 }
 
 func (cityMun *CityMun) Create() *CityMun {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&cityMun).Error; err != nil {
@@ -69,7 +69,7 @@ func (cityMun *CityMun) Create() *CityMun {
 }
 
 func CityMunByID(id uint) *CityMun {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 	cityMun := new(CityMun)
 
@@ -80,7 +80,7 @@ func CityMunByID(id uint) *CityMun {
 }
 
 func (cityMun CityMun) ProvinceIndex(q string) []CityMunProv {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 	cityMunProv := []CityMunProv{}
 	results := make(chan []CityMunProv)
@@ -98,7 +98,7 @@ func (cityMun CityMun) ProvinceIndex(q string) []CityMunProv {
 }
 
 func (cityMun *CityMun) BarangayIndex(q string) []Barangay {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 	barangays := []Barangay{}
 	results := make(chan []Barangay)

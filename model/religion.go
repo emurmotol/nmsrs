@@ -61,7 +61,7 @@ func religionSeeder() {
 }
 
 func (religion *Religion) Create() *Religion {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&religion).Error; err != nil {
@@ -71,7 +71,7 @@ func (religion *Religion) Create() *Religion {
 }
 
 func (religion Religion) Index(q string) []Religion {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	religions := []Religion{}

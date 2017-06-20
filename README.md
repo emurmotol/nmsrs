@@ -1,30 +1,31 @@
 ### Run
-* 32-bit `go build ; ./nmsrs.exe`
+* 32-bit (bash) `go build ; ./nmsrs.exe`
+* 32-bit (cmd) `go build && nmsrs.exe`
 * 64-bit press key `F5`
 
 ### Todo
 * must retrieve auth user using template func instead of passing as data
 * create a flash middleware
-* ok: ren javascript to script on gohtml
-* ok: trim all space `strings.Replace(str, " ", "", -1)`
-* ok: check if bootstrap 3.3.7 and jquery version are compat
+* ~~ren javascript to script on gohtml~~
+* ~~trim all space `strings.Replace(str, " ", "", -1)`~~
+* ~~check if bootstrap 3.3.7 and jquery version are compat~~
 * login_form btn-block animate not working properly
-* ok: on input success remove help-block text
-* ok: create pagination struct
+* ~~on input success remove help-block text~~
+* ~~create pagination struct~~
 * repopulate input file on post fail
 * vendor dependencies on production
-* ok:untested: add onSuccess event on parsley and remove help-block span
+* ~~add onSuccess event on parsley and remove help-block span~~
 * add error logs
-* ok: handle redirects
-* ok: set in php.ini for mysql client `post_max_size=80M`, `upload_max_filesize=200M`, `max_execution_time=5000`, `max_input_time=5000`, `memory_limit=1024M`
-* ok: set id for .json seeded obj
-* register/create.gohtml: Calling validate on a parsley form without passing arguments as an object is deprecated.
-* ok: remove console.log()
-* ok: update a table row instead of replacing it
+* ~~handle redirects~~
+* ~~set in php.ini for mysql client `post_max_size=80M`, `upload_max_filesize=200M`, `max_execution_time=5000`, `max_input_time=5000`, `memory_limit=1024M`~~
+* ~~set id for .json seeded obj~~
+* ~~register/create.gohtml: Calling validate on a parsley form without passing arguments as an object is deprecated~~
+* ~~remove console.log()~~
+* ~~update a table row instead of replacing it~~
 * pref occ err ui not adding attr has-error
-* block-0 modal shows when enter key is pressed
+* ~~block-0 modal shows when enter key is pressed~~
 
-### Study
+### Learn
 * https://github.com/disintegration/imaging
 * https://github.com/go-gomail/gomail
 * https://github.com/arnauddri/algorithms

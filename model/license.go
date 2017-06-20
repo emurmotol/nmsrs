@@ -134,7 +134,7 @@ func licenseSeeder() {
 }
 
 func (license *License) Create() *License {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	if err := db.Create(&license).Error; err != nil {
@@ -144,7 +144,7 @@ func (license *License) Create() *License {
 }
 
 func (license License) Index(q string) []License {
-	db := database.Conn()
+	db := database.Con()
 	defer db.Close()
 
 	licenses := []License{}

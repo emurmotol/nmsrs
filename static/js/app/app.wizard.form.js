@@ -1,12 +1,27 @@
 $(function () {
+    $("#alfw").on("change", function () {
+        $(this).val($(this).prop("checked"));
+    });
+
+    $("#i_accept").on("change", function () {
+        $(this).val($(this).prop("checked"));
+    });
+
     $("#birthdate").datetimepicker({
         viewMode: "years",
         format: "YYYY-MM-DD"
     });
 
+    $("#birthdate").on("dp.change", function() {
+        $(this).parsley().validate();
+    });
+
     $("#pned").datetimepicker({
-        viewMode: "years",
         format: "YYYY-MM"
+    });
+
+    $("#pned").on("dp.change", function() {
+        $(this).parsley().validate();
     });
 
     $("#civil_stat_radios").find("input[type=radio]").on("change", function () {
@@ -58,6 +73,7 @@ $(function () {
     });
 
     $("#disabled").on("change", function () {
+        $(this).val($(this).prop("checked"));
         $("#disability_1").parsley().reset();
 
         if ($(this).prop("checked")) {
@@ -82,4 +98,32 @@ $(function () {
         duringSubmitDo(this);
     });
     previewImage($("#photo"));
+
+    $("#skill_nl").on("change", function () {
+        $(this).val($(this).prop("checked"));
+
+        if ($(this).prop("checked")) {
+            $("#skill_ids").val(null).trigger("change");
+            $("#skill_ids").prop("disabled", true);
+            $("#skill_other").attr("data-parsley-required", true);
+            $("#skill_other").prop("disabled", false);
+            $("#skill_other").focus();
+        } else {
+            $("#skill_other").removeAttr("data-parsley-required");
+            $("#skill_other").val("");
+            $("#skill_other").parsley().reset();
+            $("#skill_other").prop("disabled", true);
+            $("#skill_ids").prop("disabled", false);
+            $("#skill_ids").focus();
+        }
+    });
+
+    $("#reg_date").datetimepicker({
+        defaultDate: new Date(),
+        format: "YYYY-MM-DD"
+    });
+
+    $("#reg_date").on("dp.change", function() {
+        $(this).parsley().validate();
+    });
 });
