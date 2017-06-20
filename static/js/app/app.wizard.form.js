@@ -93,12 +93,6 @@ $(function () {
         }
     });
 
-    $("#create_registrant_form").parsley();
-    $("#create_registrant_form").on("submit", function () {
-        duringSubmitDo(this);
-    });
-    previewImage($("#photo"));
-
     $("#skill_nl").on("change", function () {
         $(this).val($(this).prop("checked"));
 
@@ -118,12 +112,20 @@ $(function () {
         }
     });
 
-    $("#reg_date").datetimepicker({
+    $("#registered_at").datetimepicker({
         defaultDate: new Date(),
         format: "YYYY-MM-DD"
     });
 
-    $("#reg_date").on("dp.change", function() {
+    $("#registered_at").on("dp.change", function() {
         $(this).parsley().validate();
+    });
+
+    previewImage($("#photo"));
+
+    $("#create_registrant_form").parsley();
+    $("#create_registrant_form").on("submit", function () {
+        $("#prov_id").val($("#prov_id").data("id"));
+        duringSubmitDo(this);
     });
 });

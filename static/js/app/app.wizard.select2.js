@@ -276,7 +276,7 @@ $(function () {
                         return {
                             id: data.city_mun_id,
                             text: data.city_mun_desc + ", " + data.prov_desc,
-                            prov_code: data.prov_id,
+                            prov_id: data.prov_id,
                             prov_desc: data.prov_desc
                         };
                     })
@@ -289,7 +289,7 @@ $(function () {
     $("#city_mun_id").on("change", function () {
         var data = $(this).select2("data")[0];
 
-        $("#prov_id").prop("data-id", data.prov_id);
+        $("#prov_id").data("id", data.prov_id);
         $("#prov_id").val(data.prov_desc);
 
         $("#brgy_id").removeAttr("data-parsley-required");

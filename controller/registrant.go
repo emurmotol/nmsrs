@@ -105,6 +105,51 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 		CreateRegistrant(w, r)
 		return
 	}
+	registrant := model.Registrant{
+		RegisteredAt: createRegistrantForm.RegisteredAt,
+		IAccept:      createRegistrantForm.IAccept,
+	}
+	newRegistrant := registrant.Create()
+	hasPhoto := false
+
+	if createRegistrantForm.PhotoFile != nil {
+		hasPhoto = true
+	}
+	registInfo := model.RegistInfo{
+		RegistrantID:   newRegistrant.ID,
+		FamilyName:     createRegistrantForm.FamilyName,
+		GivenName:      createRegistrantForm.GivenName,
+		MiddleName:     createRegistrantForm.MiddleName,
+		Birthdate:      createRegistrantForm.Birthdate,
+		Password:       createRegistrantForm.Password,
+		HasPhoto:       hasPhoto,
+		StSub:          createRegistrantForm.StSub,
+		CityMunID:      createRegistrantForm.CityMunID,
+		ProvID:         createRegistrantForm.ProvID,
+		BrgyID:         createRegistrantForm.BrgyID,
+		CivilStatID:    createRegistrantForm.CivilStatID,
+		CivilStatOther: createRegistrantForm.CivilStatOther,
+		SexID:          createRegistrantForm.SexID,
+		Age:            createRegistrantForm.Age,
+		Height:         createRegistrantForm.Height,
+		Weight:         createRegistrantForm.Weight,
+		LandlineNo:     createRegistrantForm.LandlineNo,
+		MobileNo:       createRegistrantForm.MobileNo,
+		Email:          createRegistrantForm.Email,
+	}
+	registInfo.Create()
+
+	registEmp := model.RegistEmp{
+		RegistrantID: newRegistrant.ID,
+		EmpStatID:    createRegistrantForm.EmpStatID,
+		UnEmpStatID:  createRegistrantForm.UnEmpStatID,
+		TocID:        createRegistrantForm.TocID,
+		Alfw:         createRegistrantForm.Alfw,
+		PassportNo:   createRegistrantForm.PassportNo,
+		Pned:         createRegistrantForm.Pned,
+	}
+	registEmp.Create()
+	http.Redirect(w, r, "/registrants/create", http.StatusFound)
 }
 
 func RegistrantEmailTaken(w http.ResponseWriter, r *http.Request) {

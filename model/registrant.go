@@ -10,19 +10,21 @@ import (
 )
 
 type Registrant struct {
-	ID         uint64     `json:"id"`
-	CreatedAt  time.Time  `json:"created_at"`
-	UpdatedAt  time.Time  `json:"updated_at"`
-	DeletedAt  *time.Time `json:"deleted_at"`
-	RegistInfo RegistInfo
-	RegistEmp  RegistEmp
+	ID           uint64     `json:"id"`
+	CreatedAt    time.Time  `json:"created_at"`
+	UpdatedAt    time.Time  `json:"updated_at"`
+	DeletedAt    *time.Time `json:"deleted_at"`
+	RegisteredAt string     `json:"registered_at"`
+	IAccept      bool       `json:"i_accept"`
+	RegistInfo   RegistInfo
+	RegistEmp    RegistEmp
 }
 
 type CreateRegistrantForm struct {
 	FamilyName        string                `schema:"family_name" validate:"required"`
 	GivenName         string                `schema:"given_name" validate:"required"`
 	MiddleName        string                `schema:"middle_name" validate:"required"`
-	Birthdate         time.Time             `schema:"birthdate" validate:"required"`
+	Birthdate         string                `schema:"birthdate" validate:"required"`
 	Password          string                `schema:"password"`
 	PhotoFile         multipart.File        `schema:"-"`
 	PhotoHeader       *multipart.FileHeader `schema:"-"`
@@ -33,14 +35,14 @@ type CreateRegistrantForm struct {
 	PlaceOfBirth      string                `schema:"place_of_birth" validate:"required"`
 	ReligionID        uint                  `schema:"religion_id" validate:"required"`
 	CivilStatID       uint                  `schema:"civil_stat_id" validate:"required"`
-	CivilStatOther    string                `schema:"civil_stat_other" validate:"required"`
+	CivilStatOther    string                `schema:"civil_stat_other"`
 	SexID             uint                  `schema:"sex_id" validate:"required"`
 	Age               int                   `schema:"age"`
 	Height            float32               `schema:"height" validate:"required"`
 	Weight            float32               `schema:"weight"`
 	LandlineNo        string                `schema:"landline_no"`
 	MobileNo          string                `schema:"mobile_no"`
-	Email             string                `schema:"email" validate:"email"`
+	Email             string                `schema:"email"`
 	EmpStatID         uint                  `schema:"emp_stat_id" validate:"required"`
 	UnEmpStatID       uint                  `schema:"un_emp_stat_id"`
 	TocID             uint                  `schema:"toc_id"`
@@ -49,12 +51,14 @@ type CreateRegistrantForm struct {
 	PrefLocalLocID    uint                  `schema:"pref_local_loc_id" validate:"required"`
 	PrefOverseasLocID uint                  `schema:"pref_overseas_loc_id" validate:"required"`
 	PassportNo        string                `schema:"passport_no"`
-	Pned              time.Time             `schema:"pned"`
+	Pned              string                `schema:"pned"`
 	Disabled          bool                  `schema:"disabled"`
 	DisabilityID      uint                  `schema:"disability_id"`
 	DisabilityOther   uint                  `schema:"disability_other"`
 	LanguageIDs       []int                 `schema:"language_ids"`
-	RegDate           time.Time             `schema:"reg_date"`
+	SkillIDs          []int                 `schema:"skill_ids"`
+	RegisteredAt      string                `schema:"registered_at"`
+	IAccept           bool                  `schema:"i_accept"`
 	Errors            map[string]string     `schema:"-"`
 }
 
@@ -106,4 +110,14 @@ func RegistrantEmailTaken(email string) bool {
 		return true
 	}
 	return false
+}
+
+func (registrant *Registrant) Create() *Registrant {
+	db := database.Con()
+	defer db.Close()
+
+	if err := db.Create(&registrant).Error; err != nil {
+		panic(err)
+	}
+	return registrant
 }
