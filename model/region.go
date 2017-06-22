@@ -5,14 +5,16 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/db"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 type Region struct {
-	ID       uint   `json:"id"`
-	Code     string `json:"code"`
-	Desc     string `json:"desc"`
-	PsgcCode string `json:"psgc_code"`
+	Id       bson.ObjectId `json:"id" bson:"_id"`
+	Code     string        `json:"code" bson:"code"`
+	Desc     string        `json:"desc" bson:"desc"`
+	PsgcCode string        `json:"psgc_code" bson:"psgcCode"`
 }
 
 type RefRegion struct {
@@ -35,6 +37,7 @@ func regionSeeder() {
 
 	for _, refRegion := range refRegions {
 		region := Region{
+			Id:       bson.NewObjectId(),
 			Code:     refRegion.RegCode,
 			Desc:     strings.ToUpper(refRegion.RegDesc),
 			PsgcCode: refRegion.PsgcCode,
@@ -44,11 +47,7 @@ func regionSeeder() {
 }
 
 func (region *Region) Create() *Region {
-	db := database.Con()
+	db.C("regions").Insert(region)
 	defer db.Close()
-
-	if err := db.Create(&region).Error; err != nil {
-		panic(err)
-	}
 	return region
 }

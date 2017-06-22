@@ -3,13 +3,10 @@ package model
 import (
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
-)
+	"github.com/emurmotol/nmsrs/db"
 
-type License struct {
-	ID   uint   `json:"id"`
-	Name string `json:"name"`
-}
+	"gopkg.in/mgo.v2/bson"
+)
 
 func licenseSeeder() {
 	data := []string{
@@ -128,34 +125,38 @@ func licenseSeeder() {
 	}
 
 	for _, name := range data {
-		license := License{Name: strings.ToUpper(name)}
+		license := License{
+			Id:   bson.NewObjectId(),
+			Name: strings.ToUpper(name),
+		}
 		license.Create()
 	}
 }
 
-func (license *License) Create() *License {
-	db := database.Con()
-	defer db.Close()
+type License struct {
+	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Name string        `json:"name" bson:"name"`
+}
 
-	if err := db.Create(&license).Error; err != nil {
-		panic(err)
-	}
+func (license *License) Create() *License {
+	db.C("licenses").Insert(license)
+	defer db.Close()
 	return license
 }
 
 func (license License) Index(q string) []License {
-	db := database.Con()
-	defer db.Close()
-
 	licenses := []License{}
-	results := make(chan []License)
+	r := make(chan []License)
+	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
+	query := bson.M{"name": regex}
 
 	go func() {
-		db.Find(&licenses, "name LIKE ?", database.WrapLike(q))
-		results <- licenses
+		db.C("licenses").Find(query).All(&licenses)
+		defer db.Close()
+		r <- licenses
 	}()
 
-	licenses = <-results
-	close(results)
+	licenses = <-r
+	close(r)
 	return licenses
 }

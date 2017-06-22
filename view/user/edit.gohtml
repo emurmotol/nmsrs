@@ -4,15 +4,15 @@
             <div class="panel-heading clearfix">
                 <span class="pull-left"><i class="fa fa-pencil"></i> Edit Profile</span>
                 <span class="pull-right">
-                    <a href="/users/{{.user.ID}}" class="btn btn-primary btn-xs">View profile</a>
+                    <a href="/users/{{.user.Id.Hex}}" class="btn btn-primary btn-xs">View profile</a>
                 </span>
             </div>
             <div class="panel-body">
-                <form action="/users/{{.user.ID}}" method="POST" id="edit_profile_form" enctype="multipart/form-data">
+                <form action="/users/{{.user.Id.Hex}}" method="POST" id="edit_profile_form" enctype="multipart/form-data">
                     <input type="hidden" name="_method" value="PUT">
                     <div class="form-group{{with .editProfileForm.Errors.Photo}} has-error{{end}}">
                         <label for="photo" class="control-label">Photo</label><br>
-                        <img src="{{if .user.HasPhoto}}{{photoPath .user.ID `User`}}{{else}}{{config.default.photo.path}}{{end}}" data-default-photo="{{if .user.HasPhoto}}{{photoPath .user.ID `User`}}{{else}}{{config.default.photo.path}}{{end}}"
+                        <img src="{{if .user.HasPhoto}}{{photoPath .user.Id.Hex `User`}}{{else}}{{config.default.photo.path}}{{end}}" data-default-photo="{{if .user.HasPhoto}}{{photoPath .user.Id.Hex `User`}}{{else}}{{config.default.photo.path}}{{end}}"
                             class="img-resopnsive img-rounded" id="preview" height="160" alt="User Photo">
                         <input type="file" class="form-control" name="photo" id="photo" data-parsley-trigger="change" data-parsley-maxmegabytes="{{config.default.photo.maxSize}}"
                             data-parsley-mimes="{{config.default.photo.mimes}}">
@@ -49,7 +49,7 @@
                 <i class="fa fa-key"></i> Reset Password
             </div>
             <div class="panel-body">
-                <form action="/users/{{.user.ID}}/password/reset" method="POST" id="password_reset_form">
+                <form action="/users/{{.user.Id.Hex}}/password/reset" method="POST" id="password_reset_form">
                     <input type="hidden" name="_method" value="PUT">
                     <div class="form-group{{with .passwordResetForm.Errors.NewPassword}} has-error{{end}}">
                         <label for="new_password" class="control-label">New password <span class="asterisk text-danger">*</span></label>
@@ -128,9 +128,9 @@
                 this.addError("remote", { message: r.error });
             }
             return 200 === xhr.status;
-        }, "/users/{{.user.ID}}/email/check");
+        }, "/users/{{.user.Id.Hex}}/email/check");
 
-        previewImage($("#photo"));
+        previewImage("#photo");
     });
 
 </script>

@@ -3,12 +3,14 @@ package model
 import (
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/db"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 type Disability struct {
-	ID   uint   `json:"id"`
-	Name string `json:"name"`
+	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Name string        `json:"name" bson:"name"`
 }
 
 func disabilitySeeder() {
@@ -21,28 +23,23 @@ func disabilitySeeder() {
 	}
 
 	for _, name := range data {
-		disability := Disability{Name: strings.ToUpper(name)}
+		disability := Disability{
+			Id:   bson.NewObjectId(),
+			Name: strings.ToUpper(name),
+		}
 		disability.Create()
 	}
 }
 
 func (disability *Disability) Create() *Disability {
-	db := database.Con()
+	db.C("disabilities").Insert(disability)
 	defer db.Close()
-
-	if err := db.Create(&disability).Error; err != nil {
-		panic(err)
-	}
 	return disability
 }
 
 func Disabilities() []Disability {
-	db := database.Con()
-	defer db.Close()
 	disabilities := []Disability{}
-
-	if err := db.Find(&disabilities).Error; err != nil {
-		panic(err)
-	}
+	db.C("disabilities").Find(nil).All(&disabilities)
+	defer db.Close()
 	return disabilities
 }

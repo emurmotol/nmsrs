@@ -3,13 +3,10 @@ package model
 import (
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
-)
+	"github.com/emurmotol/nmsrs/db"
 
-type Eligibility struct {
-	ID   uint   `json:"id"`
-	Name string `json:"name"`
-}
+	"gopkg.in/mgo.v2/bson"
+)
 
 func eligibilitySeeder() {
 	data := []string{
@@ -28,33 +25,38 @@ func eligibilitySeeder() {
 	}
 
 	for _, name := range data {
-		eligibility := Eligibility{Name: strings.ToUpper(name)}
+		eligibility := Eligibility{
+			Id:   bson.NewObjectId(),
+			Name: strings.ToUpper(name),
+		}
 		eligibility.Create()
 	}
 }
 
-func (eligibility *Eligibility) Create() *Eligibility {
-	db := database.Con()
-	defer db.Close()
+type Eligibility struct {
+	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Name string        `json:"name" bson:"name"`
+}
 
-	if err := db.Create(&eligibility).Error; err != nil {
-		panic(err)
-	}
+func (eligibility *Eligibility) Create() *Eligibility {
+	db.C("eligibilities").Insert(eligibility)
+	defer db.Close()
 	return eligibility
 }
 
 func (eligibility Eligibility) Index(q string) []Eligibility {
-	db := database.Con()
-	defer db.Close()
-
 	eligibilities := []Eligibility{}
-	results := make(chan []Eligibility)
+	r := make(chan []Eligibility)
+	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
+	query := bson.M{"name": regex}
 
 	go func() {
-		db.Find(&eligibilities, "name LIKE ?", database.WrapLike(q))
-		results <- eligibilities
+		db.C("eligibilities").Find(query).All(&eligibilities)
+		defer db.Close()
+		r <- eligibilities
 	}()
-	eligibilities = <-results
-	close(results)
+
+	eligibilities = <-r
+	close(r)
 	return eligibilities
 }

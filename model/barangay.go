@@ -5,19 +5,20 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
+	"log"
+
+	"github.com/emurmotol/nmsrs/db"
+	"github.com/emurmotol/nmsrs/helper"
+	"gopkg.in/mgo.v2/bson"
 )
 
 type Barangay struct {
-	ID          uint       `json:"id"`
-	Code        string     `json:"code"`
-	Desc        string     `json:"desc"`
-	Regions     []Region   `gorm:"ForeignKey:Code;AssociationForeignKey:RegCode"`
-	RegCode     string     `json:"reg_code"`
-	Provinces   []Province `gorm:"ForeignKey:Code;AssociationForeignKey:ProvCode"`
-	ProvCode    string     `json:"prov_code"`
-	CityMuns    []CityMun  `gorm:"ForeignKey:Code;AssociationForeignKey:CityMunCode"`
-	CityMunCode string     `json:"city_mun_code"`
+	Id          bson.ObjectId `json:"id" bson:"_id"`
+	Code        string        `json:"code" bson:"code"`
+	Desc        string        `json:"desc" bson:"desc"`
+	RegCode     string        `json:"reg_code" bson:"regCode"`
+	ProvCode    string        `json:"prov_code" bson:"provCode"`
+	CityMunCode string        `json:"city_mun_code" bson:"cityMunCode"`
 }
 
 type RefBarangay struct {
@@ -39,25 +40,28 @@ func barangaySeeder() {
 	if err := json.Unmarshal(data, &refBarangays); err != nil {
 		panic(err)
 	}
+	var barangays []interface{}
 
-	for _, refBarangay := range refBarangays {
-		barangay := Barangay{
+	for index, refBarangay := range refBarangays {
+		barangays = append(barangays, Barangay{
+			Id:          bson.NewObjectId(),
 			Code:        refBarangay.BrgyCode,
 			Desc:        strings.ToUpper(refBarangay.BrgyDesc),
 			RegCode:     refBarangay.RegCode,
 			ProvCode:    refBarangay.ProvCode,
 			CityMunCode: refBarangay.CityMunCode,
-		}
-		barangay.Create()
+		})
+		log.Println("refBarangay", index)
+	}
+
+	for index, chunk := range helper.ChunkSlice(barangays, 500) {
+		db.C("barangays").Insert(chunk)
+		log.Println("chunk", index)
 	}
 }
 
 func (barangay *Barangay) Create() *Barangay {
-	db := database.Con()
+	db.C("barangays").Insert(barangay)
 	defer db.Close()
-
-	if err := db.Create(&barangay).Error; err != nil {
-		panic(err)
-	}
 	return barangay
 }

@@ -38,7 +38,7 @@ $(function () {
     }
 
     previewImage = function (elem) {
-        elem.on("change", function () {
+        $(elem).on("change", function () {
             var preview = $(this).parent().find("#preview");
             var default_photo = preview.data("default-photo");
             var maxMB = parseInt($(this).attr("data-parsley-maxmegabytes")) * 1000000;

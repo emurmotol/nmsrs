@@ -3,13 +3,10 @@ package model
 import (
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
-)
+	"github.com/emurmotol/nmsrs/db"
 
-type Religion struct {
-	ID   uint    `json:"id"`
-	Name string `json:"name"`
-}
+	"gopkg.in/mgo.v2/bson"
+)
 
 func religionSeeder() {
 	data := []string{
@@ -55,34 +52,38 @@ func religionSeeder() {
 	}
 
 	for _, name := range data {
-		religion := Religion{Name: strings.ToUpper(name)}
+		religion := Religion{
+			Id:   bson.NewObjectId(),
+			Name: strings.ToUpper(name),
+		}
 		religion.Create()
 	}
 }
 
-func (religion *Religion) Create() *Religion {
-	db := database.Con()
-	defer db.Close()
+type Religion struct {
+	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Name string        `json:"name" bson:"name"`
+}
 
-	if err := db.Create(&religion).Error; err != nil {
-		panic(err)
-	}
+func (religion *Religion) Create() *Religion {
+	db.C("religions").Insert(religion)
+	defer db.Close()
 	return religion
 }
 
 func (religion Religion) Index(q string) []Religion {
-	db := database.Con()
-	defer db.Close()
-
 	religions := []Religion{}
-	results := make(chan []Religion)
+	r := make(chan []Religion)
+	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
+	query := bson.M{"name": regex}
 
 	go func() {
-		db.Find(&religions, "name LIKE ?", database.WrapLike(q))
-		results <- religions
+		db.C("religions").Find(query).All(&religions)
+		defer db.Close()
+		r <- religions
 	}()
 
-	religions = <-results
-	close(results)
+	religions = <-r
+	close(r)
 	return religions
 }

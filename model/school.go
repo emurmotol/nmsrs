@@ -3,13 +3,9 @@ package model
 import (
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/db"
+	"gopkg.in/mgo.v2/bson"
 )
-
-type School struct {
-	ID   uint   `json:"id"`
-	Name string `json:"name"`
-}
 
 func schoolSeeder() {
 	data := []string{
@@ -1430,7 +1426,7 @@ func schoolSeeder() {
 		"OAS COMMUNITY COLLEGE",
 		"OBLATES OF SAINT JOSEPH COLLEGE OF PHILOSOPHY",
 		"OCCIDENTAL MINDORO NATIONAL COLLEGE - MAMBURAO",
-		"OCCIDENTAL MINDORO NATIONAL COLLEGE - OCCIDENTAL MINDORO POLYTECHNIC COLLEGE - MURTHA",
+		"OCCIDENTAL MINDORO NATIONAL COLLEGE - OCCENTAL MINDORO POLYTECHNIC COLLEGE - MURTHA",
 		"OCCIDENTAL MINDORO NATIONAL COLLEGE - P.T. MENDIOLA SR. MEM. TECHNO. AND POLYTECHNIC COLLEGE",
 		"OCCIDENTAL MINDORO NATIONAL COLLEGE",
 		"OLIVAREZ COLLEGE - TAGAYTAY",
@@ -2366,34 +2362,38 @@ func schoolSeeder() {
 	}
 
 	for _, name := range data {
-		school := School{Name: strings.ToUpper(name)}
+		school := School{
+			Id:   bson.NewObjectId(),
+			Name: strings.ToUpper(name),
+		}
 		school.Create()
 	}
 }
 
-func (school *School) Create() *School {
-	db := database.Con()
-	defer db.Close()
+type School struct {
+	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Name string        `json:"name" bson:"name"`
+}
 
-	if err := db.Create(&school).Error; err != nil {
-		panic(err)
-	}
+func (school *School) Create() *School {
+	db.C("schools").Insert(school)
+	defer db.Close()
 	return school
 }
 
 func (school School) Index(q string) []School {
-	db := database.Con()
-	defer db.Close()
-
 	schools := []School{}
-	results := make(chan []School)
+	r := make(chan []School)
+	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
+	query := bson.M{"name": regex}
 
 	go func() {
-		db.Find(&schools, "name LIKE ?", database.WrapLike(q))
-		results <- schools
+		db.C("schools").Find(query).All(&schools)
+		defer db.Close()
+		r <- schools
 	}()
 
-	schools = <-results
-	close(results)
+	schools = <-r
+	close(r)
 	return schools
 }

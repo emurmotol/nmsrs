@@ -5,16 +5,17 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/db"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 type Province struct {
-	ID       uint     `json:"id"`
-	Code     string   `json:"code"`
-	Desc     string   `json:"desc"`
-	PsgcCode string   `json:"psgc_code"`
-	Regions  []Region `gorm:"ForeignKey:Code;AssociationForeignKey:RegCode"`
-	RegCode  string   `json:"reg_code"`
+	Id       bson.ObjectId `json:"id" bson:"_id"`
+	Code     string        `json:"code" bson:"code"`
+	Desc     string        `json:"desc" bson:"desc"`
+	PsgcCode string        `json:"psgc_code" bson:"psgcCode"`
+	RegCode  string        `json:"reg_code" bson:"regCode"`
 }
 
 type RefProvince struct {
@@ -38,6 +39,7 @@ func provinceSeeder() {
 
 	for _, refProvince := range refProvinces {
 		province := Province{
+			Id:       bson.NewObjectId(),
 			Code:     refProvince.ProvCode,
 			Desc:     strings.ToUpper(refProvince.ProvDesc),
 			PsgcCode: refProvince.PsgcCode,
@@ -48,11 +50,7 @@ func provinceSeeder() {
 }
 
 func (province *Province) Create() *Province {
-	db := database.Con()
+	db.C("provinces").Insert(province)
 	defer db.Close()
-
-	if err := db.Create(&province).Error; err != nil {
-		panic(err)
-	}
 	return province
 }

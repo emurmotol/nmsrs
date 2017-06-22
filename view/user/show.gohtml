@@ -4,7 +4,7 @@
             <div class="panel-heading clearfix">
                 <span class="pull-left"><i class="fa fa-user-circle"></i> Profile</span>
                 <span class="pull-right">
-                    <a href="/users/{{.user.ID}}/edit" class="btn btn-primary btn-xs">
+                    <a href="/users/{{.user.Id.Hex}}/edit" class="btn btn-primary btn-xs">
                         <i class="fa fa-pencil"></i> Edit
                     </a>
                     <button type="button" class="btn btn-danger btn-xs" id="delete_user_button" role="button">
@@ -13,8 +13,8 @@
                 </span>
             </div>
             <div class="panel-body text-center">
-                <a href="{{if .user.HasPhoto}}{{photoPath .user.ID `User`}}{{else}}{{config.default.photo.path}}{{end}}">
-                    <img src="{{if .user.HasPhoto}}{{photoPath .user.ID `User`}}{{else}}{{config.default.photo.path}}{{end}}" class="img-resopnsive img-rounded"
+                <a href="{{if .user.HasPhoto}}{{photoPath .user.Id.Hex `User`}}{{else}}{{config.default.photo.path}}{{end}}">
+                    <img src="{{if .user.HasPhoto}}{{photoPath .user.Id.Hex `User`}}{{else}}{{config.default.photo.path}}{{end}}" class="img-resopnsive img-rounded"
                         height="160" alt="{{.user.Name}}">
                 </a>
                 <h4><strong>{{.user.Name}}</strong></h4>
@@ -39,7 +39,7 @@
                 This action <strong>CANNOT</strong> be undone. This will permanently delete <strong>{{.user.Name}}</strong>.
             </div>
             <div class="modal-footer">
-                <form action="/users/{{.user.ID}}/delete" method="POST" id="delete_user_form">
+                <form action="/users/{{.user.Id.Hex}}/delete" method="POST" id="delete_user_form">
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="button" class="btn btn-default" data-dismiss="modal" role="button">No</button>
                     <button type="submit" class="btn btn-danger" role="button" data-loading-text="Deleting user...">Yes, proceed</button>

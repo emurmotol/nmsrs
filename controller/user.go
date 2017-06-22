@@ -6,33 +6,38 @@ import (
 	"net/http"
 	"strconv"
 
+	"gopkg.in/mgo.v2/bson"
+
 	"fmt"
 
 	"github.com/emurmotol/nmsrs/constant"
-	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/db"
 	"github.com/emurmotol/nmsrs/helper"
 	"github.com/emurmotol/nmsrs/lang"
 	"github.com/emurmotol/nmsrs/model"
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-	db := database.Con()
-	defer db.Close()
-	query := db.Model(&model.User{}).Not("email", model.SuperuserEmail)
+	query := []bson.M{}
+	query = append(query, bson.M{
+		"email": bson.M{"$ne": model.SuperUserEmail},
+	})
 
 	if val, ok := r.URL.Query()["is_admin"]; ok {
-		isAdmin, err := strconv.Atoi(val[0])
-
-		if err == nil {
-			query = query.Where("is_admin = ?", isAdmin)
-		}
+		query = append(query, bson.M{"isAdmin": val[0]})
 	}
 
 	if val, ok := r.URL.Query()["q"]; ok {
-		q := database.WrapLike(val[0])
-		query = query.Where("name LIKE ? OR email LIKE ?", q, q)
+		regex := bson.M{"$regex": bson.RegEx{Pattern: val[0], Options: "i"}}
+		query = append(query, bson.M{
+			"$or": []bson.M{
+				bson.M{"name": regex},
+				bson.M{"email": regex},
+			},
+		})
 	}
-	query.Count(&count)
+	count, _ := db.C("users").Find(bson.M{"$and": query}).Count()
+	defer db.Close()
 	page, err := strconv.Atoi(r.URL.Query().Get("page"))
 
 	if err != nil {
@@ -51,7 +56,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		pagination.Page = 1
 	}
 	users := []model.User{}
-	query.Offset(pagination.Offset()).Limit(limit).Find(&users)
+	db.C("users").Find(bson.M{"$and": query}).Skip(pagination.Offset()).Limit(limit).All(&users)
 
 	data := make(map[string]interface{})
 	data["title"] = "Users"
@@ -195,7 +200,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		if err := decoder.Decode(&editProfileForm, r.PostForm); err != nil {
 			panic(err)
 		}
-		editProfileForm.ID = userCtx.ID
+		editProfileForm.IdHex = userCtx.Id.Hex()
 		editProfileForm.PhotoFile = photoFile
 		editProfileForm.PhotoHeader = photoHeader
 
@@ -205,7 +210,7 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		user := model.User{
-			ID:      editProfileForm.ID,
+			Id:      bson.ObjectIdHex(editProfileForm.IdHex),
 			Name:    editProfileForm.Name,
 			Email:   editProfileForm.Email,
 			IsAdmin: editProfileForm.IsAdmin,
@@ -221,14 +226,14 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 			Type:    "success",
 			Content: fmt.Sprintf(lang.Get("user_success_update"), user.Name),
 		})
-		http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", user.ID), http.StatusFound)
+		http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", user.Id), http.StatusFound)
 		return
 	}
 	helper.SetFlash(w, r, "alert", helper.Alert{
 		Type:    "danger",
 		Content: lang.Get("method_invalid"),
 	})
-	http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", userCtx.ID), http.StatusFound)
+	http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", userCtx.Id), http.StatusFound)
 }
 
 func UserPasswordReset(w http.ResponseWriter, r *http.Request) {
@@ -251,7 +256,7 @@ func UserPasswordReset(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		user := model.User{
-			ID:       userCtx.ID,
+			Id:       userCtx.Id,
 			Password: passwordResetForm.NewPassword,
 		}
 		user.ResetPassword()
@@ -259,14 +264,14 @@ func UserPasswordReset(w http.ResponseWriter, r *http.Request) {
 			Type:    "success",
 			Content: fmt.Sprintf(lang.Get("password_success_update")),
 		})
-		http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", user.ID), http.StatusFound)
+		http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", user.Id), http.StatusFound)
 		return
 	}
 	helper.SetFlash(w, r, "alert", helper.Alert{
 		Type:    "danger",
 		Content: lang.Get("method_invalid"),
 	})
-	http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", userCtx.ID), http.StatusFound)
+	http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", userCtx.Id), http.StatusFound)
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
@@ -297,15 +302,15 @@ func DeleteManyUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.PostFormValue("_method") == "DELETE" {
-		var ids []uint64
+		var hexIds []string
 
-		if err := json.Unmarshal([]byte(r.PostFormValue("user_ids")), &ids); err != nil {
+		if err := json.Unmarshal([]byte(r.PostFormValue("user_ids")), &hexIds); err != nil {
 			panic(err)
 		}
-		model.DeleteManyUser(ids)
+		model.DeleteManyUser(hexIds)
 		helper.SetFlash(w, r, "alert", helper.Alert{
 			Type:    "success",
-			Content: fmt.Sprintf(lang.Get("user_success_delete"), fmt.Sprintf("%d users ", len(ids))),
+			Content: fmt.Sprintf(lang.Get("user_success_delete"), fmt.Sprintf("%d users ", len(hexIds))),
 		})
 		http.Redirect(w, r, "/users", http.StatusFound)
 		return
@@ -345,7 +350,7 @@ func UserEmailExists(w http.ResponseWriter, r *http.Request) {
 func UserEmailCheck(w http.ResponseWriter, r *http.Request) {
 	userCtx := r.Context().Value(constant.UserCtxKey).(*model.User)
 
-	if same := model.UserEmailSameAsOld(userCtx.ID, r.URL.Query().Get("email")); !same {
+	if same := model.UserEmailSameAsOld(userCtx.Id, r.URL.Query().Get("email")); !same {
 		if taken := model.UserEmailTaken(r.URL.Query().Get("email")); taken {
 			data := make(map[string]string)
 			data["error"] = lang.Get("email_taken")

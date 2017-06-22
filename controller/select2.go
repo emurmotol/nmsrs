@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"gopkg.in/mgo.v2/bson"
+
 	"github.com/emurmotol/nmsrs/model"
 	"github.com/pressly/chi"
 )
@@ -14,12 +16,12 @@ func CertificateIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func CityMunBarangayIndex(w http.ResponseWriter, r *http.Request) {
-	id, err := strconv.Atoi(chi.URLParam(r, "cityMunID"))
+	id, err := strconv.Atoi(chi.URLParam(r, "cityMunId"))
 
 	if err != nil {
 		panic(err)
 	}
-	cityMun := model.CityMunByID(uint(id))
+	cityMun := model.CityMunById(bson.ObjectId(id))
 	rd.JSON(w, http.StatusOK, cityMun.BarangayIndex(r.URL.Query().Get("q")))
 }
 

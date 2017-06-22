@@ -3,46 +3,43 @@ package model
 import (
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/db"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 type CivilStat struct {
-	ID   uint    `json:"id"`
-	Name string `json:"name"`
+	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Name string        `json:"name" bson:"name"`
 }
 
 func civilStatSeeder() {
 	data := []string{
 		"SINGLE",
-		"WIDOWED",
+		"WIdOWED",
 		"MARRIED",
 		"SEPARATED",
 		"OTHER",
 	}
 
 	for _, name := range data {
-		civilStat := CivilStat{Name: strings.ToUpper(name)}
+		civilStat := CivilStat{
+			Id:   bson.NewObjectId(),
+			Name: strings.ToUpper(name),
+		}
 		civilStat.Create()
 	}
 }
 
 func (civilStat *CivilStat) Create() *CivilStat {
-	db := database.Con()
+	db.C("civilStats").Insert(civilStat)
 	defer db.Close()
-
-	if err := db.Create(&civilStat).Error; err != nil {
-		panic(err)
-	}
 	return civilStat
 }
 
 func CivilStats() []CivilStat {
-	db := database.Con()
-	defer db.Close()
 	civilStats := []CivilStat{}
-
-	if err := db.Find(&civilStats).Error; err != nil {
-		panic(err)
-	}
+	db.C("civilStats").Find(nil).All(&civilStats)
+	defer db.Close()
 	return civilStats
 }

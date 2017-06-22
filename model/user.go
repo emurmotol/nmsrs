@@ -9,12 +9,12 @@ import (
 	"strings"
 	"time"
 
+	"gopkg.in/mgo.v2/bson"
+
 	"mime/multipart"
 
-	"strconv"
-
 	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/db"
 	"github.com/emurmotol/nmsrs/env"
 	"github.com/emurmotol/nmsrs/helper"
 	"github.com/emurmotol/nmsrs/lang"
@@ -27,15 +27,14 @@ var (
 )
 
 type User struct {
-	ID        uint64     `json:"id"`
-	CreatedAt time.Time  `json:"created_at"`
-	UpdatedAt time.Time  `json:"updated_at"`
-	DeletedAt *time.Time `json:"deleted_at"`
-	Name      string     `gorm:"not null" json:"name"`
-	Email     string     `gorm:"unique;not null" json:"email"`
-	Password  string     `gorm:"not null" json:"password"`
-	IsAdmin   bool       `gorm:"type:tinyint(1);default:false;not null" json:"is_admin"`
-	HasPhoto  bool       `gorm:"type:tinyint(1);default:false;not null" json:"has_photo"`
+	Id        bson.ObjectId `json:"id" bson:"_id"`
+	CreatedAt time.Time     `json:"created_at" bson:"createdAt"`
+	UpdatedAt time.Time     `json:"updated_at" bson:"updatedAt"`
+	Name      string        `json:"name" bson:"name"`
+	Email     string        `json:"email" bson:"email"`
+	Password  string        `json:"password" bson:"password"`
+	IsAdmin   bool          `json:"is_admin" bson:"isAdmin"`
+	HasPhoto  bool          `json:"has_photo" bson:"hasPhoto"`
 }
 
 type LoginForm struct {
@@ -68,27 +67,27 @@ type CreateUserForm struct {
 	Errors          map[string]string     `schema:"-"`
 }
 
-func (form *CreateUserForm) IsValid() bool {
-	form.Errors = make(map[string]string)
+func (createUserForm *CreateUserForm) IsValid() bool {
+	createUserForm.Errors = make(map[string]string)
 
-	if errs := helper.ValidateForm(form); len(errs) != 0 {
-		form.Errors = errs
+	if errs := helper.ValidateForm(createUserForm); len(errs) != 0 {
+		createUserForm.Errors = errs
 	}
 
-	if taken := UserEmailTaken(form.Email); taken {
-		form.Errors["Email"] = lang.Get("email_taken")
+	if taken := UserEmailTaken(createUserForm.Email); taken {
+		createUserForm.Errors["Email"] = lang.Get("email_taken")
 	}
 
-	if form.PhotoFile != nil {
-		if err := helper.ValidateImage(form.PhotoHeader); err != nil {
-			form.Errors["Photo"] = err.Error()
+	if createUserForm.PhotoFile != nil {
+		if err := helper.ValidateImage(createUserForm.PhotoHeader); err != nil {
+			createUserForm.Errors["Photo"] = err.Error()
 		}
 	}
-	return len(form.Errors) == 0
+	return len(createUserForm.Errors) == 0
 }
 
 type EditProfileForm struct {
-	ID          uint64                `schema:"-"`
+	IdHex       string                `schema:"-"`
 	Name        string                `schema:"name" validate:"required"`
 	Email       string                `schema:"email" validate:"required,email"`
 	IsAdmin     bool                  `schema:"is_admin"`
@@ -97,25 +96,25 @@ type EditProfileForm struct {
 	Errors      map[string]string     `schema:"-"`
 }
 
-func (form *EditProfileForm) IsValid() bool {
-	form.Errors = make(map[string]string)
+func (editProfileForm *EditProfileForm) IsValid() bool {
+	editProfileForm.Errors = make(map[string]string)
 
-	if errs := helper.ValidateForm(form); len(errs) != 0 {
-		form.Errors = errs
+	if errs := helper.ValidateForm(editProfileForm); len(errs) != 0 {
+		editProfileForm.Errors = errs
 	}
 
-	if same := UserEmailSameAsOld(form.ID, form.Email); !same {
-		if taken := UserEmailTaken(form.Email); taken {
-			form.Errors["Email"] = lang.Get("email_taken")
+	if same := UserEmailSameAsOld(bson.ObjectIdHex(editProfileForm.IdHex), editProfileForm.Email); !same {
+		if taken := UserEmailTaken(editProfileForm.Email); taken {
+			editProfileForm.Errors["Email"] = lang.Get("email_taken")
 		}
 	}
 
-	if form.PhotoFile != nil {
-		if err := helper.ValidateImage(form.PhotoHeader); err != nil {
-			form.Errors["Photo"] = err.Error()
+	if editProfileForm.PhotoFile != nil {
+		if err := helper.ValidateImage(editProfileForm.PhotoHeader); err != nil {
+			editProfileForm.Errors["Photo"] = err.Error()
 		}
 	}
-	return len(form.Errors) == 0
+	return len(editProfileForm.Errors) == 0
 }
 
 type PasswordResetForm struct {
@@ -124,30 +123,34 @@ type PasswordResetForm struct {
 	Errors          map[string]string `schema:"-"`
 }
 
-func (form *PasswordResetForm) IsValid() bool {
-	form.Errors = make(map[string]string)
+func (passwordResetForm *PasswordResetForm) IsValid() bool {
+	passwordResetForm.Errors = make(map[string]string)
 
-	if errs := helper.ValidateForm(form); len(errs) != 0 {
-		form.Errors = errs
+	if errs := helper.ValidateForm(passwordResetForm); len(errs) != 0 {
+		passwordResetForm.Errors = errs
 	}
-	return len(form.Errors) == 0
+	return len(passwordResetForm.Errors) == 0
 }
 
 func (user User) Search(q string) []User {
-	db := database.Con()
-	defer db.Close()
-
 	users := []User{}
-	results := make(chan []User)
-	like := database.WrapLike(q)
+	r := make(chan []User)
+	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
+	query := bson.M{
+		"$or": []bson.M{
+			bson.M{"name": regex},
+			bson.M{"email": regex},
+		},
+	}
 
 	go func() {
-		db.Not("email", SuperuserEmail).Find(&users, "name LIKE ? OR email LIKE ?", like, like)
-		results <- users
+		db.C("users").Find(query).All(&users)
+		defer db.Close()
+		r <- users
 	}()
 
-	users = <-results
-	close(results)
+	users = <-r
+	close(r)
 	return users
 }
 
@@ -155,14 +158,9 @@ func (user *User) Delete() {
 	if user.IsSuperuser() {
 		panic(errActionNotPermitted)
 	}
-
-	db := database.Con()
+	db.C("users").RemoveId(user.Id)
 	defer db.Close()
-
-	if err := db.Unscoped().Delete(&user).Error; err != nil {
-		panic(err)
-	}
-	dir := filepath.Join(contentDir, "users", strconv.Itoa(int(user.ID)))
+	dir := filepath.Join(contentDir, "users", user.Id.Hex())
 
 	if _, err := os.Stat(dir); !os.IsNotExist(err) {
 		if err := os.RemoveAll(dir); err != nil {
@@ -171,42 +169,37 @@ func (user *User) Delete() {
 	}
 }
 
-func DeleteManyUser(ids []uint64) {
-	db := database.Con()
-	defer db.Close()
-
-	for _, id := range ids {
-		user := UserByID(id)
+func DeleteManyUser(hexIds []string) {
+	for _, hexId := range hexIds {
+		user := UserById(bson.ObjectIdHex(hexId))
 		user.Delete()
 	}
 }
 
 func (user *User) Create() *User {
-	db := database.Con()
-	defer db.Close()
+	user.Id = bson.NewObjectId()
+	user.Email = strings.ToLower(user.Email)
+	hashed, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 
-	if err := db.Create(&user).Error; err != nil {
+	if err != nil {
 		panic(err)
 	}
-	return user
-}
-
-func (user *User) update(update map[string]interface{}) *User {
-	db := database.Con()
+	user.Password = string(hashed)
+	user.CreatedAt = time.Now()
+	user.UpdatedAt = time.Now()
+	db.C("users").Insert(user)
 	defer db.Close()
-
-	if err := db.Model(&user).Updates(update).Error; err != nil {
-		panic(err)
-	}
 	return user
 }
 
 func (user *User) UpdateProfile() {
-	update := make(map[string]interface{})
-	update["name"] = user.Name
-	update["email"] = user.Email
-	update["is_admin"] = user.IsAdmin
-	user.update(update)
+	if user.IsSuperuser() {
+		panic(errActionNotPermitted)
+	}
+	user.Email = strings.ToLower(user.Email)
+	user.UpdatedAt = time.Now()
+	db.C("users").UpdateId(user.Id, bson.M{"$set": user})
+	defer db.Close()
 }
 
 func (user *User) ResetPassword() {
@@ -215,30 +208,22 @@ func (user *User) ResetPassword() {
 	if err != nil {
 		panic(err)
 	}
-	update := make(map[string]interface{})
-	update["password"] = string(hashed)
-	user.update(update)
+	user.Password = string(hashed)
+	db.C("users").UpdateId(user.Id, bson.M{"$set": user})
+	defer db.Close()
 }
 
-func UserByID(id uint64) *User {
-	db := database.Con()
-	defer db.Close()
+func UserById(id bson.ObjectId) *User {
 	user := new(User)
-
-	if notFound := db.First(user, id).RecordNotFound(); notFound {
-		return nil
-	}
+	db.C("users").FindId(id).One(&user)
+	defer db.Close()
 	return user
 }
 
 func UserByEmail(email string) *User {
-	db := database.Con()
-	defer db.Close()
 	user := new(User)
-
-	if notFound := db.Where("email = ?", email).First(user).RecordNotFound(); notFound {
-		return nil
-	}
+	db.C("users").Find(bson.M{"email": email}).One(&user)
+	defer db.Close()
 	return user
 }
 
@@ -251,8 +236,8 @@ func UserEmailTaken(email string) bool {
 	return false
 }
 
-func UserEmailSameAsOld(id uint64, email string) bool {
-	user := UserByID(id)
+func UserEmailSameAsOld(id bson.ObjectId, email string) bool {
+	user := UserById(id)
 
 	if user.Email != email {
 		return false
@@ -271,7 +256,7 @@ func createSuperUser() {
 
 	user := User{
 		Name:     name,
-		Email:    SuperuserEmail,
+		Email:    SuperUserEmail,
 		Password: string(hashed),
 		IsAdmin:  true,
 	}
@@ -314,34 +299,33 @@ func GetAuthorizedUser(r *http.Request) (*User, error) {
 		return nil, err
 	}
 	claims := jwtToken.Claims
-	id := claims["userID"].(float64)
-	return UserByID(uint64(id)), nil
+	id := claims["userId"].(string)
+	return UserById(bson.ObjectIdHex(id)), nil
 }
 
 func (user *User) SetPhoto(file multipart.File) error {
 	photoPath, _ := env.Conf.String("default.photo.path")
-	id := strconv.Itoa(int(user.ID))
-	name := filepath.Join(contentDir, "users", id, "photo", filepath.Base(photoPath))
+	name := filepath.Join(contentDir, "users", user.Id.Hex(), "photo", filepath.Base(photoPath))
 
 	if err := helper.SaveAsJPEG(file, name); err != nil {
 		return err
 	}
-	db := database.Con()
-	defer db.Close()
+	user.HasPhoto = true
 
-	if err := db.Model(&User{}).Where("id = ?", id).Update("has_photo", true).Error; err != nil {
+	if err := db.C("users").UpdateId(user.Id, bson.M{"$set": user}); err != nil {
 		return err
 	}
+	defer db.Close()
 	return nil
 }
 
 func (user *User) GetPhoto() string {
 	photoPath, _ := env.Conf.String("default.photo.path")
-	return path.Join(contentDir, "users", strconv.Itoa(int(user.ID)), "photo", filepath.Base(photoPath))
+	return path.Join(contentDir, "users", user.Id.Hex(), "photo", filepath.Base(photoPath))
 }
 
 func (user *User) IsSuperuser() bool {
-	if user.Email == SuperuserEmail {
+	if user.Email == SuperUserEmail {
 		return true
 	}
 	return false

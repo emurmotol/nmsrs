@@ -3,7 +3,8 @@ package router
 import (
 	"context"
 	"net/http"
-	"strconv"
+
+	"gopkg.in/mgo.v2/bson"
 
 	"github.com/emurmotol/nmsrs/constant"
 	"github.com/emurmotol/nmsrs/controller"
@@ -13,13 +14,13 @@ import (
 
 func userCtx(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		id, err := strconv.Atoi(chi.URLParam(r, "userID"))
+		userId := chi.URLParam(r, "userId")
 
-		if err != nil {
+		if yes := bson.IsObjectIdHex(userId); !yes {
 			controller.NotFound(w, r)
 			return
 		}
-		user := model.UserByID(uint64(id))
+		user := model.UserById(bson.ObjectIdHex(userId))
 
 		if user == nil {
 			controller.NotFound(w, r)
@@ -32,13 +33,13 @@ func userCtx(next http.Handler) http.Handler {
 
 // func registrantCtx(next http.Handler) http.Handler {
 // 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-// 		id, err := strconv.Atoi(chi.URLParam(r, "registrantID"))
+// 		id, err := strconv.Atoi(chi.URLParam(r, "registrantId"))
 
 // 		if err != nil {
 // 			controller.NotFound(w, r)
 // 			return
 // 		}
-// 		registrant, err := model.RegistrantByID(uint64(id))
+// 		registrant, err := model.RegistrantById(uint64(id))
 
 // 		if err != nil {
 // 			controller.NotFound(w, r)

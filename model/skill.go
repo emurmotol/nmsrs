@@ -3,12 +3,14 @@ package model
 import (
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/db"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 type Skill struct {
-	ID   uint    `json:"id"`
-	Name string `json:"name"`
+	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Name string        `json:"name" bson:"name"`
 }
 
 func skillSeeder() {
@@ -32,34 +34,33 @@ func skillSeeder() {
 	}
 
 	for _, name := range data {
-		skill := Skill{Name: strings.ToUpper(name)}
+		skill := Skill{
+			Id:   bson.NewObjectId(),
+			Name: strings.ToUpper(name),
+		}
 		skill.Create()
 	}
 }
 
 func (skill *Skill) Create() *Skill {
-	db := database.Con()
+	db.C("skills").Insert(skill)
 	defer db.Close()
-
-	if err := db.Create(&skill).Error; err != nil {
-		panic(err)
-	}
 	return skill
 }
 
 func (skill Skill) Index(q string) []Skill {
-	db := database.Con()
-	defer db.Close()
-
 	skills := []Skill{}
-	results := make(chan []Skill)
+	r := make(chan []Skill)
+	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
+	query := bson.M{"name": regex}
 
 	go func() {
-		db.Find(&skills, "name LIKE ?", database.WrapLike(q))
-		results <- skills
+		db.C("skills").Find(query).All(&skills)
+		defer db.Close()
+		r <- skills
 	}()
 
-	skills = <-results
-	close(results)
+	skills = <-r
+	close(r)
 	return skills
 }

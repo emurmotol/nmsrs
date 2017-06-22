@@ -121,7 +121,7 @@ $(function () {
         $(this).parsley().validate();
     });
 
-    previewImage($("#photo"));
+    previewImage("#photo");
 
     $("#create_registrant_form").parsley();
     $("#create_registrant_form").on("submit", function () {

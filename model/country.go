@@ -3,13 +3,10 @@ package model
 import (
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
-)
+	"github.com/emurmotol/nmsrs/db"
 
-type Country struct {
-	ID   uint   `json:"id"`
-	Name string `json:"name"`
-}
+	"gopkg.in/mgo.v2/bson"
+)
 
 func countrySeeder() {
 	data := []string{
@@ -190,7 +187,7 @@ func countrySeeder() {
 		"THAILAND",
 		"TOGO",
 		"TONGA",
-		"TRINIDAD AND TOBAGO",
+		"TRINIdAD AND TOBAGO",
 		"TUNISIA",
 		"TURKEY",
 		"TURKMENISTAN",
@@ -212,34 +209,38 @@ func countrySeeder() {
 	}
 
 	for _, name := range data {
-		country := Country{Name: strings.ToUpper(name)}
+		country := Country{
+			Id:   bson.NewObjectId(),
+			Name: strings.ToUpper(name),
+		}
 		country.Create()
 	}
 }
 
-func (country *Country) Create() *Country {
-	db := database.Con()
-	defer db.Close()
+type Country struct {
+	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Name string        `json:"name" bson:"name"`
+}
 
-	if err := db.Create(&country).Error; err != nil {
-		panic(err)
-	}
+func (country *Country) Create() *Country {
+	db.C("countries").Insert(country)
+	defer db.Close()
 	return country
 }
 
 func (country Country) Index(q string) []Country {
-	db := database.Con()
-	defer db.Close()
-
 	countries := []Country{}
-	results := make(chan []Country)
+	r := make(chan []Country)
+	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
+	query := bson.M{"name": regex}
 
 	go func() {
-		db.Find(&countries, "name LIKE ?", database.WrapLike(q))
-		results <- countries
+		db.C("countries").Find(query).All(&countries)
+		defer db.Close()
+		r <- countries
 	}()
 
-	countries = <-results
-	close(results)
+	countries = <-r
+	close(r)
 	return countries
 }

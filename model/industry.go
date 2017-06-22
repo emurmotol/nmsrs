@@ -3,13 +3,10 @@ package model
 import (
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
-)
+	"github.com/emurmotol/nmsrs/db"
 
-type Industry struct {
-	ID   uint   `json:"id"`
-	Name string `json:"name"`
-}
+	"gopkg.in/mgo.v2/bson"
+)
 
 func industrySeeder() {
 	data := []string{
@@ -33,34 +30,38 @@ func industrySeeder() {
 	}
 
 	for _, name := range data {
-		industry := Industry{Name: strings.ToUpper(name)}
+		industry := Industry{
+			Id:   bson.NewObjectId(),
+			Name: strings.ToUpper(name),
+		}
 		industry.Create()
 	}
 }
 
-func (industry *Industry) Create() *Industry {
-	db := database.Con()
-	defer db.Close()
+type Industry struct {
+	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Name string        `json:"name" bson:"name"`
+}
 
-	if err := db.Create(&industry).Error; err != nil {
-		panic(err)
-	}
+func (industry *Industry) Create() *Industry {
+	db.C("industries").Insert(industry)
+	defer db.Close()
 	return industry
 }
 
 func (industry Industry) Index(q string) []Industry {
-	db := database.Con()
-	defer db.Close()
-
 	industries := []Industry{}
-	results := make(chan []Industry)
+	r := make(chan []Industry)
+	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
+	query := bson.M{"name": regex}
 
 	go func() {
-		db.Find(&industries, "name LIKE ?", database.WrapLike(q))
-		results <- industries
+		db.C("industries").Find(query).All(&industries)
+		defer db.Close()
+		r <- industries
 	}()
-	
-	industries = <-results
-	close(results)
+
+	industries = <-r
+	close(r)
 	return industries
 }

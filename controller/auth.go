@@ -63,7 +63,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	claims.SetIssuedNow()
 	setExpiryDuration, _ := env.Conf.Int("pkg.jwtauth.setExpiryDuration")
 	claims.SetExpiry(time.Now().Add(time.Hour * time.Duration(setExpiryDuration))) // 2 weeks
-	claims["userID"] = user.ID
+	claims["userId"] = user.Id.Hex()
 	tokenAuth := r.Context().Value(constant.TokenAuthCtxKey).(*jwtauth.JwtAuth)
 	_, tokenString, _ := tokenAuth.Encode(claims)
 	tokenName, _ := env.Conf.String("pkg.jwtauth.tokenName")

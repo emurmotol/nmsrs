@@ -13,13 +13,13 @@
                 <hr> {{if eq .Type `User`}}
                 <div class="row">
                     <div class="col-lg-1">
-                        <a href="{{if .HasPhoto}}{{photoPath .ID `User`}}{{else}}{{config.default.photo.path}}{{end}}">
-                            <img src="{{if .HasPhoto}}{{photoPath .ID `User`}}{{else}}{{config.default.photo.path}}{{end}}" class="img-rounded" height="60"
+                        <a href="{{if .HasPhoto}}{{photoPath .Id `User`}}{{else}}{{config.default.photo.path}}{{end}}">
+                            <img src="{{if .HasPhoto}}{{photoPath .Id `User`}}{{else}}{{config.default.photo.path}}{{end}}" class="img-rounded" height="60"
                                 alt="{{.Name}}">
                         </a>
                     </div>
                     <div class="col-lg-10">
-                        <h4><a href="/{{.ID}}">{{.Name}}</a></h4>
+                        <h4><a href="/{{.Id}}">{{.Name}}</a></h4>
                         <ul class="list-inline text-muted">
                             <li><i class="fa fa-envelope-o"></i> <a href="mailto:{{.Email}}">{{.Email}}</a></li>
                             <li><i class="fa fa-object-group"></i> {{.Type}}</li>
@@ -27,7 +27,7 @@
                         </ul>
                     </div>
                     <div class="col-lg-1 col-view">
-                        <a href="/{{.ID}}" class="btn btn-primary" target="_blank">View</a>
+                        <a href="/{{.Id}}" class="btn btn-primary" target="_blank">View</a>
                     </div>
                 </div>
                 {{end}}

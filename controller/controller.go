@@ -12,7 +12,6 @@ import (
 var (
 	rd *render.Render
 	// paginator globals
-	count    int
 	limit    int
 	interval int
 	// schema

@@ -3,13 +3,9 @@ package model
 import (
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/db"
+	"gopkg.in/mgo.v2/bson"
 )
-
-type OtherSkill struct {
-	ID   uint    `json:"id"`
-	Name string `json:"name"`
-}
 
 func otherSkillSeeder() {
 	data := []string{
@@ -69,34 +65,38 @@ func otherSkillSeeder() {
 	}
 
 	for _, name := range data {
-		otherSkill := OtherSkill{Name: strings.ToUpper(name)}
+		otherSkill := OtherSkill{
+			Id:   bson.NewObjectId(),
+			Name: strings.ToUpper(name),
+		}
 		otherSkill.Create()
 	}
 }
 
-func (otherSkill *OtherSkill) Create() *OtherSkill {
-	db := database.Con()
-	defer db.Close()
+type OtherSkill struct {
+	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Name string        `json:"name" bson:"name"`
+}
 
-	if err := db.Create(&otherSkill).Error; err != nil {
-		panic(err)
-	}
+func (otherSkill *OtherSkill) Create() *OtherSkill {
+	db.C("otherSkills").Insert(otherSkill)
+	defer db.Close()
 	return otherSkill
 }
 
 func (otherSkill OtherSkill) Index(q string) []OtherSkill {
-	db := database.Con()
-	defer db.Close()
-
 	otherSkills := []OtherSkill{}
-	results := make(chan []OtherSkill)
+	r := make(chan []OtherSkill)
+	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
+	query := bson.M{"name": regex}
 
 	go func() {
-		db.Find(&otherSkills, "name LIKE ?", database.WrapLike(q))
-		results <- otherSkills
+		db.C("otherSkills").Find(query).All(&otherSkills)
+		defer db.Close()
+		r <- otherSkills
 	}()
 
-	otherSkills = <-results
-	close(results)
+	otherSkills = <-r
+	close(r)
 	return otherSkills
 }

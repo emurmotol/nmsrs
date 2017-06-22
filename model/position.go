@@ -1,14 +1,10 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/database"
+	"github.com/emurmotol/nmsrs/db"
 	"strings"
+	"gopkg.in/mgo.v2/bson"
 )
-
-type Position struct {
-	ID   uint    `json:"id"`
-	Name string `json:"name"`
-}
 
 func positionSeeder() {
 	data := []string{
@@ -4254,8 +4250,8 @@ func positionSeeder() {
 		"MATHEMATICAL STATISTICIAN",
 		"MATHEMATICAN (APPLIED MATH)",
 		"MATHEMATICIAN (PURE MATH)",
-		"MATHEMATICIAN AIDE I (GOV)",
-		"MATHEMATICIAN AIDE II (GOV)",
+		"MATHEMATICIAN AE I (GOV)",
+		"MATHEMATICIAN AE II (GOV)",
 		"MATHEMATICIAN I (GOV)",
 		"MATHEMATICIAN II (GOV)",
 		"MATHEMATICIAN",
@@ -8192,34 +8188,38 @@ func positionSeeder() {
 	}
 
 	for _, name := range data {
-		position := Position{Name: strings.ToUpper(name)}
+		position := Position{
+			Id:   bson.NewObjectId(),
+			Name: strings.ToUpper(name),
+		}
 		position.Create()
 	}
 }
 
-func (position *Position) Create() *Position {
-	db := database.Con()
-	defer db.Close()
+type Position struct {
+	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Name string        `json:"name" bson:"name"`
+}
 
-	if err := db.Create(&position).Error; err != nil {
-		panic(err)
-	}
+func (position *Position) Create() *Position {
+	db.C("positions").Insert(position)
+	defer db.Close()
 	return position
 }
 
 func (position Position) Index(q string) []Position {
-	db := database.Con()
-	defer db.Close()
-
 	positions := []Position{}
-	results := make(chan []Position)
+	r := make(chan []Position)
+	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
+	query := bson.M{"name": regex}
 
 	go func() {
-		db.Find(&positions, "name LIKE ?", database.WrapLike(q))
-		results <- positions
+		db.C("positions").Find(query).All(&positions)
+		defer db.Close()
+		r <- positions
 	}()
 
-	positions = <-results
-	close(results)
+	positions = <-r
+	close(r)
 	return positions
 }

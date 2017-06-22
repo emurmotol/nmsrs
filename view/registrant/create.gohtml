@@ -92,7 +92,7 @@
                             {{range .civilStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="civil_stat_id" id="civil_stat_{{.ID}}" value="{{.ID}}"{{if eq .ID 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#civil_stat_id_err"{{end}}> {{.Name}}
+                                    <input type="radio" name="civil_stat_id" id="civil_stat_{{.Id}}" value="{{.Id}}"{{if eq .Id 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#civil_stat_id_err"{{end}}> {{.Name}}
                                 </label>
                             </div>
                             {{end}}
@@ -109,7 +109,7 @@
                         <div class="col-lg-8">
                             {{range .sexes}}
                             <label class="radio-inline">
-                                <input type="radio" name="sex_id" id="sex_{{.ID}}" value="{{.ID}}"{{if eq .ID 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#sex_id_err"{{end}}> {{.Name}}
+                                <input type="radio" name="sex_id" id="sex_{{.Id}}" value="{{.Id}}"{{if eq .Id 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#sex_id_err"{{end}}> {{.Name}}
                             </label>
                             {{end}}
                             <span id="sex_id_err"></span>
@@ -163,7 +163,7 @@
                             {{range .empStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="emp_stat_id" id="emp_stat_{{.ID}}" value="{{.ID}}"{{if eq .ID 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#emp_stat_id_err"{{end}}> {{.Name}}
+                                    <input type="radio" name="emp_stat_id" id="emp_stat_{{.Id}}" value="{{.Id}}"{{if eq .Id 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#emp_stat_id_err"{{end}}> {{.Name}}
                                 </label>
                             </div>
                             {{end}}
@@ -240,7 +240,7 @@
                             {{range .disabilities}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="disability_id" id="disability_{{.ID}}" value="{{.ID}}"{{if eq .ID 1}} data-parsley-trigger="change" data-parsley-errors-container="#disability_id_err"{{end}} disabled> {{.Name}}
+                                    <input type="radio" name="disability_id" id="disability_{{.Id}}" value="{{.Id}}"{{if eq .Id 1}} data-parsley-trigger="change" data-parsley-errors-container="#disability_id_err"{{end}} disabled> {{.Name}}
                                 </label>
                             </div>
                             {{end}}

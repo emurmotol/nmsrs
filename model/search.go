@@ -3,15 +3,17 @@ package model
 import (
 	"reflect"
 	"time"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 type SearchResult struct {
-	ID        uint64    `json:"id"`
-	Name      string    `json:"name"`
-	Email     string    `json:"email"`
-	HasPhoto  bool      `json:"has_photo"`
-	CreatedAt time.Time `json:"created_at"`
-	Type      string    `json:"type"`
+	Id        bson.ObjectId `json:"id"`
+	Name      string        `json:"name"`
+	Email     string        `json:"email"`
+	HasPhoto  bool          `json:"has_photo"`
+	CreatedAt time.Time     `json:"created_at"`
+	Type      string        `json:"type"`
 }
 
 func SearchUsers(q string) []SearchResult {
@@ -20,7 +22,7 @@ func SearchUsers(q string) []SearchResult {
 
 	for _, user := range user.Search(q) {
 		searchResults = append(searchResults, SearchResult{
-			ID:        user.ID,
+			Id:        user.Id,
 			Name:      user.Name,
 			Email:     user.Email,
 			HasPhoto:  user.HasPhoto,

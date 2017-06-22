@@ -3,13 +3,10 @@ package model
 import (
 	"strings"
 
-	"github.com/emurmotol/nmsrs/database"
-)
+	"gopkg.in/mgo.v2/bson"
 
-type EduLevel struct {
-	ID   uint   `json:"id"`
-	Name string `json:"name"`
-}
+	"github.com/emurmotol/nmsrs/db"
+)
 
 func eduLevelSeeder() {
 	data := []string{
@@ -42,34 +39,38 @@ func eduLevelSeeder() {
 	}
 
 	for _, name := range data {
-		eduLevel := EduLevel{Name: strings.ToUpper(name)}
+		eduLevel := EduLevel{
+			Id:   bson.NewObjectId(),
+			Name: strings.ToUpper(name),
+		}
 		eduLevel.Create()
 	}
 }
 
-func (eduLevel *EduLevel) Create() *EduLevel {
-	db := database.Con()
-	defer db.Close()
+type EduLevel struct {
+	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Name string        `json:"name" bson:"name"`
+}
 
-	if err := db.Create(&eduLevel).Error; err != nil {
-		panic(err)
-	}
+func (eduLevel *EduLevel) Create() *EduLevel {
+	db.C("eduLevels").Insert(eduLevel)
+	defer db.Close()
 	return eduLevel
 }
 
 func (eduLevel EduLevel) Index(q string) []EduLevel {
-	db := database.Con()
-	defer db.Close()
-
 	eduLevels := []EduLevel{}
-	results := make(chan []EduLevel)
+	r := make(chan []EduLevel)
+	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
+	query := bson.M{"name": regex}
 
 	go func() {
-		db.Find(&eduLevels, "name LIKE ?", database.WrapLike(q))
-		results <- eduLevels
+		db.C("eduLevels").Find(query).All(&eduLevels)
+		defer db.Close()
+		r <- eduLevels
 	}()
-	
-	eduLevels = <-results
-	close(results)
+
+	eduLevels = <-r
+	close(r)
 	return eduLevels
 }

@@ -3,8 +3,8 @@ package controller
 import (
 	"net/http"
 
-	"github.com/emurmotol/nmsrs/model"
 	"github.com/emurmotol/nmsrs/constant"
+	"github.com/emurmotol/nmsrs/model"
 )
 
 func ShowUserProfile(w http.ResponseWriter, r *http.Request) {
@@ -19,7 +19,7 @@ func EditUserProfile(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(constant.UserCtxKey).(*model.User)
 	authUser := authUser(r)
 
-	if user.ID == authUser.ID {
+	if user.Id.Hex() == authUser.Id.Hex() {
 		data := make(map[string]interface{})
 		data["title"] = "Edit Your Profile"
 		data["user"] = user

@@ -16,7 +16,7 @@ func init() {
 }
 
 func main() {
-	reset, _ := env.Conf.Bool("pkg.gorm.reset")
+	reset, _ := env.Conf.Bool("pkg.mgo.reset")
 	model.Load(reset)
 
 	// gob.Register(helper.Alert{}) // info: register the struct so encoding/gob knows about it

@@ -28,7 +28,7 @@
                     <thead>
                         <tr>
                             <th><input type="checkbox" id="select_all_users"></th>
-                            <th>ID</th>
+                            <th>Id</th>
                             <th class="text-center">Photo</th>
                             <th>Name</th>
                             <th><i class="fa fa-envelope-o"></i> Email Address</th>
@@ -38,20 +38,20 @@
                     </thead>
                     <tbody>
                         {{range .users}}
-                        <tr data-id="{{.ID}}">
+                        <tr data-id="{{.Id.Hex}}">
                             <td>
-                                <input type="checkbox" class="checkbox user-checkbox" value="{{.ID}}">
+                                <input type="checkbox" class="checkbox user-checkbox" value="{{.Id.Hex}}">
                             </td>
                             <td>
-                                {{.ID}}
+                                {{.Id.Hex}}
                             </td>
                             <td>
-                                <a href="{{if .HasPhoto}}{{photoPath .ID `User`}}{{else}}{{config.default.photo.path}}{{end}}">
-                                    <img src="{{if .HasPhoto}}{{photoPath .ID `User`}}{{else}}{{config.default.photo.path}}{{end}}" class="img-rounded" height="45" alt="{{.Name}}">
+                                <a href="{{if .HasPhoto}}{{photoPath .Id.Hex `User`}}{{else}}{{config.default.photo.path}}{{end}}">
+                                    <img src="{{if .HasPhoto}}{{photoPath .Id.Hex `User`}}{{else}}{{config.default.photo.path}}{{end}}" class="img-rounded" height="45" alt="{{.Name}}">
                                 </a>
                             </td>
                             <td>
-                                <a href="/users/{{.ID}}">{{.Name}}</a>
+                                <a href="/users/{{.Id.Hex}}">{{.Name}}</a>
                             </td>
                             <td>
                                 <a href="mailto:{{.Email}}">{{.Email}}</a>
@@ -60,7 +60,7 @@
                                 {{dateForHumans .CreatedAt.Unix}}
                             </td>
                             <td class="text-center">
-                                <a href="/users/{{.ID}}/edit"><i class="fa fa-pencil"></i></a>
+                                <a href="/users/{{.Id.Hex}}/edit"><i class="fa fa-pencil"></i></a>
                             </td>
                         </tr>
                         {{end}}

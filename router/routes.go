@@ -13,7 +13,7 @@ func userRoutes() chi.Router {
 	r.Get("/create", controller.CreateUser)
 	r.Post("/delete", controller.DeleteManyUser)
 	r.Get("/email/taken", controller.UserEmailTaken)
-	r.Route("/:userID", func(r chi.Router) {
+	r.Route("/:userId", func(r chi.Router) {
 		r.Use(userCtx)
 		r.Get("/", controller.ShowUser)
 		r.Post("/", controller.UpdateProfile)
@@ -26,33 +26,33 @@ func userRoutes() chi.Router {
 	return r
 }
 
-func registrantRoutes() chi.Router {
-	r := chi.NewRouter()
-	r.Use(adminOnly)
-	r.Get("/", controller.GetRegistrants)
-	r.Post("/", controller.StoreRegistrant)
-	r.Get("/create", controller.CreateRegistrant)
-	// r.Post("/delete", controller.DeleteManyRegistrant)
-	r.Get("/email/taken", controller.RegistrantEmailTaken)
-	// r.Route("/:registrantID", func(r chi.Router) {
-	// 	r.Use(registrantCtx)
-	// 	r.Get("/", controller.ShowRegistrant)
-	// 	r.Post("/", controller.UpdateRegistrant)
-	// 	r.Get("/edit", controller.EditRegistrant)
-	// 	r.Get("/photo", controller.RegistrantPhoto)
-	// 	r.Post("/delete", controller.DeleteRegistrant)
-	// 	r.Get("/email/check", controller.RegistrantEmailCheck)
-	// })
-	return r
-}
+// func registrantRoutes() chi.Router {
+// 	r := chi.NewRouter()
+// 	r.Use(adminOnly)
+// 	r.Get("/", controller.GetRegistrants)
+// 	r.Post("/", controller.StoreRegistrant)
+// 	r.Get("/create", controller.CreateRegistrant)
+// 	// r.Post("/delete", controller.DeleteManyRegistrant)
+// 	r.Get("/email/taken", controller.RegistrantEmailTaken)
+// 	// r.Route("/:registrantId", func(r chi.Router) {
+// 	// 	r.Use(registrantCtx)
+// 	// 	r.Get("/", controller.ShowRegistrant)
+// 	// 	r.Post("/", controller.UpdateRegistrant)
+// 	// 	r.Get("/edit", controller.EditRegistrant)
+// 	// 	r.Get("/photo", controller.RegistrantPhoto)
+// 	// 	r.Post("/delete", controller.DeleteRegistrant)
+// 	// 	r.Get("/email/check", controller.RegistrantEmailCheck)
+// 	// })
+// 	return r
+// }
 
 func apiRoutes() chi.Router {
 	r := chi.NewRouter()
 	r.Use(adminOnly)
-	r.Get("/search", controller.SearchIndex)
+	// r.Get("/search", controller.SearchIndex)
 	r.Get("/certificates", controller.CertificateIndex)
 	r.Get("/citymuns/provinces", controller.CityMunProvinceIndex)
-	r.Get("/citymuns/:cityMunID/barangays", controller.CityMunBarangayIndex)
+	r.Get("/citymuns/:cityMunId/barangays", controller.CityMunBarangayIndex)
 	r.Get("/countries", controller.CountryIndex)
 	r.Get("/courses", controller.CourseIndex)
 	r.Get("/edulevels", controller.EduLevelIndex)
@@ -71,7 +71,7 @@ func apiRoutes() chi.Router {
 
 func profileRoutes() chi.Router {
 	r := chi.NewRouter()
-	r.Route("/:userID", func(r chi.Router) {
+	r.Route("/:userId", func(r chi.Router) {
 		r.Use(userCtx)
 		r.Get("/", controller.ShowUserProfile)
 		r.Get("/edit", controller.EditUserProfile)
