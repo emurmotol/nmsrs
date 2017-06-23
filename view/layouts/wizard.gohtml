@@ -34,7 +34,7 @@
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="app_navbar_collapse">
-                {{with .authUser}}
+                {{with .auth}}
                 <form action="/search" method="GET" class="form-inline navbar-form navbar-left" role="search" id="navbar_search_form">
                     <div class="form-group">
                         <div class="input-group">
@@ -52,7 +52,7 @@
                 </ul>
                 {{end}} {{end}}
                 <ul class="nav navbar-nav navbar-right">
-                    {{with .authUser}}
+                    {{with .auth}}
                     <li class="dropdown nav-user">
                         <a href="/{{.Id.Hex}}" class="dropdown-toggle" id="drop_down_{{.Id.Hex}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="{{if .HasPhoto}}{{photoPath .Id.Hex `User`}}{{else}}{{config.default.photo.path}}{{end}}" class="img-rounded" height="30" alt="{{.Name}}">{{.Name}}<span class="caret"></span>

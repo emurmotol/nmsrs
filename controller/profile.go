@@ -11,19 +11,19 @@ func ShowUserProfile(w http.ResponseWriter, r *http.Request) {
 	data := make(map[string]interface{})
 	data["title"] = "Your Profile"
 	data["user"] = r.Context().Value(constant.UserCtxKey).(*model.User)
-	data["authUser"] = authUser(r)
+	data["auth"] = model.Auth(r)
 	rd.HTML(w, http.StatusOK, "profile/show", data)
 }
 
 func EditUserProfile(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(constant.UserCtxKey).(*model.User)
-	authUser := authUser(r)
+	auth := model.Auth(r)
 
-	if user.Id.Hex() == authUser.Id.Hex() {
+	if user.Id.Hex() == auth.Id.Hex() {
 		data := make(map[string]interface{})
 		data["title"] = "Edit Your Profile"
 		data["user"] = user
-		data["authUser"] = authUser
+		data["auth"] = auth
 		rd.HTML(w, http.StatusOK, "profile/edit", data)
 		return
 	}

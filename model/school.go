@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/emurmotol/nmsrs/db"
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -2376,24 +2377,23 @@ type School struct {
 }
 
 func (school *School) Create() *School {
-	db.C("schools").Insert(school)
+	if err := db.C("schools").Insert(school); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return school
 }
 
 func (school School) Index(q string) []School {
 	schools := []School{}
-	r := make(chan []School)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("schools").Find(query).All(&schools)
-		defer db.Close()
-		r <- schools
-	}()
-
-	schools = <-r
-	close(r)
+	if err := db.C("schools").Find(query).All(&schools); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return schools
 }

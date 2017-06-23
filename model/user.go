@@ -14,12 +14,14 @@ import (
 	"mime/multipart"
 
 	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/emurmotol/nmsrs/constant"
 	"github.com/emurmotol/nmsrs/db"
 	"github.com/emurmotol/nmsrs/env"
 	"github.com/emurmotol/nmsrs/helper"
 	"github.com/emurmotol/nmsrs/lang"
 	"github.com/icrowley/fake"
 	"golang.org/x/crypto/bcrypt"
+	"gopkg.in/mgo.v2"
 )
 
 var (
@@ -43,17 +45,17 @@ type LoginForm struct {
 	Errors   map[string]string `schema:"-"`
 }
 
-func (form *LoginForm) IsValid() bool {
-	form.Errors = make(map[string]string)
+func (loginForm *LoginForm) IsValid() bool {
+	loginForm.Errors = make(map[string]string)
 
-	if errs := helper.ValidateForm(form); len(errs) != 0 {
-		form.Errors = errs
+	if errs := helper.ValidateForm(loginForm); len(errs) != 0 {
+		loginForm.Errors = errs
 	}
 
-	if taken := UserEmailTaken(form.Email); !taken {
-		form.Errors["Email"] = lang.Get("email_not_recognized")
+	if taken := UserEmailTaken(loginForm.Email); !taken {
+		loginForm.Errors["Email"] = lang.Get("email_not_recognized")
 	}
-	return len(form.Errors) == 0
+	return len(loginForm.Errors) == 0
 }
 
 type CreateUserForm struct {
@@ -134,7 +136,6 @@ func (passwordResetForm *PasswordResetForm) IsValid() bool {
 
 func (user User) Search(q string) []User {
 	users := []User{}
-	r := make(chan []User)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{
 		"$or": []bson.M{
@@ -143,22 +144,23 @@ func (user User) Search(q string) []User {
 		},
 	}
 
-	go func() {
-		db.C("users").Find(query).All(&users)
-		defer db.Close()
-		r <- users
-	}()
-
-	users = <-r
-	close(r)
+	if err := db.C("users").Find(query).All(&users); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return users
 }
 
 func (user *User) Delete() {
-	if user.IsSuperuser() {
+	if user.IsSuperUser() {
 		panic(errActionNotPermitted)
 	}
-	db.C("users").RemoveId(user.Id)
+
+	if err := db.C("users").RemoveId(user.Id); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	dir := filepath.Join(contentDir, "users", user.Id.Hex())
 
@@ -187,18 +189,24 @@ func (user *User) Create() *User {
 	user.Password = string(hashed)
 	user.CreatedAt = time.Now()
 	user.UpdatedAt = time.Now()
-	db.C("users").Insert(user)
+
+	if err := db.C("users").Insert(user); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return user
 }
 
 func (user *User) UpdateProfile() {
-	if user.IsSuperuser() {
+	if user.IsSuperUser() {
 		panic(errActionNotPermitted)
 	}
 	user.Email = strings.ToLower(user.Email)
 	user.UpdatedAt = time.Now()
-	db.C("users").UpdateId(user.Id, bson.M{"$set": user})
+
+	if err := db.C("users").UpdateId(user.Id, bson.M{"$set": user}); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 }
 
@@ -209,20 +217,35 @@ func (user *User) ResetPassword() {
 		panic(err)
 	}
 	user.Password = string(hashed)
-	db.C("users").UpdateId(user.Id, bson.M{"$set": user})
+
+	if err := db.C("users").UpdateId(user.Id, bson.M{"$set": user}); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 }
 
 func UserById(id bson.ObjectId) *User {
 	user := new(User)
-	db.C("users").FindId(id).One(&user)
+
+	if err := db.C("users").FindId(id).One(user); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
 	defer db.Close()
 	return user
 }
 
 func UserByEmail(email string) *User {
 	user := new(User)
-	db.C("users").Find(bson.M{"email": email}).One(&user)
+
+	if err := db.C("users").Find(bson.M{"email": email}).One(user); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
 	defer db.Close()
 	return user
 }
@@ -248,34 +271,24 @@ func UserEmailSameAsOld(id bson.ObjectId, email string) bool {
 func createSuperUser() {
 	name, _ := env.Conf.String("superuser.name")
 	pwd, _ := env.Conf.String("superuser.pwd")
-	hashed, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
-
-	if err != nil {
-		panic(err)
-	}
 
 	user := User{
 		Name:     name,
 		Email:    SuperUserEmail,
-		Password: string(hashed),
+		Password: pwd,
 		IsAdmin:  true,
 	}
 	user.Create()
 }
 
 func userSeeder() {
+	pwd, _ := env.Conf.String("superuser.pwd")
+
 	for i := 0; i < 50; i++ {
-		password := "secret"
-		hashed, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-
-		if err != nil {
-			panic(err)
-		}
-
 		user := User{
 			Name:     fake.FullName(),
 			Email:    strings.ToLower(fake.EmailAddress()),
-			Password: string(hashed),
+			Password: pwd,
 			IsAdmin:  true,
 		}
 		user.Create()
@@ -324,9 +337,28 @@ func (user *User) GetPhoto() string {
 	return path.Join(contentDir, "users", user.Id.Hex(), "photo", filepath.Base(photoPath))
 }
 
-func (user *User) IsSuperuser() bool {
+func (user *User) IsSuperUser() bool {
 	if user.Email == SuperUserEmail {
 		return true
 	}
 	return false
+}
+
+func Login(email, password string) *User {
+	user := UserByEmail(email)
+	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+
+	if user == nil || err != nil {
+		return nil
+	}
+	return user
+}
+
+func Auth(r *http.Request) *User {
+	authUserCtxVal := r.Context().Value(constant.AuthCtxKey)
+
+	if &authUserCtxVal != nil {
+		return authUserCtxVal.(*User)
+	}
+	return nil
 }

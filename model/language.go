@@ -5,6 +5,7 @@ import (
 
 	"github.com/emurmotol/nmsrs/db"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -261,24 +262,23 @@ type Language struct {
 }
 
 func (language *Language) Create() *Language {
-	db.C("languages").Insert(language)
+	if err := db.C("languages").Insert(language); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return language
 }
 
 func (language Language) Index(q string) []Language {
 	languages := []Language{}
-	r := make(chan []Language)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("languages").Find(query).All(&languages)
-		defer db.Close()
-		r <- languages
-	}()
-
-	languages = <-r
-	close(r)
+	if err := db.C("languages").Find(query).All(&languages); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return languages
 }

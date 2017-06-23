@@ -5,6 +5,7 @@ import (
 
 	"github.com/emurmotol/nmsrs/db"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -43,24 +44,23 @@ func skillSeeder() {
 }
 
 func (skill *Skill) Create() *Skill {
-	db.C("skills").Insert(skill)
+	if err := db.C("skills").Insert(skill); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return skill
 }
 
 func (skill Skill) Index(q string) []Skill {
 	skills := []Skill{}
-	r := make(chan []Skill)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("skills").Find(query).All(&skills)
-		defer db.Close()
-		r <- skills
-	}()
-
-	skills = <-r
-	close(r)
+	if err := db.C("skills").Find(query).All(&skills); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return skills
 }

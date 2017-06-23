@@ -60,7 +60,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 	data := make(map[string]interface{})
 	data["title"] = "Users"
-	data["authUser"] = authUser(r)
+	data["auth"] = model.Auth(r)
 	data["users"] = users
 	data["q"] = r.URL.Query().Get("q")
 	data["pagination"] = helper.Pager{
@@ -88,7 +88,7 @@ func ShowUser(w http.ResponseWriter, r *http.Request) {
 	}
 	data["title"] = "Show User"
 	data["user"] = r.Context().Value(constant.UserCtxKey).(*model.User)
-	data["authUser"] = authUser(r)
+	data["auth"] = model.Auth(r)
 	rd.HTML(w, http.StatusOK, "user/show", data)
 }
 
@@ -106,7 +106,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		data["createUserForm"] = createUserForm.(model.CreateUserForm)
 	}
 	data["title"] = "Create User"
-	data["authUser"] = authUser(r)
+	data["auth"] = model.Auth(r)
 	rd.HTML(w, http.StatusOK, "user/create", data)
 }
 
@@ -175,7 +175,7 @@ func EditUser(w http.ResponseWriter, r *http.Request) {
 	}
 	data["title"] = "Edit User"
 	data["user"] = r.Context().Value(constant.UserCtxKey).(*model.User)
-	data["authUser"] = authUser(r)
+	data["auth"] = model.Auth(r)
 	rd.HTML(w, http.StatusOK, "user/edit", data)
 }
 

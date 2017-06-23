@@ -7,6 +7,7 @@ import (
 
 	"github.com/emurmotol/nmsrs/db"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -55,20 +56,26 @@ func cityMunSeeder() {
 }
 
 func (cityMun *CityMun) Create() *CityMun {
-	db.C("cityMuns").Insert(cityMun)
+	if err := db.C("cityMuns").Insert(cityMun); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return cityMun
 }
 
 func CityMunById(id bson.ObjectId) *CityMun {
 	cityMun := new(CityMun)
-	db.C("cityMuns").FindId(id).One(&cityMun)
+
+	if err := db.C("cityMuns").FindId(id).One(&cityMun); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
 	return cityMun
 }
 
 func (cityMun CityMun) ProvinceIndex(q string) []CityMunProv {
 	cityMunProv := []CityMunProv{}
-	r := make(chan []CityMunProv)
 	match := bson.M{
 		"$or": []bson.M{
 			bson.M{
@@ -105,20 +112,17 @@ func (cityMun CityMun) ProvinceIndex(q string) []CityMunProv {
 		},
 	}
 
-	go func() {
-		db.C("cityMuns").Pipe(query).All(&cityMunProv)
-		defer db.Close()
-		r <- cityMunProv
-	}()
-
-	cityMunProv = <-r
-	close(r)
+	if err := db.C("cityMuns").Pipe(query).All(&cityMunProv); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return cityMunProv
 }
 
 func (cityMun *CityMun) BarangayIndex(q string) []Barangay {
 	barangays := []Barangay{}
-	r := make(chan []Barangay)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{
 		"$and": []bson.M{
@@ -127,13 +131,11 @@ func (cityMun *CityMun) BarangayIndex(q string) []Barangay {
 		},
 	}
 
-	go func() {
-		db.C("barangays").Find(query).All(&barangays)
+		if err := db.C("barangays").Find(query).All(&barangays); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
 		defer db.Close()
-		r <- barangays
-	}()
-
-	barangays = <-r
-	close(r)
 	return barangays
 }

@@ -3,6 +3,7 @@ package model
 import (
 	"strings"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 
 	"github.com/emurmotol/nmsrs/db"
@@ -53,24 +54,23 @@ type EduLevel struct {
 }
 
 func (eduLevel *EduLevel) Create() *EduLevel {
-	db.C("eduLevels").Insert(eduLevel)
+	if err := db.C("eduLevels").Insert(eduLevel); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return eduLevel
 }
 
 func (eduLevel EduLevel) Index(q string) []EduLevel {
 	eduLevels := []EduLevel{}
-	r := make(chan []EduLevel)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("eduLevels").Find(query).All(&eduLevels)
-		defer db.Close()
-		r <- eduLevels
-	}()
-
-	eduLevels = <-r
-	close(r)
+	if err := db.C("eduLevels").Find(query).All(&eduLevels); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return eduLevels
 }

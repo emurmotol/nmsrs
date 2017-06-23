@@ -5,6 +5,7 @@ import (
 
 	"github.com/emurmotol/nmsrs/db"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -669,24 +670,23 @@ type Certificate struct {
 }
 
 func (certificate *Certificate) Create() *Certificate {
-	db.C("certificates").Insert(certificate)
+	if err := db.C("certificates").Insert(certificate); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return certificate
 }
 
 func (certificate Certificate) Index(q string) []Certificate {
 	certificates := []Certificate{}
-	r := make(chan []Certificate)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("certificates").Find(query).All(&certificates)
-		defer db.Close()
-		r <- certificates
-	}()
-
-	certificates = <-r
-	close(r)
+	if err := db.C("certificates").Find(query).All(&certificates); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return certificates
 }

@@ -5,10 +5,7 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"log"
-
 	"github.com/emurmotol/nmsrs/db"
-	"github.com/emurmotol/nmsrs/helper"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -40,28 +37,24 @@ func barangaySeeder() {
 	if err := json.Unmarshal(data, &refBarangays); err != nil {
 		panic(err)
 	}
-	var barangays []interface{}
 
-	for index, refBarangay := range refBarangays {
-		barangays = append(barangays, Barangay{
+	for _, refBarangay := range refBarangays {
+		barangay := Barangay{
 			Id:          bson.NewObjectId(),
 			Code:        refBarangay.BrgyCode,
 			Desc:        strings.ToUpper(refBarangay.BrgyDesc),
 			RegCode:     refBarangay.RegCode,
 			ProvCode:    refBarangay.ProvCode,
 			CityMunCode: refBarangay.CityMunCode,
-		})
-		log.Println("refBarangay", index)
-	}
-
-	for index, chunk := range helper.ChunkSlice(barangays, 500) {
-		db.C("barangays").Insert(chunk)
-		log.Println("chunk", index)
+		}
+		barangay.Create()
 	}
 }
 
 func (barangay *Barangay) Create() *Barangay {
-	db.C("barangays").Insert(barangay)
+	if err := db.C("barangays").Insert(barangay); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return barangay
 }

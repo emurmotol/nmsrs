@@ -5,6 +5,7 @@ import (
 
 	"github.com/emurmotol/nmsrs/db"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -44,24 +45,23 @@ type Industry struct {
 }
 
 func (industry *Industry) Create() *Industry {
-	db.C("industries").Insert(industry)
+	if err := db.C("industries").Insert(industry); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return industry
 }
 
 func (industry Industry) Index(q string) []Industry {
 	industries := []Industry{}
-	r := make(chan []Industry)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("industries").Find(query).All(&industries)
-		defer db.Close()
-		r <- industries
-	}()
-
-	industries = <-r
-	close(r)
+	if err := db.C("industries").Find(query).All(&industries); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return industries
 }

@@ -22,7 +22,7 @@ func init() {
 
 func adminOnly(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		user := r.Context().Value(constant.AuthUserCtxKey).(*model.User)
+		user := r.Context().Value(constant.AuthCtxKey).(*model.User)
 		if !user.IsAdmin {
 			controller.Forbidden(w, r)
 			return
@@ -44,7 +44,7 @@ func loggedInOnly(next http.Handler) http.Handler {
 			controller.NotFound(w, r)
 			return
 		}
-		ctx := context.WithValue(r.Context(), constant.AuthUserCtxKey, user)
+		ctx := context.WithValue(r.Context(), constant.AuthCtxKey, user)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

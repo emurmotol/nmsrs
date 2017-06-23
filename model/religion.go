@@ -5,6 +5,7 @@ import (
 
 	"github.com/emurmotol/nmsrs/db"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -66,24 +67,23 @@ type Religion struct {
 }
 
 func (religion *Religion) Create() *Religion {
-	db.C("religions").Insert(religion)
+	if err := db.C("religions").Insert(religion); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return religion
 }
 
 func (religion Religion) Index(q string) []Religion {
 	religions := []Religion{}
-	r := make(chan []Religion)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("religions").Find(query).All(&religions)
-		defer db.Close()
-		r <- religions
-	}()
-
-	religions = <-r
-	close(r)
+	if err := db.C("religions").Find(query).All(&religions); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return religions
 }

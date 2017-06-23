@@ -68,7 +68,7 @@ package controller
 // 	}
 // 	data := make(map[string]interface{})
 // 	data["title"] = "Search"
-// 	data["authUser"] = authUser(r)
+// 	data["auth"] = model.Auth(r)
 // 	data["q"] = q
 // 	data["type"] = typ
 // 	data["searchResults"] = searchResults[pagination.Offset():pagination.EndIndex()]

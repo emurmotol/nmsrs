@@ -5,6 +5,7 @@ import (
 
 	"github.com/emurmotol/nmsrs/db"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -223,24 +224,23 @@ type Country struct {
 }
 
 func (country *Country) Create() *Country {
-	db.C("countries").Insert(country)
+	if err := db.C("countries").Insert(country); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return country
 }
 
 func (country Country) Index(q string) []Country {
 	countries := []Country{}
-	r := make(chan []Country)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("countries").Find(query).All(&countries)
-		defer db.Close()
-		r <- countries
-	}()
-
-	countries = <-r
-	close(r)
+	if err := db.C("countries").Find(query).All(&countries); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return countries
 }

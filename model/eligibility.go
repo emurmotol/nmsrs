@@ -5,6 +5,7 @@ import (
 
 	"github.com/emurmotol/nmsrs/db"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -39,24 +40,23 @@ type Eligibility struct {
 }
 
 func (eligibility *Eligibility) Create() *Eligibility {
-	db.C("eligibilities").Insert(eligibility)
+	if err := db.C("eligibilities").Insert(eligibility); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return eligibility
 }
 
 func (eligibility Eligibility) Index(q string) []Eligibility {
 	eligibilities := []Eligibility{}
-	r := make(chan []Eligibility)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("eligibilities").Find(query).All(&eligibilities)
-		defer db.Close()
-		r <- eligibilities
-	}()
-
-	eligibilities = <-r
-	close(r)
+	if err := db.C("eligibilities").Find(query).All(&eligibilities); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return eligibilities
 }

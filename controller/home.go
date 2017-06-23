@@ -9,7 +9,7 @@ import (
 func Index(w http.ResponseWriter, r *http.Request) {
 	if user, _ := model.GetAuthorizedUser(r); user != nil {
 		data := make(map[string]interface{})
-		data["authUser"] = user
+		data["auth"] = user
 		dashboard(w, r, data)
 		return
 	}

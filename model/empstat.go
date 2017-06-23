@@ -5,6 +5,7 @@ import (
 
 	"github.com/emurmotol/nmsrs/db"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -30,14 +31,21 @@ func empStatSeeder() {
 }
 
 func (empStat *EmpStat) Create() *EmpStat {
-	db.C("empStats").Insert(empStat)
+	if err := db.C("empStats").Insert(empStat); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return empStat
 }
 
 func EmpStats() []EmpStat {
 	empStats := []EmpStat{}
-	db.C("empStats").Find(nil).All(&empStats)
+
+	if err := db.C("empStats").Find(nil).All(&empStats); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
 	defer db.Close()
 	return empStats
 }

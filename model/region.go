@@ -47,7 +47,9 @@ func regionSeeder() {
 }
 
 func (region *Region) Create() *Region {
-	db.C("regions").Insert(region)
+	if err := db.C("regions").Insert(region); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return region
 }

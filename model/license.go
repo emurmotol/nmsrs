@@ -5,6 +5,7 @@ import (
 
 	"github.com/emurmotol/nmsrs/db"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -139,24 +140,23 @@ type License struct {
 }
 
 func (license *License) Create() *License {
-	db.C("licenses").Insert(license)
+	if err := db.C("licenses").Insert(license); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return license
 }
 
 func (license License) Index(q string) []License {
 	licenses := []License{}
-	r := make(chan []License)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("licenses").Find(query).All(&licenses)
-		defer db.Close()
-		r <- licenses
-	}()
-
-	licenses = <-r
-	close(r)
+	if err := db.C("licenses").Find(query).All(&licenses); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return licenses
 }

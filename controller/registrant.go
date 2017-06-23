@@ -39,7 +39,7 @@ package controller
 
 // 	data := make(map[string]interface{})
 // 	data["title"] = "Registrants"
-// 	data["authUser"] = authUser(r)
+// 	data["auth"] = model.Auth(r)
 // 	data["registrants"] = registrants
 // 	data["q"] = r.URL.Query().Get("q")
 // 	data["pagination"] = helper.Pager{
@@ -75,7 +75,7 @@ package controller
 // 	data["empStats"] = model.EmpStats()
 // 	data["disabilities"] = model.Disabilities()
 // 	data["title"] = "Create Registrant"
-// 	data["authUser"] = authUser(r)
+// 	data["auth"] = model.Auth(r)
 // 	rd.HTML(w, http.StatusOK, "registrant/create", data, render.HTMLOptions{Layout: "layouts/wizard"})
 // }
 

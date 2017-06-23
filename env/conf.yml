@@ -38,7 +38,7 @@ pkg:
     jwtauth:
         tokenName: jwt
         secret: secret
-        setExpiryDuration: 672
+        expiry: 672
 dir:
     static: static
     content: content

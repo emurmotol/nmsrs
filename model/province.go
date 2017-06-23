@@ -50,7 +50,9 @@ func provinceSeeder() {
 }
 
 func (province *Province) Create() *Province {
-	db.C("provinces").Insert(province)
+	if err := db.C("provinces").Insert(province); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return province
 }

@@ -5,6 +5,6 @@ type ctxKey string
 const (
 	UserCtxKey ctxKey = "user"
 	// RegistrantCtxKey ctxKey = "registrant"
-	AuthUserCtxKey  ctxKey = "authUser"
+	AuthCtxKey      ctxKey = "auth"
 	TokenAuthCtxKey ctxKey = "tokenAuth"
 )

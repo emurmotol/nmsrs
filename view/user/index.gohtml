@@ -28,7 +28,6 @@
                     <thead>
                         <tr>
                             <th><input type="checkbox" id="select_all_users"></th>
-                            <th>Id</th>
                             <th class="text-center">Photo</th>
                             <th>Name</th>
                             <th><i class="fa fa-envelope-o"></i> Email Address</th>
@@ -41,9 +40,6 @@
                         <tr data-id="{{.Id.Hex}}">
                             <td>
                                 <input type="checkbox" class="checkbox user-checkbox" value="{{.Id.Hex}}">
-                            </td>
-                            <td>
-                                {{.Id.Hex}}
                             </td>
                             <td>
                                 <a href="{{if .HasPhoto}}{{photoPath .Id.Hex `User`}}{{else}}{{config.default.photo.path}}{{end}}">

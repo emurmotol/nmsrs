@@ -5,6 +5,7 @@ import (
 
 	"github.com/emurmotol/nmsrs/db"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -1710,24 +1711,23 @@ type Course struct {
 }
 
 func (course *Course) Create() *Course {
-	db.C("courses").Insert(course)
+	if err := db.C("courses").Insert(course); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return course
 }
 
 func (course Course) Index(q string) []Course {
 	courses := []Course{}
-	r := make(chan []Course)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("courses").Find(query).All(&courses)
-		defer db.Close()
-		r <- courses
-	}()
-
-	courses = <-r
-	close(r)
+	if err := db.C("courses").Find(query).All(&courses); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return courses
 }

@@ -21,7 +21,9 @@ func init() {
 
 func Load(reset bool) {
 	if reset {
-		db.Session().DB(db.Name).DropDatabase()
+		if err := db.Session().DB(db.Name).DropDatabase(); err != nil {
+			panic(err)
+		}
 		defer db.Close()
 		clearContentDir()
 		seed()
@@ -39,15 +41,15 @@ func clearContentDir() {
 }
 
 func seed() {
-	// go createSuperUser()
-	// go userSeeder()
+	go createSuperUser()
+	go userSeeder()
 	// go countrySeeder()
 	// go empStatSeeder()
 	// go unEmpStatSeeder()
 	// go regionSeeder()
 	// go provinceSeeder()
 	// go cityMunSeeder()
-	go barangaySeeder()
+	// go barangaySeeder()
 	// go certificateSeeder()
 	// go civilStatSeeder()
 	// go courseSeeder()

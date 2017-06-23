@@ -4,6 +4,7 @@ import (
 	"github.com/emurmotol/nmsrs/db"
 	"strings"
 	"gopkg.in/mgo.v2/bson"
+	mgo "gopkg.in/mgo.v2"
 )
 
 func positionSeeder() {
@@ -8202,24 +8203,23 @@ type Position struct {
 }
 
 func (position *Position) Create() *Position {
-	db.C("positions").Insert(position)
+	if err := db.C("positions").Insert(position); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return position
 }
 
 func (position Position) Index(q string) []Position {
 	positions := []Position{}
-	r := make(chan []Position)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("positions").Find(query).All(&positions)
-		defer db.Close()
-		r <- positions
-	}()
-
-	positions = <-r
-	close(r)
+	if err := db.C("positions").Find(query).All(&positions); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return positions
 }

@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/emurmotol/nmsrs/db"
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -79,24 +80,23 @@ type OtherSkill struct {
 }
 
 func (otherSkill *OtherSkill) Create() *OtherSkill {
-	db.C("otherSkills").Insert(otherSkill)
+	if err := db.C("otherSkills").Insert(otherSkill); err != nil {
+		panic(err)
+	}
 	defer db.Close()
 	return otherSkill
 }
 
 func (otherSkill OtherSkill) Index(q string) []OtherSkill {
 	otherSkills := []OtherSkill{}
-	r := make(chan []OtherSkill)
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	go func() {
-		db.C("otherSkills").Find(query).All(&otherSkills)
-		defer db.Close()
-		r <- otherSkills
-	}()
-
-	otherSkills = <-r
-	close(r)
+	if err := db.C("otherSkills").Find(query).All(&otherSkills); err != mgo.ErrNotFound {
+		panic(err)
+	} else if err == mgo.ErrNotFound {
+		return nil
+	}
+	defer db.Close()
 	return otherSkills
 }

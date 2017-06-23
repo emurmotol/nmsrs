@@ -5,8 +5,6 @@ import (
 	"net/http"
 	"time"
 
-	"golang.org/x/crypto/bcrypt"
-
 	"github.com/emurmotol/nmsrs/constant"
 	"github.com/emurmotol/nmsrs/env"
 	"github.com/emurmotol/nmsrs/helper"
@@ -48,7 +46,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		GetLogin(w, r)
 		return
 	}
-	user := authenticate(loginForm.Email, loginForm.Password)
+	user := model.Login(loginForm.Email, loginForm.Password)
 
 	if user == nil {
 		helper.SetFlash(w, r, "loginForm", loginForm)
@@ -61,9 +59,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 	claims := jwtauth.Claims{}
 	claims.SetIssuedNow()
-	setExpiryDuration, _ := env.Conf.Int("pkg.jwtauth.setExpiryDuration")
-	claims.SetExpiry(time.Now().Add(time.Hour * time.Duration(setExpiryDuration))) // 2 weeks
+	expiry, _ := env.Conf.Int("pkg.jwtauth.expiry")
+	claims.SetExpiry(time.Now().Add(time.Hour * time.Duration(expiry))) // 2 weeks
 	claims["userId"] = user.Id.Hex()
+
 	tokenAuth := r.Context().Value(constant.TokenAuthCtxKey).(*jwtauth.JwtAuth)
 	_, tokenString, _ := tokenAuth.Encode(claims)
 	tokenName, _ := env.Conf.String("pkg.jwtauth.tokenName")
@@ -91,28 +90,5 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 		Path:   "/",
 		MaxAge: -1,
 	})
-	// todo: delete sessions
 	http.Redirect(w, r, "/login", http.StatusFound)
-}
-
-func authenticate(email, password string) *model.User {
-	user := model.UserByEmail(email)
-
-	if user == nil {
-		return nil
-	}
-
-	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
-		return nil
-	}
-	return user
-}
-
-func authUser(r *http.Request) *model.User {
-	authUserCtxVal := r.Context().Value(constant.AuthUserCtxKey)
-
-	if &authUserCtxVal != nil {
-		return authUserCtxVal.(*model.User)
-	}
-	return nil
 }
