@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 
 	"github.com/emurmotol/nmsrs/db"
 	mgo "gopkg.in/mgo.v2"
@@ -20,7 +21,7 @@ func otherSkillSeeder() {
 	if err := json.Unmarshal(data, &otherSkills); err != nil {
 		panic(err)
 	}
-	// todo: insert to db
+	log.Println("otherSkillSeeder: todo")
 }
 
 type OtherSkill struct {

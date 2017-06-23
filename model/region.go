@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/emurmotol/nmsrs/db"
+	"log"
 
+	"github.com/emurmotol/nmsrs/db"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -27,7 +28,7 @@ func regionSeeder() {
 	if err := json.Unmarshal(data, &regions); err != nil {
 		panic(err)
 	}
-	// todo: insert to db
+	log.Println("regionSeeder: todo")
 }
 
 func (region *Region) Create() *Region {

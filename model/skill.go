@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -26,7 +27,7 @@ func skillSeeder() {
 	if err := json.Unmarshal(data, &skills); err != nil {
 		panic(err)
 	}
-	// todo: insert to db
+	log.Println("skillSeeder: todo")
 }
 
 func (skill *Skill) Create() *Skill {

@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/emurmotol/nmsrs/db"
+	"log"
 
+	"github.com/emurmotol/nmsrs/db"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -21,7 +22,7 @@ func languageSeeder() {
 	if err := json.Unmarshal(data, &languages); err != nil {
 		panic(err)
 	}
-	// todo: insert to db
+	log.Println("languageSeeder: todo")
 }
 
 type Language struct {

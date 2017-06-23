@@ -1,6 +1,7 @@
 package model
 
 import (
+	"log"
 	"os"
 	"path/filepath"
 
@@ -20,6 +21,7 @@ func init() {
 }
 
 func Load(reset bool) {
+	log.Println("Load: reset:", reset)
 
 	if reset {
 		drop()
@@ -39,6 +41,7 @@ func drop() {
 					panic(err)
 				}
 				defer db.Close()
+				log.Printf("drop: %s collection", dName)
 			}
 		}
 	}
@@ -51,6 +54,7 @@ func clearContentDir() {
 		if err := os.RemoveAll(dir); err != nil {
 			panic(err)
 		}
+		log.Println("clearContentDir: cleared")
 	}
 }
 

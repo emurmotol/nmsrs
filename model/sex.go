@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -26,7 +27,7 @@ func sexSeeder() {
 	if err := json.Unmarshal(data, &sexes); err != nil {
 		panic(err)
 	}
-	// todo: insert to db
+	log.Println("sexSeeder: todo")
 }
 
 func (sex *Sex) Create() *Sex {

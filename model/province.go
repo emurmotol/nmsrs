@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -28,7 +29,7 @@ func provinceSeeder() {
 	if err := json.Unmarshal(data, &provinces); err != nil {
 		panic(err)
 	}
-	// todo: insert to db
+	log.Println("provinceSeeder: todo")
 }
 
 func (province *Province) Create() *Province {

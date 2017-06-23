@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -21,7 +22,7 @@ func eligibilitySeeder() {
 	if err := json.Unmarshal(data, &eligibilities); err != nil {
 		panic(err)
 	}
-	// todo: insert to db
+	log.Println("eligibilitySeeder: todo")
 }
 
 type Eligibility struct {

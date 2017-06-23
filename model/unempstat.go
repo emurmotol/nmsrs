@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -26,7 +27,7 @@ func unEmpStatSeeder() {
 	if err := json.Unmarshal(data, &unEmpStats); err != nil {
 		panic(err)
 	}
-	// todo: insert to db
+	log.Println("unEmpStatSeeder: todo")
 }
 
 func (unEmpStat *UnEmpStat) Create() *UnEmpStat {

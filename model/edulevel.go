@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -21,7 +22,7 @@ func eduLevelSeeder() {
 	if err := json.Unmarshal(data, &eduLevels); err != nil {
 		panic(err)
 	}
-	// todo: insert to db
+	log.Println("eduLevelSeeder: todo")
 }
 
 type EduLevel struct {

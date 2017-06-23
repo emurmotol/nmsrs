@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -21,7 +22,7 @@ func licenseSeeder() {
 	if err := json.Unmarshal(data, &licenses); err != nil {
 		panic(err)
 	}
-	// todo: insert to db
+	log.Println("licenseSeeder: todo")
 }
 
 type License struct {

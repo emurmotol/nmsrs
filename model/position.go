@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 
 	"github.com/emurmotol/nmsrs/db"
 	mgo "gopkg.in/mgo.v2"
@@ -20,7 +21,7 @@ func positionSeeder() {
 	if err := json.Unmarshal(data, &positions); err != nil {
 		panic(err)
 	}
-	// todo: insert to db
+	log.Println("positionSeeder: todo")
 }
 
 type Position struct {

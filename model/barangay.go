@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 
 	"github.com/emurmotol/nmsrs/db"
 	"gopkg.in/mgo.v2/bson"
@@ -28,7 +29,7 @@ func barangaySeeder() {
 	if err := json.Unmarshal(data, &barangays); err != nil {
 		panic(err)
 	}
-	// todo: insert to db
+	log.Println("barangaySeeder: todo")
 }
 
 func (barangay *Barangay) Create() *Barangay {
