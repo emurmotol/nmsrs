@@ -16,7 +16,7 @@ type Disability struct {
 }
 
 func disabilitySeeder() {
-	data, err := ioutil.ReadFile("import/disabilities.json")
+	data, err := ioutil.ReadFile("import/no$oid/disabilities.json")
 
 	if err != nil {
 		panic(err)

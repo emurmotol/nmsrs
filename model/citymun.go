@@ -22,7 +22,7 @@ type CityMun struct {
 type CityMunProv interface{}
 
 func cityMunSeeder() {
-	data, err := ioutil.ReadFile("import/cityMuns.json")
+	data, err := ioutil.ReadFile("import/no$oid/cityMuns.json")
 
 	if err != nil {
 		panic(err)

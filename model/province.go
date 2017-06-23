@@ -18,7 +18,7 @@ type Province struct {
 }
 
 func provinceSeeder() {
-	data, err := ioutil.ReadFile("import/provinces.json")
+	data, err := ioutil.ReadFile("import/no$oid/provinces.json")
 
 	if err != nil {
 		panic(err)

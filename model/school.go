@@ -10,7 +10,7 @@ import (
 )
 
 func schoolSeeder() {
-	data, err := ioutil.ReadFile("import/schools.json")
+	data, err := ioutil.ReadFile("import/no$oid/schools.json")
 
 	if err != nil {
 		panic(err)

@@ -17,7 +17,7 @@ type Region struct {
 }
 
 func regionSeeder() {
-	data, err := ioutil.ReadFile("import/regions.json")
+	data, err := ioutil.ReadFile("import/no$oid/regions.json")
 
 	if err != nil {
 		panic(err)

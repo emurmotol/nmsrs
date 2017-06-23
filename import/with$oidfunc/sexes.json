@@ -1,0 +1,10 @@
+﻿[
+  {
+    "_id": ObjectId("594cb6ea472e11263c32c47f"),
+    "name": "MALE"
+  },
+  {
+    "_id": ObjectId("594cb6ea472e11263c32c480"),
+    "name": "FEMALE"
+  }
+]

@@ -1,0 +1,104 @@
+﻿[
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb19"),
+    "code": "01",
+    "desc": "REGION I (ILOCOS REGION)",
+    "psgcCode": "010000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb1a"),
+    "code": "02",
+    "desc": "REGION II (CAGAYAN VALLEY)",
+    "psgcCode": "020000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb1b"),
+    "code": "03",
+    "desc": "REGION III (CENTRAL LUZON)",
+    "psgcCode": "030000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb1c"),
+    "code": "04",
+    "desc": "REGION IV-A (CALABARZON)",
+    "psgcCode": "040000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb1d"),
+    "code": "17",
+    "desc": "REGION IV-B (MIMAROPA)",
+    "psgcCode": "170000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb1e"),
+    "code": "05",
+    "desc": "REGION V (BICOL REGION)",
+    "psgcCode": "050000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb1f"),
+    "code": "06",
+    "desc": "REGION VI (WESTERN VISAYAS)",
+    "psgcCode": "060000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb20"),
+    "code": "07",
+    "desc": "REGION VII (CENTRAL VISAYAS)",
+    "psgcCode": "070000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb21"),
+    "code": "08",
+    "desc": "REGION VIII (EASTERN VISAYAS)",
+    "psgcCode": "080000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb22"),
+    "code": "09",
+    "desc": "REGION IX (ZAMBOANGA PENINSULA)",
+    "psgcCode": "090000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb23"),
+    "code": "10",
+    "desc": "REGION X (NORTHERN MINDANAO)",
+    "psgcCode": "100000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb24"),
+    "code": "11",
+    "desc": "REGION XI (DAVAO REGION)",
+    "psgcCode": "110000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb25"),
+    "code": "12",
+    "desc": "REGION XII (SOCCSKSARGEN)",
+    "psgcCode": "120000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb26"),
+    "code": "13",
+    "desc": "NATIONAL CAPITAL REGION (NCR)",
+    "psgcCode": "130000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb27"),
+    "code": "14",
+    "desc": "CORDILLERA ADMINISTRATIVE REGION (CAR)",
+    "psgcCode": "140000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb28"),
+    "code": "15",
+    "desc": "AUTONOMOUS REGION IN MUSLIM MINDANAO (ARMM)",
+    "psgcCode": "150000000"
+  },
+  {
+    "_id": ObjectId("594cb6cd472e11263c32bb29"),
+    "code": "16",
+    "desc": "REGION XIII (CARAGA)",
+    "psgcCode": "160000000"
+  }
+]

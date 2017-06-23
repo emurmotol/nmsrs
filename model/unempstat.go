@@ -16,7 +16,7 @@ type UnEmpStat struct {
 }
 
 func unEmpStatSeeder() {
-	data, err := ioutil.ReadFile("import/unEmpStats.json")
+	data, err := ioutil.ReadFile("import/no$oid/unEmpStats.json")
 
 	if err != nil {
 		panic(err)

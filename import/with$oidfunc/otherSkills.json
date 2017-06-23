@@ -1,0 +1,214 @@
+﻿[
+  {
+    "_id": ObjectId("594cb6ad472e11263c329a9b"),
+    "name": "ANALYZING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329a9c"),
+    "name": "ANTICIPATING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329a9d"),
+    "name": "ASSEMBLING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329a9e"),
+    "name": "BUILDING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329a9f"),
+    "name": "CHECKING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aa0"),
+    "name": "COMPARING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aa1"),
+    "name": "COMPILING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aa2"),
+    "name": "COMPUTING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aa3"),
+    "name": "COORDINATING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aa4"),
+    "name": "COPYING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aa5"),
+    "name": "CREATING/INVENTING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aa6"),
+    "name": "DISCOVERING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aa7"),
+    "name": "DIVERTING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aa8"),
+    "name": "DRIVING/STEERING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aa9"),
+    "name": "ENCOURAGING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aaa"),
+    "name": "EXPRESSING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aab"),
+    "name": "FEEDING/LOADING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aac"),
+    "name": "HELPING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aad"),
+    "name": "IMPLEMENTING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aae"),
+    "name": "INNOVATING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aaf"),
+    "name": "INSPECTING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ab0"),
+    "name": "INSTRUCTING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ab1"),
+    "name": "INTERPRETING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ab2"),
+    "name": "LEADING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ab3"),
+    "name": "MACHINE WORK"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ab4"),
+    "name": "MANIPULATING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ab5"),
+    "name": "MATERIALS HANDLING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ab6"),
+    "name": "MOTIVATING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ab7"),
+    "name": "NEGOTIATING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ab8"),
+    "name": "OPERATING/CONTROLLING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ab9"),
+    "name": "ORGANIZING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aba"),
+    "name": "PERSUADING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329abb"),
+    "name": "PLANNING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329abc"),
+    "name": "POSTING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329abd"),
+    "name": "PRECISION WORKING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329abe"),
+    "name": "PREDICTING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329abf"),
+    "name": "PRODUCING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ac0"),
+    "name": "PROMOTING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ac1"),
+    "name": "RECORDING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ac2"),
+    "name": "REPAIRING/ADJUSTING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ac3"),
+    "name": "RESEARCHING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ac4"),
+    "name": "SELLING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ac5"),
+    "name": "SERVING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ac6"),
+    "name": "SETTING - UP"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ac7"),
+    "name": "SETTING - UP/RESTORING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ac8"),
+    "name": "SPEAKING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ac9"),
+    "name": "SPECULATING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329aca"),
+    "name": "SYNTHESIZING IDEA"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329acb"),
+    "name": "TABULATING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329acc"),
+    "name": "TEACHING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329acd"),
+    "name": "TESTING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329ace"),
+    "name": "THEORIZING"
+  },
+  {
+    "_id": ObjectId("594cb6ad472e11263c329acf"),
+    "name": "WAREHOUSING"
+  }
+]

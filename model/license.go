@@ -11,7 +11,7 @@ import (
 )
 
 func licenseSeeder() {
-	data, err := ioutil.ReadFile("import/licenses.json")
+	data, err := ioutil.ReadFile("import/no$oid/licenses.json")
 
 	if err != nil {
 		panic(err)

@@ -16,7 +16,7 @@ type EmpStat struct {
 }
 
 func empStatSeeder() {
-	data, err := ioutil.ReadFile("import/empStats.json")
+	data, err := ioutil.ReadFile("import/no$oid/empStats.json")
 
 	if err != nil {
 		panic(err)

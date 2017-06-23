@@ -11,7 +11,7 @@ import (
 )
 
 func certificateSeeder() {
-	data, err := ioutil.ReadFile("import/certificates.json")
+	data, err := ioutil.ReadFile("import/no$oid/certificates.json")
 
 	if err != nil {
 		panic(err)

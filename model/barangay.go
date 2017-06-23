@@ -18,7 +18,7 @@ type Barangay struct {
 }
 
 func barangaySeeder() {
-	data, err := ioutil.ReadFile("import/barangays.json")
+	data, err := ioutil.ReadFile("import/no$oid/barangays.json")
 
 	if err != nil {
 		panic(err)

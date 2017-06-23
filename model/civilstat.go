@@ -16,7 +16,7 @@ type CivilStat struct {
 }
 
 func civilStatSeeder() {
-	data, err := ioutil.ReadFile("import/civilStats.json")
+	data, err := ioutil.ReadFile("import/no$oid/civilStats.json")
 
 	if err != nil {
 		panic(err)

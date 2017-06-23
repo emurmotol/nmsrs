@@ -10,7 +10,7 @@ import (
 )
 
 func otherSkillSeeder() {
-	data, err := ioutil.ReadFile("import/otherSkills.json")
+	data, err := ioutil.ReadFile("import/no$oid/otherSkills.json")
 
 	if err != nil {
 		panic(err)

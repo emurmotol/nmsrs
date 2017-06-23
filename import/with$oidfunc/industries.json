@@ -1,0 +1,70 @@
+﻿[
+  {
+    "_id": ObjectId("594cb686472e11263c329930"),
+    "name": "ACTIVITIES OF PRIVATE HOUSEHOLDS AS EMPLOYERS AND UNDIFFENTIATED PRODUCTION ACTIVITIES OF PRIVATE"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c329931"),
+    "name": "AGRICULTURE"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c329932"),
+    "name": "CONSTRUCTION"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c329933"),
+    "name": "EDUCATION"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c329934"),
+    "name": "ELECTRICITY, GAS AND WATER SUPPLY"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c329935"),
+    "name": "EXTRA - TERRITORIAL ORGANIZATIONS AND BODIES"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c329936"),
+    "name": "FINANCIAL INTERMEDIATION"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c329937"),
+    "name": "FISHING"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c329938"),
+    "name": "HEALTH AND SOCIAL WORK"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c329939"),
+    "name": "HOTELS AND RESTAURANTS"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c32993a"),
+    "name": "MANUFACTURING"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c32993b"),
+    "name": "MINING AND QUARRYING"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c32993c"),
+    "name": "OTHER COMMUNITY, SOCIAL AND PERSONAL SERVICE ACTIVITIES"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c32993d"),
+    "name": "PUBLIC ADMINISTRATION AND DEFENSE"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c32993e"),
+    "name": "REAL ESTATE, RENTING AND BUSINESS ACTIVITIES"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c32993f"),
+    "name": "TRANSPORT, STORAGE AND COMMUNICATION"
+  },
+  {
+    "_id": ObjectId("594cb686472e11263c329940"),
+    "name": "WHOLESALE AND RETAIL TRADE"
+  }
+]

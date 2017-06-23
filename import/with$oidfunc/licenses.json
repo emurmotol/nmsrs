@@ -1,0 +1,450 @@
+﻿[
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a2b"),
+    "name": "AERONAUTICAL ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a2c"),
+    "name": "AGRICULTURAL ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a2d"),
+    "name": "AIR - CONDITIONING/REFRIGERATION"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a2e"),
+    "name": "AIR TRAFFIC CONTROL LICENSE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a2f"),
+    "name": "AIR TRANSPORT RATING/FLIGHT"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a30"),
+    "name": "AIRCRAFT MECHANIC LICENSE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a31"),
+    "name": "AIRCRAFT SPECIALIST"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a32"),
+    "name": "AIRFRAME AND POWERPLANT MECHANIC LICENSE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a33"),
+    "name": "AIRLINE TRASPORT PILOT"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a34"),
+    "name": "AIRWAYS COMMUNICATOR LICENSE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a35"),
+    "name": "ARCHITECT"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a36"),
+    "name": "AUTO REPAIR FOREMAN"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a37"),
+    "name": "AUTOMOTIVE MECHANIC (HEAVY DUTY)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a38"),
+    "name": "AUTOMOTIVE MECHANIC (LIGHT DUTY)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a39"),
+    "name": "CERTIFIED PLANT MECHANIC"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a3a"),
+    "name": "CERTIFIED PUBLIC ACCOUNTANT"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a3b"),
+    "name": "CHEMICAL ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a3c"),
+    "name": "CHEMIST"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a3d"),
+    "name": "CHIEF MARINE ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a3e"),
+    "name": "CHIEF MATE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a3f"),
+    "name": "CIVIL ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a40"),
+    "name": "COMMERCIAL HELICOPTER PILOT"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a41"),
+    "name": "COMMERCIAL PILOT"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a42"),
+    "name": "CONDUCTOR/CONDUCTRESS"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a43"),
+    "name": "CRIMINOLOGIST"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a44"),
+    "name": "CUSTOMS BROKER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a45"),
+    "name": "DENTIST"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a46"),
+    "name": "DOCKMAN"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a47"),
+    "name": "DRIVER - CODE 1 (MOTORCYCLES/MOTORIZED TRICYCLES)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a48"),
+    "name": "DRIVER - CODE 2 (VEHICLE UP TO 4500 KGS G V W )"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a49"),
+    "name": "DRIVER - CODE 3 (VEHICLE ABOVE 4500 KGS G V W )"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a4a"),
+    "name": "DRIVER - CODE 4 (VEHICLE AUTOMATIC CLUTCH UP TO 4500 G V W )"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a4b"),
+    "name": "DRIVER - CODE 5 (VEHICLE AUTOMATIC CLUTCH ABOVE 4500 G V W )"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a4c"),
+    "name": "DRIVER - CODE 6 (ARTICULATED VEHICLE ABOVE 1600 KGS G V W AND BELOW)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a4d"),
+    "name": "DRIVER - CODE 7 (ARTICULATED VEHICLE 1601 UP TO 4500 KGS G V W )"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a4e"),
+    "name": "DRIVER - CODE 8 (ARTICULATED VEHICLE 4501 KGS AND ABOVE G V W)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a4f"),
+    "name": "DRIVER - CODE 9 (DISABLED)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a50"),
+    "name": "ELECTRIC POWER LINEMAN"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a51"),
+    "name": "ELECTRICAL EQUIPMENT OPERATOR"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a52"),
+    "name": "ELECTRICIAN (AUTOMOTIVE)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a53"),
+    "name": "ELECTRICIAN (BUILDING WIRING)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a54"),
+    "name": "ELECTRONICS AND COMMUNICATIONS ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a55"),
+    "name": "ELECTRONICS EQUIPMENT OPERATOR"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a56"),
+    "name": "ENVIRONMENTAL PLANNER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a57"),
+    "name": "FIRST CLASS RADIO TELEGRAPH OPERATOR (NTC)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a58"),
+    "name": "FIRST CLASS RADIO TELEPHONE OPERATOR (NTC)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a59"),
+    "name": "FIRST CLASS RADIO TELEPHONE/TELEGRAPH OPERATOR"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a5a"),
+    "name": "FLIGHT DISPATCHER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a5b"),
+    "name": "FLIGHT ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a5c"),
+    "name": "FLIGHT INSTRUCTOR"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a5d"),
+    "name": "FORESTER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a5e"),
+    "name": "FOURTH MARINE ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a5f"),
+    "name": "GEODETIC ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a60"),
+    "name": "GEOLOGIST"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a61"),
+    "name": "GROUND INSTRUCTOR"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a62"),
+    "name": "HEAVY EQUIPMENT OPERATOR"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a63"),
+    "name": "INSURANCE ADVISER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a64"),
+    "name": "INSURANCE COMMISSION LICENSE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a65"),
+    "name": "INTERIOR DESIGNER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a66"),
+    "name": "JUNIOR GEODETIC ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a67"),
+    "name": "JUSTICE OF THE COURT OF APPEALS"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a68"),
+    "name": "JUSTICE OF THE SANDIGANBAYAN"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a69"),
+    "name": "LANDSCAPE ARCHITECT"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a6a"),
+    "name": "LAWYER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a6b"),
+    "name": "LIBRARIAN"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a6c"),
+    "name": "MACHINIST (2ND CLASS)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a6d"),
+    "name": "MAJOR PATRON"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a6e"),
+    "name": "MARINE ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a6f"),
+    "name": "MASTER ELECTRICIAN"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a70"),
+    "name": "MASTER MARINER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a71"),
+    "name": "MASTER PLUMBER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a72"),
+    "name": "MC # 11, S. 1996 (PRESSMAN)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a73"),
+    "name": "MC # 11, S. 1996 (TYPESETTER)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a74"),
+    "name": "MECHANICAL ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a75"),
+    "name": "MEDICAL LABORATORY TECHNICIAN"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a76"),
+    "name": "MEDICAL TECHNOLOGIST"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a77"),
+    "name": "METALLURGICAL ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a78"),
+    "name": "MIDWIFE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a79"),
+    "name": "MINING ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a7a"),
+    "name": "MINOR PATRON"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a7b"),
+    "name": "MOTOR ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a7c"),
+    "name": "NAVAL ARCHITECT"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a7d"),
+    "name": "NURSE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a7e"),
+    "name": "NUTRITIONIST - DIETITIAN"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a7f"),
+    "name": "OCCUPATIONAL THERAPIST"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a80"),
+    "name": "OPTOMETRIST"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a81"),
+    "name": "PHARMACIST"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a82"),
+    "name": "PHYSICAL THERAPIST"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a83"),
+    "name": "PHYSICIAN"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a84"),
+    "name": "PILOT LICENSE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a85"),
+    "name": "PRINTING MACHINE OPERATOR"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a86"),
+    "name": "PRIVATE HELICOPTER PILOT"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a87"),
+    "name": "PRIVATE PILOT"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a88"),
+    "name": "PROFESSIONAL ELECTRICAL ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a89"),
+    "name": "PROFESSIONAL TEACHER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a8a"),
+    "name": "RADIO ELECTRONIC OFFICER (NTC)"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a8b"),
+    "name": "RADIOLOGIC TECHNOLOGIST"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a8c"),
+    "name": "RADIOLOGY TECHNICIAN"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a8d"),
+    "name": "REAL ESTATE BROKER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a8e"),
+    "name": "REGISTERED ELECTRICAL ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a8f"),
+    "name": "SANITARY ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a90"),
+    "name": "SECOND MARINE ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a91"),
+    "name": "SECOND MATE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a92"),
+    "name": "SECURITY GUARD LICENSE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a93"),
+    "name": "SOCIAL WORKER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a94"),
+    "name": "SUGAR TECHNOLOGIST"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a95"),
+    "name": "TCB RADIO LICENSE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a96"),
+    "name": "THIRD MARINE ENGINEER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a97"),
+    "name": "THIRD MATE"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a98"),
+    "name": "TRAIN DRIVER"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a99"),
+    "name": "VETERINARIAN"
+  },
+  {
+    "_id": ObjectId("594cb6a0472e11263c329a9a"),
+    "name": "X - RAY TECHNOLOGIST"
+  }
+]

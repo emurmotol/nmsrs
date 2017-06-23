@@ -1,0 +1,14 @@
+﻿[
+  {
+    "_id": ObjectId("594cb674472e11263c32992d"),
+    "name": "WAGED EMPLOYED"
+  },
+  {
+    "_id": ObjectId("594cb674472e11263c32992e"),
+    "name": "SELF EMPLOYED"
+  },
+  {
+    "_id": ObjectId("594cb674472e11263c32992f"),
+    "name": "UNEMPLOYED"
+  }
+]

@@ -11,7 +11,7 @@ import (
 )
 
 func eduLevelSeeder() {
-	data, err := ioutil.ReadFile("import/eduLevels.json")
+	data, err := ioutil.ReadFile("import/no$oid/eduLevels.json")
 
 	if err != nil {
 		panic(err)

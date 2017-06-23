@@ -1,0 +1,938 @@
+﻿[
+  {
+    "_id": ObjectId("594cb690472e11263c329941"),
+    "name": "AGTA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329942"),
+    "name": "AGUTAYNON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329943"),
+    "name": "AKLANON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329944"),
+    "name": "ALANGAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329945"),
+    "name": "AMBALA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329946"),
+    "name": "ATA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329947"),
+    "name": "ATI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329948"),
+    "name": "ATTA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329949"),
+    "name": "AYTA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32994a"),
+    "name": "BAGOBO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32994b"),
+    "name": "BALANGAO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32994c"),
+    "name": "BALOGA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32994d"),
+    "name": "BANTUANON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32994e"),
+    "name": "BATAGNON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32994f"),
+    "name": "BATAK"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329950"),
+    "name": "BIKOLANO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329951"),
+    "name": "BINUKID"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329952"),
+    "name": "BOHOLANO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329953"),
+    "name": "BOLINAO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329954"),
+    "name": "BONTOC"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329955"),
+    "name": "BUHID"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329956"),
+    "name": "CALUYANUN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329957"),
+    "name": "CAPIZNON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329958"),
+    "name": "CEBUANO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329959"),
+    "name": "CHAVACANO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32995a"),
+    "name": "CUYONON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32995b"),
+    "name": "DAVAWENO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32995c"),
+    "name": "DAVAWENO ZAMBOANGENO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32995d"),
+    "name": "DUMAGAT"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32995e"),
+    "name": "GA'DANG"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32995f"),
+    "name": "HANONOO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329960"),
+    "name": "HILIGAYNON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329961"),
+    "name": "IBALOI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329962"),
+    "name": "IBANAG"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329963"),
+    "name": "IBATAAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329964"),
+    "name": "IFUGAO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329965"),
+    "name": "ILOCANO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329966"),
+    "name": "ILONGGO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329967"),
+    "name": "ILONGOT"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329968"),
+    "name": "IRAYA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329969"),
+    "name": "ISINAI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32996a"),
+    "name": "ISNAG"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32996b"),
+    "name": "ITAWES"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32996c"),
+    "name": "ITNEG"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32996d"),
+    "name": "IVATAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32996e"),
+    "name": "IWANK"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32996f"),
+    "name": "KAGAYANEN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329970"),
+    "name": "KALAGAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329971"),
+    "name": "KALINGA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329972"),
+    "name": "KALLAHAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329973"),
+    "name": "KAMAYO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329974"),
+    "name": "KANKANAEY"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329975"),
+    "name": "KAPAMPANGAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329976"),
+    "name": "KARAO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329977"),
+    "name": "KAROLANOS"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329978"),
+    "name": "KASIGURAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329979"),
+    "name": "K'BLAAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32997a"),
+    "name": "KINARAY - A"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32997b"),
+    "name": "LOOCNON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32997c"),
+    "name": "MAGAHAT"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32997d"),
+    "name": "MAGINDANAON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32997e"),
+    "name": "MALAYNON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32997f"),
+    "name": "MAMANWA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329980"),
+    "name": "MANDAYA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329981"),
+    "name": "MANOBO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329982"),
+    "name": "MARANAO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329983"),
+    "name": "MASBATE??O"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329984"),
+    "name": "MOLBOG"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329985"),
+    "name": "PALAWANO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329986"),
+    "name": "PANGALATOK"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329987"),
+    "name": "PANGASINENSE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329988"),
+    "name": "PARANAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329989"),
+    "name": "POROHANON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32998a"),
+    "name": "ROMBLOMANON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32998b"),
+    "name": "SAMA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32998c"),
+    "name": "SANGIHE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32998d"),
+    "name": "SORSOGON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32998e"),
+    "name": "SUBANON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32998f"),
+    "name": "SULOD"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329990"),
+    "name": "SURIGAONON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329991"),
+    "name": "TADYAWAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329992"),
+    "name": "TAGBANWA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329993"),
+    "name": "TAUSUG"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329994"),
+    "name": "TAWBUID"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329995"),
+    "name": "T'BOLI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329996"),
+    "name": "TIRURAY"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329997"),
+    "name": "WARAY - WARAY"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329998"),
+    "name": "YAKAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329999"),
+    "name": "YOGAD"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32999a"),
+    "name": "ZAMBAL"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32999b"),
+    "name": "AFRIKAANS"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32999c"),
+    "name": "AINU"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32999d"),
+    "name": "AKKADIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32999e"),
+    "name": "ALBANIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c32999f"),
+    "name": "AMHARIC"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299a0"),
+    "name": "ANCIENT GREEK"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299a1"),
+    "name": "ANGLOROMANI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299a2"),
+    "name": "ARABIC"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299a3"),
+    "name": "ARMENIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299a4"),
+    "name": "ASTURIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299a5"),
+    "name": "AYMARA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299a6"),
+    "name": "BAHASA INDONESIA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299a7"),
+    "name": "BASQUE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299a8"),
+    "name": "BAVARIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299a9"),
+    "name": "BELORUSSIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299aa"),
+    "name": "BENGALI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ab"),
+    "name": "BRETON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ac"),
+    "name": "BULGARIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ad"),
+    "name": "BURMESE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ae"),
+    "name": "CAMBODIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299af"),
+    "name": "CANTONESE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299b0"),
+    "name": "CATALAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299b1"),
+    "name": "CHICHEWA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299b2"),
+    "name": "CHINESE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299b3"),
+    "name": "CHURCH SLAVONIC"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299b4"),
+    "name": "CIMBRIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299b5"),
+    "name": "CORNISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299b6"),
+    "name": "CORSICAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299b7"),
+    "name": "CROATIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299b8"),
+    "name": "CZECH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299b9"),
+    "name": "DAKOTA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ba"),
+    "name": "DANISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299bb"),
+    "name": "DOMARI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299bc"),
+    "name": "DONGXIANG"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299bd"),
+    "name": "DRAVIDIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299be"),
+    "name": "DUTCH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299bf"),
+    "name": "ENGLISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299c0"),
+    "name": "ESTONIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299c1"),
+    "name": "FAROESE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299c2"),
+    "name": "FARSI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299c3"),
+    "name": "FINNISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299c4"),
+    "name": "FRANKISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299c5"),
+    "name": "FRENCH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299c6"),
+    "name": "FRISIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299c7"),
+    "name": "FRIULIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299c8"),
+    "name": "GAELIC"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299c9"),
+    "name": "GALICIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ca"),
+    "name": "GEORGIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299cb"),
+    "name": "GERMAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299cc"),
+    "name": "GOTHIC"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299cd"),
+    "name": "GREEK"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ce"),
+    "name": "GREENLANDIC"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299cf"),
+    "name": "GUARANI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299d0"),
+    "name": "GUJARATI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299d1"),
+    "name": "HAUSA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299d2"),
+    "name": "HAWAIIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299d3"),
+    "name": "HEBREW"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299d4"),
+    "name": "HINDI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299d5"),
+    "name": "HITTITE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299d6"),
+    "name": "HMONG"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299d7"),
+    "name": "HUNGARIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299d8"),
+    "name": "ICELANDIC"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299d9"),
+    "name": "INDIC LANGUAGE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299da"),
+    "name": "INDONESIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299db"),
+    "name": "INGUSH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299dc"),
+    "name": "INUIT"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299dd"),
+    "name": "IRISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299de"),
+    "name": "ITALIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299df"),
+    "name": "JAPANESE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299e0"),
+    "name": "JUDEO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299e1"),
+    "name": "JUTISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299e2"),
+    "name": "KAYORT"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299e3"),
+    "name": "KOLI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299e4"),
+    "name": "KONKANI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299e5"),
+    "name": "KOREAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299e6"),
+    "name": "KURDISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299e7"),
+    "name": "LADIN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299e8"),
+    "name": "LADINO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299e9"),
+    "name": "LAKHOTA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ea"),
+    "name": "LATIN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299eb"),
+    "name": "LATVIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ec"),
+    "name": "LITHUANIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ed"),
+    "name": "MACEDONIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ee"),
+    "name": "MALAY"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ef"),
+    "name": "MANDARIN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299f0"),
+    "name": "MANX GAELIC"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299f1"),
+    "name": "MAORI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299f2"),
+    "name": "MARATHI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299f3"),
+    "name": "MONGOLIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299f4"),
+    "name": "NEPALI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299f5"),
+    "name": "NORWEGIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299f6"),
+    "name": "OJIBWE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299f7"),
+    "name": "OSETIN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299f8"),
+    "name": "PALI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299f9"),
+    "name": "PASHTO"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299fa"),
+    "name": "PERSIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299fb"),
+    "name": "PIDGIN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299fc"),
+    "name": "POLISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299fd"),
+    "name": "PONTIC"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299fe"),
+    "name": "PORTUGUESE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c3299ff"),
+    "name": "PUNJABI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a00"),
+    "name": "QUECHUA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a01"),
+    "name": "RHAETO - ROMANCE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a02"),
+    "name": "ROMANIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a03"),
+    "name": "ROMANY"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a04"),
+    "name": "RUSSIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a05"),
+    "name": "SANSKRIT"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a06"),
+    "name": "SARDINIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a07"),
+    "name": "SAXON"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a08"),
+    "name": "SCOTS"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a09"),
+    "name": "SERBIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a0a"),
+    "name": "SHELTA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a0b"),
+    "name": "SHIYEYI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a0c"),
+    "name": "SICILIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a0d"),
+    "name": "SINDHI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a0e"),
+    "name": "SINHALA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a0f"),
+    "name": "SINHALESE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a10"),
+    "name": "SLOVAK"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a11"),
+    "name": "SLOVENE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a12"),
+    "name": "SLOVENIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a13"),
+    "name": "SOMALI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a14"),
+    "name": "SPANISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a15"),
+    "name": "SUMERIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a16"),
+    "name": "SWABIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a17"),
+    "name": "SWAHILI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a18"),
+    "name": "SWEDISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a19"),
+    "name": "TAGALOG"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a1a"),
+    "name": "TAGNOBI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a1b"),
+    "name": "TAMAZIGHT"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a1c"),
+    "name": "TAMIL"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a1d"),
+    "name": "THAI"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a1e"),
+    "name": "THARU"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a1f"),
+    "name": "TIBETAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a20"),
+    "name": "TOK PISIN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a21"),
+    "name": "TURKISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a22"),
+    "name": "UKRAINIAN"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a23"),
+    "name": "URDU"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a24"),
+    "name": "VIETNAMESE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a25"),
+    "name": "WELSH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a26"),
+    "name": "YENICHE"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a27"),
+    "name": "YEVANIC"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a28"),
+    "name": "YIDDISH"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a29"),
+    "name": "YORUBA"
+  },
+  {
+    "_id": ObjectId("594cb690472e11263c329a2a"),
+    "name": "ZULU"
+  }
+]

@@ -20,13 +20,27 @@ func init() {
 }
 
 func Load(reset bool) {
+
 	if reset {
-		if err := db.Session().DB(db.Name).DropDatabase(); err != nil {
-			panic(err)
-		}
-		defer db.Close()
+		drop()
 		clearContentDir()
 		seed()
+	}
+}
+
+func drop() {
+	cNames, _ := db.Session().DB(db.Name).CollectionNames()
+	dNames := []string{"users"}
+
+	for _, cName := range cNames {
+		for _, dName := range dNames {
+			if dName == cName {
+				if err := db.Session().DB(db.Name).C(dName).DropCollection(); err != nil {
+					panic(err)
+				}
+				defer db.Close()
+			}
+		}
 	}
 }
 

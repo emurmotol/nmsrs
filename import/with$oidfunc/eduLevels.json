@@ -1,0 +1,106 @@
+﻿[
+  {
+    "_id": ObjectId("594cb654472e11263c329907"),
+    "name": "1ST YEAR COLLEGE LEVEL"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329908"),
+    "name": "1ST YEAR HIGH SCHOOL/GRADE VII (FOR K TO 12)"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329909"),
+    "name": "2ND YEAR COLLEGE LEVEL"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c32990a"),
+    "name": "2ND YEAR HIGH SCHOOL/GRADE VIII (FOR K TO 12)"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c32990b"),
+    "name": "3RD YEAR COLLEGE LEVEL"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c32990c"),
+    "name": "3RD YEAR HIGH SCHOOL/GRADE IX (FOR K TO 12)"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c32990d"),
+    "name": "4TH YEAR COLLEGE LEVEL"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c32990e"),
+    "name": "4TH YEAR HIGH SCHOOL/GRADE X (FOR K TO 12)"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c32990f"),
+    "name": "5TH YEAR COLLEGE LEVEL"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329910"),
+    "name": "COLLEGE GRADUATE"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329911"),
+    "name": "ELEMENTARY GRADUATE"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329912"),
+    "name": "GRADE I"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329913"),
+    "name": "GRADE II"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329914"),
+    "name": "GRADE III"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329915"),
+    "name": "GRADE IV"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329916"),
+    "name": "GRADE V"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329917"),
+    "name": "GRADE VI"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329918"),
+    "name": "GRADE VII"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329919"),
+    "name": "GRADE VIII"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c32991a"),
+    "name": "GRADE XI (FOR K TO 12)"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c32991b"),
+    "name": "GRADE XII (FOR K TO 12)"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c32991c"),
+    "name": "HIGH SCHOOL GRADUATE"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c32991d"),
+    "name": "MASTERAL/POST GRADUATE LEVEL"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c32991e"),
+    "name": "MASTERAL/POST GRADUATE"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c32991f"),
+    "name": "VOCATIONAL GRADUATE"
+  },
+  {
+    "_id": ObjectId("594cb654472e11263c329920"),
+    "name": "VOCATIONAL UNDERGRADUATE"
+  }
+]

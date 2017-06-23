@@ -16,7 +16,7 @@ type Sex struct {
 }
 
 func sexSeeder() {
-	data, err := ioutil.ReadFile("import/sexes.json")
+	data, err := ioutil.ReadFile("import/no$oid/sexes.json")
 
 	if err != nil {
 		panic(err)

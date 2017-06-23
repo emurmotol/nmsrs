@@ -1,0 +1,22 @@
+﻿[
+  {
+    "_id": ObjectId("594cb622472e11263c329902"),
+    "name": "VISUAL IMPAIRMENT"
+  },
+  {
+    "_id": ObjectId("594cb622472e11263c329903"),
+    "name": "HEARING IMPAIRMENT"
+  },
+  {
+    "_id": ObjectId("594cb622472e11263c329904"),
+    "name": "SPEECH IMPAIRMENT"
+  },
+  {
+    "_id": ObjectId("594cb622472e11263c329905"),
+    "name": "PHYSICAL IMPAIRMENT"
+  },
+  {
+    "_id": ObjectId("594cb622472e11263c329906"),
+    "name": "OTHER"
+  }
+]

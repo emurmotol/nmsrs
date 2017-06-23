@@ -10,7 +10,7 @@ import (
 )
 
 func positionSeeder() {
-	data, err := ioutil.ReadFile("import/positions.json")
+	data, err := ioutil.ReadFile("import/no$oid/positions.json")
 
 	if err != nil {
 		panic(err)

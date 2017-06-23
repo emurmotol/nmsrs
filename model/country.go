@@ -11,7 +11,7 @@ import (
 )
 
 func countrySeeder() {
-	data, err := ioutil.ReadFile("import/countries.json")
+	data, err := ioutil.ReadFile("import/no$oid/countries.json")
 
 	if err != nil {
 		panic(err)

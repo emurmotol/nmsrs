@@ -1,0 +1,66 @@
+﻿[
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c481"),
+    "name": "AUTO MECHANIC"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c482"),
+    "name": "BEAUTICIAN"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c483"),
+    "name": "CARPENTRY WORK"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c484"),
+    "name": "COMPUTER LITERATE"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c485"),
+    "name": "DOMESTIC CHORES"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c486"),
+    "name": "DRIVER"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c487"),
+    "name": "ELECTRICIAN"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c488"),
+    "name": "EMBROIDERY"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c489"),
+    "name": "GARDENING"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c48a"),
+    "name": "MASONRY"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c48b"),
+    "name": "PAINTER/ARTIST"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c48c"),
+    "name": "PAINTING JOBS"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c48d"),
+    "name": "PHOTOGRAPHY"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c48e"),
+    "name": "SEWING DRESSES"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c48f"),
+    "name": "STENOGRAPHY"
+  },
+  {
+    "_id": ObjectId("594cb6f3472e11263c32c490"),
+    "name": "TAILORING"
+  }
+]

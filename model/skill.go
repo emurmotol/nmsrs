@@ -16,7 +16,7 @@ type Skill struct {
 }
 
 func skillSeeder() {
-	data, err := ioutil.ReadFile("import/skills.json")
+	data, err := ioutil.ReadFile("import/no$oid/skills.json")
 
 	if err != nil {
 		panic(err)
