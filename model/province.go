@@ -3,7 +3,6 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
-	"strings"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -11,42 +10,25 @@ import (
 )
 
 type Province struct {
-	Id       bson.ObjectId `json:"id" bson:"_id"`
+	Id       bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Code     string        `json:"code" bson:"code"`
 	Desc     string        `json:"desc" bson:"desc"`
-	PsgcCode string        `json:"psgc_code" bson:"psgcCode"`
-	RegCode  string        `json:"reg_code" bson:"regCode"`
-}
-
-type RefProvince struct {
-	PsgcCode string `json:"psgcCode"`
-	ProvDesc string `json:"provDesc"`
-	RegCode  string `json:"regCode"`
-	ProvCode string `json:"provCode"`
+	PsgcCode string        `json:"psgcCode" bson:"psgcCode"`
+	RegCode  string        `json:"regCode" bson:"regCode"`
 }
 
 func provinceSeeder() {
-	data, err := ioutil.ReadFile("model/data/refprovince.json")
+	data, err := ioutil.ReadFile("import/provinces.json")
 
 	if err != nil {
 		panic(err)
 	}
-	refProvinces := []RefProvince{}
+	provinces := []Province{}
 
-	if err := json.Unmarshal(data, &refProvinces); err != nil {
+	if err := json.Unmarshal(data, &provinces); err != nil {
 		panic(err)
 	}
-
-	for _, refProvince := range refProvinces {
-		province := Province{
-			Id:       bson.NewObjectId(),
-			Code:     refProvince.ProvCode,
-			Desc:     strings.ToUpper(refProvince.ProvDesc),
-			PsgcCode: refProvince.PsgcCode,
-			RegCode:  refProvince.RegCode,
-		}
-		province.Create()
-	}
+	// todo: insert to db
 }
 
 func (province *Province) Create() *Province {

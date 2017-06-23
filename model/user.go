@@ -29,7 +29,7 @@ var (
 )
 
 type User struct {
-	Id        bson.ObjectId `json:"id" bson:"_id"`
+	Id        bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	CreatedAt time.Time     `json:"created_at" bson:"createdAt"`
 	UpdatedAt time.Time     `json:"updated_at" bson:"updatedAt"`
 	Name      string        `json:"name" bson:"name"`
@@ -144,10 +144,11 @@ func (user User) Search(q string) []User {
 		},
 	}
 
-	if err := db.C("users").Find(query).All(&users); err != mgo.ErrNotFound {
+	if err := db.C("users").Find(query).All(&users); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
 	defer db.Close()
 	return users
@@ -320,7 +321,7 @@ func (user *User) SetPhoto(file multipart.File) error {
 	photoPath, _ := env.Conf.String("default.photo.path")
 	name := filepath.Join(contentDir, "users", user.Id.Hex(), "photo", filepath.Base(photoPath))
 
-	if err := helper.SaveAsJPEG(file, name); err != nil {
+	if err := helper.SaveAsJpeg(file, name); err != nil {
 		return err
 	}
 	user.HasPhoto = true

@@ -10,7 +10,7 @@ package model
 // )
 
 // type Registrant struct {
-// 	Id           uint64     `json:"id"`
+// 	Id           uint64     `json:"id,omitempty"`
 // 	CreatedAt    time.Time  `json:"created_at"`
 // 	UpdatedAt    time.Time  `json:"updated_at"`
 // 	DeletedAt    *time.Time `json:"deleted_at"`

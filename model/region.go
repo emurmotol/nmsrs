@@ -3,7 +3,6 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
-	"strings"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -11,39 +10,24 @@ import (
 )
 
 type Region struct {
-	Id       bson.ObjectId `json:"id" bson:"_id"`
+	Id       bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Code     string        `json:"code" bson:"code"`
 	Desc     string        `json:"desc" bson:"desc"`
-	PsgcCode string        `json:"psgc_code" bson:"psgcCode"`
-}
-
-type RefRegion struct {
-	PsgcCode string `json:"psgcCode"`
-	RegDesc  string `json:"regDesc"`
-	RegCode  string `json:"regCode"`
+	PsgcCode string        `json:"psgcCode" bson:"psgcCode"`
 }
 
 func regionSeeder() {
-	data, err := ioutil.ReadFile("model/data/refregion.json")
+	data, err := ioutil.ReadFile("import/regions.json")
 
 	if err != nil {
 		panic(err)
 	}
-	refRegions := []RefRegion{}
+	regions := []Region{}
 
-	if err := json.Unmarshal(data, &refRegions); err != nil {
+	if err := json.Unmarshal(data, &regions); err != nil {
 		panic(err)
 	}
-
-	for _, refRegion := range refRegions {
-		region := Region{
-			Id:       bson.NewObjectId(),
-			Code:     refRegion.RegCode,
-			Desc:     strings.ToUpper(refRegion.RegDesc),
-			PsgcCode: refRegion.PsgcCode,
-		}
-		region.Create()
-	}
+	// todo: insert to db
 }
 
 func (region *Region) Create() *Region {

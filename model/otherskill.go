@@ -1,7 +1,8 @@
 package model
 
 import (
-	"strings"
+	"encoding/json"
+	"io/ioutil"
 
 	"github.com/emurmotol/nmsrs/db"
 	mgo "gopkg.in/mgo.v2"
@@ -9,73 +10,21 @@ import (
 )
 
 func otherSkillSeeder() {
-	data := []string{
-		"ANALYZING",
-		"ANTICIPATING",
-		"ASSEMBLING",
-		"BUILDING",
-		"CHECKING",
-		"COMPARING",
-		"COMPILING",
-		"COMPUTING",
-		"COORDINATING",
-		"COPYING",
-		"CREATING/INVENTING",
-		"DISCOVERING",
-		"DIVERTING",
-		"DRIVING/STEERING",
-		"ENCOURAGING",
-		"EXPRESSING",
-		"FEEDING/LOADING",
-		"HELPING",
-		"IMPLEMENTING",
-		"INNOVATING",
-		"INSPECTING",
-		"INSTRUCTING",
-		"INTERPRETING",
-		"LEADING",
-		"MACHINE WORK",
-		"MANIPULATING",
-		"MATERIALS HANDLING",
-		"MOTIVATING",
-		"NEGOTIATING",
-		"OPERATING/CONTROLLING",
-		"ORGANIZING",
-		"PERSUADING",
-		"PLANNING",
-		"POSTING",
-		"PRECISION WORKING",
-		"PREDICTING",
-		"PRODUCING",
-		"PROMOTING",
-		"RECORDING",
-		"REPAIRING/ADJUSTING",
-		"RESEARCHING",
-		"SELLING",
-		"SERVING",
-		"SETTING - UP",
-		"SETTING - UP/RESTORING",
-		"SPEAKING",
-		"SPECULATING",
-		"SYNTHESIZING IDEA",
-		"TABULATING",
-		"TEACHING",
-		"TESTING",
-		"THEORIZING",
-		"WAREHOUSING",
-	}
+	data, err := ioutil.ReadFile("import/otherSkills.json")
 
-	for _, name := range data {
-		otherSkill := OtherSkill{
-			Id:   bson.NewObjectId(),
-			Name: strings.ToUpper(name),
-		}
-		otherSkill.Create()
+	if err != nil {
+		panic(err)
 	}
+	otherSkills := []OtherSkill{}
+
+	if err := json.Unmarshal(data, &otherSkills); err != nil {
+		panic(err)
+	}
+	// todo: insert to db
 }
 
 type OtherSkill struct {
-	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
@@ -92,10 +41,11 @@ func (otherSkill OtherSkill) Index(q string) []OtherSkill {
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	if err := db.C("otherSkills").Find(query).All(&otherSkills); err != mgo.ErrNotFound {
+	if err := db.C("otherSkills").Find(query).All(&otherSkills); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
 	defer db.Close()
 	return otherSkills

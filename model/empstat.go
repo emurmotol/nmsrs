@@ -1,7 +1,8 @@
 package model
 
 import (
-	"strings"
+	"encoding/json"
+	"io/ioutil"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -10,24 +11,22 @@ import (
 )
 
 type EmpStat struct {
-	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
 func empStatSeeder() {
-	data := []string{
-		"WAGED EMPLOYED",
-		"SELF EMPLOYED",
-		"UNEMPLOYED",
-	}
+	data, err := ioutil.ReadFile("import/empStats.json")
 
-	for _, name := range data {
-		empStat := EmpStat{
-			Id:   bson.NewObjectId(),
-			Name: strings.ToUpper(name),
-		}
-		empStat.Create()
+	if err != nil {
+		panic(err)
 	}
+	empStats := []EmpStat{}
+
+	if err := json.Unmarshal(data, &empStats); err != nil {
+		panic(err)
+	}
+	// todo: insert to db
 }
 
 func (empStat *EmpStat) Create() *EmpStat {
@@ -41,10 +40,11 @@ func (empStat *EmpStat) Create() *EmpStat {
 func EmpStats() []EmpStat {
 	empStats := []EmpStat{}
 
-	if err := db.C("empStats").Find(nil).All(&empStats); err != mgo.ErrNotFound {
+	if err := db.C("empStats").Find(nil).All(&empStats); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
 	defer db.Close()
 	return empStats

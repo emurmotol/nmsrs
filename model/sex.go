@@ -1,7 +1,8 @@
 package model
 
 import (
-	"strings"
+	"encoding/json"
+	"io/ioutil"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -10,27 +11,26 @@ import (
 )
 
 type Sex struct {
-	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
 func sexSeeder() {
-	data := []string{
-		"MALE",
-		"FEMALE",
-	}
+	data, err := ioutil.ReadFile("import/sexes.json")
 
-	for _, name := range data {
-		sex := Sex{
-			Id:   bson.NewObjectId(),
-			Name: strings.ToUpper(name),
-		}
-		sex.Create()
+	if err != nil {
+		panic(err)
 	}
+	sexes := []Sex{}
+
+	if err := json.Unmarshal(data, &sexes); err != nil {
+		panic(err)
+	}
+	// todo: insert to db
 }
 
 func (sex *Sex) Create() *Sex {
-	if err := db.C("sexs").Insert(sex); err != nil {
+	if err := db.C("sexes").Insert(sex); err != nil {
 		panic(err)
 	}
 	defer db.Close()
@@ -40,10 +40,11 @@ func (sex *Sex) Create() *Sex {
 func Sexes() []Sex {
 	sexes := []Sex{}
 
-	if err := db.C("sexes").Find(nil).All(&sexes); err != mgo.ErrNotFound {
+	if err := db.C("sexes").Find(nil).All(&sexes); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
 	defer db.Close()
 	return sexes

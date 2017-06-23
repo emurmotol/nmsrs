@@ -1,7 +1,8 @@
 package model
 
 import (
-	"strings"
+	"encoding/json"
+	"io/ioutil"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -10,37 +11,22 @@ import (
 )
 
 type Skill struct {
-	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
 func skillSeeder() {
-	data := []string{
-		"AUTO MECHANIC",
-		"BEAUTICIAN",
-		"CARPENTRY WORK",
-		"COMPUTER LITERATE",
-		"DOMESTIC CHORES",
-		"DRIVER",
-		"ELECTRICIAN",
-		"EMBROIDERY",
-		"GARDENING",
-		"MASONRY",
-		"PAINTER/ARTIST",
-		"PAINTING JOBS",
-		"PHOTOGRAPHY",
-		"SEWING DRESSES",
-		"STENOGRAPHY",
-		"TAILORING",
-	}
+	data, err := ioutil.ReadFile("import/skills.json")
 
-	for _, name := range data {
-		skill := Skill{
-			Id:   bson.NewObjectId(),
-			Name: strings.ToUpper(name),
-		}
-		skill.Create()
+	if err != nil {
+		panic(err)
 	}
+	skills := []Skill{}
+
+	if err := json.Unmarshal(data, &skills); err != nil {
+		panic(err)
+	}
+	// todo: insert to db
 }
 
 func (skill *Skill) Create() *Skill {
@@ -56,10 +42,11 @@ func (skill Skill) Index(q string) []Skill {
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	if err := db.C("skills").Find(query).All(&skills); err != mgo.ErrNotFound {
+	if err := db.C("skills").Find(query).All(&skills); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
 	defer db.Close()
 	return skills

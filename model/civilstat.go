@@ -1,7 +1,8 @@
 package model
 
 import (
-	"strings"
+	"encoding/json"
+	"io/ioutil"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -10,26 +11,22 @@ import (
 )
 
 type CivilStat struct {
-	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
 func civilStatSeeder() {
-	data := []string{
-		"SINGLE",
-		"WIdOWED",
-		"MARRIED",
-		"SEPARATED",
-		"OTHER",
-	}
+	data, err := ioutil.ReadFile("import/civilStats.json")
 
-	for _, name := range data {
-		civilStat := CivilStat{
-			Id:   bson.NewObjectId(),
-			Name: strings.ToUpper(name),
-		}
-		civilStat.Create()
+	if err != nil {
+		panic(err)
 	}
+	civilStats := []CivilStat{}
+
+	if err := json.Unmarshal(data, &civilStats); err != nil {
+		panic(err)
+	}
+	// todo: insert to db
 }
 
 func (civilStat *CivilStat) Create() *CivilStat {
@@ -43,10 +40,11 @@ func (civilStat *CivilStat) Create() *CivilStat {
 func CivilStats() []CivilStat {
 	civilStats := []CivilStat{}
 
-	if err := db.C("civilStats").Find(nil).All(&civilStats); err != mgo.ErrNotFound {
+	if err := db.C("civilStats").Find(nil).All(&civilStats); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
 	defer db.Close()
 	return civilStats

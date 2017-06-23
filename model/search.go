@@ -8,7 +8,7 @@ import (
 )
 
 type SearchResult struct {
-	Id        bson.ObjectId `json:"id"`
+	Id        bson.ObjectId `json:"id,omitempty"`
 	Name      string        `json:"name"`
 	Email     string        `json:"email"`
 	HasPhoto  bool          `json:"has_photo"`

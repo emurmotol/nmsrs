@@ -1,7 +1,8 @@
 package model
 
 import (
-	"strings"
+	"encoding/json"
+	"io/ioutil"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -10,32 +11,21 @@ import (
 )
 
 func eligibilitySeeder() {
-	data := []string{
-		"CAREER EXECUTIVE OFFICER ELIGIBILITY",
-		"CAREER EXECUTIVE SERVICE OFFICER",
-		"CAREER SERVICE EXECUTIVE ELIGIBILITY",
-		"CAREER SERVICE PROFESSIONAL",
-		"CAREER SERVICE SUB - PROFESSIONAL",
-		"DATA ENCODER",
-		"FIRE OFFICER 2",
-		"FORESTRY EXTENSION SERVICE",
-		"POLICE OFFICER 1",
-		"R.A. 1080",
-		"SOIL TECHNOLOGIST",
-		"STENOGRAPHER",
-	}
+	data, err := ioutil.ReadFile("import/eligibilities.json")
 
-	for _, name := range data {
-		eligibility := Eligibility{
-			Id:   bson.NewObjectId(),
-			Name: strings.ToUpper(name),
-		}
-		eligibility.Create()
+	if err != nil {
+		panic(err)
 	}
+	eligibilities := []Eligibility{}
+
+	if err := json.Unmarshal(data, &eligibilities); err != nil {
+		panic(err)
+	}
+	// todo: insert to db
 }
 
 type Eligibility struct {
-	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
@@ -52,10 +42,11 @@ func (eligibility Eligibility) Index(q string) []Eligibility {
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	if err := db.C("eligibilities").Find(query).All(&eligibilities); err != mgo.ErrNotFound {
+	if err := db.C("eligibilities").Find(query).All(&eligibilities); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
 	defer db.Close()
 	return eligibilities

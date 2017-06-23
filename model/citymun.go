@@ -3,7 +3,6 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
-	"strings"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -12,47 +11,28 @@ import (
 )
 
 type CityMun struct {
-	Id       bson.ObjectId `json:"id" bson:"_id"`
+	Id       bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Code     string        `json:"code" bson:"code"`
 	Desc     string        `json:"desc" bson:"desc"`
-	PsgcCode string        `json:"psgc_code" bson:"psgcCode"`
-	RegCode  string        `json:"reg_code" bson:"regCode"`
-	ProvCode string        `json:"prov_code" bson:"provCode"`
+	PsgcCode string        `json:"psgcCode" bson:"psgcCode"`
+	RegCode  string        `json:"regCode" bson:"regCode"`
+	ProvCode string        `json:"provCode" bson:"provCode"`
 }
 
 type CityMunProv interface{}
 
-type RefCityMun struct {
-	PsgcCode    string `json:"psgcCode"`
-	CityMunDesc string `json:"cityMunDesc"`
-	RegCode     string `json:"regCode"`
-	ProvCode    string `json:"provCode"`
-	CityMunCode string `json:"cityMunCode"`
-}
-
 func cityMunSeeder() {
-	data, err := ioutil.ReadFile("model/data/refcitymun.json")
+	data, err := ioutil.ReadFile("import/cityMuns.json")
 
 	if err != nil {
 		panic(err)
 	}
-	refCityMuns := []RefCityMun{}
+	cityMuns := []CityMun{}
 
-	if err := json.Unmarshal(data, &refCityMuns); err != nil {
+	if err := json.Unmarshal(data, &cityMuns); err != nil {
 		panic(err)
 	}
-
-	for _, refCityMun := range refCityMuns {
-		cityMun := CityMun{
-			Id:       bson.NewObjectId(),
-			Code:     refCityMun.CityMunCode,
-			Desc:     strings.ToUpper(refCityMun.CityMunDesc),
-			PsgcCode: refCityMun.PsgcCode,
-			RegCode:  refCityMun.RegCode,
-			ProvCode: refCityMun.ProvCode,
-		}
-		cityMun.Create()
-	}
+	// todo: insert to db
 }
 
 func (cityMun *CityMun) Create() *CityMun {
@@ -66,10 +46,11 @@ func (cityMun *CityMun) Create() *CityMun {
 func CityMunById(id bson.ObjectId) *CityMun {
 	cityMun := new(CityMun)
 
-	if err := db.C("cityMuns").FindId(id).One(&cityMun); err != mgo.ErrNotFound {
+	if err := db.C("cityMuns").FindId(id).One(&cityMun); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
 	return cityMun
 }
@@ -112,10 +93,11 @@ func (cityMun CityMun) ProvinceIndex(q string) []CityMunProv {
 		},
 	}
 
-	if err := db.C("cityMuns").Pipe(query).All(&cityMunProv); err != mgo.ErrNotFound {
+	if err := db.C("cityMuns").Pipe(query).All(&cityMunProv); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
 	defer db.Close()
 	return cityMunProv
@@ -131,11 +113,12 @@ func (cityMun *CityMun) BarangayIndex(q string) []Barangay {
 		},
 	}
 
-		if err := db.C("barangays").Find(query).All(&barangays); err != mgo.ErrNotFound {
+	if err := db.C("barangays").Find(query).All(&barangays); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
-		defer db.Close()
+	defer db.Close()
 	return barangays
 }

@@ -1,7 +1,8 @@
 package model
 
 import (
-	"strings"
+	"encoding/json"
+	"io/ioutil"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -10,26 +11,22 @@ import (
 )
 
 type Disability struct {
-	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
 func disabilitySeeder() {
-	data := []string{
-		"VISUAL IMPAIRMENT",
-		"HEARING IMPAIRMENT",
-		"SPEECH IMPAIRMENT",
-		"PHYSICAL IMPAIRMENT",
-		"OTHER",
-	}
+	data, err := ioutil.ReadFile("import/disabilities.json")
 
-	for _, name := range data {
-		disability := Disability{
-			Id:   bson.NewObjectId(),
-			Name: strings.ToUpper(name),
-		}
-		disability.Create()
+	if err != nil {
+		panic(err)
 	}
+	disabilities := []Disability{}
+
+	if err := json.Unmarshal(data, &disabilities); err != nil {
+		panic(err)
+	}
+	// todo: insert to db
 }
 
 func (disability *Disability) Create() *Disability {
@@ -43,10 +40,11 @@ func (disability *Disability) Create() *Disability {
 func Disabilities() []Disability {
 	disabilities := []Disability{}
 
-	if err := db.C("disabilities").Find(nil).All(&disabilities); err != mgo.ErrNotFound {
+	if err := db.C("disabilities").Find(nil).All(&disabilities); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
 	defer db.Close()
 	return disabilities

@@ -1,7 +1,8 @@
 package model
 
 import (
-	"strings"
+	"encoding/json"
+	"io/ioutil"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -10,37 +11,21 @@ import (
 )
 
 func industrySeeder() {
-	data := []string{
-		"ACTIVITIES OF PRIVATE HOUSEHOLDS AS EMPLOYERS AND UNDIFFENTIATED PRODUCTION ACTIVITIES OF PRIVATE",
-		"AGRICULTURE",
-		"CONSTRUCTION",
-		"EDUCATION",
-		"ELECTRICITY, GAS AND WATER SUPPLY",
-		"EXTRA - TERRITORIAL ORGANIZATIONS AND BODIES",
-		"FINANCIAL INTERMEDIATION",
-		"FISHING",
-		"HEALTH AND SOCIAL WORK",
-		"HOTELS AND RESTAURANTS",
-		"MANUFACTURING",
-		"MINING AND QUARRYING",
-		"OTHER COMMUNITY, SOCIAL AND PERSONAL SERVICE ACTIVITIES",
-		"PUBLIC ADMINISTRATION AND DEFENSE",
-		"REAL ESTATE, RENTING AND BUSINESS ACTIVITIES",
-		"TRANSPORT, STORAGE AND COMMUNICATION",
-		"WHOLESALE AND RETAIL TRADE",
-	}
+	data, err := ioutil.ReadFile("import/industries.json")
 
-	for _, name := range data {
-		industry := Industry{
-			Id:   bson.NewObjectId(),
-			Name: strings.ToUpper(name),
-		}
-		industry.Create()
+	if err != nil {
+		panic(err)
 	}
+	industries := []Industry{}
+
+	if err := json.Unmarshal(data, &industries); err != nil {
+		panic(err)
+	}
+	// todo: insert to db
 }
 
 type Industry struct {
-	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
@@ -57,10 +42,11 @@ func (industry Industry) Index(q string) []Industry {
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	if err := db.C("industries").Find(query).All(&industries); err != mgo.ErrNotFound {
+	if err := db.C("industries").Find(query).All(&industries); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
 	defer db.Close()
 	return industries

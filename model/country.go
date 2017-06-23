@@ -1,7 +1,8 @@
 package model
 
 import (
-	"strings"
+	"encoding/json"
+	"io/ioutil"
 
 	"github.com/emurmotol/nmsrs/db"
 
@@ -10,216 +11,21 @@ import (
 )
 
 func countrySeeder() {
-	data := []string{
-		"AFGHANISTAN",
-		"ALBANIA",
-		"ALGERIA",
-		"ANDORRA",
-		"ANGOLA",
-		"ANTIGUA AND DEPS",
-		"ARGENTINA",
-		"ARMENIA",
-		"AUSTRALIA",
-		"AUSTRIA",
-		"AZERBAIJAN",
-		"BAHAMAS",
-		"BAHRAIN",
-		"BANGLADESH",
-		"BARBADOS",
-		"BELARUS",
-		"BELGIUM",
-		"BELIZE",
-		"BENIN",
-		"BHUTAN",
-		"BOLIVIA",
-		"BOSNIA HERZEGOVINA",
-		"BOTSWANA",
-		"BRAZIL",
-		"BRUNEI",
-		"BULGARIA",
-		"BURKINA",
-		"BURUNDI",
-		"CAMBODIA",
-		"CAMEROON",
-		"CANADA",
-		"CAPE VERDE",
-		"CENTRAL AFRICAN REP",
-		"CHAD",
-		"CHILE",
-		"CHINA",
-		"COLOMBIA",
-		"COMOROS",
-		"CONGO",
-		"CONGO (DEMOCRATIC REP)",
-		"COSTA RICA",
-		"CROATIA",
-		"CUBA",
-		"CYPRUS",
-		"CZECH REPUBLIC",
-		"DENMARK",
-		"DJIBOUTI",
-		"DOMINICA",
-		"DOMINICAN REPUBLIC",
-		"EAST TIMOR",
-		"ECUADOR",
-		"EGYPT",
-		"EL SALVADOR",
-		"EQUATORIAL GUINEA",
-		"ERITREA",
-		"ESTONIA",
-		"ETHIOPIA",
-		"FIJI",
-		"FINLAND",
-		"FRANCE",
-		"GABON",
-		"GAMBIA",
-		"GEORGIA",
-		"GERMANY",
-		"GHANA",
-		"GREECE",
-		"GRENADA",
-		"GUATEMALA",
-		"GUINEA",
-		"GUINEA - BISSAU",
-		"GUYANA",
-		"HAITI",
-		"HONDURAS",
-		"HUNGARY",
-		"ICELAND",
-		"INDIA",
-		"INDONESIA",
-		"IRAN",
-		"IRAQ",
-		"IRELAND (REPUBLIC)",
-		"ISRAEL",
-		"ITALY",
-		"IVORY COAST",
-		"JAMAICA",
-		"JAPAN",
-		"JORDAN",
-		"KAZAKHSTAN",
-		"KENYA",
-		"KIRIBATI",
-		"KOREA NORTH",
-		"KOREA SOUTH",
-		"KOSOVO",
-		"KUWAIT",
-		"KYRGYZSTAN",
-		"LAOS",
-		"LATVIA",
-		"LEBANON",
-		"LESOTHO",
-		"LIBERIA",
-		"LIBYA",
-		"LIECHTENSTEIN",
-		"LITHUANIA",
-		"LUXEMBOURG",
-		"MACEDONIA",
-		"MADAGASCAR",
-		"MALAWI",
-		"MALAYSIA",
-		"MALDIVES",
-		"MALI",
-		"MALTA",
-		"MARSHALL ISLANDS",
-		"MAURITANIA",
-		"MAURITIUS",
-		"MEXICO",
-		"MICRONESIA",
-		"MOLDOVA",
-		"MONACO",
-		"MONGOLIA",
-		"MONTENEGRO",
-		"MOROCCO",
-		"MOZAMBIQUE",
-		"MYANMAR, (BURMA)",
-		"NAMIBIA",
-		"NAURU",
-		"NEPAL",
-		"NETHERLANDS",
-		"NEW ZEALAND",
-		"NICARAGUA",
-		"NIGER",
-		"NIGERIA",
-		"NORWAY",
-		"OMAN",
-		"PAKISTAN",
-		"PALAU",
-		"PANAMA",
-		"PAPUA NEW GUINEA",
-		"PARAGUAY",
-		"PERU",
-		"PHILIPPINES",
-		"POLAND",
-		"PORTUGAL",
-		"QATAR",
-		"ROMANIA",
-		"RUSSIAN FEDERATION",
-		"RWANDA",
-		"ST KITTS AND NEVIS",
-		"ST LUCIA",
-		"SAINT VINCENT AND THE GRENADINES",
-		"SAMOA",
-		"SAN MARINO",
-		"SAO TOME AND PRINCIPE",
-		"SAUDI ARABIA",
-		"SENEGAL",
-		"SERBIA",
-		"SEYCHELLES",
-		"SIERRA LEONE",
-		"SINGAPORE",
-		"SLOVAKIA",
-		"SLOVENIA",
-		"SOLOMON ISLANDS",
-		"SOMALIA",
-		"SOUTH AFRICA",
-		"SOUTH SUDAN",
-		"SPAIN",
-		"SRI LANKA",
-		"SUDAN",
-		"SURINAME",
-		"SWAZILAND",
-		"SWEDEN",
-		"SWITZERLAND",
-		"SYRIA",
-		"TAIWAN",
-		"TAJIKISTAN",
-		"TANZANIA",
-		"THAILAND",
-		"TOGO",
-		"TONGA",
-		"TRINIdAD AND TOBAGO",
-		"TUNISIA",
-		"TURKEY",
-		"TURKMENISTAN",
-		"TUVALU",
-		"UGANDA",
-		"UKRAINE",
-		"UNITED ARAB EMIRATES",
-		"UNITED KINGDOM",
-		"UNITED STATES",
-		"URUGUAY",
-		"UZBEKISTAN",
-		"VANUATU",
-		"VATICAN CITY",
-		"VENEZUELA",
-		"VIETNAM",
-		"YEMEN",
-		"ZAMBIA",
-		"ZIMBABWE",
-	}
+	data, err := ioutil.ReadFile("import/countries.json")
 
-	for _, name := range data {
-		country := Country{
-			Id:   bson.NewObjectId(),
-			Name: strings.ToUpper(name),
-		}
-		country.Create()
+	if err != nil {
+		panic(err)
 	}
+	countries := []Country{}
+
+	if err := json.Unmarshal(data, &countries); err != nil {
+		panic(err)
+	}
+	// todo: insert to db
 }
 
 type Country struct {
-	Id   bson.ObjectId `json:"id" bson:"_id"`
+	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
@@ -236,10 +42,11 @@ func (country Country) Index(q string) []Country {
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
 	query := bson.M{"name": regex}
 
-	if err := db.C("countries").Find(query).All(&countries); err != mgo.ErrNotFound {
+	if err := db.C("countries").Find(query).All(&countries); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
 		panic(err)
-	} else if err == mgo.ErrNotFound {
-		return nil
 	}
 	defer db.Close()
 	return countries

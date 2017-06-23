@@ -4,10 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"image"
-	"image/jpeg"
 	"mime/multipart"
-	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -40,33 +37,6 @@ func ValidateImage(header *multipart.FileHeader) error {
 		}
 	}
 	return errors.New(lang.Get("image_invalid"))
-}
-
-func SaveAsJPEG(file multipart.File, name string) error {
-	defer file.Close()
-	src, _, err := image.Decode(file)
-
-	if err != nil {
-		return err
-	}
-	dir := filepath.Dir(name)
-
-	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		os.MkdirAll(dir, 0777)
-	}
-	f, err := os.Create(name)
-
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	var opt jpeg.Options
-	opt.Quality = jpeg.DefaultQuality
-
-	if err := jpeg.Encode(f, crop(src), &opt); err != nil {
-		return err
-	}
-	return nil
 }
 
 func crop(img image.Image) *image.NRGBA {

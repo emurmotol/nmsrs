@@ -3,52 +3,32 @@ package model
 import (
 	"encoding/json"
 	"io/ioutil"
-	"strings"
 
 	"github.com/emurmotol/nmsrs/db"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type Barangay struct {
-	Id          bson.ObjectId `json:"id" bson:"_id"`
+	Id          bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
 	Code        string        `json:"code" bson:"code"`
 	Desc        string        `json:"desc" bson:"desc"`
-	RegCode     string        `json:"reg_code" bson:"regCode"`
-	ProvCode    string        `json:"prov_code" bson:"provCode"`
-	CityMunCode string        `json:"city_mun_code" bson:"cityMunCode"`
-}
-
-type RefBarangay struct {
-	BrgyCode    string `json:"brgyCode"`
-	BrgyDesc    string `json:"brgyDesc"`
-	RegCode     string `json:"regCode"`
-	ProvCode    string `json:"provCode"`
-	CityMunCode string `json:"cityMunCode"`
+	RegCode     string        `json:"regCode" bson:"regCode"`
+	ProvCode    string        `json:"provCode" bson:"provCode"`
+	CityMunCode string        `json:"cityMunCode" bson:"cityMunCode"`
 }
 
 func barangaySeeder() {
-	data, err := ioutil.ReadFile("model/data/refbarangay.json")
+	data, err := ioutil.ReadFile("import/barangays.json")
 
 	if err != nil {
 		panic(err)
 	}
-	refBarangays := []RefBarangay{}
+	barangays := []Barangay{}
 
-	if err := json.Unmarshal(data, &refBarangays); err != nil {
+	if err := json.Unmarshal(data, &barangays); err != nil {
 		panic(err)
 	}
-
-	for _, refBarangay := range refBarangays {
-		barangay := Barangay{
-			Id:          bson.NewObjectId(),
-			Code:        refBarangay.BrgyCode,
-			Desc:        strings.ToUpper(refBarangay.BrgyDesc),
-			RegCode:     refBarangay.RegCode,
-			ProvCode:    refBarangay.ProvCode,
-			CityMunCode: refBarangay.CityMunCode,
-		}
-		barangay.Create()
-	}
+	// todo: insert to db
 }
 
 func (barangay *Barangay) Create() *Barangay {
