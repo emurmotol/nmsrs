@@ -52,7 +52,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		helper.SetFlash(w, r, "loginForm", loginForm)
 		helper.SetFlash(w, r, "alert", helper.Alert{
 			Type:    "danger",
-			Content: lang.Get("wrong_credentials"),
+			Content: lang.Get("wrongCredentials"),
 		})
 		GetLogin(w, r)
 		return

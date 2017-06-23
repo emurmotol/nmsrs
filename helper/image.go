@@ -31,12 +31,12 @@ func ValidateImage(header *multipart.FileHeader) error {
 			}
 
 			if size > int64(maxSize*1048576) {
-				return fmt.Errorf(lang.Get("image_too_large"), strconv.Itoa(maxSize))
+				return fmt.Errorf(lang.Get("imageTooLarge"), strconv.Itoa(maxSize))
 			}
 			return nil
 		}
 	}
-	return errors.New(lang.Get("image_invalid"))
+	return errors.New(lang.Get("imageInvalid"))
 }
 
 func crop(img image.Image) *image.NRGBA {

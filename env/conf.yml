@@ -33,7 +33,7 @@ pkg:
         dir: view
         layout: layouts/base
         ext: .gohtml
-        indentJSON: true
+        indentJson: true
         isDev: true
     jwtauth:
         tokenName: jwt

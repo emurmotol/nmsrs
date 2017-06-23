@@ -83,5 +83,4 @@ func seed() {
 	go schoolSeeder()
 	go sexSeeder()
 	go skillSeeder()
-	// todo seed reg_ assoc last
 }

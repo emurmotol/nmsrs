@@ -60,7 +60,7 @@ package controller
 // 		Limit:    limit,
 // 		Count:    len(searchResults),
 // 		Interval: interval,
-// 		QueryURL: r.URL.Query(),
+// 		QueryUrl: r.URL.Query(),
 // 	}
 
 // 	if page > pagination.PageCount() {

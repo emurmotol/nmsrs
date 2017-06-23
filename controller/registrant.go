@@ -28,7 +28,7 @@ package controller
 // 		Limit:    limit,
 // 		Count:    count,
 // 		Interval: interval,
-// 		QueryURL: r.URL.Query(),
+// 		QueryUrl: r.URL.Query(),
 // 	}
 
 // 	if page > pagination.PageCount() {
@@ -154,7 +154,7 @@ package controller
 // func RegistrantEmailTaken(w http.ResponseWriter, r *http.Request) {
 // 	if taken := model.RegistrantEmailTaken(r.URL.Query().Get("email")); taken {
 // 		data := make(map[string]string)
-// 		data["error"] = lang.Get("email_taken")
+// 		data["error"] = lang.Get("emailTaken")
 // 		rd.JSON(w, http.StatusNotFound, data)
 // 		return
 // 	}

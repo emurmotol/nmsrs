@@ -70,7 +70,7 @@ package model
 // 	}
 
 // 	if taken := RegistrantEmailTaken(form.Email); taken {
-// 		form.Errors["Email"] = lang.Get("email_taken")
+// 		form.Errors["Email"] = lang.Get("emailTaken")
 // 	}
 
 // 	if form.PhotoFile != nil {

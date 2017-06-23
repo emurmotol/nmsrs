@@ -10,7 +10,7 @@ import (
 
 func Funcs() template.FuncMap {
 	return template.FuncMap{
-		"baseURL":        helper.BaseURL,
+		"BaseUrl":        helper.BaseUrl,
 		"config":         env.Map,
 		"lang":           lang.Get,
 		"dateForHumans":  helper.DateForHumans,

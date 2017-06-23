@@ -8,7 +8,7 @@ import (
 	"github.com/emurmotol/nmsrs/env"
 )
 
-func BaseURL(append string) string {
+func BaseUrl(append string) string {
 	strictSlash(append)
 	protocol, _ := env.Conf.String("server.protocol")
 	host, _ := env.Conf.String("server.host")

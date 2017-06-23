@@ -1,13 +1,13 @@
 {
-    "email_not_recognized": "Sorry, we don't recognize that email.",
-    "email_taken": "Email has already been taken.",
-    "wrong_credentials": "These credentials do not match our records.",
-    "user_success_create": "%s has been successfully created.",
-    "user_success_update": "%s has been successfully updated.",
-    "user_success_delete": "%s has been successfully deleted.",
-    "password_success_update": "Password has been successfully updated.",
-    "image_invalid": "We only support PNG, GIF, or JPG pictures.",
-    "image_too_large": "Please select a picture smaller than or equal to %s MB.",
-    "method_invalid": "Method invalid.",
-    "action_not_permitted": "Action not permitted."
+    "emailNotRecognized": "Sorry, we don't recognize that email.",
+    "emailTaken": "Email has already been taken.",
+    "wrongCredentials": "These credentials do not match our records.",
+    "userSuccessCreate": "%s has been successfully created.",
+    "userSuccessUpdate": "%s has been successfully updated.",
+    "userSuccessDelete": "%s has been successfully deleted.",
+    "passwordSuccessUpdate": "Password has been successfully updated.",
+    "imageInvalid": "We only support PNG, GIF, or JPG pictures.",
+    "imageTooLarge": "Please select a picture smaller than or equal to %s MB.",
+    "methodInvalid": "Method invalid.",
+    "actionNotPermitted": "Action not permitted."
 }

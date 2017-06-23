@@ -26,7 +26,7 @@ import (
 )
 
 var (
-	errActionNotPermitted = errors.New(lang.Get("action_not_permitted"))
+	errActionNotPermitted = errors.New(lang.Get("actionNotPermitted"))
 )
 
 type User struct {
@@ -54,7 +54,7 @@ func (loginForm *LoginForm) IsValid() bool {
 	}
 
 	if taken := UserEmailTaken(loginForm.Email); !taken {
-		loginForm.Errors["Email"] = lang.Get("email_not_recognized")
+		loginForm.Errors["Email"] = lang.Get("emailNotRecognized")
 	}
 	return len(loginForm.Errors) == 0
 }
@@ -78,7 +78,7 @@ func (createUserForm *CreateUserForm) IsValid() bool {
 	}
 
 	if taken := UserEmailTaken(createUserForm.Email); taken {
-		createUserForm.Errors["Email"] = lang.Get("email_taken")
+		createUserForm.Errors["Email"] = lang.Get("emailTaken")
 	}
 
 	if createUserForm.PhotoFile != nil {
@@ -108,7 +108,7 @@ func (editProfileForm *EditProfileForm) IsValid() bool {
 
 	if same := UserEmailSameAsOld(bson.ObjectIdHex(editProfileForm.IdHex), editProfileForm.Email); !same {
 		if taken := UserEmailTaken(editProfileForm.Email); taken {
-			editProfileForm.Errors["Email"] = lang.Get("email_taken")
+			editProfileForm.Errors["Email"] = lang.Get("emailTaken")
 		}
 	}
 

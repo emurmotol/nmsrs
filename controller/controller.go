@@ -24,7 +24,7 @@ func init() {
 	dir, _ := env.Conf.String("pkg.render.dir")
 	layout, _ := env.Conf.String("pkg.render.layout")
 	ext, _ := env.Conf.String("pkg.render.ext")
-	indentJSON, _ := env.Conf.Bool("pkg.render.indentJSON")
+	indentJson, _ := env.Conf.Bool("pkg.render.indentJson")
 	isDev, _ := env.Conf.Bool("pkg.render.isDev")
 
 	rd = render.New(render.Options{
@@ -32,7 +32,7 @@ func init() {
 		Layout:        layout,
 		Funcs:         []template.FuncMap{gohtml.Funcs()},
 		Extensions:    []string{ext},
-		IndentJSON:    indentJSON,
+		IndentJSON:    indentJson,
 		IsDevelopment: isDev,
 	})
 	limit, _ = env.Conf.Int("pkg.helper.pagination.limit")

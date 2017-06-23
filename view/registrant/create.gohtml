@@ -824,7 +824,7 @@
                 return allowedMimeTypes.indexOf(file[0].type) !== -1;
             },
             messages: {
-                en: "{{lang `image_invalid`}}"
+                en: "{{lang `imageInvalid`}}"
             },
             priority: 2
         }).addValidator("maxmegabytes", {
@@ -839,7 +839,7 @@
                 return file.length === 1 && file[0].size <= maxMB;
             },
             messages: {
-                en: "{{lang `image_too_large`}}"
+                en: "{{lang `imageTooLarge`}}"
             },
             priority: 1
         });

@@ -21,7 +21,7 @@ type Paginator struct {
 	Limit    int
 	Count    int
 	Interval int
-	QueryURL url.Values
+	QueryUrl url.Values
 }
 
 type Pager struct {
@@ -62,16 +62,16 @@ func (p *Paginator) String() string {
 	markup = append(markup, `<ul class="pagination">`)
 
 	for _, pp := range p.Paginate() {
-		p.QueryURL.Set("page", strconv.Itoa(pp.Number))
+		p.QueryUrl.Set("page", strconv.Itoa(pp.Number))
 
 		if pp.Label == "previous" {
-			markup = append(markup, fmt.Sprintf(`<li><a href="?%s"><span>&laquo;</span></a></li>`, p.QueryURL.Encode()))
+			markup = append(markup, fmt.Sprintf(`<li><a href="?%s"><span>&laquo;</span></a></li>`, p.QueryUrl.Encode()))
 		} else if pp.Label == "next" {
-			markup = append(markup, fmt.Sprintf(`<li><a href="?%s"><span>&raquo;</span></a></li>`, p.QueryURL.Encode()))
+			markup = append(markup, fmt.Sprintf(`<li><a href="?%s"><span>&raquo;</span></a></li>`, p.QueryUrl.Encode()))
 		} else if pp.Label == "..." {
 			markup = append(markup, fmt.Sprintf(`<li class="disabled"><a href="javascript:void(%d)"><span>%s</span></a></li>`, pp.Number, pp.Label))
 		} else {
-			ppl := fmt.Sprintf(`<li><a href="?%s">%s</a></li>`, p.QueryURL.Encode(), pp.Label)
+			ppl := fmt.Sprintf(`<li><a href="?%s">%s</a></li>`, p.QueryUrl.Encode(), pp.Label)
 			if pp.IsActive {
 				ppl = strings.Replace(ppl, `<li>`, `<li class="active">`, 1)
 			}

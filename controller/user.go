@@ -49,7 +49,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		Limit:    limit,
 		Count:    count,
 		Interval: interval,
-		QueryURL: r.URL.Query(),
+		QueryUrl: r.URL.Query(),
 	}
 
 	if page > pagination.PageCount() {
@@ -150,7 +150,7 @@ func StoreUser(w http.ResponseWriter, r *http.Request) {
 	}
 	helper.SetFlash(w, r, "alert", helper.Alert{
 		Type:    "success",
-		Content: fmt.Sprintf(lang.Get("user_success_create"), newUser.Name),
+		Content: fmt.Sprintf(lang.Get("userSuccessCreate"), newUser.Name),
 	})
 	http.Redirect(w, r, "/users", http.StatusFound)
 }
@@ -224,14 +224,14 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		}
 		helper.SetFlash(w, r, "alert", helper.Alert{
 			Type:    "success",
-			Content: fmt.Sprintf(lang.Get("user_success_update"), user.Name),
+			Content: fmt.Sprintf(lang.Get("userSuccessUpdate"), user.Name),
 		})
 		http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", user.Id), http.StatusFound)
 		return
 	}
 	helper.SetFlash(w, r, "alert", helper.Alert{
 		Type:    "danger",
-		Content: lang.Get("method_invalid"),
+		Content: lang.Get("methodInvalid"),
 	})
 	http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", userCtx.Id), http.StatusFound)
 }
@@ -262,14 +262,14 @@ func UserPasswordReset(w http.ResponseWriter, r *http.Request) {
 		user.ResetPassword()
 		helper.SetFlash(w, r, "alert", helper.Alert{
 			Type:    "success",
-			Content: fmt.Sprintf(lang.Get("password_success_update")),
+			Content: fmt.Sprintf(lang.Get("passwordSuccessUpdate")),
 		})
 		http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", user.Id), http.StatusFound)
 		return
 	}
 	helper.SetFlash(w, r, "alert", helper.Alert{
 		Type:    "danger",
-		Content: lang.Get("method_invalid"),
+		Content: lang.Get("methodInvalid"),
 	})
 	http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", userCtx.Id), http.StatusFound)
 }
@@ -284,14 +284,14 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 		userCtx.Delete()
 		helper.SetFlash(w, r, "alert", helper.Alert{
 			Type:    "success",
-			Content: fmt.Sprintf(lang.Get("user_success_delete"), userCtx.Name),
+			Content: fmt.Sprintf(lang.Get("userSuccessDelete"), userCtx.Name),
 		})
 		http.Redirect(w, r, "/users", http.StatusFound)
 		return
 	}
 	helper.SetFlash(w, r, "alert", helper.Alert{
 		Type:    "danger",
-		Content: lang.Get("method_invalid"),
+		Content: lang.Get("methodInvalid"),
 	})
 	http.Redirect(w, r, "/users", http.StatusFound)
 }
@@ -310,14 +310,14 @@ func DeleteManyUser(w http.ResponseWriter, r *http.Request) {
 		model.DeleteManyUser(hexIds)
 		helper.SetFlash(w, r, "alert", helper.Alert{
 			Type:    "success",
-			Content: fmt.Sprintf(lang.Get("user_success_delete"), fmt.Sprintf("%d users ", len(hexIds))),
+			Content: fmt.Sprintf(lang.Get("userSuccessDelete"), fmt.Sprintf("%d users ", len(hexIds))),
 		})
 		http.Redirect(w, r, "/users", http.StatusFound)
 		return
 	}
 	helper.SetFlash(w, r, "alert", helper.Alert{
 		Type:    "danger",
-		Content: lang.Get("method_invalid"),
+		Content: lang.Get("methodInvalid"),
 	})
 	http.Redirect(w, r, "/users", http.StatusFound)
 }
@@ -330,7 +330,7 @@ func UserPhoto(w http.ResponseWriter, r *http.Request) {
 func UserEmailTaken(w http.ResponseWriter, r *http.Request) {
 	if taken := model.UserEmailTaken(r.URL.Query().Get("email")); taken {
 		data := make(map[string]string)
-		data["error"] = lang.Get("email_taken")
+		data["error"] = lang.Get("emailTaken")
 		rd.JSON(w, http.StatusNotFound, data)
 		return
 	}
@@ -340,7 +340,7 @@ func UserEmailTaken(w http.ResponseWriter, r *http.Request) {
 func UserEmailExists(w http.ResponseWriter, r *http.Request) {
 	if taken := model.UserEmailTaken(r.URL.Query().Get("email")); !taken {
 		data := make(map[string]string)
-		data["error"] = lang.Get("email_not_recognized")
+		data["error"] = lang.Get("emailNotRecognized")
 		rd.JSON(w, http.StatusNotFound, data)
 		return
 	}
@@ -353,7 +353,7 @@ func UserEmailCheck(w http.ResponseWriter, r *http.Request) {
 	if same := model.UserEmailSameAsOld(userCtx.Id, r.URL.Query().Get("email")); !same {
 		if taken := model.UserEmailTaken(r.URL.Query().Get("email")); taken {
 			data := make(map[string]string)
-			data["error"] = lang.Get("email_taken")
+			data["error"] = lang.Get("emailTaken")
 			rd.JSON(w, http.StatusNotFound, data)
 			return
 		}
