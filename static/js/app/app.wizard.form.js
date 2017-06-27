@@ -1,5 +1,5 @@
 $(function () {
-    $("#empActivelyLookingForWork").on("change", function () {
+    $("#empIsActivelyLookingForWork").on("change", function () {
         $(this).val($(this).prop("checked"));
     });
 
@@ -42,7 +42,7 @@ $(function () {
     $("#empStatRadios").find("input[type=radio]").on("change", function () {
         var checked = $("input[name=empStat]:checked");
 
-        if ($(checked).val() == "3") {
+        if ($(checked).val() == "UNEMPLOYED") {
             $("#empUnEmpStat").val(null).trigger("change");
             $("#empUnEmpStat").attr("data-parsley-required", true);
             $("#empUnEmpStat").prop("disabled", false);
@@ -93,22 +93,22 @@ $(function () {
         }
     });
 
-    $("#skillNotListed").on("change", function () {
+    $("#otherSkillNotListed").on("change", function () {
         $(this).val($(this).prop("checked"));
 
         if ($(this).prop("checked")) {
-            $("#skills").val(null).trigger("change");
-            $("#skills").prop("disabled", true);
-            $("#skillOther").attr("data-parsley-required", true);
-            $("#skillOther").prop("disabled", false);
-            $("#skillOther").focus();
+            $("#otherSkills").val(null).trigger("change");
+            $("#otherSkills").prop("disabled", true);
+            $("#otherSkillOther").attr("data-parsley-required", true);
+            $("#otherSkillOther").prop("disabled", false);
+            $("#otherSkillOther").focus();
         } else {
-            $("#skillOther").removeAttr("data-parsley-required");
-            $("#skillOther").val("");
-            $("#skillOther").parsley().reset();
-            $("#skillOther").prop("disabled", true);
-            $("#skills").prop("disabled", false);
-            $("#skills").focus();
+            $("#otherSkillOther").removeAttr("data-parsley-required");
+            $("#otherSkillOther").val("");
+            $("#otherSkillOther").parsley().reset();
+            $("#otherSkillOther").prop("disabled", true);
+            $("#otherSkills").prop("disabled", false);
+            $("#otherSkills").focus();
         }
     });
 

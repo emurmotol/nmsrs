@@ -1,5 +1,5 @@
 $(function () {
-    $("#work_exp_ph_id").select2({
+    $("#workExpPositionHeld").select2({
         placeholder: "SELECT POSITION",
         ajax: {
             url: "/api/positions",
@@ -19,7 +19,7 @@ $(function () {
         }
     });
 
-    $("#skill_ids").select2({
+    $("#otherSkills").select2({
         placeholder: "SELECT SKILL(S)",
         ajax: {
             url: "/api/otherskills",
@@ -39,7 +39,7 @@ $(function () {
         }
     });
 
-    $("#coc_t_id").select2({
+    $("#certOfCompetenceTitle").select2({
         placeholder: "SELECT CERTIFICATE TITLE",
         ajax: {
             url: "/api/certificates",
@@ -59,7 +59,7 @@ $(function () {
         }
     });
 
-    $("#elig_t_id").select2({
+    $("#eligTitle").select2({
         placeholder: "SELECT ELIGIBILITY TITLE",
         ajax: {
             url: "/api/eligibilities",
@@ -79,7 +79,7 @@ $(function () {
         }
     });
 
-    $("#pro_license_t_id").select2({
+    $("#proLicenseTitle").select2({
         placeholder: "SELECT LICENSE TITLE",
         ajax: {
             url: "/api/licenses",
@@ -99,7 +99,7 @@ $(function () {
         }
     });
 
-    $("#formal_edu_su_id").select2({
+    $("#formalEduSchoolUniv").select2({
         placeholder: "SELECT SCHOOL/UNIVERSITY",
         ajax: {
             url: "/api/schools",
@@ -119,7 +119,7 @@ $(function () {
         }
     });
 
-    $("#formal_edu_cd_id").select2({
+    $("#formalEduCourseDegree").select2({
         placeholder: "SELECT COURSE/DEGREE",
         ajax: {
             url: "/api/courses",
@@ -139,7 +139,7 @@ $(function () {
         }
     });
 
-    $("#formal_edu_hgc_id").select2({
+    $("#formalEduHighestGradeCompleted").select2({
         placeholder: "SELECT HIGHEST GRADE COMPLETED",
         ajax: {
             url: "/api/edulevels",
@@ -159,7 +159,7 @@ $(function () {
         }
     });
 
-    $("#pref_occ_ids").select2({
+    $("#empPrefOccs").select2({
         placeholder: "SELECT PREFERRED OCCUPATION(S)",
         ajax: {
             url: "/api/positions",
@@ -179,7 +179,7 @@ $(function () {
         }
     });
 
-    $("#pref_local_loc_id").select2({
+    $("#empPrefLocalLoc").select2({
         placeholder: "SELECT PREFERRED LOCAL LOCATION",
         ajax: {
             url: "/api/citymuns/provinces",
@@ -199,7 +199,7 @@ $(function () {
         }
     });
 
-    $("#pref_overseas_loc_id").select2({
+    $("#empPrefOverseasLoc").select2({
         placeholder: "SELECT PREFERRED OVERSEAS LOCATION",
         ajax: {
             url: "/api/countries",
@@ -219,7 +219,7 @@ $(function () {
         }
     });
 
-    $("#language_ids").select2({
+    $("#langs").select2({
         placeholder: "SELECT LANGUAGE(S)",
         ajax: {
             url: "/api/languages",
@@ -239,7 +239,7 @@ $(function () {
         }
     });
 
-    $("#religion_id").select2({
+    $("#basicInfoReligion").select2({
         placeholder: "SELECT RELIGION",
         ajax: {
             url: "/api/religions",
@@ -259,8 +259,8 @@ $(function () {
         }
     });
 
-    $("#basicInfoBrgyId").select2({ placeholder: "SELECT BARANGAY" });
-    $("#basicInfoBrgyId").on("change", function () {
+    $("#basicInfoBarangay").select2({ placeholder: "SELECT BARANGAY" });
+    $("#basicInfoBarangay").on("change", function () {
         $("#basicInfoPlaceOfBirth").focus();
     });
 
@@ -288,12 +288,13 @@ $(function () {
 
     $("#basicInfoCityMunId").on("change", function () {
         var data = $(this).select2("data")[0];
-        $("#basicInfoProv").val(data.provDesc);
+        $("input[name=basicInfoCityMun]").val(data.text);
+        $("#basicInfoProvince").val(data.provDesc);
 
-        $("#basicInfoBrgyId").removeAttr("data-parsley-required");
-        $("#basicInfoBrgyId").val(null).trigger("change");
-        $("#basicInfoBrgyId").attr("data-parsley-required", true);
-        $("#basicInfoBrgyId").select2({
+        $("#basicInfoBarangay").removeAttr("data-parsley-required");
+        $("#basicInfoBarangay").val(null).trigger("change");
+        $("#basicInfoBarangay").attr("data-parsley-required", true);
+        $("#basicInfoBarangay").select2({
             placeholder: "SELECT BARANGAY",
             ajax: {
                 url: "/api/citymuns/" + $("#basicInfoCityMunId").select2("val") + "/barangays",
@@ -303,7 +304,7 @@ $(function () {
                     return {
                         results: $.map(r, function (data) {
                             return {
-                                id: data.id,
+                                id: data.desc,
                                 text: data.desc
                             };
                         })
@@ -312,11 +313,11 @@ $(function () {
                 cache: true
             }
         });
-        $("#basicInfoBrgyId").prop("disabled", false);
-        $("#basicInfoBrgyId").focus();
+        $("#basicInfoBarangay").prop("disabled", false);
+        $("#basicInfoBarangay").focus();
     });
 
-    $("#toc_id").select2({
+    $("#empTeminatedOverseasCountry").select2({
         placeholder: "SELECT COUNTRY GOT TERMINATED",
         ajax: {
             url: "/api/countries",
@@ -336,7 +337,7 @@ $(function () {
         }
     });
 
-    $("#un_emp_stat_id").select2({
+    $("#empUnEmpStat").select2({
         placeholder: "SELECT UNEMPLOYED STATUS",
         ajax: {
             url: "/api/unempstats",
@@ -356,15 +357,15 @@ $(function () {
         }
     });
 
-    $("#un_emp_stat_id").on("change", function () {
-        if ($(this).val() == "5") {
-            $("#toc_id").attr("data-parsley-required", true);
-            $("#toc_id").prop("disabled", false);
-            $("#toc_id").focus();
+    $("#empUnEmpStat").on("change", function () {
+        if ($(this).val() == "TERMINATED/LAID OFF, OVERSEAS") {
+            $("#empTeminatedOverseasCountry").attr("data-parsley-required", true);
+            $("#empTeminatedOverseasCountry").prop("disabled", false);
+            $("#empTeminatedOverseasCountry").focus();
         } else {
-            $("#toc_id").removeAttr("data-parsley-required");
-            $("#toc_id").val(null).trigger("change");
-            $("#toc_id").prop("disabled", true);
+            $("#empTeminatedOverseasCountry").removeAttr("data-parsley-required");
+            $("#empTeminatedOverseasCountry").val(null).trigger("change");
+            $("#empTeminatedOverseasCountry").prop("disabled", true);
         }
     });
 

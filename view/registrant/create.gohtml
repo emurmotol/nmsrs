@@ -55,21 +55,22 @@
                     <div class="form-group">
                         <label for="basicInfoCityMunId" class="col-lg-3 control-label">City/Municipality <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="basicInfoCityMunId" id="basicInfoCityMunId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoCityMunIdErr"></select>
+                            <select class="form-control" id="basicInfoCityMunId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoCityMunIdErr"></select>
+                            <input type="hidden" name="basicInfoCityMun">
                             <span id="basicInfoCityMunIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="basicInfoProv" class="col-lg-3 control-label">Province</label>
+                        <label for="basicInfoProvince" class="col-lg-3 control-label">Province</label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="basicInfoProv" id="basicInfoProv" data-parsley-minlength="2" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="basicInfoProvince" id="basicInfoProvince" data-parsley-minlength="2" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="basicInfoBrgyId" class="col-lg-3 control-label">Barangay <span class="asterisk text-danger">*</span></label>
+                        <label for="basicInfoBarangay" class="col-lg-3 control-label">Barangay <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="basicInfoBrgyId" id="basicInfoBrgyId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoBrgyIdErr" disabled></select>
-                            <span id="basicInfoBrgyIdErr"></span>
+                            <select class="form-control" name="basicInfoBarangay" id="basicInfoBarangay" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoBarangayErr" disabled></select>
+                            <span id="basicInfoBarangayErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -185,7 +186,7 @@
                         <div class="col-lg-8 col-lg-offset-3">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="empActivelyLookingForWork" name="empActivelyLookingForWork" value="false"> Actively looking for work?
+                                    <input type="checkbox" id="empIsActivelyLookingForWork" name="empIsActivelyLookingForWork" value="false"> Actively looking for work?
                                 </label>
                             </div>
                         </div>
@@ -390,19 +391,19 @@
                 <div class="panel-heading clearfix">
                     <span class="pull-left">Certificate Of Competence</span>
                     <span class="pull-right">
-                        <button type="button" class="btn btn-success btn-xs" id="addCertOfCompetenceBtn" role="button">
+                        <button type="button" class="btn btn-success btn-xs" id="addCertBtn" role="button">
                             <i class="fa fa-plus"></i> Add
                         </button>
-                        <button type="button" class="btn btn-danger btn-xs" id="delCertOfCompetenceBtn" role="button" disabled>
+                        <button type="button" class="btn btn-danger btn-xs" id="delCertBtn" role="button" disabled>
                             <i class="fa fa-trash-o"></i> Delete
                         </button>
                     </span>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover" id="CertOfCompetenceTable">
+                    <table class="table table-striped table-hover" id="certTable">
                         <thead>
                             <tr>
-                                <th><input type="checkbox" id="selectAllCertOfCompetence"></th>
+                                <th><input type="checkbox" id="selectAllCert"></th>
                                 <th>Title</th>
                                 <th>Rating</th>
                                 <th>Issued By</th>
@@ -454,24 +455,24 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="skills" class="col-lg-3 control-label">Skills </label>
+                        <label for="otherSkills" class="col-lg-3 control-label">Skills </label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="skills" id="skills" multiple="multiple" data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#skillsErr"></select>
-                            <span id="skillsErr"></span>
+                            <select class="form-control" name="otherSkills" id="otherSkills" multiple="multiple" data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#otherSkillsErr"></select>
+                            <span id="otherSkillsErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="skillNotListed" value="false"> Skill not listed?
+                                    <input type="checkbox" id="otherSkillNotListed" value="false"> Skill not listed?
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
-                            <input class="form-control uppercase" type="text" name="skillOther" id="skillOther" data-parsley-minlength="2" data-parsley-trigger="change" placeholder="Skill" disabled>
+                            <input class="form-control uppercase" type="text" name="otherSkillOther" id="otherSkillOther" data-parsley-minlength="2" data-parsley-trigger="change" placeholder="Skill" disabled>
                         </div>
                     </div>
                 </div>
@@ -591,10 +592,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="proLicense" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
+                        <label for="proLicenseTitle" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="proLicense" id="proLicense" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#proLicenseErr"></select>
-                            <span id="proLicenseErr"></span>
+                            <select class="form-control" name="proLicenseTitle" id="proLicenseTitle" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#proLicenseTitleErr"></select>
+                            <span id="proLicenseTitleErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -695,8 +696,8 @@
         </div>
     </div>
 </form>
-<form class="form-horizontal" id="certOfCompetenceForm">
-    <div class="modal fade" id="certOfCompetenceModal" data-backdrop="static" role="dialog">
+<form class="form-horizontal" id="certForm">
+    <div class="modal fade" id="certModal" data-backdrop="static" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -707,28 +708,28 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="certOfCompetenceTitle" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
+                        <label for="certTitle" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="certOfCompetenceTitle" id="certOfCompetenceTitle" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#certOfCompetenceTitleErr"></select>
-                            <span id="certOfCompetenceTitleErr"></span>
+                            <select class="form-control" name="certTitle" id="certTitle" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#certTitleErr"></select>
+                            <span id="certTitleErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="certOfCompetenceRating" class="col-lg-3 control-label">Rating</label>
+                        <label for="certRating" class="col-lg-3 control-label">Rating</label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="certOfCompetenceRating" id="certOfCompetenceRating" data-parsley-minlength="2" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="certRating" id="certRating" data-parsley-minlength="2" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="certOfCompetenceIssuedBy" class="col-lg-3 control-label">Issued By <span class="asterisk text-danger">*</span></label>
+                        <label for="certIssuedBy" class="col-lg-3 control-label">Issued By <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="certOfCompetenceIssuedBy" id="certOfCompetenceIssuedBy" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="certIssuedBy" id="certIssuedBy" data-parsley-required="true" data-parsley-minlength="2" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="certOfCompetenceDateIssued" class="col-lg-3 control-label">Date Issued <span class="asterisk text-danger">*</span></label>
+                        <label for="certDateIssued" class="col-lg-3 control-label">Date Issued <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="certOfCompetenceDateIssued" id="certOfCompetenceDateIssued" data-parsley-required="true" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="certDateIssued" id="certDateIssued" data-parsley-required="true" data-parsley-trigger="change">
                         </div>
                     </div>
                 </div>
@@ -786,7 +787,7 @@
                         <div class="col-lg-7 col-lg-offset-4">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="workExpRelatedToFormalEdu" value="false"> Related to formal education?
+                                    <input type="checkbox" id="workExpIsRelatedToFormalEdu" value="false"> Related to formal education?
                                 </label>
                             </div>
                         </div>

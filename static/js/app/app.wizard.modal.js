@@ -570,142 +570,142 @@ $(function () {
         $("#trainingForm").attr("data-action", "add");
         $("#trainingModal").modal("show");
     });
-    var selectAllCertOfCompetence = $("#selectAllCertOfCompetence");
-    var delCertOfCompetenceBtn = $("#delCertOfCompetenceBtn");
+    var selectAllCert = $("#selectAllCert");
+    var delCertBtn = $("#delCertBtn");
 
-    $("#certOfCompetenceDateIssued").datetimepicker({
+    $("#certDateIssued").datetimepicker({
         format: "YYYY-MM"
     });
 
-    $("#certOfCompetenceDateIssued").on("dp.change", function () {
+    $("#certDateIssued").on("dp.change", function () {
         $(this).parsley().validate();
     });
 
-    $("#certOfCompetenceForm").parsley();
-    $("#certOfCompetenceForm").on("submit", function (e) {
+    $("#certForm").parsley();
+    $("#certForm").on("submit", function (e) {
         e.preventDefault();
-        var certOfCompetenceTitleVal = $("#certOfCompetenceTitle").select2("val");
-        var certOfCompetenceRatingVal = $("#certOfCompetenceRating").val().toUpperCase();
-        var certOfCompetenceIssuedByVal = $("#certOfCompetenceIssuedBy").val().toUpperCase();
-        var certOfCompetenceDateIssuedVal = $("#certOfCompetenceDateIssued").val().toUpperCase();
+        var certTitleVal = $("#certTitle").select2("val");
+        var certRatingVal = $("#certRating").val().toUpperCase();
+        var certIssuedByVal = $("#certIssuedBy").val().toUpperCase();
+        var certDateIssuedVal = $("#certDateIssued").val().toUpperCase();
 
         switch ($(this).attr("data-action")) {
             case "add":
-                var certOfCompetenceIndex = $("#certOfCompetenceTable tbody tr").index() + 1;
+                var certIndex = $("#certTable tbody tr").index() + 1;
                 var row = `
-                <tr data-index="` + certOfCompetenceIndex + `">
-                    <td class="certOfCompetenceCheckbox_">
-                        <input type="checkbox" class="checkbox" id="certOfCompetenceCheckbox_` + certOfCompetenceIndex + `">
+                <tr data-index="` + certIndex + `">
+                    <td class="certCheckbox_">
+                        <input type="checkbox" class="checkbox" id="certCheckbox_` + certIndex + `">
                     </td>
-                    <td class="cert-of-competence-title">
-                        <span>` + $("#certOfCompetenceTitle").select2("data")[0].text + `</span>
-                        <input type="hidden" name="certOfCompetenceTitle" value="` + certOfCompetenceTitleVal + `">
+                    <td class="cert-title">
+                        <span>` + $("#certTitle").select2("data")[0].text + `</span>
+                        <input type="hidden" name="certTitle" value="` + certTitleVal + `">
                     </td>
-                    <td class="cert-of-competence-rating">
-                        <span>` + certOfCompetenceRatingVal + `</span>
-                        <input type="hidden" name="certOfCompetenceRating" value="` + certOfCompetenceRatingVal + `">
+                    <td class="cert-rating">
+                        <span>` + certRatingVal + `</span>
+                        <input type="hidden" name="certRating" value="` + certRatingVal + `">
                     </td>
-                    <td class="cert-of-competence-issued-by">
-                        <span>` + certOfCompetenceIssuedByVal + `</span>
-                        <input type="hidden" name="certOfCompetenceIssuedBy" value="` + certOfCompetenceIssuedByVal + `">
+                    <td class="cert-issued-by">
+                        <span>` + certIssuedByVal + `</span>
+                        <input type="hidden" name="certIssuedBy" value="` + certIssuedByVal + `">
                     </td>
-                    <td class="cert-of-competence-date-issued">
-                        <span>` + certOfCompetenceDateIssuedVal + `</span>
-                        <input type="hidden" name="certOfCompetenceDateIssued" value="` + certOfCompetenceDateIssuedVal + `">
+                    <td class="cert-date-issued">
+                        <span>` + certDateIssuedVal + `</span>
+                        <input type="hidden" name="certDateIssued" value="` + certDateIssuedVal + `">
                     </td>
                     <td class="text-center">
-                        <a href="#" class="cert-of-competence-edit-link"><i class="fa fa-pencil"></i></a>
+                        <a href="#" class="cert-edit-link"><i class="fa fa-pencil"></i></a>
                     </td>
                 </tr>
                 `;
 
-                $("#certOfCompetenceTable tbody").append(row);
+                $("#certTable tbody").append(row);
                 break;
             case "edit":
-                var tr = $("#certOfCompetenceTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".cert-of-competence-title").find("span").text($("#certOfCompetenceTitle").select2("data")[0].text);
-                tr.find(".cert-of-competence-title").find('input[name="certOfCompetenceTitle"]').val(certOfCompetenceTitleVal);
-                tr.find(".cert-of-competence-rating").find("span").text(certOfCompetenceRatingVal);
-                tr.find(".cert-of-competence-rating").find('input[name="certOfCompetenceRating"]').val(certOfCompetenceRatingVal);
-                tr.find(".cert-of-competence-issued-by").find("span").text(certOfCompetenceIssuedByVal);
-                tr.find(".cert-of-competence-issued-by").find('input[name="certOfCompetenceIssuedBy"]').val(certOfCompetenceIssuedByVal);
-                tr.find(".cert-of-competence-date-issued").find("span").text(certOfCompetenceDateIssuedVal);
-                tr.find(".cert-of-competence-date-issued").find('input[name="certOfCompetenceDateIssued"]').val(certOfCompetenceDateIssuedVal);
+                var tr = $("#certTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
+                tr.find(".cert-title").find("span").text($("#certTitle").select2("data")[0].text);
+                tr.find(".cert-title").find('input[name="certTitle"]').val(certTitleVal);
+                tr.find(".cert-rating").find("span").text(certRatingVal);
+                tr.find(".cert-rating").find('input[name="certRating"]').val(certRatingVal);
+                tr.find(".cert-issued-by").find("span").text(certIssuedByVal);
+                tr.find(".cert-issued-by").find('input[name="certIssuedBy"]').val(certIssuedByVal);
+                tr.find(".cert-date-issued").find("span").text(certDateIssuedVal);
+                tr.find(".cert-date-issued").find('input[name="certDateIssued"]').val(certDateIssuedVal);
                 $(this).removeAttr("data-edit-index");
                 break;
         }
 
-        $(".cert-of-competence-checkbox input").on("change", function () {
+        $(".cert-checkbox input").on("change", function () {
             if ($(this).prop("checked") == false) {
-                selectAllCertOfCompetence.prop("checked", false);
+                selectAllCert.prop("checked", false);
             }
 
-            if ($(".cert-of-competence-checkbox input:checked").length == $(".cert-of-competence-checkbox input").length) {
-                selectAllCertOfCompetence.prop("checked", true);
+            if ($(".cert-checkbox input:checked").length == $(".cert-checkbox input").length) {
+                selectAllCert.prop("checked", true);
             }
 
-            if ($(".cert-of-competence-checkbox input:checked").length == 0) {
-                delCertOfCompetenceBtn.prop("disabled", true);
+            if ($(".cert-checkbox input:checked").length == 0) {
+                delCertBtn.prop("disabled", true);
             } else {
-                delCertOfCompetenceBtn.prop("disabled", false);
+                delCertBtn.prop("disabled", false);
             }
         });
 
-        $(".cert-of-competence-edit-link").on("click", function () {
+        $(".cert-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var certOfCompetenceTitleVal = tr.find(".cert-of-competence-title").find('input[name="certOfCompetenceTitle"]').val();
-            var certOfCompetenceRatingVal = tr.find(".cert-of-competence-rating").find('input[name="certOfCompetenceRating"]').val().toUpperCase();
-            var certOfCompetenceIssuedByVal = tr.find(".cert-of-competence-issued-by").find('input[name="certOfCompetenceIssuedBy"]').val().toUpperCase();
-            var certOfCompetenceDateIssuedVal = tr.find(".cert-of-competence-date-issued").find('input[name="certOfCompetenceDateIssued"]').val().toUpperCase();
+            var certTitleVal = tr.find(".cert-title").find('input[name="certTitle"]').val();
+            var certRatingVal = tr.find(".cert-rating").find('input[name="certRating"]').val().toUpperCase();
+            var certIssuedByVal = tr.find(".cert-issued-by").find('input[name="certIssuedBy"]').val().toUpperCase();
+            var certDateIssuedVal = tr.find(".cert-date-issued").find('input[name="certDateIssued"]').val().toUpperCase();
 
-            $("#certOfCompetenceTitle").val(certOfCompetenceTitleVal).trigger("change");
-            $("#certOfCompetenceRating").val(certOfCompetenceRatingVal).trigger("change");
-            $("#certOfCompetenceIssuedBy").val(certOfCompetenceIssuedByVal).trigger("change");
-            $("#certOfCompetenceDateIssued").val(certOfCompetenceDateIssuedVal).trigger("change");
-            $("#certOfCompetenceForm").attr("data-edit-index", tr.data("index"));
-            $("#certOfCompetenceForm").attr("data-action", "edit");
-            $("#certOfCompetenceModal").modal("show");
+            $("#certTitle").val(certTitleVal).trigger("change");
+            $("#certRating").val(certRatingVal).trigger("change");
+            $("#certIssuedBy").val(certIssuedByVal).trigger("change");
+            $("#certDateIssued").val(certDateIssuedVal).trigger("change");
+            $("#certForm").attr("data-edit-index", tr.data("index"));
+            $("#certForm").attr("data-action", "edit");
+            $("#certModal").modal("show");
         });
-        selectAllCertOfCompetence.prop("checked", false);
-        $("#certOfCompetenceModal").modal("hide");
+        selectAllCert.prop("checked", false);
+        $("#certModal").modal("hide");
     });
 
-    selectAllCertOfCompetence.on("change", function () {
-        if ($(".cert-of-competence-checkbox input").length > 0) {
-            $(".cert-of-competence-checkbox input").prop("checked", $(this).prop("checked"));
-            delCertOfCompetenceBtn.prop("disabled", !$(this).prop("checked"));
+    selectAllCert.on("change", function () {
+        if ($(".cert-checkbox input").length > 0) {
+            $(".cert-checkbox input").prop("checked", $(this).prop("checked"));
+            delCertBtn.prop("disabled", !$(this).prop("checked"));
         }
     });
 
-    delCertOfCompetenceBtn.on("click", function () {
-        $(".cert-of-competence-checkbox input").each(function () {
+    delCertBtn.on("click", function () {
+        $(".cert-checkbox input").each(function () {
             if ($(this).prop("checked")) {
                 $(this).closest("tr").remove();
-                selectAllCertOfCompetence.prop("checked", false);
+                selectAllCert.prop("checked", false);
             }
         });
 
-        if ($("#certOfCompetenceTable tbody tr").length == 0) {
+        if ($("#certTable tbody tr").length == 0) {
             $(this).prop("disabled", true);
         }
     });
 
-    $("#certOfCompetenceModal").on("hidden.bs.modal", function () {
-        $("#certOfCompetenceForm").removeAttr("data-action");
-        $("#certOfCompetenceTitle").removeAttr("data-parsley-required");
-        $("#certOfCompetenceTitle").val(null).trigger("change");
-        $("#certOfCompetenceTitle").attr("data-parsley-required", true);
-        $("#certOfCompetenceRating").val("");
-        $("#certOfCompetenceRating").parsley().reset();
-        $("#certOfCompetenceIssuedBy").val("");
-        $("#certOfCompetenceIssuedBy").parsley().reset();
-        $("#certOfCompetenceDateIssued").val("");
-        $("#certOfCompetenceDateIssued").parsley().reset();
+    $("#certModal").on("hidden.bs.modal", function () {
+        $("#certForm").removeAttr("data-action");
+        $("#certTitle").removeAttr("data-parsley-required");
+        $("#certTitle").val(null).trigger("change");
+        $("#certTitle").attr("data-parsley-required", true);
+        $("#certRating").val("");
+        $("#certRating").parsley().reset();
+        $("#certIssuedBy").val("");
+        $("#certIssuedBy").parsley().reset();
+        $("#certDateIssued").val("");
+        $("#certDateIssued").parsley().reset();
     });
 
-    $("#addCertOfCompetenceBtn").on("click", function () {
-        $("#certOfCompetenceForm").attr("data-action", "add");
-        $("#certOfCompetenceModal").modal("show");
+    $("#addCertBtn").on("click", function () {
+        $("#certForm").attr("data-action", "add");
+        $("#certModal").modal("show");
     });
     var selectAllWorkExp = $("#selectAllWorkExp");
     var delWorkExpBtn = $("#delWorkExpBtn");
@@ -726,7 +726,7 @@ $(function () {
         $(this).parsley().validate();
     });
 
-    $("#workExpRelatedToFormalEdu").on("change", function () {
+    $("#workExpIsRelatedToFormalEdu").on("change", function () {
         $(this).val($(this).prop("checked"));
     });
 
@@ -738,7 +738,7 @@ $(function () {
         var workExpPositionHeldVal = $("#workExpPositionHeld").select2("val");
         var workExpFromVal = $("#workExpFrom").val().toUpperCase();
         var workExpToVal = $("#workExpTo").val().toUpperCase();
-        var workExpRelatedToFormalEduVal = $("#workExpRelatedToFormalEdu").val();
+        var workExpIsRelatedToFormalEduVal = $("#workExpIsRelatedToFormalEdu").val();
 
         switch ($(this).attr("data-action")) {
             case "add":
@@ -769,8 +769,8 @@ $(function () {
                         <input type="hidden" name="workExpTo" value="` + workExpToVal + `">
                     </td>
                     <td class="work-exp-related-to-formal-edu">
-                        <span>` + workExpRelatedToFormalEduVal + `</span>
-                        <input type="hidden" name="workExpRelatedToFormalEdu" value="` + workExpRelatedToFormalEduVal + `">
+                        <span>` + workExpIsRelatedToFormalEduVal + `</span>
+                        <input type="hidden" name="workExpIsRelatedToFormalEdu" value="` + workExpIsRelatedToFormalEduVal + `">
                     </td>
                     <td class="text-center">
                         <a href="#" class="work-exp-edit-link"><i class="fa fa-pencil"></i></a>
@@ -792,8 +792,8 @@ $(function () {
                 tr.find(".work-exp-from").find('input[name="workExpFrom"]').val(workExpFromVal);
                 tr.find(".work-exp-to").find("span").text(workExpToVal);
                 tr.find(".work-exp-to").find('input[name="workExpTo"]').val(workExpToVal);
-                tr.find(".work-exp-related-to-formal-edu").find("span").text(workExpRelatedToFormalEduVal);
-                tr.find(".work-exp-related-to-formal-edu").find('input[name="workExpRelatedToFormalEdu"]').val(workExpRelatedToFormalEduVal);
+                tr.find(".work-exp-related-to-formal-edu").find("span").text(workExpIsRelatedToFormalEduVal);
+                tr.find(".work-exp-related-to-formal-edu").find('input[name="workExpIsRelatedToFormalEdu"]').val(workExpIsRelatedToFormalEduVal);
                 $(this).removeAttr("data-edit-index");
                 break;
         }
@@ -821,14 +821,14 @@ $(function () {
             var workExpPositionHeldVal = tr.find(".work-exp-position-held").find('input[name="workExpPositionHeld"]').val();
             var workExpFromVal = tr.find(".work-exp-from").find('input[name="workExpFrom"]').val().toUpperCase();
             var workExpToVal = tr.find(".work-exp-to").find('input[name="workExpTo"]').val().toUpperCase();
-            var workExpRelatedToFormalEduVal = tr.find(".work-exp-related-to-formal-edu").find('input[name="workExpRelatedToFormalEdu"]').val();
+            var workExpIsRelatedToFormalEduVal = tr.find(".work-exp-related-to-formal-edu").find('input[name="workExpIsRelatedToFormalEdu"]').val();
 
             $("#workExpNameOfCompanyFirm").val(workExpNameOfCompanyFirmVal).trigger("change");
             $("#workExpAddress").val(workExpAddressVal).trigger("change");
             $("#workExpPositionHeld").val(workExpPositionHeldVal).trigger("change");
             $("#workExpFrom").val(workExpFromVal).trigger("change");
             $("#workExpTo").val(workExpToVal).trigger("change");
-            $("#workExpRelatedToFormalEdu").val(workExpRelatedToFormalEduVal).trigger("change");
+            $("#workExpIsRelatedToFormalEdu").val(workExpIsRelatedToFormalEduVal).trigger("change");
             $("#workExpForm").attr("data-edit-index", tr.data("index"));
             $("#workExpForm").attr("data-action", "edit");
             $("#workExpModal").modal("show");
@@ -870,8 +870,8 @@ $(function () {
         $("#workExpFrom").parsley().reset();
         $("#workExpTo").val("");
         $("#workExpTo").parsley().reset();
-        $("#workExpRelatedToFormalEdu").val(false).trigger("change");
-        $("#workExpRelatedToFormalEdu").prop("checked", false);
+        $("#workExpIsRelatedToFormalEdu").val(false).trigger("change");
+        $("#workExpIsRelatedToFormalEdu").prop("checked", false);
     });
 
     $("#addWorkExpBtn").on("click", function () {
