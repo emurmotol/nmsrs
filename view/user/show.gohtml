@@ -7,7 +7,7 @@
                     <a href="/users/{{.user.Id.Hex}}/edit" class="btn btn-primary btn-xs">
                         <i class="fa fa-pencil"></i> Edit
                     </a>
-                    <button type="button" class="btn btn-danger btn-xs" id="delete_user_button" role="button">
+                    <button type="button" class="btn btn-danger btn-xs" id="delUserBtn" role="button">
                         <i class="fa fa-user-times"></i> Delete
                     </button>
                 </span>
@@ -26,7 +26,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="delete_user_modal" data-backdrop="static" role="dialog">
+<div class="modal fade" id="delUserModal" data-backdrop="static" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -39,7 +39,7 @@
                 This action <strong>CANNOT</strong> be undone. This will permanently delete <strong>{{.user.Name}}</strong>.
             </div>
             <div class="modal-footer">
-                <form action="/users/{{.user.Id.Hex}}/delete" method="POST" id="delete_user_form">
+                <form action="/users/{{.user.Id.Hex}}/delete" method="POST" id="delUserForm">
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="button" class="btn btn-default" data-dismiss="modal" role="button">No</button>
                     <button type="submit" class="btn btn-danger" role="button" data-loading-text="Deleting user...">Yes, proceed</button>
@@ -54,11 +54,11 @@
 {{end}} {{define "js-user/show"}}
 <script>
     $(function () {
-        $("#delete_user_button").on("click", function () {
-            $("#delete_user_modal").modal("show");
+        $("#delUserBtn").on("click", function () {
+            $("#delUserModal").modal("show");
         });
 
-        $("#delete_user_form").on("submit", function () {
+        $("#delUserForm").on("submit", function () {
             duringSubmitDo(this);
         });
     });

@@ -7,7 +7,7 @@
                     <a href="/users/create" class="btn btn-success btn-xs" role="button">
                         <i class="fa fa-user-plus"></i> Add
                     </a>
-                    <button type="button" class="btn btn-danger btn-xs" id="delete_user_button" role="button" disabled>
+                    <button type="button" class="btn btn-danger btn-xs" id="delUserBtn" role="button" disabled>
                         <i class="fa fa-user-times"></i> Delete
                     </button>
                 </span>
@@ -27,7 +27,7 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" id="select_all_users"></th>
+                            <th><input type="checkbox" id="selectAllUsers"></th>
                             <th class="text-center">Photo</th>
                             <th>Name</th>
                             <th><i class="fa fa-envelope-o"></i> Email Address</th>
@@ -72,24 +72,24 @@
             <div class="panel-heading clearfix">
                 <span class="pull-left"><i class="fa fa-sliders"></i> Filter</span>
                 <span class="pull-right">
-                    <button type="button" class="btn btn-primary btn-xs" id="reset_filter_button" role="button"><i class="fa fa-refresh"></i> Reset</button>
+                    <button type="button" class="btn btn-primary btn-xs" id="resetFilterBtn" role="button"><i class="fa fa-refresh"></i> Reset</button>
                 </span>
             </div>
             <div class="panel-body">
                 <label>Administrator?</label>
                 <div class="btn-group" data-toggle="buttons">
                     <label class="btn btn-default btn-xs">
-                        <input type="radio" name="is_admin" value="1" autocomplete="off"> Yes
+                        <input type="radio" name="isAdmin" value="1" autocomplete="off"> Yes
                     </label>
                     <label class="btn btn-default btn-xs">
-                        <input type="radio" name="is_admin" value="0" autocomplete="off"> No
+                        <input type="radio" name="isAdmin" value="0" autocomplete="off"> No
                     </label>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="delete_user_modal" data-backdrop="static" role="dialog">
+<div class="modal fade" id="delUserModal" data-backdrop="static" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -99,12 +99,12 @@
                 <h4 class="modal-title">Are you <strong>ABSOLUTELY</strong> sure?</h4>
             </div>
             <div class="modal-body">
-                This action <strong>CANNOT</strong> be undone. This will permanently delete <strong id="to_del"></strong> user/s.
+                This action <strong>CANNOT</strong> be undone. This will permanently delete <strong id="toDel"></strong> user/s.
             </div>
             <div class="modal-footer">
-                <form action="/users/delete" method="POST" id="delete_user_form">
+                <form action="/users/delete" method="POST" id="delUserForm">
                     <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="user_ids">
+                    <input type="hidden" name="userIds">
                     <button type="button" class="btn btn-default" data-dismiss="modal" role="button">No</button>
                     <button type="submit" class="btn btn-danger" data-loading-text="Deleting user/s..." role="button">Yes, proceed</button>
                 </form>
@@ -119,21 +119,21 @@
     $(function () {
         $(".pagination").rPage();
         
-        if ($.url("?is_admin") != null) {
-            if ($.url("?is_admin") == 1) {
-                $("input[name=is_admin][value=1]").parent("label").removeClass("btn-default");
-                $("input[name=is_admin][value=1]").parent("label").addClass("btn-info");
-                $("input[name=is_admin][value=1]").parent("label").addClass("active");
-                $("input[name=is_admin][value=1]").prop("checked", true);
-            } else if ($.url("?is_admin") == 0) {
-                $("input[name=is_admin][value=0]").parent("label").removeClass("btn-default");
-                $("input[name=is_admin][value=0]").parent("label").addClass("btn-info");
-                $("input[name=is_admin][value=0]").parent("label").addClass("active");
-                $("input[name=is_admin][value=0]").prop("checked", false);
+        if ($.url("?isAdmin") != null) {
+            if ($.url("?isAdmin") == 1) {
+                $("input[name=isAdmin][value=1]").parent("label").removeClass("btn-default");
+                $("input[name=isAdmin][value=1]").parent("label").addClass("btn-info");
+                $("input[name=isAdmin][value=1]").parent("label").addClass("active");
+                $("input[name=isAdmin][value=1]").prop("checked", true);
+            } else if ($.url("?isAdmin") == 0) {
+                $("input[name=isAdmin][value=0]").parent("label").removeClass("btn-default");
+                $("input[name=isAdmin][value=0]").parent("label").addClass("btn-info");
+                $("input[name=isAdmin][value=0]").parent("label").addClass("active");
+                $("input[name=isAdmin][value=0]").prop("checked", false);
             }
         }
 
-        $("input[name=is_admin]").parent().on("click", function () {
+        $("input[name=isAdmin]").parent().on("click", function () {
             var jsonURL = $.url("?");
 
             if (jsonURL == null) {
@@ -143,11 +143,11 @@
             if (jsonURL.page != null) {
                 delete jsonURL.page
             }
-            jsonURL["is_admin"] = $($(this).button().get(0).firstElementChild).val();
+            jsonURL["isAdmin"] = $($(this).button().get(0).firstElementChild).val();
             location.href = $.url("path") + "?" + $.param(jsonURL);
         });
 
-        $("#reset_filter_button").on("click", function () {
+        $("#resetFilterBtn").on("click", function () {
             var jsonURL = $.url("?");
 
             if (jsonURL == null) {
@@ -158,49 +158,49 @@
                 delete jsonURL.page
             }
 
-            if (jsonURL.is_admin != null) {
-                delete jsonURL.is_admin
+            if (jsonURL.isAdmin != null) {
+                delete jsonURL.isAdmin
             }
             location.href = $.url("path") + "?" + $.param(jsonURL);
         });
-        var select_all_users = $("#select_all_users");
-        var delete_user_button = $("#delete_user_button");
+        var selectAllUsers = $("#selectAllUsers");
+        var delUserBtn = $("#delUserBtn");
 
-        delete_user_button.on("click", function () {
-            $("#to_del").text($(".user-checkbox:checked").length);
-            $("#delete_user_modal").modal("show");
+        delUserBtn.on("click", function () {
+            $("#toDel").text($(".user-checkbox:checked").length);
+            $("#delUserModal").modal("show");
         });
 
-        $("#delete_user_form").on("submit", function () {
-            var user_ids = [];
+        $("#delUserForm").on("submit", function () {
+            var userIds = [];
 
             $(".user-checkbox").each(function () {
                 if ($(this).prop("checked")) {
-                    user_ids.push(parseInt($(this).val()));
+                    userIds.push(parseInt($(this).val()));
                 }
             });
-            $(this).find("input[type=hidden][name=user_ids]").val(JSON.stringify(user_ids));
+            $(this).find("input[type=hidden][name=userIds]").val(JSON.stringify(userIds));
             duringSubmitDo(this);
         });
 
-        select_all_users.on("change", function () {
+        selectAllUsers.on("change", function () {
             $(".user-checkbox").prop("checked", $(this).prop("checked"));
-            delete_user_button.prop("disabled", !$(this).prop("checked"));
+            delUserBtn.prop("disabled", !$(this).prop("checked"));
         });
 
         $(".user-checkbox").on("change", function () {
             if ($(this).prop("checked") == false) {
-                select_all_users.prop("checked", false);
+                selectAllUsers.prop("checked", false);
             }
 
             if ($(".user-checkbox:checked").length == $(".user-checkbox").length) {
-                select_all_users.prop("checked", true);
+                selectAllUsers.prop("checked", true);
             }
 
             if ($(".user-checkbox:checked").length == 0) {
-                delete_user_button.prop("disabled", true);
+                delUserBtn.prop("disabled", true);
             } else {
-                delete_user_button.prop("disabled", false);
+                delUserBtn.prop("disabled", false);
             }
         });
     });

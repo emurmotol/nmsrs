@@ -42,7 +42,7 @@
             <div class="panel-heading clearfix">
                 <span class="pull-left"><i class="fa fa-object-group"></i> Type</span>
                 <span class="pull-right">
-                    <button type="button" class="btn btn-primary btn-xs" id="reset_type_button" role="button">
+                    <button type="button" class="btn btn-primary btn-xs" id="resetTypeBtn" role="button">
                         <i class="fa fa-refresh"></i> Reset
                     </button>
                 </span>
@@ -80,7 +80,7 @@
             location.href = $.url("path") + "?" + $.param(jsonURL);
         });
 
-        $("#reset_type_button").on("click", function () {
+        $("#resetTypeBtn").on("click", function () {
             var jsonURL = $.url("?");
 
             if (jsonURL == null) {

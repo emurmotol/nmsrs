@@ -108,7 +108,7 @@
                         <div class="col-lg-8">
                             {{range $i, $sex := .sexes}}
                             <label class="radio-inline">
-                                <input type="radio" name="basicInfoSex" id="sex_{{$id}}" value="{{$sex.Name}}"{{if eq .Id 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoSexErr"{{end}}> {{$sex.Name}}
+                                <input type="radio" name="basicInfoSex" id="sex_{{$i}}" value="{{$sex.Name}}"{{if eq .Id 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoSexErr"{{end}}> {{$sex.Name}}
                             </label>
                             {{end}}
                             <span id="basicInfoSexErr"></span>
@@ -162,7 +162,7 @@
                             {{range $i, $empStat := .empStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="empStat" id="empStat_{{$id}}" value="{{$empStat.Name}}"{{if eq $i 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#empStatErr"{{end}}> {{$empStat.Name}}
+                                    <input type="radio" name="empStat" id="empStat_{{$i}}" value="{{$empStat.Name}}"{{if eq $i 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#empStatErr"{{end}}> {{$empStat.Name}}
                                 </label>
                             </div>
                             {{end}}
@@ -669,9 +669,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="trainingPeriodOfTrainingExperience" class="col-lg-4 control-label">Period Of Training/Experience <span class="asterisk text-danger">*</span></label>
+                        <label for="trainingPeriodOfTrainingExp" class="col-lg-4 control-label">Period Of Training/Experience <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-7">
-                            <input type="text" class="form-control uppercase" name="trainingPeriodOfTrainingExperience" id="trainingPeriodOfTrainingExperience" data-parsley-required="true" data-parsley-minlength="1" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="trainingPeriodOfTrainingExp" id="trainingPeriodOfTrainingExp" data-parsley-required="true" data-parsley-minlength="1" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">

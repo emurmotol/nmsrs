@@ -23,7 +23,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		"email": bson.M{"$ne": model.SuperUserEmail},
 	})
 
-	if val, ok := r.URL.Query()["is_admin"]; ok {
+	if val, ok := r.URL.Query()["isAdmin"]; ok {
 		query = append(query, bson.M{"isAdmin": val[0]})
 	}
 

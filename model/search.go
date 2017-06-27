@@ -11,8 +11,8 @@ type SearchResult struct {
 	Id        bson.ObjectId `json:"id,omitempty"`
 	Name      string        `json:"name"`
 	Email     string        `json:"email"`
-	HasPhoto  bool          `json:"has_photo"`
-	CreatedAt time.Time     `json:"created_at"`
+	HasPhoto  bool          `json:"hasPhoto"`
+	CreatedAt time.Time     `json:"createdAt"`
 	Type      string        `json:"type"`
 }
 

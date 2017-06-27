@@ -20,7 +20,7 @@
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app_navbar_collapse" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#appNavbarCollapse" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -30,9 +30,9 @@
                     <img alt="{{config.app.name}}" src="/assets/img/logo/dole/1144x1024.png"><span>{{config.app.name}}</span>
                 </a>
             </div>
-            <div class="collapse navbar-collapse" id="app_navbar_collapse">
+            <div class="collapse navbar-collapse" id="appNavbarCollapse">
                 {{with .auth}}
-                <form action="/search" method="GET" class="form-inline navbar-form navbar-left" role="search" id="navbar_search_form">
+                <form action="/search" method="GET" class="form-inline navbar-form navbar-left" role="search" id="navbarSearchForm">
                     <div class="form-group">
                         <div class="input-group">
                             <input type="text" class="form-control" name="q" id="q" data-provide="typeahead" autocomplete="off">
@@ -51,10 +51,10 @@
                 <ul class="nav navbar-nav navbar-right">
                     {{with .auth}}
                     <li class="dropdown nav-user">
-                        <a href="/{{.Id.Hex}}" class="dropdown-toggle" id="drop_down_{{.Id.Hex}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href="/{{.Id.Hex}}" class="dropdown-toggle" id="userDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="{{if .HasPhoto}}{{photoPath .Id.Hex `User`}}{{else}}{{config.default.photo.path}}{{end}}" class="img-rounded" height="30" alt="{{.Name}}">{{.Name}}<span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="drop_down_id">
+                        <ul class="dropdown-menu" aria-labelledby="userDropDownMenu">
                             <li><a href="/{{.Id.Hex}}">Your profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/logout">Logout</a></li>

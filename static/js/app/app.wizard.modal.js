@@ -1,67 +1,67 @@
 $(function () {
-    var select_all_formal_edu = $("#select_all_formal_edu");
-    var delete_formal_edu_button = $("#delete_formal_edu_button");
+    var selectAllFormalEdu = $("#selectAllFormalEdu");
+    var delFormalEduBtn = $("#delFormalEduBtn");
 
-    $("#formal_edu_yg").datetimepicker({
+    $("#formalEduYearGrad").datetimepicker({
         viewMode: "years",
         format: "YYYY"
     });
 
-    $("#formal_edu_yg").on("dp.change", function() {
+    $("#formalEduYearGrad").on("dp.change", function () {
         $(this).parsley().validate();
     });
 
-    $("#formal_edu_la").datetimepicker({
+    $("#formalEduLastAttended").datetimepicker({
         format: "YYYY-MM"
     });
 
-    $("#formal_edu_la").on("dp.change", function() {
+    $("#formalEduLastAttended").on("dp.change", function () {
         $(this).parsley().validate();
     });
 
-    $("#formal_edu_form").parsley();
-    $("#formal_edu_form").on("submit", function (e) {
+    $("#formalEduForm").parsley();
+    $("#formalEduForm").on("submit", function (e) {
         e.preventDefault();
-        var formal_edu_hgc_id_val = $("#formal_edu_hgc_id").select2("val");
-        var formal_edu_cd_id_val = $("#formal_edu_cd_id").select2("val");
-        var formal_edu_su_id_val = $("#formal_edu_su_id").select2("val") != null ? $("#formal_edu_su_id").select2("val") : "";
-        var formal_edu_su_other_val = $("#formal_edu_su_other").val().toUpperCase();
-        var formal_edu_su_text = formal_edu_su_other_val;
-        var formal_edu_yg_val = $("#formal_edu_yg").val();
-        var formal_edu_la_val = $("#formal_edu_la").val();
+        var formalEduHighestGradeCompletedVal = $("#formalEduHighestGradeCompleted").select2("val");
+        var formalEduCourseDegreeVal = $("#formalEduCourseDegree").select2("val");
+        var formalEduSchoolUnivVal = $("#formalEduSchoolUniv").select2("val") != null ? $("#formalEduSchoolUniv").select2("val") : "";
+        var formalEduSchoolUnivOtherVal = $("#formalEduSchoolUnivOther").val().toUpperCase();
+        var formalEduSchoolUnivText = formalEduSchoolUnivOtherVal;
+        var formalEduYearGradVal = $("#formalEduYearGrad").val();
+        var formalEduLastAttendedVal = $("#formalEduLastAttended").val();
 
-        if (!$("#formal_edu_sunl").prop("checked")) {
-            formal_edu_su_text = $("#formal_edu_su_id").select2("data")[0].text;
+        if (!$("#formalEduSchoolUnivNotListed").prop("checked")) {
+            formalEduSchoolUnivText = $("#formalEduSchoolUniv").select2("data")[0].text;
         }
 
         switch ($(this).attr("data-action")) {
             case "add":
-                var formal_edu_index = 1 + $("#formal_edu_table tbody tr").length++;
+                var formalEduIndex = $("#formalEduTable tbody tr").index() + 1;
                 var row = `
-                <tr data-index="` + formal_edu_index + `">
+                <tr data-index="` + formalEduIndex + `">
                     <td class="formal-edu-checkbox">
-                        <input type="checkbox" class="checkbox" id="formal_edu_checkbox_` + formal_edu_index + `">
+                        <input type="checkbox" class="checkbox" id="formalEduCheckbox_` + formalEduIndex + `">
                     </td>
-                    <td class="formal-edu-hgc">
-                        <span>` + $("#formal_edu_hgc_id").select2("data")[0].text + `</span>
-                        <input type="hidden" name="formal_edu_hgc_id" value="` + formal_edu_hgc_id_val + `">
+                    <td class="formal-edu-highest-grade-completed">
+                        <span>` + $("#formalEduHighestGradeCompleted").select2("data")[0].text + `</span>
+                        <input type="hidden" name="formalEduHighestGradeCompleted" value="` + formalEduHighestGradeCompletedVal + `">
                     </td>
-                    <td class="formal-edu-cd">
-                        <span>` + $("#formal_edu_cd_id").select2("data")[0].text + `</span>
-                        <input type="hidden" name="formal_edu_cd_id" value="` + formal_edu_cd_id_val + `">
+                    <td class="formal-edu-course-degree">
+                        <span>` + $("#formalEduCourseDegree").select2("data")[0].text + `</span>
+                        <input type="hidden" name="formalEduCourseDegree" value="` + formalEduCourseDegreeVal + `">
                     </td>
-                    <td class="formal-edu-su">
-                        <span>` + formal_edu_su_text + `</span>
-                        <input type="hidden" name="formal_edu_su_id" value="` + formal_edu_su_id_val + `">
-                        <input type="hidden" name="formal_edu_su_other" value="` + formal_edu_su_other_val + `">
+                    <td class="formal-edu-school-univ">
+                        <span>` + formalEduSchoolUnivText + `</span>
+                        <input type="hidden" name="formalEduSchoolUniv" value="` + formalEduSchoolUnivVal + `">
+                        <input type="hidden" name="formalEduSchoolUnivOther" value="` + formalEduSchoolUnivOtherVal + `">
                     </td>
-                    <td class="formal-edu-yg">
-                        <span>` + formal_edu_yg_val + `</span>
-                        <input type="hidden" name="formal_edu_yg" value="` + formal_edu_yg_val + `">
+                    <td class="formal-edu-year-grad">
+                        <span>` + formalEduYearGradVal + `</span>
+                        <input type="hidden" name="formalEduYearGrad" value="` + formalEduYearGradVal + `">
                     </td>
-                    <td class="formal-edu-la">
-                        <span>` + formal_edu_la_val + `</span>
-                        <input type="hidden" name="formal_edu_la" value="` + formal_edu_la_val + `">
+                    <td class="formal-edu-last-attended">
+                        <span>` + formalEduLastAttendedVal + `</span>
+                        <input type="hidden" name="formalEduLastAttended" value="` + formalEduLastAttendedVal + `">
                     </td>
                     <td class="text-center">
                         <a href="#" class="formal-edu-edit-link"><i class="fa fa-pencil"></i></a>
@@ -69,285 +69,285 @@ $(function () {
                 </tr>
                 `;
 
-                $("#formal_edu_table tbody").append(row);
+                $("#formalEduTable tbody").append(row);
                 break;
             case "edit":
-                var tr = $("#formal_edu_table tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".formal-edu-hgc").find("span").text($("#formal_edu_hgc_id").select2("data")[0].text);
-                tr.find(".formal-edu-hgc").find('input[name="formal_edu_hgc_id"]').val(formal_edu_hgc_id_val);
-                tr.find(".formal-edu-cd").find("span").text($("#formal_edu_cd_id").select2("data")[0].text);
-                tr.find(".formal-edu-cd").find('input[name="formal_edu_cd_id"]').val(formal_edu_cd_id_val);
-                tr.find(".formal-edu-su").find("span").text(formal_edu_su_text);
-                tr.find(".formal-edu-su").find('input[name="formal_edu_su_id"]').val(formal_edu_su_id_val);
-                tr.find(".formal-edu-su").find('input[name="formal_edu_su_other"]').val(formal_edu_su_other_val);
-                tr.find(".formal-edu-yg").find("span").text(formal_edu_yg_val);
-                tr.find(".formal-edu-yg").find('input[name="formal_edu_yg"]').val(formal_edu_yg_val);
-                tr.find(".formal-edu-la").find("span").text(formal_edu_la_val);
-                tr.find(".formal-edu-la").find('input[name="formal_edu_la"]').val(formal_edu_la_val);
+                var tr = $("#formalEduTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
+                tr.find(".formal-edu-highest-grade-completed").find("span").text($("#formalEduHighestGradeCompleted").select2("data")[0].text);
+                tr.find(".formal-edu-highest-grade-completed").find('input[name="formalEduHighestGradeCompleted"]').val(formalEduHighestGradeCompletedVal);
+                tr.find(".formal-edu-course-degree").find("span").text($("#formalEduCourseDegree").select2("data")[0].text);
+                tr.find(".formal-edu-course-degree").find('input[name="formalEduCourseDegree"]').val(formalEduCourseDegreeVal);
+                tr.find(".formal-edu-school-univ").find("span").text(formalEduSchoolUnivText);
+                tr.find(".formal-edu-school-univ").find('input[name="formalEduSchoolUniv"]').val(formalEduSchoolUnivVal);
+                tr.find(".formal-edu-school-univ").find('input[name="formalEduSchoolUnivOther"]').val(formalEduSchoolUnivOtherVal);
+                tr.find(".formal-edu-year-grad").find("span").text(formalEduYearGradVal);
+                tr.find(".formal-edu-year-grad").find('input[name="formalEduYearGrad"]').val(formalEduYearGradVal);
+                tr.find(".formal-edu-last-attended").find("span").text(formalEduLastAttendedVal);
+                tr.find(".formal-edu-last-attended").find('input[name="formalEduLastAttended"]').val(formalEduLastAttendedVal);
                 $(this).removeAttr("data-edit-index");
                 break;
         }
 
         $(".formal-edu-checkbox input").on("change", function () {
             if ($(this).prop("checked") == false) {
-                select_all_formal_edu.prop("checked", false);
+                selectAllFormalEdu.prop("checked", false);
             }
 
             if ($(".formal-edu-checkbox input:checked").length == $(".formal-edu-checkbox input").length) {
-                select_all_formal_edu.prop("checked", true);
+                selectAllFormalEdu.prop("checked", true);
             }
 
             if ($(".formal-edu-checkbox input:checked").length == 0) {
-                delete_formal_edu_button.prop("disabled", true);
+                delFormalEduBtn.prop("disabled", true);
             } else {
-                delete_formal_edu_button.prop("disabled", false);
+                delFormalEduBtn.prop("disabled", false);
             }
         });
 
         $(".formal-edu-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var formal_edu_hgc_id_val = tr.find(".formal-edu-hgc").find('input[name="formal_edu_hgc_id"]').val();
-            var formal_edu_cd_id_val = tr.find(".formal-edu-cd").find('input[name="formal_edu_cd_id"]').val();
-            var formal_edu_su_id_val = tr.find(".formal-edu-su").find('input[name="formal_edu_su_id"]').val();
-            var formal_edu_yg_val = tr.find(".formal-edu-yg").find('input[name="formal_edu_yg"]').val();
-            var formal_edu_la_val = tr.find(".formal-edu-la").find('input[name="formal_edu_la"]').val();
+            var formalEduHighestGradeCompletedVal = tr.find(".formal-edu-highest-grade-completed").find('input[name="formalEduHighestGradeCompleted"]').val();
+            var formalEduCourseDegreeVal = tr.find(".formal-edu-course-degree").find('input[name="formalEduCourseDegree"]').val();
+            var formalEduSchoolUnivVal = tr.find(".formal-edu-school-univ").find('input[name="formalEduSchoolUniv"]').val();
+            var formalEduYearGradVal = tr.find(".formal-edu-year-grad").find('input[name="formalEduYearGrad"]').val();
+            var formalEduLastAttendedVal = tr.find(".formal-edu-last-attended").find('input[name="formalEduLastAttended"]').val();
 
-            $("#formal_edu_hgc_id").val(parseInt(formal_edu_hgc_id_val)).trigger("change");
-            $("#formal_edu_cd_id").val(parseInt(formal_edu_cd_id_val)).trigger("change");
+            $("#formalEduHighestGradeCompleted").val(formalEduHighestGradeCompletedVal).trigger("change");
+            $("#formalEduCourseDegree").val(formalEduCourseDegreeVal).trigger("change");
 
-            if (formal_edu_su_id_val == "") {
-                var formal_edu_su_other_val = tr.find(".formal-edu-su").find('input[name="formal_edu_su_other"]').val();
-                $("#formal_edu_sunl").prop("checked", true).trigger("change");
-                $("#formal_edu_su_other").val(formal_edu_su_other_val).trigger("change");
+            if (formalEduSchoolUnivVal == "") {
+                var formalEduSchoolUnivOtherVal = tr.find(".formal-edu-school-univ").find('input[name="formalEduSchoolUnivOther"]').val();
+                $("#formalEduSchoolUnivNotListed").prop("checked", true).trigger("change");
+                $("#formalEduSchoolUnivOther").val(formalEduSchoolUnivOtherVal).trigger("change");
             } else {
-                $("#formal_edu_su_id").val(parseInt(formal_edu_su_id_val)).trigger("change");
+                $("#formalEduSchoolUniv").val(formalEduSchoolUnivVal).trigger("change");
             }
-            $("#formal_edu_yg").val(formal_edu_yg_val).trigger("change");
-            $("#formal_edu_la").val(formal_edu_la_val).trigger("change");
-            $("#formal_edu_form").attr("data-edit-index", tr.data("index"));
-            $("#formal_edu_form").attr("data-action", "edit");
-            $("#formal_edu_modal").modal("show");
+            $("#formalEduYearGrad").val(formalEduYearGradVal).trigger("change");
+            $("#formalEduLastAttended").val(formalEduLastAttendedVal).trigger("change");
+            $("#formalEduForm").attr("data-edit-index", tr.data("index"));
+            $("#formalEduForm").attr("data-action", "edit");
+            $("#formalEduModal").modal("show");
         });
-        select_all_formal_edu.prop("checked", false);
-        $("#formal_edu_modal").modal("hide");
+        selectAllFormalEdu.prop("checked", false);
+        $("#formalEduModal").modal("hide");
     });
 
-    select_all_formal_edu.on("change", function () {
+    selectAllFormalEdu.on("change", function () {
         if ($(".formal-edu-checkbox input").length > 0) {
             $(".formal-edu-checkbox input").prop("checked", $(this).prop("checked"));
-            delete_formal_edu_button.prop("disabled", !$(this).prop("checked"));
+            delFormalEduBtn.prop("disabled", !$(this).prop("checked"));
         }
     });
 
-    delete_formal_edu_button.on("click", function () {
+    delFormalEduBtn.on("click", function () {
         $(".formal-edu-checkbox input").each(function () {
             if ($(this).prop("checked")) {
                 $(this).closest("tr").remove();
-                select_all_formal_edu.prop("checked", false);
+                selectAllFormalEdu.prop("checked", false);
             }
         });
 
-        if ($("#formal_edu_table tbody tr").length == 0) {
+        if ($("#formalEduTable tbody tr").length == 0) {
             $(this).prop("disabled", true);
         }
     });
 
-    $("#formal_edu_modal").on("hidden.bs.modal", function () {
-        $("#formal_edu_form").removeAttr("data-action");
-        $("#formal_edu_su_id").removeAttr("data-parsley-required");
-        $("#formal_edu_su_id").val(null).trigger("change");
-        $("#formal_edu_su_id").attr("data-parsley-required", true);
+    $("#formalEduModal").on("hidden.bs.modal", function () {
+        $("#formalEduForm").removeAttr("data-action");
+        $("#formalEduSchoolUniv").removeAttr("data-parsley-required");
+        $("#formalEduSchoolUniv").val(null).trigger("change");
+        $("#formalEduSchoolUniv").attr("data-parsley-required", true);
 
-        if ($("#formal_edu_su_id").prop("disabled")) {
-            $("#formal_edu_su_id").prop("disabled", false);
-            $("#formal_edu_su_other").prop("disabled", true);
+        if ($("#formalEduSchoolUniv").prop("disabled")) {
+            $("#formalEduSchoolUniv").prop("disabled", false);
+            $("#formalEduSchoolUnivOther").prop("disabled", true);
         }
-        $("#formal_edu_hgc_id").removeAttr("data-parsley-required");
-        $("#formal_edu_hgc_id").val(null).trigger("change");
-        $("#formal_edu_hgc_id").attr("data-parsley-required", true);
-        $("#formal_edu_cd_id").removeAttr("data-parsley-required");
-        $("#formal_edu_cd_id").val(null).trigger("change");
-        $("#formal_edu_cd_id").attr("data-parsley-required", true);
-        $("#formal_edu_sunl").prop("checked", false).trigger("change");
-        $("#formal_edu_yg").val("");
-        $("#formal_edu_yg").parsley().reset();
-        $("#formal_edu_la").val("");
-        $("#formal_edu_la").parsley().reset();
+        $("#formalEduHighestGradeCompleted").removeAttr("data-parsley-required");
+        $("#formalEduHighestGradeCompleted").val(null).trigger("change");
+        $("#formalEduHighestGradeCompleted").attr("data-parsley-required", true);
+        $("#formalEduCourseDegree").removeAttr("data-parsley-required");
+        $("#formalEduCourseDegree").val(null).trigger("change");
+        $("#formalEduCourseDegree").attr("data-parsley-required", true);
+        $("#formalEduSchoolUnivNotListed").prop("checked", false).trigger("change");
+        $("#formalEduYearGrad").val("");
+        $("#formalEduYearGrad").parsley().reset();
+        $("#formalEduLastAttended").val("");
+        $("#formalEduLastAttended").parsley().reset();
     });
 
-    $("#add_formal_edu_button").on("click", function () {
-        $("#formal_edu_form").attr("data-action", "add");
-        $("#formal_edu_modal").modal("show");
+    $("#addFormalEduBtn").on("click", function () {
+        $("#formalEduForm").attr("data-action", "add");
+        $("#formalEduModal").modal("show");
     });
 
-    $("#formal_edu_sunl").on("change", function () {
+    $("#formalEduSchoolUnivNotListed").on("change", function () {
         $(this).val($(this).prop("checked"));
 
         if ($(this).prop("checked")) {
-            $("#formal_edu_su_id").removeAttr("data-parsley-required");
-            $("#formal_edu_su_id").val(null).trigger("change");
-            $("#formal_edu_su_id").prop("disabled", true);
-            $("#formal_edu_su_other").attr("data-parsley-required", true);
-            $("#formal_edu_su_other").prop("disabled", false);
-            $("#formal_edu_su_other").focus();
+            $("#formalEduSchoolUniv").removeAttr("data-parsley-required");
+            $("#formalEduSchoolUniv").val(null).trigger("change");
+            $("#formalEduSchoolUniv").prop("disabled", true);
+            $("#formalEduSchoolUnivOther").attr("data-parsley-required", true);
+            $("#formalEduSchoolUnivOther").prop("disabled", false);
+            $("#formalEduSchoolUnivOther").focus();
         } else {
-            $("#formal_edu_su_other").removeAttr("data-parsley-required");
-            $("#formal_edu_su_other").val("");
-            $("#formal_edu_su_other").parsley().reset();
-            $("#formal_edu_su_other").prop("disabled", true);
-            $("#formal_edu_su_id").attr("data-parsley-required", true);
-            $("#formal_edu_su_id").prop("disabled", false);
-            $("#formal_edu_su_id").focus();
+            $("#formalEduSchoolUnivOther").removeAttr("data-parsley-required");
+            $("#formalEduSchoolUnivOther").val("");
+            $("#formalEduSchoolUnivOther").parsley().reset();
+            $("#formalEduSchoolUnivOther").prop("disabled", true);
+            $("#formalEduSchoolUniv").attr("data-parsley-required", true);
+            $("#formalEduSchoolUniv").prop("disabled", false);
+            $("#formalEduSchoolUniv").focus();
         }
     });
-    var select_all_pro_license = $("#select_all_pro_license");
-    var delete_pro_license_button = $("#delete_pro_license_button");
+    var selectAllProLicense = $("#selectAllProLicense");
+    var delProLicenseBtn = $("#delProLicenseBtn");
 
-    $("#pro_license_ed").datetimepicker({
+    $("#proLicenseExpiryDate").datetimepicker({
         format: "YYYY-MM"
     });
 
-    $("#pro_license_ed").on("dp.change", function() {
+    $("#proLicenseExpiryDate").on("dp.change", function () {
         $(this).parsley().validate();
     });
 
-    $("#pro_license_form").parsley();
-    $("#pro_license_form").on("submit", function (e) {
+    $("#proLicenseForm").parsley();
+    $("#proLicenseForm").on("submit", function (e) {
         e.preventDefault();
-        var pro_license_t_id_val = $("#pro_license_t_id").select2("val");
-        var pro_license_ed_val = $("#pro_license_ed").val().toUpperCase();
+        var proLicenseTitleVal = $("#proLicenseTitle").select2("val");
+        var proLicenseExpiryDateVal = $("#proLicenseExpiryDate").val().toUpperCase();
 
         switch ($(this).attr("data-action")) {
             case "add":
-                var pro_license_index = 1 + $("#pro_license_table tbody tr").length++;
+                var proLicenseIndex = $("#proLicenseTable tbody tr").index() + 1;
                 var row = `
-                <tr data-index="` + pro_license_index + `">
+                <tr data-index="` + proLicenseIndex + `">
                     <td class="pro-license-checkbox">
-                        <input type="checkbox" class="checkbox" id="pro_license_checkbox_` + pro_license_index + `">
+                        <input type="checkbox" class="checkbox" id="proLicenseCheckbox_` + proLicenseIndex + `">
                     </td>
-                    <td class="pro-license-t">
-                        <span>` + $("#pro_license_t_id").select2("data")[0].text + `</span>
-                        <input type="hidden" name="pro_license_t_id" value="` + pro_license_t_id_val + `">
+                    <td class="pro-license-title">
+                        <span>` + $("#proLicenseTitle").select2("data")[0].text + `</span>
+                        <input type="hidden" name="proLicenseTitle" value="` + proLicenseTitleVal + `">
                     </td>
-                    <td class="pro-license-ed">
-                        <span>` + pro_license_ed_val + `</span>
-                        <input type="hidden" name="pro_license_ed" value="` + pro_license_ed_val + `">
+                    <td class="pro-license-expiry-date">
+                        <span>` + proLicenseExpiryDateVal + `</span>
+                        <input type="hidden" name="proLicenseExpiryDate" value="` + proLicenseExpiryDateVal + `">
                     </td>
                     <td class="text-center">
-                        <a href="#" class="pro-license-edit-link"><i class="fa fa-pencil"></i></a>
+                        <a href="#" class="pro-license-expiry-date-edit-link"><i class="fa fa-pencil"></i></a>
                     </td>
                 </tr>
                 `;
 
-                $("#pro_license_table tbody").append(row);
+                $("#proLicenseTable tbody").append(row);
                 break;
             case "edit":
-                var tr = $("#pro_license_table tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".pro-license-t").find("span").text($("#pro_license_t_id").select2("data")[0].text);
-                tr.find(".pro-license-t").find('input[name="pro_license_t_id"]').val(pro_license_t_id_val);
-                tr.find(".pro-license-ed").find("span").text(pro_license_ed_val);
-                tr.find(".pro-license-ed").find('input[name="pro_license_ed"]').val(pro_license_ed_val);
+                var tr = $("#proLicenseTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
+                tr.find(".pro-license-title").find("span").text($("#proLicenseTitle").select2("data")[0].text);
+                tr.find(".pro-license-title").find('input[name="proLicenseTitle"]').val(proLicenseTitleVal);
+                tr.find(".pro-license-expiry-date").find("span").text(proLicenseExpiryDateVal);
+                tr.find(".pro-license-expiry-date").find('input[name="proLicenseExpiryDate"]').val(proLicenseExpiryDateVal);
                 $(this).removeAttr("data-edit-index");
                 break;
         }
 
         $(".pro-license-checkbox input").on("change", function () {
             if ($(this).prop("checked") == false) {
-                select_all_pro_license.prop("checked", false);
+                selectAllProLicense.prop("checked", false);
             }
 
             if ($(".pro-license-checkbox input:checked").length == $(".pro-license-checkbox input").length) {
-                select_all_pro_license.prop("checked", true);
+                selectAllProLicense.prop("checked", true);
             }
 
             if ($(".pro-license-checkbox input:checked").length == 0) {
-                delete_pro_license_button.prop("disabled", true);
+                delProLicenseBtn.prop("disabled", true);
             } else {
-                delete_pro_license_button.prop("disabled", false);
+                delProLicenseBtn.prop("disabled", false);
             }
         });
 
-        $(".pro-license-edit-link").on("click", function () {
+        $(".pro-license-expiry-date-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var pro_license_t_id_val = tr.find(".pro-license-t").find('input[name="pro_license_t_id"]').val();
-            var pro_license_ed_val = tr.find(".pro-license-ed").find('input[name="pro_license_ed"]').val();
+            var proLicenseTitleVal = tr.find(".pro-license-title").find('input[name="proLicenseTitle"]').val();
+            var proLicenseExpiryDateVal = tr.find(".pro-license-expiry-date").find('input[name="proLicenseExpiryDate"]').val();
 
-            $("#pro_license_t_id").val(parseInt(pro_license_t_id_val)).trigger("change");
-            $("#pro_license_ed").val(pro_license_ed_val).trigger("change");
-            $("#pro_license_form").attr("data-edit-index", tr.data("index"));
-            $("#pro_license_form").attr("data-action", "edit");
-            $("#pro_license_modal").modal("show");
+            $("#proLicenseTitle").val(proLicenseTitleVal).trigger("change");
+            $("#proLicenseExpiryDate").val(proLicenseExpiryDateVal).trigger("change");
+            $("#proLicenseForm").attr("data-edit-index", tr.data("index"));
+            $("#proLicenseForm").attr("data-action", "edit");
+            $("#proLicenseModal").modal("show");
         });
-        select_all_pro_license.prop("checked", false);
-        $("#pro_license_modal").modal("hide");
+        selectAllProLicense.prop("checked", false);
+        $("#proLicenseModal").modal("hide");
     });
 
-    select_all_pro_license.on("change", function () {
+    selectAllProLicense.on("change", function () {
         if ($(".pro-license-checkbox input").length > 0) {
             $(".pro-license-checkbox input").prop("checked", $(this).prop("checked"));
-            delete_pro_license_button.prop("disabled", !$(this).prop("checked"));
+            delProLicenseBtn.prop("disabled", !$(this).prop("checked"));
         }
     });
 
-    delete_pro_license_button.on("click", function () {
+    delProLicenseBtn.on("click", function () {
         $(".pro-license-checkbox input").each(function () {
             if ($(this).prop("checked")) {
                 $(this).closest("tr").remove();
-                select_all_pro_license.prop("checked", false);
+                selectAllProLicense.prop("checked", false);
             }
         });
 
-        if ($("#pro_license_table tbody tr").length == 0) {
+        if ($("#proLicenseTable tbody tr").length == 0) {
             $(this).prop("disabled", true);
         }
     });
 
-    $("#pro_license_modal").on("hidden.bs.modal", function () {
-        $("#pro_license_form").removeAttr("data-action");
-        $("#pro_license_t_id").removeAttr("data-parsley-required");
-        $("#pro_license_t_id").val(null).trigger("change");
-        $("#pro_license_t_id").attr("data-parsley-required", true);
-        $("#pro_license_ed").val("");
-        $("#pro_license_ed").parsley().reset();
+    $("#proLicenseModal").on("hidden.bs.modal", function () {
+        $("#proLicenseForm").removeAttr("data-action");
+        $("#proLicenseTitle").removeAttr("data-parsley-required");
+        $("#proLicenseTitle").val(null).trigger("change");
+        $("#proLicenseTitle").attr("data-parsley-required", true);
+        $("#proLicenseExpiryDate").val("");
+        $("#proLicenseExpiryDate").parsley().reset();
     });
 
-    $("#add_pro_license_button").on("click", function () {
-        $("#pro_license_form").attr("data-action", "add");
-        $("#pro_license_modal").modal("show");
+    $("#addProLicenseBtn").on("click", function () {
+        $("#proLicenseForm").attr("data-action", "add");
+        $("#proLicenseModal").modal("show");
     });
-    var select_all_elig = $("#select_all_elig");
-    var delete_elig_button = $("#delete_elig_button");
+    var selectAllElig = $("#selectAllElig");
+    var deleteEligBtn = $("#deleteEligBtn");
 
-    $("#elig_yt").datetimepicker({
+    $("#eligYearTaken").datetimepicker({
         viewMode: "years",
         format: "YYYY-MM"
     });
 
-    $("#elig_yt").on("dp.change", function() {
+    $("#eligYearTaken").on("dp.change", function () {
         $(this).parsley().validate();
     });
 
-    $("#elig_form").parsley();
-    $("#elig_form").on("submit", function (e) {
+    $("#eligForm").parsley();
+    $("#eligForm").on("submit", function (e) {
         e.preventDefault();
-        var elig_t_id_val = $("#elig_t_id").select2("val");
-        var elig_yt_val = $("#elig_yt").val().toUpperCase();
+        var eligTitleVal = $("#eligTitle").select2("val");
+        var eligYearTakenVal = $("#eligYearTaken").val().toUpperCase();
 
         switch ($(this).attr("data-action")) {
             case "add":
-                var elig_index = 1 + $("#elig_table tbody tr").length++;
+                var eligIndex = $("#eligTable tbody tr").index() + 1;
                 var row = `
-                <tr data-index="` + elig_index + `">
+                <tr data-index="` + eligIndex + `">
                     <td class="elig-checkbox">
-                        <input type="checkbox" class="checkbox" id="elig_checkbox_` + elig_index + `">
+                        <input type="checkbox" class="checkbox" id="eligCheckbox_` + eligIndex + `">
                     </td>
-                    <td class="elig-t">
-                        <span>` + $("#elig_t_id").select2("data")[0].text + `</span>
-                        <input type="hidden" name="elig_t_id" value="` + elig_t_id_val + `">
+                    <td class="elig-title">
+                        <span>` + $("#eligTitle").select2("data")[0].text + `</span>
+                        <input type="hidden" name="eligTitle" value="` + eligTitleVal + `">
                     </td>
-                    <td class="elig-yt">
-                        <span>` + elig_yt_val + `</span>
-                        <input type="hidden" name="elig_yt" value="` + elig_yt_val + `">
+                    <td class="elig-year-taken">
+                        <span>` + eligYearTakenVal + `</span>
+                        <input type="hidden" name="eligYearTaken" value="` + eligYearTakenVal + `">
                     </td>
                     <td class="text-center">
                         <a href="#" class="elig-edit-link"><i class="fa fa-pencil"></i></a>
@@ -355,422 +355,422 @@ $(function () {
                 </tr>
                 `;
 
-                $("#elig_table tbody").append(row);
+                $("#eligTable tbody").append(row);
                 break;
             case "edit":
-                var tr = $("#elig_table tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".elig-t").find("span").text($("#elig_t_id").select2("data")[0].text);
-                tr.find(".elig-t").find('input[name="elig_t_id"]').val(elig_t_id_val);
-                tr.find(".elig-yt").find("span").text(elig_yt_val);
-                tr.find(".elig-yt").find('input[name="elig_yt"]').val(elig_yt_val);
+                var tr = $("#eligTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
+                tr.find(".elig-title").find("span").text($("#eligTitle").select2("data")[0].text);
+                tr.find(".elig-title").find('input[name="eligTitle"]').val(eligTitleVal);
+                tr.find(".elig-year-taken").find("span").text(eligYearTakenVal);
+                tr.find(".elig-year-taken").find('input[name="eligYearTaken"]').val(eligYearTakenVal);
                 $(this).removeAttr("data-edit-index");
                 break;
         }
 
         $(".elig-checkbox input").on("change", function () {
             if ($(this).prop("checked") == false) {
-                select_all_elig.prop("checked", false);
+                selectAllElig.prop("checked", false);
             }
 
             if ($(".elig-checkbox input:checked").length == $(".elig-checkbox input").length) {
-                select_all_elig.prop("checked", true);
+                selectAllElig.prop("checked", true);
             }
 
             if ($(".elig-checkbox input:checked").length == 0) {
-                delete_elig_button.prop("disabled", true);
+                deleteEligBtn.prop("disabled", true);
             } else {
-                delete_elig_button.prop("disabled", false);
+                deleteEligBtn.prop("disabled", false);
             }
         });
 
         $(".elig-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var elig_t_id_val = tr.find(".elig-t").find('input[name="elig_t_id"]').val();
-            var elig_yt_val = tr.find(".elig-yt").find('input[name="elig_yt"]').val().toUpperCase();
+            var eligTitleVal = tr.find(".elig-title").find('input[name="eligTitle"]').val();
+            var eligYearTakenVal = tr.find(".elig-year-taken").find('input[name="eligYearTaken"]').val().toUpperCase();
 
-            $("#elig_t_id").val(parseInt(elig_t_id_val)).trigger("change");
-            $("#elig_yt").val(elig_yt_val).trigger("change");
-            $("#elig_form").attr("data-edit-index", tr.data("index"));
-            $("#elig_form").attr("data-action", "edit");
-            $("#elig_modal").modal("show");
+            $("#eligTitle").val(eligTitleVal).trigger("change");
+            $("#eligYearTaken").val(eligYearTakenVal).trigger("change");
+            $("#eligForm").attr("data-edit-index", tr.data("index"));
+            $("#eligForm").attr("data-action", "edit");
+            $("#eligModal").modal("show");
         });
-        select_all_elig.prop("checked", false);
-        $("#elig_modal").modal("hide");
+        selectAllElig.prop("checked", false);
+        $("#eligModal").modal("hide");
     });
 
-    select_all_elig.on("change", function () {
+    selectAllElig.on("change", function () {
         if ($(".elig-checkbox input").length > 0) {
             $(".elig-checkbox input").prop("checked", $(this).prop("checked"));
-            delete_elig_button.prop("disabled", !$(this).prop("checked"));
+            deleteEligBtn.prop("disabled", !$(this).prop("checked"));
         }
     });
 
-    delete_elig_button.on("click", function () {
+    deleteEligBtn.on("click", function () {
         $(".elig-checkbox input").each(function () {
             if ($(this).prop("checked")) {
                 $(this).closest("tr").remove();
-                select_all_elig.prop("checked", false);
+                selectAllElig.prop("checked", false);
             }
         });
 
-        if ($("#elig_table tbody tr").length == 0) {
+        if ($("#eligTable tbody tr").length == 0) {
             $(this).prop("disabled", true);
         }
     });
 
-    $("#elig_modal").on("hidden.bs.modal", function () {
-        $("#elig_form").removeAttr("data-action");
-        $("#elig_t_id").removeAttr("data-parsley-required");
-        $("#elig_t_id").val(null).trigger("change");
-        $("#elig_t_id").attr("data-parsley-required", true);
-        $("#elig_yt").val("");
-        $("#elig_yt").parsley().reset();
+    $("#eligModal").on("hidden.bs.modal", function () {
+        $("#eligForm").removeAttr("data-action");
+        $("#eligTitle").removeAttr("data-parsley-required");
+        $("#eligTitle").val(null).trigger("change");
+        $("#eligTitle").attr("data-parsley-required", true);
+        $("#eligYearTaken").val("");
+        $("#eligYearTaken").parsley().reset();
     });
 
-    $("#add_elig_button").on("click", function () {
-        $("#elig_form").attr("data-action", "add");
-        $("#elig_modal").modal("show");
+    $("#addEligBtn").on("click", function () {
+        $("#eligForm").attr("data-action", "add");
+        $("#eligModal").modal("show");
     });
-    var select_all_vttare = $("#select_all_vttare");
-    var delete_vttare_button = $("#delete_vttare_button");
+    var selectAllTraining = $("#selectAllTraining");
+    var delTrainingBtn = $("#delTrainingBtn");
 
-    $("#vttare_form").parsley();
-    $("#vttare_form").on("submit", function (e) {
+    $("#trainingForm").parsley();
+    $("#trainingForm").on("submit", function (e) {
         e.preventDefault();
-        var vttare_not_val = $("#vttare_not").val().toUpperCase();
-        var vttare_sa_val = $("#vttare_sa").val().toUpperCase();
-        var vttare_pote_val = $("#vttare_pote").val().toUpperCase();
-        var vttare_cr_val = $("#vttare_cr").val().toUpperCase();
-        var vttare_isa_val = $("#vttare_isa").val().toUpperCase();
+        var trainingNameOfTrainingVal = $("#trainingNameOfTraining").val().toUpperCase();
+        var trainingSkillsAcquiredVal = $("#trainingSkillsAcquired").val().toUpperCase();
+        var trainingPeriodOfTrainingExpVal = $("#trainingPeriodOfTrainingExp").val().toUpperCase();
+        var trainingCertReceivedVal = $("#trainingCertReceived").val().toUpperCase();
+        var trainingIssuingSchoolAgencyVal = $("#trainingIssuingSchoolAgency").val().toUpperCase();
 
         switch ($(this).attr("data-action")) {
             case "add":
-                var vttare_index = 1 + $("#vttare_table tbody tr").length++;
+                var trainingIndex = $("#trainingTable tbody tr").index() + 1;
                 var row = `
-                <tr data-index="` + vttare_index + `">
-                    <td class="vttare-checkbox">
-                        <input type="checkbox" class="checkbox" id="vttare_checkbox_` + vttare_index + `">
+                <tr data-index="` + trainingIndex + `">
+                    <td class="training-checkbox">
+                        <input type="checkbox" class="checkbox" id="trainingCheckbox_` + trainingIndex + `">
                     </td>
-                    <td class="vttare-not">
-                        <span>` + vttare_not_val + `</span>
-                        <input type="hidden" name="vttare_not" value="` + vttare_not_val + `">
+                    <td class="training-name-of-training">
+                        <span>` + trainingNameOfTrainingVal + `</span>
+                        <input type="hidden" name="trainingNameOfTraining" value="` + trainingNameOfTrainingVal + `">
                     </td>
-                    <td class="vttare-sa">
-                        <span>` + vttare_sa_val + `</span>
-                        <input type="hidden" name="vttare_sa" value="` + vttare_sa_val + `">
+                    <td class="training-skills-acquired">
+                        <span>` + trainingSkillsAcquiredVal + `</span>
+                        <input type="hidden" name="trainingSkillsAcquired" value="` + trainingSkillsAcquiredVal + `">
                     </td>
-                    <td class="vttare-pote">
-                        <span>` + vttare_pote_val + `</span>
-                        <input type="hidden" name="vttare_pote" value="` + vttare_pote_val + `">
+                    <td class="training-period-of-training-exp">
+                        <span>` + trainingPeriodOfTrainingExpVal + `</span>
+                        <input type="hidden" name="trainingPeriodOfTrainingExp" value="` + trainingPeriodOfTrainingExpVal + `">
                     </td>
-                    <td class="vttare-cr">
-                        <span>` + vttare_cr_val + `</span>
-                        <input type="hidden" name="vttare_cr" value="` + vttare_cr_val + `">
+                    <td class="training-cert-received">
+                        <span>` + trainingCertReceivedVal + `</span>
+                        <input type="hidden" name="trainingCertReceived" value="` + trainingCertReceivedVal + `">
                     </td>
-                    <td class="vttare-isa">
-                        <span>` + vttare_isa_val + `</span>
-                        <input type="hidden" name="vttare_isa" value="` + vttare_isa_val + `">
+                    <td class="training-issuing-school-agency">
+                        <span>` + trainingIssuingSchoolAgencyVal + `</span>
+                        <input type="hidden" name="trainingIssuingSchoolAgency" value="` + trainingIssuingSchoolAgencyVal + `">
                     </td>
                     <td class="text-center">
-                        <a href="#" class="vttare-edit-link"><i class="fa fa-pencil"></i></a>
+                        <a href="#" class="training-edit-link"><i class="fa fa-pencil"></i></a>
                     </td>
                 </tr>
                 `;
 
-                $("#vttare_table tbody").append(row);
+                $("#trainingTable tbody").append(row);
                 break;
             case "edit":
-                var tr = $("#vttare_table tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".vttare-not").find("span").text(vttare_not_val);
-                tr.find(".vttare-not").find('input[name="vttare_not"]').val(vttare_not_val);
-                tr.find(".vttare-sa").find("span").text(vttare_sa_val);
-                tr.find(".vttare-sa").find('input[name="vttare_sa"]').val(vttare_sa_val);
-                tr.find(".vttare-pote").find("span").text(vttare_pote_val);
-                tr.find(".vttare-pote").find('input[name="vttare_pote"]').val(vttare_pote_val);
-                tr.find(".vttare-cr").find("span").text(vttare_cr_val);
-                tr.find(".vttare-cr").find('input[name="vttare_cr"]').val(vttare_cr_val);
-                tr.find(".vttare-isa").find("span").text(vttare_isa_val);
-                tr.find(".vttare-isa").find('input[name="vttare_isa"]').val(vttare_isa_val);
+                var tr = $("#trainingTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
+                tr.find(".training-name-of-training").find("span").text(trainingNameOfTrainingVal);
+                tr.find(".training-name-of-training").find('input[name="trainingNameOfTraining"]').val(trainingNameOfTrainingVal);
+                tr.find(".training-skills-acquired").find("span").text(trainingSkillsAcquiredVal);
+                tr.find(".training-skills-acquired").find('input[name="trainingSkillsAcquired"]').val(trainingSkillsAcquiredVal);
+                tr.find(".training-period-of-training-exp").find("span").text(trainingPeriodOfTrainingExpVal);
+                tr.find(".training-period-of-training-exp").find('input[name="trainingPeriodOfTrainingExp"]').val(trainingPeriodOfTrainingExpVal);
+                tr.find(".training-cert-received").find("span").text(trainingCertReceivedVal);
+                tr.find(".training-cert-received").find('input[name="trainingCertReceived"]').val(trainingCertReceivedVal);
+                tr.find(".training-issuing-school-agency").find("span").text(trainingIssuingSchoolAgencyVal);
+                tr.find(".training-issuing-school-agency").find('input[name="trainingIssuingSchoolAgency"]').val(trainingIssuingSchoolAgencyVal);
                 $(this).removeAttr("data-edit-index");
                 break;
         }
 
-        $(".vttare-checkbox input").on("change", function () {
+        $(".training-checkbox input").on("change", function () {
             if ($(this).prop("checked") == false) {
-                select_all_vttare.prop("checked", false);
+                selectAllTraining.prop("checked", false);
             }
 
-            if ($(".vttare-checkbox input:checked").length == $(".vttare-checkbox input").length) {
-                select_all_vttare.prop("checked", true);
+            if ($(".training-checkbox input:checked").length == $(".training-checkbox input").length) {
+                selectAllTraining.prop("checked", true);
             }
 
-            if ($(".vttare-checkbox input:checked").length == 0) {
-                delete_vttare_button.prop("disabled", true);
+            if ($(".training-checkbox input:checked").length == 0) {
+                delTrainingBtn.prop("disabled", true);
             } else {
-                delete_vttare_button.prop("disabled", false);
+                delTrainingBtn.prop("disabled", false);
             }
         });
 
-        $(".vttare-edit-link").on("click", function () {
+        $(".training-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var vttare_not_val = tr.find(".vttare-not").find('input[name="vttare_not"]').val();
-            var vttare_sa_val = tr.find(".vttare-sa").find('input[name="vttare_sa"]').val();
-            var vttare_pote_val = tr.find(".vttare-pote").find('input[name="vttare_pote"]').val();
-            var vttare_cr_val = tr.find(".vttare-cr").find('input[name="vttare_cr"]').val();
-            var vttare_isa_val = tr.find(".vttare-isa").find('input[name="vttare_isa"]').val();
+            var trainingNameOfTrainingVal = tr.find(".training-name-of-training").find('input[name="trainingNameOfTraining"]').val();
+            var trainingSkillsAcquiredVal = tr.find(".training-skills-acquired").find('input[name="trainingSkillsAcquired"]').val();
+            var trainingPeriodOfTrainingExpVal = tr.find(".training-period-of-training-exp").find('input[name="trainingPeriodOfTrainingExp"]').val();
+            var trainingCertReceivedVal = tr.find(".training-cert-received").find('input[name="trainingCertReceived"]').val();
+            var trainingIssuingSchoolAgencyVal = tr.find(".training-issuing-school-agency").find('input[name="trainingIssuingSchoolAgency"]').val();
 
-            $("#vttare_not").val(vttare_not_val).trigger("change");
-            $("#vttare_sa").val(vttare_sa_val).trigger("change");
-            $("#vttare_pote").val(vttare_pote_val).trigger("change");
-            $("#vttare_cr").val(vttare_cr_val).trigger("change");
-            $("#vttare_isa").val(vttare_isa_val).trigger("change");
-            $("#vttare_form").attr("data-edit-index", tr.data("index"));
-            $("#vttare_form").attr("data-action", "edit");
-            $("#vttare_modal").modal("show");
+            $("#trainingNameOfTraining").val(trainingNameOfTrainingVal).trigger("change");
+            $("#trainingSkillsAcquired").val(trainingSkillsAcquiredVal).trigger("change");
+            $("#trainingPeriodOfTrainingExp").val(trainingPeriodOfTrainingExpVal).trigger("change");
+            $("#trainingCertReceived").val(trainingCertReceivedVal).trigger("change");
+            $("#trainingIssuingSchoolAgency").val(trainingIssuingSchoolAgencyVal).trigger("change");
+            $("#trainingForm").attr("data-edit-index", tr.data("index"));
+            $("#trainingForm").attr("data-action", "edit");
+            $("#trainingModal").modal("show");
         });
-        select_all_vttare.prop("checked", false);
-        $("#vttare_modal").modal("hide");
+        selectAllTraining.prop("checked", false);
+        $("#trainingModal").modal("hide");
     });
 
-    select_all_vttare.on("change", function () {
-        if ($(".vttare-checkbox input").length > 0) {
-            $(".vttare-checkbox input").prop("checked", $(this).prop("checked"));
-            delete_vttare_button.prop("disabled", !$(this).prop("checked"));
+    selectAllTraining.on("change", function () {
+        if ($(".training-checkbox input").length > 0) {
+            $(".training-checkbox input").prop("checked", $(this).prop("checked"));
+            delTrainingBtn.prop("disabled", !$(this).prop("checked"));
         }
     });
 
-    delete_vttare_button.on("click", function () {
-        $(".vttare-checkbox input").each(function () {
+    delTrainingBtn.on("click", function () {
+        $(".training-checkbox input").each(function () {
             if ($(this).prop("checked")) {
                 $(this).closest("tr").remove();
-                select_all_vttare.prop("checked", false);
+                selectAllTraining.prop("checked", false);
             }
         });
 
-        if ($("#vttare_table tbody tr").length == 0) {
+        if ($("#trainingTable tbody tr").length == 0) {
             $(this).prop("disabled", true);
         }
     });
 
-    $("#vttare_modal").on("hidden.bs.modal", function () {
-        $("#vttare_form").removeAttr("data-action");
-        $("#vttare_not").val("");
-        $("#vttare_not").parsley().reset();
-        $("#vttare_sa").val("");
-        $("#vttare_sa").parsley().reset();
-        $("#vttare_pote").val("");
-        $("#vttare_pote").parsley().reset();
-        $("#vttare_cr").val("");
-        $("#vttare_cr").parsley().reset();
-        $("#vttare_isa").val("");
-        $("#vttare_isa").parsley().reset();
+    $("#trainingModal").on("hidden.bs.modal", function () {
+        $("#trainingForm").removeAttr("data-action");
+        $("#trainingNameOfTraining").val("");
+        $("#trainingNameOfTraining").parsley().reset();
+        $("#trainingSkillsAcquired").val("");
+        $("#trainingSkillsAcquired").parsley().reset();
+        $("#trainingPeriodOfTrainingExp").val("");
+        $("#trainingPeriodOfTrainingExp").parsley().reset();
+        $("#trainingCertReceived").val("");
+        $("#trainingCertReceived").parsley().reset();
+        $("#trainingIssuingSchoolAgency").val("");
+        $("#trainingIssuingSchoolAgency").parsley().reset();
     });
 
-    $("#add_vttare_button").on("click", function () {
-        $("#vttare_form").attr("data-action", "add");
-        $("#vttare_modal").modal("show");
+    $("#addTrainingBtn").on("click", function () {
+        $("#trainingForm").attr("data-action", "add");
+        $("#trainingModal").modal("show");
     });
-    var select_all_coc = $("#select_all_coc");
-    var delete_coc_button = $("#delete_coc_button");
+    var selectAllCertOfCompetence = $("#selectAllCertOfCompetence");
+    var delCertOfCompetenceBtn = $("#delCertOfCompetenceBtn");
 
-    $("#coc_di").datetimepicker({
+    $("#certOfCompetenceDateIssued").datetimepicker({
         format: "YYYY-MM"
     });
 
-    $("#coc_di").on("dp.change", function() {
+    $("#certOfCompetenceDateIssued").on("dp.change", function () {
         $(this).parsley().validate();
     });
 
-    $("#coc_form").parsley();
-    $("#coc_form").on("submit", function (e) {
+    $("#certOfCompetenceForm").parsley();
+    $("#certOfCompetenceForm").on("submit", function (e) {
         e.preventDefault();
-        var coc_t_id_val = $("#coc_t_id").select2("val");
-        var coc_r_val = $("#coc_r").val().toUpperCase();
-        var coc_ib_val = $("#coc_ib").val().toUpperCase();
-        var coc_di_val = $("#coc_di").val().toUpperCase();
+        var certOfCompetenceTitleVal = $("#certOfCompetenceTitle").select2("val");
+        var certOfCompetenceRatingVal = $("#certOfCompetenceRating").val().toUpperCase();
+        var certOfCompetenceIssuedByVal = $("#certOfCompetenceIssuedBy").val().toUpperCase();
+        var certOfCompetenceDateIssuedVal = $("#certOfCompetenceDateIssued").val().toUpperCase();
 
         switch ($(this).attr("data-action")) {
             case "add":
-                var coc_index = 1 + $("#coc_table tbody tr").length++;
+                var certOfCompetenceIndex = $("#certOfCompetenceTable tbody tr").index() + 1;
                 var row = `
-                <tr data-index="` + coc_index + `">
-                    <td class="coc-checkbox">
-                        <input type="checkbox" class="checkbox" id="coc_checkbox_` + coc_index + `">
+                <tr data-index="` + certOfCompetenceIndex + `">
+                    <td class="certOfCompetenceCheckbox_">
+                        <input type="checkbox" class="checkbox" id="certOfCompetenceCheckbox_` + certOfCompetenceIndex + `">
                     </td>
-                    <td class="coc-t">
-                        <span>` + $("#coc_t_id").select2("data")[0].text + `</span>
-                        <input type="hidden" name="coc_t_id" value="` + coc_t_id_val + `">
+                    <td class="cert-of-competence-title">
+                        <span>` + $("#certOfCompetenceTitle").select2("data")[0].text + `</span>
+                        <input type="hidden" name="certOfCompetenceTitle" value="` + certOfCompetenceTitleVal + `">
                     </td>
-                    <td class="coc-r">
-                        <span>` + coc_r_val + `</span>
-                        <input type="hidden" name="coc_r" value="` + coc_r_val + `">
+                    <td class="cert-of-competence-rating">
+                        <span>` + certOfCompetenceRatingVal + `</span>
+                        <input type="hidden" name="certOfCompetenceRating" value="` + certOfCompetenceRatingVal + `">
                     </td>
-                    <td class="coc-ib">
-                        <span>` + coc_ib_val + `</span>
-                        <input type="hidden" name="coc_ib" value="` + coc_ib_val + `">
+                    <td class="cert-of-competence-issued-by">
+                        <span>` + certOfCompetenceIssuedByVal + `</span>
+                        <input type="hidden" name="certOfCompetenceIssuedBy" value="` + certOfCompetenceIssuedByVal + `">
                     </td>
-                    <td class="coc-di">
-                        <span>` + coc_di_val + `</span>
-                        <input type="hidden" name="coc_di" value="` + coc_di_val + `">
+                    <td class="cert-of-competence-date-issued">
+                        <span>` + certOfCompetenceDateIssuedVal + `</span>
+                        <input type="hidden" name="certOfCompetenceDateIssued" value="` + certOfCompetenceDateIssuedVal + `">
                     </td>
                     <td class="text-center">
-                        <a href="#" class="coc-edit-link"><i class="fa fa-pencil"></i></a>
+                        <a href="#" class="cert-of-competence-edit-link"><i class="fa fa-pencil"></i></a>
                     </td>
                 </tr>
                 `;
 
-                $("#coc_table tbody").append(row);
+                $("#certOfCompetenceTable tbody").append(row);
                 break;
             case "edit":
-                var tr = $("#coc_table tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".coc-t").find("span").text($("#coc_t_id").select2("data")[0].text);
-                tr.find(".coc-t").find('input[name="coc_t_id"]').val(coc_t_id_val);
-                tr.find(".coc-r").find("span").text(coc_r_val);
-                tr.find(".coc-r").find('input[name="coc_r"]').val(coc_r_val);
-                tr.find(".coc-ib").find("span").text(coc_ib_val);
-                tr.find(".coc-ib").find('input[name="coc_ib"]').val(coc_ib_val);
-                tr.find(".coc-di").find("span").text(coc_di_val);
-                tr.find(".coc-di").find('input[name="coc_di"]').val(coc_di_val);
+                var tr = $("#certOfCompetenceTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
+                tr.find(".cert-of-competence-title").find("span").text($("#certOfCompetenceTitle").select2("data")[0].text);
+                tr.find(".cert-of-competence-title").find('input[name="certOfCompetenceTitle"]').val(certOfCompetenceTitleVal);
+                tr.find(".cert-of-competence-rating").find("span").text(certOfCompetenceRatingVal);
+                tr.find(".cert-of-competence-rating").find('input[name="certOfCompetenceRating"]').val(certOfCompetenceRatingVal);
+                tr.find(".cert-of-competence-issued-by").find("span").text(certOfCompetenceIssuedByVal);
+                tr.find(".cert-of-competence-issued-by").find('input[name="certOfCompetenceIssuedBy"]').val(certOfCompetenceIssuedByVal);
+                tr.find(".cert-of-competence-date-issued").find("span").text(certOfCompetenceDateIssuedVal);
+                tr.find(".cert-of-competence-date-issued").find('input[name="certOfCompetenceDateIssued"]').val(certOfCompetenceDateIssuedVal);
                 $(this).removeAttr("data-edit-index");
                 break;
         }
 
-        $(".coc-checkbox input").on("change", function () {
+        $(".cert-of-competence-checkbox input").on("change", function () {
             if ($(this).prop("checked") == false) {
-                select_all_coc.prop("checked", false);
+                selectAllCertOfCompetence.prop("checked", false);
             }
 
-            if ($(".coc-checkbox input:checked").length == $(".coc-checkbox input").length) {
-                select_all_coc.prop("checked", true);
+            if ($(".cert-of-competence-checkbox input:checked").length == $(".cert-of-competence-checkbox input").length) {
+                selectAllCertOfCompetence.prop("checked", true);
             }
 
-            if ($(".coc-checkbox input:checked").length == 0) {
-                delete_coc_button.prop("disabled", true);
+            if ($(".cert-of-competence-checkbox input:checked").length == 0) {
+                delCertOfCompetenceBtn.prop("disabled", true);
             } else {
-                delete_coc_button.prop("disabled", false);
+                delCertOfCompetenceBtn.prop("disabled", false);
             }
         });
 
-        $(".coc-edit-link").on("click", function () {
+        $(".cert-of-competence-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var coc_t_id_val = tr.find(".coc-t").find('input[name="coc_t_id"]').val();
-            var coc_r_val = tr.find(".coc-r").find('input[name="coc_r"]').val().toUpperCase();
-            var coc_ib_val = tr.find(".coc-ib").find('input[name="coc_ib"]').val().toUpperCase();
-            var coc_di_val = tr.find(".coc-di").find('input[name="coc_di"]').val().toUpperCase();
+            var certOfCompetenceTitleVal = tr.find(".cert-of-competence-title").find('input[name="certOfCompetenceTitle"]').val();
+            var certOfCompetenceRatingVal = tr.find(".cert-of-competence-rating").find('input[name="certOfCompetenceRating"]').val().toUpperCase();
+            var certOfCompetenceIssuedByVal = tr.find(".cert-of-competence-issued-by").find('input[name="certOfCompetenceIssuedBy"]').val().toUpperCase();
+            var certOfCompetenceDateIssuedVal = tr.find(".cert-of-competence-date-issued").find('input[name="certOfCompetenceDateIssued"]').val().toUpperCase();
 
-            $("#coc_t_id").val(parseInt(coc_t_id_val)).trigger("change");
-            $("#coc_r").val(coc_r_val).trigger("change");
-            $("#coc_ib").val(coc_ib_val).trigger("change");
-            $("#coc_di").val(coc_di_val).trigger("change");
-            $("#coc_form").attr("data-edit-index", tr.data("index"));
-            $("#coc_form").attr("data-action", "edit");
-            $("#coc_modal").modal("show");
+            $("#certOfCompetenceTitle").val(certOfCompetenceTitleVal).trigger("change");
+            $("#certOfCompetenceRating").val(certOfCompetenceRatingVal).trigger("change");
+            $("#certOfCompetenceIssuedBy").val(certOfCompetenceIssuedByVal).trigger("change");
+            $("#certOfCompetenceDateIssued").val(certOfCompetenceDateIssuedVal).trigger("change");
+            $("#certOfCompetenceForm").attr("data-edit-index", tr.data("index"));
+            $("#certOfCompetenceForm").attr("data-action", "edit");
+            $("#certOfCompetenceModal").modal("show");
         });
-        select_all_coc.prop("checked", false);
-        $("#coc_modal").modal("hide");
+        selectAllCertOfCompetence.prop("checked", false);
+        $("#certOfCompetenceModal").modal("hide");
     });
 
-    select_all_coc.on("change", function () {
-        if ($(".coc-checkbox input").length > 0) {
-            $(".coc-checkbox input").prop("checked", $(this).prop("checked"));
-            delete_coc_button.prop("disabled", !$(this).prop("checked"));
+    selectAllCertOfCompetence.on("change", function () {
+        if ($(".cert-of-competence-checkbox input").length > 0) {
+            $(".cert-of-competence-checkbox input").prop("checked", $(this).prop("checked"));
+            delCertOfCompetenceBtn.prop("disabled", !$(this).prop("checked"));
         }
     });
 
-    delete_coc_button.on("click", function () {
-        $(".coc-checkbox input").each(function () {
+    delCertOfCompetenceBtn.on("click", function () {
+        $(".cert-of-competence-checkbox input").each(function () {
             if ($(this).prop("checked")) {
                 $(this).closest("tr").remove();
-                select_all_coc.prop("checked", false);
+                selectAllCertOfCompetence.prop("checked", false);
             }
         });
 
-        if ($("#coc_table tbody tr").length == 0) {
+        if ($("#certOfCompetenceTable tbody tr").length == 0) {
             $(this).prop("disabled", true);
         }
     });
 
-    $("#coc_modal").on("hidden.bs.modal", function () {
-        $("#coc_form").removeAttr("data-action");
-        $("#coc_t_id").removeAttr("data-parsley-required");
-        $("#coc_t_id").val(null).trigger("change");
-        $("#coc_t_id").attr("data-parsley-required", true);
-        $("#coc_r").val("");
-        $("#coc_r").parsley().reset();
-        $("#coc_ib").val("");
-        $("#coc_ib").parsley().reset();
-        $("#coc_di").val("");
-        $("#coc_di").parsley().reset();
+    $("#certOfCompetenceModal").on("hidden.bs.modal", function () {
+        $("#certOfCompetenceForm").removeAttr("data-action");
+        $("#certOfCompetenceTitle").removeAttr("data-parsley-required");
+        $("#certOfCompetenceTitle").val(null).trigger("change");
+        $("#certOfCompetenceTitle").attr("data-parsley-required", true);
+        $("#certOfCompetenceRating").val("");
+        $("#certOfCompetenceRating").parsley().reset();
+        $("#certOfCompetenceIssuedBy").val("");
+        $("#certOfCompetenceIssuedBy").parsley().reset();
+        $("#certOfCompetenceDateIssued").val("");
+        $("#certOfCompetenceDateIssued").parsley().reset();
     });
 
-    $("#add_coc_button").on("click", function () {
-        $("#coc_form").attr("data-action", "add");
-        $("#coc_modal").modal("show");
+    $("#addCertOfCompetenceBtn").on("click", function () {
+        $("#certOfCompetenceForm").attr("data-action", "add");
+        $("#certOfCompetenceModal").modal("show");
     });
-    var select_all_work_exp = $("#select_all_work_exp");
-    var delete_work_exp_button = $("#delete_work_exp_button");
+    var selectAllWorkExp = $("#selectAllWorkExp");
+    var delWorkExpBtn = $("#delWorkExpBtn");
 
-    $("#work_exp_f").datetimepicker({
+    $("#workExpFrom").datetimepicker({
         format: "YYYY-MM"
     });
 
-    $("#work_exp_f").on("dp.change", function() {
+    $("#workExpFrom").on("dp.change", function () {
         $(this).parsley().validate();
     });
 
-    $("#work_exp_t").datetimepicker({
+    $("#workExpTo").datetimepicker({
         format: "YYYY-MM"
     });
 
-    $("#work_exp_t").on("dp.change", function() {
+    $("#workExpTo").on("dp.change", function () {
         $(this).parsley().validate();
     });
 
-    $("#work_exp_rtfe").on("change", function () {
+    $("#workExpRelatedToFormalEdu").on("change", function () {
         $(this).val($(this).prop("checked"));
     });
 
-    $("#work_exp_form").parsley();
-    $("#work_exp_form").on("submit", function (e) {
+    $("#workExpForm").parsley();
+    $("#workExpForm").on("submit", function (e) {
         e.preventDefault();
-        var work_exp_nocf_val = $("#work_exp_nocf").val().toUpperCase();
-        var work_exp_a_val = $("#work_exp_a").val().toUpperCase();
-        var work_exp_ph_id_val = $("#work_exp_ph_id").select2("val");
-        var work_exp_f_val = $("#work_exp_f").val().toUpperCase();
-        var work_exp_t_val = $("#work_exp_t").val().toUpperCase();
-        var work_exp_rtfe_val = $("#work_exp_rtfe").val();
+        var workExpNameOfCompanyFirmVal = $("#workExpNameOfCompanyFirm").val().toUpperCase();
+        var workExpAddressVal = $("#workExpAddress").val().toUpperCase();
+        var workExpPositionHeldVal = $("#workExpPositionHeld").select2("val");
+        var workExpFromVal = $("#workExpFrom").val().toUpperCase();
+        var workExpToVal = $("#workExpTo").val().toUpperCase();
+        var workExpRelatedToFormalEduVal = $("#workExpRelatedToFormalEdu").val();
 
         switch ($(this).attr("data-action")) {
             case "add":
-                var work_exp_index = 1 + $("#work_exp_table tbody tr").length++;
+                var workExpIndex = $("#workExpTable tbody tr").index() + 1;
                 var row = `
-                <tr data-index="` + work_exp_index + `">
+                <tr data-index="` + workExpIndex + `">
                     <td class="work-exp-checkbox">
-                        <input type="checkbox" class="checkbox" id="work_exp_checkbox_` + work_exp_index + `">
+                        <input type="checkbox" class="checkbox" id="workExpCheckbox_` + workExpIndex + `">
                     </td>
-                    <td class="work-exp-nocf">
-                        <span>` + work_exp_nocf_val + `</span>
-                        <input type="hidden" name="work_exp_nocf" value="` + work_exp_nocf_val + `">
+                    <td class="work-exp-name-of-company-firm">
+                        <span>` + workExpNameOfCompanyFirmVal + `</span>
+                        <input type="hidden" name="workExpNameOfCompanyFirm" value="` + workExpNameOfCompanyFirmVal + `">
                     </td>
-                    <td class="work-exp-a">
-                        <span>` + work_exp_a_val + `</span>
-                        <input type="hidden" name="work_exp_a" value="` + work_exp_a_val + `">
+                    <td class="work-exp-address">
+                        <span>` + workExpAddressVal + `</span>
+                        <input type="hidden" name="workExpAddress" value="` + workExpAddressVal + `">
                     </td>
-                    <td class="work-exp-ph">
-                        <span>` + $("#work_exp_ph_id").select2("data")[0].text + `</span>
-                        <input type="hidden" name="work_exp_ph_id" value="` + work_exp_ph_id_val + `">
+                    <td class="work-exp-position-held">
+                        <span>` + $("#workExpPositionHeld").select2("data")[0].text + `</span>
+                        <input type="hidden" name="workExpPositionHeld" value="` + workExpPositionHeldVal + `">
                     </td>
-                    <td class="work-exp-f">
-                        <span>` + work_exp_f_val + `</span>
-                        <input type="hidden" name="work_exp_f" value="` + work_exp_f_val + `">
+                    <td class="work-exp-from">
+                        <span>` + workExpFromVal + `</span>
+                        <input type="hidden" name="workExpFrom" value="` + workExpFromVal + `">
                     </td>
-                    <td class="work-exp-t">
-                        <span>` + work_exp_t_val + `</span>
-                        <input type="hidden" name="work_exp_t" value="` + work_exp_t_val + `">
+                    <td class="work-exp-to">
+                        <span>` + workExpToVal + `</span>
+                        <input type="hidden" name="workExpTo" value="` + workExpToVal + `">
                     </td>
-                    <td class="work-exp-rtfe">
-                        <span>` + work_exp_rtfe_val + `</span>
-                        <input type="hidden" name="work_exp_rtfe" value="` + work_exp_rtfe_val + `">
+                    <td class="work-exp-related-to-formal-edu">
+                        <span>` + workExpRelatedToFormalEduVal + `</span>
+                        <input type="hidden" name="workExpRelatedToFormalEdu" value="` + workExpRelatedToFormalEduVal + `">
                     </td>
                     <td class="text-center">
                         <a href="#" class="work-exp-edit-link"><i class="fa fa-pencil"></i></a>
@@ -778,104 +778,104 @@ $(function () {
                 </tr>
                 `;
 
-                $("#work_exp_table tbody").append(row);
+                $("#workExpTable tbody").append(row);
                 break;
             case "edit":
-                var tr = $("#work_exp_table tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".work-exp-nocf").find("span").text(work_exp_nocf_val);
-                tr.find(".work-exp-nocf").find('input[name="work_exp_nocf"]').val(work_exp_nocf_val);
-                tr.find(".work-exp-a").find("span").text(work_exp_a_val);
-                tr.find(".work-exp-a").find('input[name="work_exp_a"]').val(work_exp_a_val);
-                tr.find(".work-exp-ph").find("span").text($("#work_exp_ph_id").select2("data")[0].text);
-                tr.find(".work-exp-ph").find('input[name="work_exp_ph_id"]').val(work_exp_ph_id_val);
-                tr.find(".work-exp-f").find("span").text(work_exp_f_val);
-                tr.find(".work-exp-f").find('input[name="work_exp_f"]').val(work_exp_f_val);
-                tr.find(".work-exp-t").find("span").text(work_exp_t_val);
-                tr.find(".work-exp-t").find('input[name="work_exp_t"]').val(work_exp_t_val);
-                tr.find(".work-exp-rtfe").find("span").text(work_exp_rtfe_val);
-                tr.find(".work-exp-rtfe").find('input[name="work_exp_rtfe"]').val(work_exp_rtfe_val);
+                var tr = $("#workExpTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
+                tr.find(".work-exp-name-of-company-firm").find("span").text(workExpNameOfCompanyFirmVal);
+                tr.find(".work-exp-name-of-company-firm").find('input[name="workExpNameOfCompanyFirm"]').val(workExpNameOfCompanyFirmVal);
+                tr.find(".work-exp-address").find("span").text(workExpAddressVal);
+                tr.find(".work-exp-address").find('input[name="workExpAddress"]').val(workExpAddressVal);
+                tr.find(".work-exp-position-held").find("span").text($("#workExpPositionHeld").select2("data")[0].text);
+                tr.find(".work-exp-position-held").find('input[name="workExpPositionHeld"]').val(workExpPositionHeldVal);
+                tr.find(".work-exp-from").find("span").text(workExpFromVal);
+                tr.find(".work-exp-from").find('input[name="workExpFrom"]').val(workExpFromVal);
+                tr.find(".work-exp-to").find("span").text(workExpToVal);
+                tr.find(".work-exp-to").find('input[name="workExpTo"]').val(workExpToVal);
+                tr.find(".work-exp-related-to-formal-edu").find("span").text(workExpRelatedToFormalEduVal);
+                tr.find(".work-exp-related-to-formal-edu").find('input[name="workExpRelatedToFormalEdu"]').val(workExpRelatedToFormalEduVal);
                 $(this).removeAttr("data-edit-index");
                 break;
         }
 
         $(".work-exp-checkbox input").on("change", function () {
             if ($(this).prop("checked") == false) {
-                select_all_work_exp.prop("checked", false);
+                selectAllWorkExp.prop("checked", false);
             }
 
             if ($(".work-exp-checkbox input:checked").length == $(".work-exp-checkbox input").length) {
-                select_all_work_exp.prop("checked", true);
+                selectAllWorkExp.prop("checked", true);
             }
 
             if ($(".work-exp-checkbox input:checked").length == 0) {
-                delete_work_exp_button.prop("disabled", true);
+                delWorkExpBtn.prop("disabled", true);
             } else {
-                delete_work_exp_button.prop("disabled", false);
+                delWorkExpBtn.prop("disabled", false);
             }
         });
 
         $(".work-exp-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var work_exp_nocf_val = tr.find(".work-exp-nocf").find('input[name="work_exp_nocf"]').val().toUpperCase();
-            var work_exp_a_val = tr.find(".work-exp-a").find('input[name="work_exp_a"]').val().toUpperCase();
-            var work_exp_ph_id_val = tr.find(".work-exp-ph").find('input[name="work_exp_ph_id"]').val();
-            var work_exp_f_val = tr.find(".work-exp-f").find('input[name="work_exp_f"]').val().toUpperCase();
-            var work_exp_t_val = tr.find(".work-exp-t").find('input[name="work_exp_t"]').val().toUpperCase();
-            var work_exp_rtfe_val = tr.find(".work-exp-rtfe").find('input[name="work_exp_rtfe"]').val();
+            var workExpNameOfCompanyFirmVal = tr.find(".work-exp-name-of-company-firm").find('input[name="workExpNameOfCompanyFirm"]').val().toUpperCase();
+            var workExpAddressVal = tr.find(".work-exp-address").find('input[name="workExpAddress"]').val().toUpperCase();
+            var workExpPositionHeldVal = tr.find(".work-exp-position-held").find('input[name="workExpPositionHeld"]').val();
+            var workExpFromVal = tr.find(".work-exp-from").find('input[name="workExpFrom"]').val().toUpperCase();
+            var workExpToVal = tr.find(".work-exp-to").find('input[name="workExpTo"]').val().toUpperCase();
+            var workExpRelatedToFormalEduVal = tr.find(".work-exp-related-to-formal-edu").find('input[name="workExpRelatedToFormalEdu"]').val();
 
-            $("#work_exp_nocf").val(work_exp_nocf_val).trigger("change");
-            $("#work_exp_a").val(work_exp_a_val).trigger("change");
-            $("#work_exp_ph_id").val(parseInt(work_exp_ph_id_val)).trigger("change");
-            $("#work_exp_f").val(work_exp_f_val).trigger("change");
-            $("#work_exp_t").val(work_exp_t_val).trigger("change");
-            $("#work_exp_rtfe").val(work_exp_rtfe_val).trigger("change");
-            $("#work_exp_form").attr("data-edit-index", tr.data("index"));
-            $("#work_exp_form").attr("data-action", "edit");
-            $("#work_exp_modal").modal("show");
+            $("#workExpNameOfCompanyFirm").val(workExpNameOfCompanyFirmVal).trigger("change");
+            $("#workExpAddress").val(workExpAddressVal).trigger("change");
+            $("#workExpPositionHeld").val(workExpPositionHeldVal).trigger("change");
+            $("#workExpFrom").val(workExpFromVal).trigger("change");
+            $("#workExpTo").val(workExpToVal).trigger("change");
+            $("#workExpRelatedToFormalEdu").val(workExpRelatedToFormalEduVal).trigger("change");
+            $("#workExpForm").attr("data-edit-index", tr.data("index"));
+            $("#workExpForm").attr("data-action", "edit");
+            $("#workExpModal").modal("show");
         });
-        select_all_work_exp.prop("checked", false);
-        $("#work_exp_modal").modal("hide");
+        selectAllWorkExp.prop("checked", false);
+        $("#workExpModal").modal("hide");
     });
 
-    select_all_work_exp.on("change", function () {
+    selectAllWorkExp.on("change", function () {
         if ($(".work-exp-checkbox input").length > 0) {
             $(".work-exp-checkbox input").prop("checked", $(this).prop("checked"));
-            delete_work_exp_button.prop("disabled", !$(this).prop("checked"));
+            delWorkExpBtn.prop("disabled", !$(this).prop("checked"));
         }
     });
 
-    delete_work_exp_button.on("click", function () {
+    delWorkExpBtn.on("click", function () {
         $(".work-exp-checkbox input").each(function () {
             if ($(this).prop("checked")) {
                 $(this).closest("tr").remove();
-                select_all_work_exp.prop("checked", false);
+                selectAllWorkExp.prop("checked", false);
             }
         });
 
-        if ($("#work_exp_table tbody tr").length == 0) {
+        if ($("#workExpTable tbody tr").length == 0) {
             $(this).prop("disabled", true);
         }
     });
 
-    $("#work_exp_modal").on("hidden.bs.modal", function () {
-        $("#work_exp_form").removeAttr("data-action");
-        $("#work_exp_nocf").val("");
-        $("#work_exp_nocf").parsley().reset();
-        $("#work_exp_a").val("");
-        $("#work_exp_a").parsley().reset();
-        $("#work_exp_ph_id").removeAttr("data-parsley-required");
-        $("#work_exp_ph_id").val(null).trigger("change");
-        $("#work_exp_ph_id").attr("data-parsley-required", true);
-        $("#work_exp_f").val("");
-        $("#work_exp_f").parsley().reset();
-        $("#work_exp_t").val("");
-        $("#work_exp_t").parsley().reset();
-        $("#work_exp_rtfe").val(false).trigger("change");
-        $("#work_exp_rtfe").prop("checked", false);
+    $("#workExpModal").on("hidden.bs.modal", function () {
+        $("#workExpForm").removeAttr("data-action");
+        $("#workExpNameOfCompanyFirm").val("");
+        $("#workExpNameOfCompanyFirm").parsley().reset();
+        $("#workExpAddress").val("");
+        $("#workExpAddress").parsley().reset();
+        $("#workExpPositionHeld").removeAttr("data-parsley-required");
+        $("#workExpPositionHeld").val(null).trigger("change");
+        $("#workExpPositionHeld").attr("data-parsley-required", true);
+        $("#workExpFrom").val("");
+        $("#workExpFrom").parsley().reset();
+        $("#workExpTo").val("");
+        $("#workExpTo").parsley().reset();
+        $("#workExpRelatedToFormalEdu").val(false).trigger("change");
+        $("#workExpRelatedToFormalEdu").prop("checked", false);
     });
 
-    $("#add_work_exp_button").on("click", function () {
-        $("#work_exp_form").attr("data-action", "add");
-        $("#work_exp_modal").modal("show");
+    $("#addWorkExpBtn").on("click", function () {
+        $("#workExpForm").attr("data-action", "add");
+        $("#workExpModal").modal("show");
     });
 });

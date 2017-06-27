@@ -11,7 +11,7 @@ package model
 
 // type Registrant struct {
 // 	Id           uint64     `json:"id,omitempty"`
-// 	CreatedAt    time.Time  `json:"created_at"`
+// 	CreatedAt    time.Time  `json:"createdAt"`
 // 	UpdatedAt    time.Time  `json:"updated_at"`
 // 	DeletedAt    *time.Time `json:"deleted_at"`
 // 	RegisteredAt string     `json:"registered_at"`

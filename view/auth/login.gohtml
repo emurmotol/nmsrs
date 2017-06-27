@@ -1,4 +1,4 @@
-<form action="/login" method="POST" id="login_form">
+<form action="/login" method="POST" id="loginForm">
     <a href="/">
         <img src="/assets/img/logo/dole/1144x1024.png" class="img-responsive login-logo center-block" alt="DOLE Logo">
     </a>
@@ -14,18 +14,18 @@
             data-parsley-trigger="change">
         {{with .loginForm.Errors.Password}}<span class="help-block">{{.}}</span>{{end}}
     </div>
-    <!--todo: below button is ugly without forgot_password_link dunno why-->
-    <a href="#" id="forgot_password_link">I forgot my password</a>
+    <!--todo: below button is ugly without forgotPasswordLink dunno why-->
+    <a href="#" id="forgotPasswordLink">I forgot my password</a>
     <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Authenticating..." role="button">Login</button>
 </form>
 
 {{define "css-auth/login"}}
 <style>
-    #login_form {
+    #loginForm {
         margin-top: 20%;
     }
 
-    #forgot_password_link {
+    #forgotPasswordLink {
         text-decoration: none !important;
     }
     
@@ -43,11 +43,11 @@
 <script>
     $(function () {
         if ($.url("?redirect") != null) {
-            $("#login_form").prop("action", "/login?redirect=" + $.url("?redirect"))
+            $("#loginForm").prop("action", "/login?redirect=" + $.url("?redirect"))
         }
 
-        $("#login_form").parsley();
-        $("#login_form").on("submit", function() {
+        $("#loginForm").parsley();
+        $("#loginForm").on("submit", function() {
             duringSubmitDo(this);
         });
 

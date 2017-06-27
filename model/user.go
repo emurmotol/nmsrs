@@ -31,13 +31,13 @@ var (
 
 type User struct {
 	Id        bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
-	CreatedAt time.Time     `json:"created_at" bson:"createdAt"`
-	UpdatedAt time.Time     `json:"updated_at" bson:"updatedAt"`
+	CreatedAt time.Time     `json:"createdAt" bson:"createdAt"`
+	UpdatedAt time.Time     `json:"updatedAt" bson:"updatedAt"`
 	Name      string        `json:"name" bson:"name"`
 	Email     string        `json:"email" bson:"email"`
 	Password  string        `json:"password" bson:"password"`
-	IsAdmin   bool          `json:"is_admin" bson:"isAdmin"`
-	HasPhoto  bool          `json:"has_photo" bson:"hasPhoto"`
+	IsAdmin   bool          `json:"isAdmin" bson:"isAdmin"`
+	HasPhoto  bool          `json:"hasPhoto" bson:"hasPhoto"`
 }
 
 type LoginForm struct {
@@ -63,8 +63,8 @@ type CreateUserForm struct {
 	Name            string                `schema:"name" validate:"required"`
 	Email           string                `schema:"email" validate:"required,email"`
 	Password        string                `schema:"password" validate:"required"`
-	ConfirmPassword string                `schema:"confirm_password" validate:"eqfield=Password"`
-	IsAdmin         bool                  `schema:"is_admin"`
+	ConfirmPassword string                `schema:"confirmPassword" validate:"eqfield=Password"`
+	IsAdmin         bool                  `schema:"isAdmin"`
 	PhotoFile       multipart.File        `schema:"-"`
 	PhotoHeader     *multipart.FileHeader `schema:"-"`
 	Errors          map[string]string     `schema:"-"`
@@ -93,7 +93,7 @@ type EditProfileForm struct {
 	IdHex       string                `schema:"-"`
 	Name        string                `schema:"name" validate:"required"`
 	Email       string                `schema:"email" validate:"required,email"`
-	IsAdmin     bool                  `schema:"is_admin"`
+	IsAdmin     bool                  `schema:"isAdmin"`
 	PhotoFile   multipart.File        `schema:"-"`
 	PhotoHeader *multipart.FileHeader `schema:"-"`
 	Errors      map[string]string     `schema:"-"`
@@ -121,8 +121,8 @@ func (editProfileForm *EditProfileForm) IsValid() bool {
 }
 
 type PasswordResetForm struct {
-	NewPassword     string            `schema:"new_password" validate:"required"`
-	ConfirmPassword string            `schema:"confirm_password" validate:"eqfield=NewPassword"`
+	NewPassword     string            `schema:"newPassword" validate:"required"`
+	ConfirmPassword string            `schema:"confirmPassword" validate:"eqfield=NewPassword"`
 	Errors          map[string]string `schema:"-"`
 }
 
