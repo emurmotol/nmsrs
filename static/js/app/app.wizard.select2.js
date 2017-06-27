@@ -189,8 +189,8 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.city_mun_id,
-                            text: data.city_mun_desc + ", " + data.prov_desc
+                            id: data.cityMunId,
+                            text: data.cityMunDesc + ", " + data.provDesc
                         };
                     })
                 };
@@ -259,12 +259,12 @@ $(function () {
         }
     });
 
-    $("#brgy_id").select2({ placeholder: "SELECT BARANGAY" });
-    $("#brgy_id").on("change", function () {
-        $("#place_of_birth").focus();
+    $("#basicInfoBrgyId").select2({ placeholder: "SELECT BARANGAY" });
+    $("#basicInfoBrgyId").on("change", function () {
+        $("#basicInfoPlaceOfBirth").focus();
     });
 
-    $("#city_mun_id").select2({
+    $("#basicInfoCityMunId").select2({
         placeholder: "SELECT CITY/MUNICIPALITY",
         ajax: {
             url: "/api/citymuns/provinces",
@@ -274,10 +274,10 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.city_mun_id,
-                            text: data.city_mun_desc + ", " + data.prov_desc,
-                            prov_id: data.prov_id,
-                            prov_desc: data.prov_desc
+                            id: data.cityMunId,
+                            text: data.cityMunDesc + ", " + data.provDesc,
+                            provId: data.provId,
+                            provDesc: data.provDesc
                         };
                     })
                 };
@@ -286,19 +286,17 @@ $(function () {
         }
     });
 
-    $("#city_mun_id").on("change", function () {
+    $("#basicInfoCityMunId").on("change", function () {
         var data = $(this).select2("data")[0];
+        $("#basicInfoProv").val(data.provDesc);
 
-        $("#prov_id").data("id", data.prov_id);
-        $("#prov_id").val(data.prov_desc);
-
-        $("#brgy_id").removeAttr("data-parsley-required");
-        $("#brgy_id").val(null).trigger("change");
-        $("#brgy_id").attr("data-parsley-required", true);
-        $("#brgy_id").select2({
+        $("#basicInfoBrgyId").removeAttr("data-parsley-required");
+        $("#basicInfoBrgyId").val(null).trigger("change");
+        $("#basicInfoBrgyId").attr("data-parsley-required", true);
+        $("#basicInfoBrgyId").select2({
             placeholder: "SELECT BARANGAY",
             ajax: {
-                url: "/api/citymuns/" + $("#city_mun_id").select2("val") + "/barangays",
+                url: "/api/citymuns/" + $("#basicInfoCityMunId").select2("val") + "/barangays",
                 delay: 250,
                 dataType: "json",
                 processResults: function (r) {
@@ -314,8 +312,8 @@ $(function () {
                 cache: true
             }
         });
-        $("#brgy_id").prop("disabled", false);
-        $("#brgy_id").focus();
+        $("#basicInfoBrgyId").prop("disabled", false);
+        $("#basicInfoBrgyId").focus();
     });
 
     $("#toc_id").select2({

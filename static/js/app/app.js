@@ -1,6 +1,6 @@
 $(function () {
     makeRequest = function (action, method, data) {
-        var alert_container = $("#alert_container"); // TODO: Deleted on markup
+        var alertContainer = $("#alertContainer"); // TODO: Deleted on markup
 
         var call = $.ajax({
             url: action,
@@ -8,17 +8,17 @@ $(function () {
             data: data,
             dataType: "json",
             success: function (r) {
-                alert_container.empty();
+                alertContainer.empty();
                 errors = r.errors;
 
                 if (errors.length != 0) {
-                    var err_markup = `<div class="alert alert-danger alert-dismissible" role="alert">
+                    var errMarkup = `<div class="alert alert-danger alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <i class="fa fa-exclamation-triangle"></i> `+ errors + `
                     </div>`;
-                    alert_container.html(err_markup);
+                    alertContainer.html(errMarkup);
                 }
             }, error: function (r) {
                 console.log(r);
@@ -40,12 +40,12 @@ $(function () {
     previewImage = function (elem) {
         $(elem).on("change", function () {
             var preview = $(this).parent().find("#preview");
-            var default_photo = preview.data("default-photo");
+            var defaultPhoto = preview.data("default-photo");
             var maxMB = parseInt($(this).attr("data-parsley-maxmegabytes")) * 1000000;
 
             if (this.files && this.files[0]) {
                 if (this.files[0].size > maxMB) {
-                    preview.attr("src", default_photo);
+                    preview.attr("src", defaultPhoto);
                 } else {
                     var reader = new FileReader();
 
@@ -53,39 +53,39 @@ $(function () {
                         preview.attr("src", e.target.result);
 
                         preview.on("error", function () {
-                            preview.attr("src", default_photo);
+                            preview.attr("src", defaultPhoto);
                         });
                     }
                     reader.readAsDataURL(photo.files[0]);
                 }
             } else {
-                preview.attr("src", default_photo);
+                preview.attr("src", defaultPhoto);
             }
         });
     }
 
     duringSubmitDo = function(instance) {
-        var submit_button = $(instance).find(":submit");
-        submit_button.prop("disabled", true);
-        submit_button.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> ` + submit_button.data("loading-text"));
+        var submitButton = $(instance).find(":submit");
+        submitButton.prop("disabled", true);
+        submitButton.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> ` + submitButton.data("loading-text"));
     }
 
     makeFormRequest = function (instance, data) {
-        var form_alert = $(instance).find(".form-alert");
-        var submit_button = $(instance).find(":submit");
-        var old_text = submit_button.text();
-        var content_type = null;
-        var process_data = true;
+        var formAlert = $(instance).find(".form-alert");
+        var submitButton = $(instance).find(":submit");
+        var oldText = submitButton.text();
+        var contentType = null;
+        var processData = true;
         var enctype = $(instance).prop("enctype");
-        submit_button.prop("disabled", true);
-        submit_button.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> ` + submit_button.data("loading-text"));
+        submitButton.prop("disabled", true);
+        submitButton.html(`<i class="fa fa-spinner fa-pulse fa-spin"></i> ` + submitButton.data("loading-text"));
         var multipart = "multipart/form-data";
 
         if (enctype == multipart) {
-            content_type = false;
-            process_data = false;
+            contentType = false;
+            processData = false;
         } else {
-            content_type = enctype;
+            contentType = enctype;
         }
 
         var call = $.ajax({
@@ -93,32 +93,32 @@ $(function () {
             type: $(instance).attr("method"),
             data: data,
             dataType: "json",
-            contentType: content_type,
-            processData: process_data,
+            contentType: contentType,
+            processData: processData,
             success: function (r) {
-                form_alert.empty();
+                formAlert.empty();
 
                 if (r.error != null) {
-                    var err_markup = `<div class="alert alert-danger alert-dismissible" role="alert">
+                    var errMarkup = `<div class="alert alert-danger alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <i class="fa fa-exclamation-triangle"></i> `+ r.error + `
                     </div>`;
-                    form_alert.html(err_markup);
+                    formAlert.html(errMarkup);
                 }
             }, error: function (r) {
                 console.log(r);
             }
         }).done(function (r) {
             if (r.message != null) {
-                var msg_markup = `<div class="alert alert-success alert-dismissible" role="alert">
+                var msgMarkup = `<div class="alert alert-success alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <i class="fa fa-check"></i> `+ r.message + `
                 </div>`;
-                form_alert.html(msg_markup);
+                formAlert.html(msgMarkup);
             }
 
             if (r.redirect != null) {
@@ -130,8 +130,8 @@ $(function () {
                     $(this).val("");
                 });
             }
-            submit_button.prop("disabled", false);
-            submit_button.html(old_text);
+            submitButton.prop("disabled", false);
+            submitButton.html(oldText);
             console.log(r);
         });
 

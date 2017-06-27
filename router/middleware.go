@@ -35,13 +35,8 @@ func loggedInOnly(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		user, err := model.GetAuthorizedUser(r)
 
-		if err != nil {
+		if user == nil || err != nil {
 			http.Redirect(w, r, "/login?redirect="+r.URL.Path, http.StatusFound)
-			return
-		}
-
-		if user == nil {
-			controller.NotFound(w, r)
 			return
 		}
 		ctx := context.WithValue(r.Context(), constant.AuthCtxKey, user)

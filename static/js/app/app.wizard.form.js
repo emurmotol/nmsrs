@@ -1,131 +1,130 @@
 $(function () {
-    $("#alfw").on("change", function () {
+    $("#empActivelyLookingForWork").on("change", function () {
         $(this).val($(this).prop("checked"));
     });
 
-    $("#i_accept").on("change", function () {
+    $("#iAccept").on("change", function () {
         $(this).val($(this).prop("checked"));
     });
 
-    $("#birthdate").datetimepicker({
+    $("#personalInfoBirthdate").datetimepicker({
         viewMode: "years",
         format: "YYYY-MM-DD"
     });
 
-    $("#birthdate").on("dp.change", function() {
+    $("#personalInfoBirthdate").on("dp.change", function() {
         $(this).parsley().validate();
     });
 
-    $("#pned").datetimepicker({
+    $("#empPassportNumber").datetimepicker({
         format: "YYYY-MM"
     });
 
-    $("#pned").on("dp.change", function() {
+    $("#empPassportNumber").on("dp.change", function() {
         $(this).parsley().validate();
     });
 
-    $("#civil_stat_radios").find("input[type=radio]").on("change", function () {
-        var checked = $("input[name=civil_stat_id]:checked");
+    $("#civilStatRadios").find("input[type=radio]").on("change", function () {
+        var checked = $("input[name=civilStat]:checked");
 
-        if ($(checked).val() == "5") {
-            $("#civil_stat_other").attr("data-parsley-required", true);
-            $("#civil_stat_other").prop("disabled", false);
-            $("#civil_stat_other").focus();
+        if ($(checked).val() == "OTHER") {
+            $("#civilStatOther").attr("data-parsley-required", true);
+            $("#civilStatOther").prop("disabled", false);
+            $("#civilStatOther").focus();
         } else {
-            $("#civil_stat_other").removeAttr("data-parsley-required");
-            $("#civil_stat_other").val("");
-            $("#civil_stat_other").parsley().reset();
-            $("#civil_stat_other").prop("disabled", true);
+            $("#civilStatOther").removeAttr("data-parsley-required");
+            $("#civilStatOther").val("");
+            $("#civilStatOther").parsley().reset();
+            $("#civilStatOther").prop("disabled", true);
         }
     });
 
-    $("#emp_stat_radios").find("input[type=radio]").on("change", function () {
-        var checked = $("input[name=emp_stat_id]:checked");
+    $("#empStatRadios").find("input[type=radio]").on("change", function () {
+        var checked = $("input[name=empStat]:checked");
 
         if ($(checked).val() == "3") {
-            $("#un_emp_stat_id").val(null).trigger("change");
-            $("#un_emp_stat_id").attr("data-parsley-required", true);
-            $("#un_emp_stat_id").prop("disabled", false);
-            $("#un_emp_stat_id").focus();
+            $("#empUnEmpStat").val(null).trigger("change");
+            $("#empUnEmpStat").attr("data-parsley-required", true);
+            $("#empUnEmpStat").prop("disabled", false);
+            $("#empUnEmpStat").focus();
         } else {
-            $("#un_emp_stat_id").removeAttr("data-parsley-required");
-            $("#un_emp_stat_id").val(null).trigger("change");
-            $("#un_emp_stat_id").prop("disabled", true);
-            $("#toc_id").removeAttr("data-parsley-required");
-            $("#toc_id").val(null).trigger("change");
-            $("#toc_id").prop("disabled", true);
+            $("#empUnEmpStat").removeAttr("data-parsley-required");
+            $("#empUnEmpStat").val(null).trigger("change");
+            $("#empUnEmpStat").prop("disabled", true);
+            $("#empTeminatedOverseasCountry").removeAttr("data-parsley-required");
+            $("#empTeminatedOverseasCountry").val(null).trigger("change");
+            $("#empTeminatedOverseasCountry").prop("disabled", true);
         }
     });
 
-    $("#disability_radios").find("input[type=radio]").on("change", function () {
-        var checked = $("input[name=disability_id]:checked");
+    $("#disabilityRadios").find("input[type=radio]").on("change", function () {
+        var checked = $("input[name=disab]:checked");
 
-        if ($(checked).val() == "5") {
-            $("#disability_other").attr("data-parsley-required", true);
-            $("#disability_other").prop("disabled", false);
-            $("#disability_other").focus();
+        if ($(checked).val() == "OTHER") {
+            $("#disabOther").attr("data-parsley-required", true);
+            $("#disabOther").prop("disabled", false);
+            $("#disabOther").focus();
         } else {
-            $("#disability_other").removeAttr("data-parsley-required");
-            $("#disability_other").val("");
-            $("#disability_other").parsley().reset();
-            $("#disability_other").prop("disabled", true);
+            $("#disabOther").removeAttr("data-parsley-required");
+            $("#disabOther").val("");
+            $("#disabOther").parsley().reset();
+            $("#disabOther").prop("disabled", true);
         }
     });
 
-    $("#disabled").on("change", function () {
+    $("#disabIsDisabled").on("change", function () {
         $(this).val($(this).prop("checked"));
-        $("#disability_1").parsley().reset();
+        $("#disab_0").parsley().reset();
 
         if ($(this).prop("checked")) {
-            $("#disability_1").attr("data-parsley-required", true);
-            $("#disability_radios").find("input[type=radio]").each(function () {
+            $("#disab_0").attr("data-parsley-required", true);
+            $("#disabilityRadios").find("input[type=radio]").each(function () {
                 $(this).prop("disabled", false);
             });
         } else {
-            $("#disability_1").removeAttr("data-parsley-required");
-            $("#disability_radios").find("input[type=radio]").each(function () {
+            $("#disab_0").removeAttr("data-parsley-required");
+            $("#disabilityRadios").find("input[type=radio]").each(function () {
                 $(this).prop("disabled", true);
                 $(this).prop("checked", false);
             });
-            $("#disability_other").removeAttr("data-parsley-required");
-            $("#disability_other").val(null).trigger("change");
-            $("#disability_other").prop("disabled", true);
+            $("#disabOther").removeAttr("data-parsley-required");
+            $("#disabOther").val(null).trigger("change");
+            $("#disabOther").prop("disabled", true);
         }
     });
 
-    $("#skill_nl").on("change", function () {
+    $("#skillNotListed").on("change", function () {
         $(this).val($(this).prop("checked"));
 
         if ($(this).prop("checked")) {
-            $("#skill_ids").val(null).trigger("change");
-            $("#skill_ids").prop("disabled", true);
-            $("#skill_other").attr("data-parsley-required", true);
-            $("#skill_other").prop("disabled", false);
-            $("#skill_other").focus();
+            $("#skills").val(null).trigger("change");
+            $("#skills").prop("disabled", true);
+            $("#skillOther").attr("data-parsley-required", true);
+            $("#skillOther").prop("disabled", false);
+            $("#skillOther").focus();
         } else {
-            $("#skill_other").removeAttr("data-parsley-required");
-            $("#skill_other").val("");
-            $("#skill_other").parsley().reset();
-            $("#skill_other").prop("disabled", true);
-            $("#skill_ids").prop("disabled", false);
-            $("#skill_ids").focus();
+            $("#skillOther").removeAttr("data-parsley-required");
+            $("#skillOther").val("");
+            $("#skillOther").parsley().reset();
+            $("#skillOther").prop("disabled", true);
+            $("#skills").prop("disabled", false);
+            $("#skills").focus();
         }
     });
 
-    $("#registered_at").datetimepicker({
+    $("#registeredAt").datetimepicker({
         defaultDate: new Date(),
         format: "YYYY-MM-DD"
     });
 
-    $("#registered_at").on("dp.change", function() {
+    $("#registeredAt").on("dp.change", function() {
         $(this).parsley().validate();
     });
 
-    previewImage("#photo");
+    previewImage("#personalInfoPhoto");
 
-    $("#create_registrant_form").parsley();
-    $("#create_registrant_form").on("submit", function () {
-        $("#prov_id").val($("#prov_id").data("id"));
+    $("#createRegistrantForm").parsley();
+    $("#createRegistrantForm").on("submit", function () {
         duringSubmitDo(this);
     });
 });

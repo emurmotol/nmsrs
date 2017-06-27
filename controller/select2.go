@@ -1,8 +1,8 @@
 package controller
 
 import (
+	"log"
 	"net/http"
-	"strconv"
 
 	"gopkg.in/mgo.v2/bson"
 
@@ -16,12 +16,8 @@ func CertificateIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func CityMunBarangayIndex(w http.ResponseWriter, r *http.Request) {
-	id, err := strconv.Atoi(chi.URLParam(r, "cityMunId"))
-
-	if err != nil {
-		panic(err)
-	}
-	cityMun := model.CityMunById(bson.ObjectId(id))
+	cityMun := model.CityMunById(bson.ObjectIdHex(chi.URLParam(r, "cityMunId")))
+	log.Println(cityMun.Desc)
 	rd.JSON(w, http.StatusOK, cityMun.BarangayIndex(r.URL.Query().Get("q")))
 }
 
