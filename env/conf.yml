@@ -28,7 +28,7 @@ pkg:
         name: nmsrs
         host: localhost
         port: 27017
-        reset: false
+        reset: true
     render:
         dir: view
         layout: layouts/base

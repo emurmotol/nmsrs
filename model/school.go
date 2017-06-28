@@ -1,28 +1,10 @@
 package model
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"log"
-
 	"github.com/emurmotol/nmsrs/db"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
-
-func schoolSeeder() {
-	data, err := ioutil.ReadFile("import/schools.json")
-
-	if err != nil {
-		panic(err)
-	}
-	schools := []School{}
-
-	if err := json.Unmarshal(data, &schools); err != nil {
-		panic(err)
-	}
-	log.Println("schoolSeeder: todo")
-}
 
 type School struct {
 	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`

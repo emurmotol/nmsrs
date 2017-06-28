@@ -1,29 +1,11 @@
 package model
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"log"
-
 	"github.com/emurmotol/nmsrs/db"
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
-
-func countrySeeder() {
-	data, err := ioutil.ReadFile("import/countries.json")
-
-	if err != nil {
-		panic(err)
-	}
-	countries := []Country{}
-
-	if err := json.Unmarshal(data, &countries); err != nil {
-		panic(err)
-	}
-	log.Println("countrySeeder: todo")
-}
 
 type Country struct {
 	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`

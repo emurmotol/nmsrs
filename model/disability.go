@@ -1,10 +1,6 @@
 package model
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"log"
-
 	"github.com/emurmotol/nmsrs/db"
 
 	mgo "gopkg.in/mgo.v2"
@@ -14,20 +10,6 @@ import (
 type Disability struct {
 	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
-}
-
-func disabilitySeeder() {
-	data, err := ioutil.ReadFile("import/disabilities.json")
-
-	if err != nil {
-		panic(err)
-	}
-	disabilities := []Disability{}
-
-	if err := json.Unmarshal(data, &disabilities); err != nil {
-		panic(err)
-	}
-	log.Println("disabilitySeeder: todo")
 }
 
 func (disability *Disability) Create() *Disability {

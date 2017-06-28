@@ -3,7 +3,9 @@ package model
 import (
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"strings"
 
 	"github.com/emurmotol/nmsrs/db"
 	"github.com/emurmotol/nmsrs/env"
@@ -32,19 +34,17 @@ func Load(reset bool) {
 
 func drop() {
 	cNames, _ := db.Session().DB(db.Name).CollectionNames()
-	dNames := []string{"users"}
 
 	for _, cName := range cNames {
-		for _, dName := range dNames {
-			if dName == cName {
-				if err := db.Session().DB(db.Name).C(dName).DropCollection(); err != nil {
-					panic(err)
-				}
-				defer db.Close()
-				log.Printf("drop: %s collection", dName)
-			}
+		if cName == "system.indexes" {
+			continue
+		}
+
+		if err := db.Session().DB(db.Name).C(cName).DropCollection(); err != nil {
+			panic(err)
 		}
 	}
+	defer db.Close()
 }
 
 func clearContentDir() {
@@ -61,26 +61,21 @@ func clearContentDir() {
 func seed() {
 	go createSuperUser()
 	go userSeeder()
-	go countrySeeder()
-	go empStatSeeder()
-	go unEmpStatSeeder()
-	go regionSeeder()
-	go provinceSeeder()
-	go cityMunSeeder()
-	go barangaySeeder()
-	go certificateSeeder()
-	go civilStatSeeder()
-	go courseSeeder()
-	go disabilitySeeder()
-	go eduLevelSeeder()
-	go eligibilitySeeder()
-	go industrySeeder()
-	go languageSeeder()
-	go licenseSeeder()
-	go otherSkillSeeder()
-	go positionSeeder()
-	go religionSeeder()
-	go schoolSeeder()
-	go sexSeeder()
-	go skillSeeder()
+
+	go func() {
+		err := filepath.Walk("import", func(path string, info os.FileInfo, err error) error {
+			if !info.IsDir() {
+				cmd := exec.Command("mongoimport", "-d", db.Name, "-c", strings.TrimSuffix(info.Name(), filepath.Ext(path)), "--jsonArray", path)
+
+				if err := cmd.Run(); err != nil {
+					return err
+				}
+			}
+			return nil
+		})
+
+		if err != nil {
+			panic(err)
+		}
+	}()
 }

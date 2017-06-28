@@ -2,7 +2,6 @@ package model
 
 import (
 	"errors"
-	"log"
 	"net/http"
 	"os"
 	"path"
@@ -281,7 +280,6 @@ func createSuperUser() {
 		IsAdmin:  true,
 	}
 	user.Create()
-	log.Println("createSuperUser: ok")
 }
 
 func userSeeder() {
@@ -296,7 +294,6 @@ func userSeeder() {
 		}
 		user.Create()
 	}
-	log.Println("userSeeder: ok")
 }
 
 func GetAuthorizedUser(r *http.Request) (*User, error) {

@@ -1,29 +1,11 @@
 package model
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"log"
-
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 
 	"github.com/emurmotol/nmsrs/db"
 )
-
-func eduLevelSeeder() {
-	data, err := ioutil.ReadFile("import/eduLevels.json")
-
-	if err != nil {
-		panic(err)
-	}
-	eduLevels := []EduLevel{}
-
-	if err := json.Unmarshal(data, &eduLevels); err != nil {
-		panic(err)
-	}
-	log.Println("eduLevelSeeder: todo")
-}
 
 type EduLevel struct {
 	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`

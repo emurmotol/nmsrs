@@ -1,29 +1,11 @@
 package model
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"log"
-
 	"github.com/emurmotol/nmsrs/db"
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
-
-func religionSeeder() {
-	data, err := ioutil.ReadFile("import/religions.json")
-
-	if err != nil {
-		panic(err)
-	}
-	religions := []Religion{}
-
-	if err := json.Unmarshal(data, &religions); err != nil {
-		panic(err)
-	}
-	log.Println("religionSeeder: todo")
-}
 
 type Religion struct {
 	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`

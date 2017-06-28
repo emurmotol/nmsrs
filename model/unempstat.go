@@ -1,10 +1,6 @@
 package model
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"log"
-
 	"github.com/emurmotol/nmsrs/db"
 
 	mgo "gopkg.in/mgo.v2"
@@ -14,20 +10,6 @@ import (
 type UnEmpStat struct {
 	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
-}
-
-func unEmpStatSeeder() {
-	data, err := ioutil.ReadFile("import/unEmpStats.json")
-
-	if err != nil {
-		panic(err)
-	}
-	unEmpStats := []UnEmpStat{}
-
-	if err := json.Unmarshal(data, &unEmpStats); err != nil {
-		panic(err)
-	}
-	log.Println("unEmpStatSeeder: todo")
 }
 
 func (unEmpStat *UnEmpStat) Create() *UnEmpStat {

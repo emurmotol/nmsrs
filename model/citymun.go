@@ -1,10 +1,6 @@
 package model
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"log"
-
 	"github.com/emurmotol/nmsrs/db"
 
 	mgo "gopkg.in/mgo.v2"
@@ -21,20 +17,6 @@ type CityMun struct {
 }
 
 type CityMunProv interface{}
-
-func cityMunSeeder() {
-	data, err := ioutil.ReadFile("import/cityMuns.json")
-
-	if err != nil {
-		panic(err)
-	}
-	cityMuns := []CityMun{}
-
-	if err := json.Unmarshal(data, &cityMuns); err != nil {
-		panic(err)
-	}
-	log.Println("cityMunSeeder: todo")
-}
 
 func (cityMun *CityMun) Create() *CityMun {
 	if err := db.C("cityMuns").Insert(cityMun); err != nil {

@@ -1,29 +1,11 @@
 package model
 
 import (
-	"encoding/json"
-	"io/ioutil"
-	"log"
-
 	"github.com/emurmotol/nmsrs/db"
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
-
-func courseSeeder() {
-	data, err := ioutil.ReadFile("import/courses.json")
-
-	if err != nil {
-		panic(err)
-	}
-	courses := []Course{}
-
-	if err := json.Unmarshal(data, &courses); err != nil {
-		panic(err)
-	}
-	log.Println("courseSeeder: todo")
-}
 
 type Course struct {
 	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
