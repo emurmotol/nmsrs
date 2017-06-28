@@ -12,7 +12,7 @@ import (
 )
 
 func religionSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/religions.json")
+	data, err := ioutil.ReadFile("import/religions.json")
 
 	if err != nil {
 		panic(err)
@@ -26,7 +26,7 @@ func religionSeeder() {
 }
 
 type Religion struct {
-	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 

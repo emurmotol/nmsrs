@@ -11,7 +11,7 @@ import (
 )
 
 type Province struct {
-	Id       bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id       bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Code     string        `json:"code" bson:"code"`
 	Desc     string        `json:"desc" bson:"desc"`
 	PsgcCode string        `json:"psgcCode" bson:"psgcCode"`
@@ -19,7 +19,7 @@ type Province struct {
 }
 
 func provinceSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/provinces.json")
+	data, err := ioutil.ReadFile("import/provinces.json")
 
 	if err != nil {
 		panic(err)

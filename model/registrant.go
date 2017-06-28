@@ -53,7 +53,7 @@ type Disab struct {
 }
 
 type FormalEdu struct {
-	Id                    bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id                    bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	HighestGradeCompleted EduLevel      `json:"highestGradeCompleted" bson:"highestGradeCompleted"`
 	CourseDegree          Course        `json:"courseDegree" bson:"courseDegree"`
 	SchoolUniv            School        `json:"schoolUniv" bson:"schoolUniv"`
@@ -63,19 +63,19 @@ type FormalEdu struct {
 }
 
 type ProLicense struct {
-	Id         bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id         bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Title      License       `json:"title" bson:"title"`
 	ExpiryDate time.Time     `json:"expiryDate" bson:"expiryDate"`
 }
 
 type Elig struct {
-	Id        bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id        bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Title     Eligibility   `json:"title" bson:"title"`
 	YearTaken time.Time     `json:"yearTaken" bson:"yearTaken"`
 }
 
 type Training struct {
-	Id                  bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id                  bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name                string        `json:"name" bson:"name"`
 	SkillsAcquired      string        `json:"skillsAcquired" bson:"skillsAcquired"`
 	PeriodOfTrainingExp string        `json:"periodOfTrainingExp" bson:"periodOfTrainingExp"`
@@ -84,7 +84,7 @@ type Training struct {
 }
 
 type Cert struct {
-	Id         bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id         bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Title      Certificate   `json:"title" bson:"title"`
 	Rating     string        `json:"rating" bson:"rating"`
 	IssuedBy   string        `json:"issuedBy" bson:"issuedBy"`
@@ -92,7 +92,7 @@ type Cert struct {
 }
 
 type WorkExp struct {
-	Id                   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id                   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	NameOfCompanyFirm    string        `json:"nameOfCompanyFirm" bson:"nameOfCompanyFirm"`
 	Address              string        `json:"address" bson:"address"`
 	PositionHeld         Position      `json:"positionHeld" bson:"positionHeld"`
@@ -102,7 +102,7 @@ type WorkExp struct {
 }
 
 type Registrant struct {
-	Id              bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id              bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	CreatedAt       time.Time     `json:"createdAt" bson:"createdAt"`
 	UpdatedAt       time.Time     `json:"updatedAt" bson:"updatedAt"`
 	RegisteredAt    time.Time     `json:"registeredAt" bson:"registeredAt"`
@@ -122,43 +122,44 @@ type Registrant struct {
 }
 
 type CreateRegistrantForm struct {
-	FamilyName        string                `schema:"family_name" validate:"required"`
-	GivenName         string                `schema:"given_name" validate:"required"`
-	MiddleName        string                `schema:"middle_name" validate:"required"`
-	Birthdate         string                `schema:"birthdate" validate:"required"`
-	Password          string                `schema:"password"`
-	PhotoFile         multipart.File        `schema:"-"`
-	PhotoHeader       *multipart.FileHeader `schema:"-"`
-	StSub             string                `schema:"st_sub" validate:"required"`
-	CityMunId         uint                  `schema:"city_mun_id" validate:"required"`
-	ProvId            uint                  `schema:"prov_id"`
-	BrgyId            uint                  `schema:"brgy_id" validate:"required"`
-	PlaceOfBirth      string                `schema:"place_of_birth" validate:"required"`
-	ReligionId        uint                  `schema:"religion_id" validate:"required"`
-	CivilStatId       uint                  `schema:"civil_stat_id" validate:"required"`
-	CivilStatOther    string                `schema:"civil_stat_other"`
-	SexId             uint                  `schema:"sex_id" validate:"required"`
-	Age               int                   `schema:"age"`
-	Height            float32               `schema:"height" validate:"required"`
-	Weight            float32               `schema:"weight"`
-	LandlineNo        string                `schema:"landline_no"`
-	MobileNo          string                `schema:"mobile_no"`
-	Email             string                `schema:"email"`
-	EmpStatId         uint                  `schema:"emp_stat_id" validate:"required"`
-	UnEmpStatId       uint                  `schema:"un_emp_stat_id"`
-	TocId             uint                  `schema:"toc_id"`
-	Alfw              bool                  `schema:"alfw"`
-	PrefOccIds        []int                 `schema:"pref_occ_ids" validate:"required"`
-	PrefLocalLocId    uint                  `schema:"pref_local_loc_id" validate:"required"`
-	PrefOverseasLocId uint                  `schema:"pref_overseas_loc_id" validate:"required"`
-	PassportNo        string                `schema:"passport_no"`
-	Pned              string                `schema:"pned"`
-	Disabled          bool                  `schema:"disabled"`
-	DisabilityId      uint                  `schema:"disability_id"`
-	DisabilityOther   uint                  `schema:"disability_other"`
-	LanguageIds       []int                 `schema:"language_ids"`
-	SkillIds          []int                 `schema:"skill_ids"`
-	RegisteredAt      string                `schema:"registered_at"`
-	IAccept           bool                  `schema:"i_accept"`
-	Errors            map[string]string     `schema:"-"`
+	PersonalInfoFamilyName        string                `schema:"personalInfoFamilyName" validate:"required"`
+	PersonalInfoGivenName         string                `schema:"personalInfoGivenName" validate:"required"`
+	PersonalInfoMiddleName        string                `schema:"personalInfoMiddleName" validate:"required"`
+	PersonalInfoBirthdate         string                `schema:"personalInfoBirthdate" validate:"required"`
+	PersonalInfoPassword          string                `schema:"personalInfoPassword"`
+	PhotoFile                     multipart.File        `schema:"-"`
+	PhotoHeader                   *multipart.FileHeader `schema:"-"`
+	BasicInfoStSub                string                `schema:"basicInfoStSub" validate:"required"`
+	BasicInfoCityMunId            string                `schema:"basicInfoCityMunId" validate:"required"`
+	BasicInfoProvince             string                `schema:"basicInfoProvince"`
+	BasicInfoBarangayId           string                `schema:"basicInfoBarangayId" validate:"required"`
+	BasicInfoPlaceOfBirth         string                `schema:"basicInfoPlaceOfBirth" validate:"required"`
+	BasicInfoReligionId           string                `schema:"basicInfoReligionId" validate:"required"`
+	BasicInfoCivilStatId          string                `schema:"basicInfoCivilStatId" validate:"required"`
+	BasicInfoCivilStatOther       string                `schema:"basicInfoCivilStatOther"`
+	BasicInfoSexId                string                `schema:"basicInfoSexId" validate:"required"`
+	BasicInfoAge                  int                   `schema:"basicInfoAge"`
+	BasicInfoHeight               float32               `schema:"basicInfoHeight" validate:"required"`
+	BasicInfoWeight               float32               `schema:"basicInfoWeight"`
+	BasicInfoLandlineNumber       string                `schema:"basicInfoLandlineNumber"`
+	BasicInfoMobileNumber         string                `schema:"basicInfoMobileNumber"`
+	BasicInfoEmail                string                `schema:"basicInfoEmail"`
+	EmpStatId                     string                `schema:"empStatId" validate:"required"`
+	EmpUnEmpStatId                string                `schema:"empUnEmpStatId"`
+	EmpTeminatedOverseasCountryId string                `schema:"empTeminatedOverseasCountryId"`
+	EmpIsActivelyLookingForWork   bool                  `schema:"empIsActivelyLookingForWork"`
+	EmpPrefOccIds                 []string              `schema:"empPrefOccIds" validate:"required"`
+	EmpPrefLocalLocId             string                `schema:"empPrefLocalLocId" validate:"required"`
+	EmpPrefOverseasLocId          string                `schema:"empPrefOverseasLocId" validate:"required"`
+	EmpPassportNumber             string                `schema:"empPassportNumber"`
+	EmpPassportNumberExpiryDate   string                `schema:"empPassportNumberExpiryDate"`
+	DisabIsDisabled               bool                  `schema:"disabIsDisabled"`
+	DisabId                       string                `schema:"disabId"`
+	DisabOther                    string                `schema:"disabOther"`
+	LangIds                       []string              `schema:"langIds"`
+	OtherSkillIds                 []string              `schema:"otherSkillIds"`
+	OtherSkillOther               string                `schema:"otherSkillOther"`
+	RegisteredAt                  time.Time             `schema:"registeredAt"`
+	IAccept                       bool                  `schema:"iAccept"`
+	Errors                        map[string]string     `schema:"-"`
 }

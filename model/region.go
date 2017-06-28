@@ -11,14 +11,14 @@ import (
 )
 
 type Region struct {
-	Id       bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id       bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Code     string        `json:"code" bson:"code"`
 	Desc     string        `json:"desc" bson:"desc"`
 	PsgcCode string        `json:"psgcCode" bson:"psgcCode"`
 }
 
 func regionSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/regions.json")
+	data, err := ioutil.ReadFile("import/regions.json")
 
 	if err != nil {
 		panic(err)

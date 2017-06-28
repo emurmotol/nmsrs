@@ -12,7 +12,7 @@ import (
 )
 
 func countrySeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/countries.json")
+	data, err := ioutil.ReadFile("import/countries.json")
 
 	if err != nil {
 		panic(err)
@@ -26,7 +26,7 @@ func countrySeeder() {
 }
 
 type Country struct {
-	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 

@@ -12,7 +12,7 @@ import (
 )
 
 func eligibilitySeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/eligibilities.json")
+	data, err := ioutil.ReadFile("import/eligibilities.json")
 
 	if err != nil {
 		panic(err)
@@ -26,7 +26,7 @@ func eligibilitySeeder() {
 }
 
 type Eligibility struct {
-	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 

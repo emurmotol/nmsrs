@@ -30,7 +30,7 @@ var (
 )
 
 type User struct {
-	Id        bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id        bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	CreatedAt time.Time     `json:"createdAt" bson:"createdAt"`
 	UpdatedAt time.Time     `json:"updatedAt" bson:"updatedAt"`
 	Name      string        `json:"name" bson:"name"`

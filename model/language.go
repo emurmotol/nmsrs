@@ -12,7 +12,7 @@ import (
 )
 
 func languageSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/languages.json")
+	data, err := ioutil.ReadFile("import/languages.json")
 
 	if err != nil {
 		panic(err)
@@ -26,7 +26,7 @@ func languageSeeder() {
 }
 
 type Language struct {
-	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 

@@ -22,16 +22,16 @@ $(function () {
     $("#formalEduForm").parsley();
     $("#formalEduForm").on("submit", function (e) {
         e.preventDefault();
-        var formalEduHighestGradeCompletedVal = $("#formalEduHighestGradeCompleted").select2("val");
-        var formalEduCourseDegreeVal = $("#formalEduCourseDegree").select2("val");
-        var formalEduSchoolUnivVal = $("#formalEduSchoolUniv").select2("val") != null ? $("#formalEduSchoolUniv").select2("val") : "";
+        var formalEduHighestGradeCompletedIdVal = $("#formalEduHighestGradeCompletedId").select2("val");
+        var formalEduCourseDegreeIdVal = $("#formalEduCourseDegreeId").select2("val");
+        var formalEduSchoolUnivIdVal = $("#formalEduSchoolUnivId").select2("val") != null ? $("#formalEduSchoolUnivId").select2("val") : "";
         var formalEduSchoolUnivOtherVal = $("#formalEduSchoolUnivOther").val().toUpperCase();
         var formalEduSchoolUnivText = formalEduSchoolUnivOtherVal;
         var formalEduYearGradVal = $("#formalEduYearGrad").val();
         var formalEduLastAttendedVal = $("#formalEduLastAttended").val();
 
         if (!$("#formalEduSchoolUnivNotListed").prop("checked")) {
-            formalEduSchoolUnivText = $("#formalEduSchoolUniv").select2("data")[0].text;
+            formalEduSchoolUnivText = $("#formalEduSchoolUnivId").select2("data")[0].text;
         }
 
         switch ($(this).attr("data-action")) {
@@ -42,17 +42,17 @@ $(function () {
                     <td class="formal-edu-checkbox">
                         <input type="checkbox" class="checkbox" id="formalEduCheckbox_` + formalEduIndex + `">
                     </td>
-                    <td class="formal-edu-highest-grade-completed">
-                        <span>` + $("#formalEduHighestGradeCompleted").select2("data")[0].text + `</span>
-                        <input type="hidden" name="formalEduHighestGradeCompleted" value="` + formalEduHighestGradeCompletedVal + `">
+                    <td class="formal-edu-highest-grade-completed-id">
+                        <span>` + $("#formalEduHighestGradeCompletedId").select2("data")[0].text + `</span>
+                        <input type="hidden" name="formalEduHighestGradeCompletedId" value="` + formalEduHighestGradeCompletedIdVal + `">
                     </td>
-                    <td class="formal-edu-course-degree">
-                        <span>` + $("#formalEduCourseDegree").select2("data")[0].text + `</span>
-                        <input type="hidden" name="formalEduCourseDegree" value="` + formalEduCourseDegreeVal + `">
+                    <td class="formal-edu-course-degree-id">
+                        <span>` + $("#formalEduCourseDegreeId").select2("data")[0].text + `</span>
+                        <input type="hidden" name="formalEduCourseDegreeId" value="` + formalEduCourseDegreeIdVal + `">
                     </td>
-                    <td class="formal-edu-school-univ">
+                    <td class="formal-edu-school-univ-id">
                         <span>` + formalEduSchoolUnivText + `</span>
-                        <input type="hidden" name="formalEduSchoolUniv" value="` + formalEduSchoolUnivVal + `">
+                        <input type="hidden" name="formalEduSchoolUnivId" value="` + formalEduSchoolUnivIdVal + `">
                         <input type="hidden" name="formalEduSchoolUnivOther" value="` + formalEduSchoolUnivOtherVal + `">
                     </td>
                     <td class="formal-edu-year-grad">
@@ -73,13 +73,13 @@ $(function () {
                 break;
             case "edit":
                 var tr = $("#formalEduTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".formal-edu-highest-grade-completed").find("span").text($("#formalEduHighestGradeCompleted").select2("data")[0].text);
-                tr.find(".formal-edu-highest-grade-completed").find('input[name="formalEduHighestGradeCompleted"]').val(formalEduHighestGradeCompletedVal);
-                tr.find(".formal-edu-course-degree").find("span").text($("#formalEduCourseDegree").select2("data")[0].text);
-                tr.find(".formal-edu-course-degree").find('input[name="formalEduCourseDegree"]').val(formalEduCourseDegreeVal);
-                tr.find(".formal-edu-school-univ").find("span").text(formalEduSchoolUnivText);
-                tr.find(".formal-edu-school-univ").find('input[name="formalEduSchoolUniv"]').val(formalEduSchoolUnivVal);
-                tr.find(".formal-edu-school-univ").find('input[name="formalEduSchoolUnivOther"]').val(formalEduSchoolUnivOtherVal);
+                tr.find(".formal-edu-highest-grade-completed-id").find("span").text($("#formalEduHighestGradeCompletedId").select2("data")[0].text);
+                tr.find(".formal-edu-highest-grade-completed-id").find('input[name="formalEduHighestGradeCompletedId"]').val(formalEduHighestGradeCompletedIdVal);
+                tr.find(".formal-edu-course-degree-id").find("span").text($("#formalEduCourseDegreeId").select2("data")[0].text);
+                tr.find(".formal-edu-course-degree-id").find('input[name="formalEduCourseDegreeId"]').val(formalEduCourseDegreeIdVal);
+                tr.find(".formal-edu-school-univ-id").find("span").text(formalEduSchoolUnivText);
+                tr.find(".formal-edu-school-univ-id").find('input[name="formalEduSchoolUnivId"]').val(formalEduSchoolUnivIdVal);
+                tr.find(".formal-edu-school-univ-id").find('input[name="formalEduSchoolUnivOther"]').val(formalEduSchoolUnivOtherVal);
                 tr.find(".formal-edu-year-grad").find("span").text(formalEduYearGradVal);
                 tr.find(".formal-edu-year-grad").find('input[name="formalEduYearGrad"]').val(formalEduYearGradVal);
                 tr.find(".formal-edu-last-attended").find("span").text(formalEduLastAttendedVal);
@@ -106,21 +106,21 @@ $(function () {
 
         $(".formal-edu-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var formalEduHighestGradeCompletedVal = tr.find(".formal-edu-highest-grade-completed").find('input[name="formalEduHighestGradeCompleted"]').val();
-            var formalEduCourseDegreeVal = tr.find(".formal-edu-course-degree").find('input[name="formalEduCourseDegree"]').val();
-            var formalEduSchoolUnivVal = tr.find(".formal-edu-school-univ").find('input[name="formalEduSchoolUniv"]').val();
+            var formalEduHighestGradeCompletedIdVal = tr.find(".formal-edu-highest-grade-completed-id").find('input[name="formalEduHighestGradeCompletedId"]').val();
+            var formalEduCourseDegreeIdVal = tr.find(".formal-edu-course-degree-id").find('input[name="formalEduCourseDegreeId"]').val();
+            var formalEduSchoolUnivIdVal = tr.find(".formal-edu-school-univ-id").find('input[name="formalEduSchoolUnivId"]').val();
             var formalEduYearGradVal = tr.find(".formal-edu-year-grad").find('input[name="formalEduYearGrad"]').val();
             var formalEduLastAttendedVal = tr.find(".formal-edu-last-attended").find('input[name="formalEduLastAttended"]').val();
 
-            $("#formalEduHighestGradeCompleted").val(formalEduHighestGradeCompletedVal).trigger("change");
-            $("#formalEduCourseDegree").val(formalEduCourseDegreeVal).trigger("change");
+            $("#formalEduHighestGradeCompletedId").val(formalEduHighestGradeCompletedIdVal).trigger("change");
+            $("#formalEduCourseDegreeId").val(formalEduCourseDegreeIdVal).trigger("change");
 
-            if (formalEduSchoolUnivVal == "") {
-                var formalEduSchoolUnivOtherVal = tr.find(".formal-edu-school-univ").find('input[name="formalEduSchoolUnivOther"]').val();
+            if (formalEduSchoolUnivIdVal == "") {
+                var formalEduSchoolUnivOtherVal = tr.find(".formal-edu-school-univ-id").find('input[name="formalEduSchoolUnivOther"]').val();
                 $("#formalEduSchoolUnivNotListed").prop("checked", true).trigger("change");
                 $("#formalEduSchoolUnivOther").val(formalEduSchoolUnivOtherVal).trigger("change");
             } else {
-                $("#formalEduSchoolUniv").val(formalEduSchoolUnivVal).trigger("change");
+                $("#formalEduSchoolUnivId").val(formalEduSchoolUnivIdVal).trigger("change");
             }
             $("#formalEduYearGrad").val(formalEduYearGradVal).trigger("change");
             $("#formalEduLastAttended").val(formalEduLastAttendedVal).trigger("change");
@@ -154,20 +154,20 @@ $(function () {
 
     $("#formalEduModal").on("hidden.bs.modal", function () {
         $("#formalEduForm").removeAttr("data-action");
-        $("#formalEduSchoolUniv").removeAttr("data-parsley-required");
-        $("#formalEduSchoolUniv").val(null).trigger("change");
-        $("#formalEduSchoolUniv").attr("data-parsley-required", true);
+        $("#formalEduSchoolUnivId").removeAttr("data-parsley-required");
+        $("#formalEduSchoolUnivId").val(null).trigger("change");
+        $("#formalEduSchoolUnivId").attr("data-parsley-required", true);
 
-        if ($("#formalEduSchoolUniv").prop("disabled")) {
-            $("#formalEduSchoolUniv").prop("disabled", false);
+        if ($("#formalEduSchoolUnivId").prop("disabled")) {
+            $("#formalEduSchoolUnivId").prop("disabled", false);
             $("#formalEduSchoolUnivOther").prop("disabled", true);
         }
-        $("#formalEduHighestGradeCompleted").removeAttr("data-parsley-required");
-        $("#formalEduHighestGradeCompleted").val(null).trigger("change");
-        $("#formalEduHighestGradeCompleted").attr("data-parsley-required", true);
-        $("#formalEduCourseDegree").removeAttr("data-parsley-required");
-        $("#formalEduCourseDegree").val(null).trigger("change");
-        $("#formalEduCourseDegree").attr("data-parsley-required", true);
+        $("#formalEduHighestGradeCompletedId").removeAttr("data-parsley-required");
+        $("#formalEduHighestGradeCompletedId").val(null).trigger("change");
+        $("#formalEduHighestGradeCompletedId").attr("data-parsley-required", true);
+        $("#formalEduCourseDegreeId").removeAttr("data-parsley-required");
+        $("#formalEduCourseDegreeId").val(null).trigger("change");
+        $("#formalEduCourseDegreeId").attr("data-parsley-required", true);
         $("#formalEduSchoolUnivNotListed").prop("checked", false).trigger("change");
         $("#formalEduYearGrad").val("");
         $("#formalEduYearGrad").parsley().reset();
@@ -184,9 +184,9 @@ $(function () {
         $(this).val($(this).prop("checked"));
 
         if ($(this).prop("checked")) {
-            $("#formalEduSchoolUniv").removeAttr("data-parsley-required");
-            $("#formalEduSchoolUniv").val(null).trigger("change");
-            $("#formalEduSchoolUniv").prop("disabled", true);
+            $("#formalEduSchoolUnivId").removeAttr("data-parsley-required");
+            $("#formalEduSchoolUnivId").val(null).trigger("change");
+            $("#formalEduSchoolUnivId").prop("disabled", true);
             $("#formalEduSchoolUnivOther").attr("data-parsley-required", true);
             $("#formalEduSchoolUnivOther").prop("disabled", false);
             $("#formalEduSchoolUnivOther").focus();
@@ -195,9 +195,9 @@ $(function () {
             $("#formalEduSchoolUnivOther").val("");
             $("#formalEduSchoolUnivOther").parsley().reset();
             $("#formalEduSchoolUnivOther").prop("disabled", true);
-            $("#formalEduSchoolUniv").attr("data-parsley-required", true);
-            $("#formalEduSchoolUniv").prop("disabled", false);
-            $("#formalEduSchoolUniv").focus();
+            $("#formalEduSchoolUnivId").attr("data-parsley-required", true);
+            $("#formalEduSchoolUnivId").prop("disabled", false);
+            $("#formalEduSchoolUnivId").focus();
         }
     });
     var selectAllProLicense = $("#selectAllProLicense");
@@ -214,7 +214,7 @@ $(function () {
     $("#proLicenseForm").parsley();
     $("#proLicenseForm").on("submit", function (e) {
         e.preventDefault();
-        var proLicenseTitleVal = $("#proLicenseTitle").select2("val");
+        var proLicenseTitleIdVal = $("#proLicenseTitleId").select2("val");
         var proLicenseExpiryDateVal = $("#proLicenseExpiryDate").val().toUpperCase();
 
         switch ($(this).attr("data-action")) {
@@ -225,9 +225,9 @@ $(function () {
                     <td class="pro-license-checkbox">
                         <input type="checkbox" class="checkbox" id="proLicenseCheckbox_` + proLicenseIndex + `">
                     </td>
-                    <td class="pro-license-title">
-                        <span>` + $("#proLicenseTitle").select2("data")[0].text + `</span>
-                        <input type="hidden" name="proLicenseTitle" value="` + proLicenseTitleVal + `">
+                    <td class="pro-license-title-id">
+                        <span>` + $("#proLicenseTitleId").select2("data")[0].text + `</span>
+                        <input type="hidden" name="proLicenseTitleId" value="` + proLicenseTitleIdVal + `">
                     </td>
                     <td class="pro-license-expiry-date">
                         <span>` + proLicenseExpiryDateVal + `</span>
@@ -243,8 +243,8 @@ $(function () {
                 break;
             case "edit":
                 var tr = $("#proLicenseTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".pro-license-title").find("span").text($("#proLicenseTitle").select2("data")[0].text);
-                tr.find(".pro-license-title").find('input[name="proLicenseTitle"]').val(proLicenseTitleVal);
+                tr.find(".pro-license-title-id").find("span").text($("#proLicenseTitleId").select2("data")[0].text);
+                tr.find(".pro-license-title-id").find('input[name="proLicenseTitleId"]').val(proLicenseTitleIdVal);
                 tr.find(".pro-license-expiry-date").find("span").text(proLicenseExpiryDateVal);
                 tr.find(".pro-license-expiry-date").find('input[name="proLicenseExpiryDate"]').val(proLicenseExpiryDateVal);
                 $(this).removeAttr("data-edit-index");
@@ -269,10 +269,10 @@ $(function () {
 
         $(".pro-license-expiry-date-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var proLicenseTitleVal = tr.find(".pro-license-title").find('input[name="proLicenseTitle"]').val();
+            var proLicenseTitleIdVal = tr.find(".pro-license-title-id").find('input[name="proLicenseTitleId"]').val();
             var proLicenseExpiryDateVal = tr.find(".pro-license-expiry-date").find('input[name="proLicenseExpiryDate"]').val();
 
-            $("#proLicenseTitle").val(proLicenseTitleVal).trigger("change");
+            $("#proLicenseTitleId").val(proLicenseTitleIdVal).trigger("change");
             $("#proLicenseExpiryDate").val(proLicenseExpiryDateVal).trigger("change");
             $("#proLicenseForm").attr("data-edit-index", tr.data("index"));
             $("#proLicenseForm").attr("data-action", "edit");
@@ -304,9 +304,9 @@ $(function () {
 
     $("#proLicenseModal").on("hidden.bs.modal", function () {
         $("#proLicenseForm").removeAttr("data-action");
-        $("#proLicenseTitle").removeAttr("data-parsley-required");
-        $("#proLicenseTitle").val(null).trigger("change");
-        $("#proLicenseTitle").attr("data-parsley-required", true);
+        $("#proLicenseTitleId").removeAttr("data-parsley-required");
+        $("#proLicenseTitleId").val(null).trigger("change");
+        $("#proLicenseTitleId").attr("data-parsley-required", true);
         $("#proLicenseExpiryDate").val("");
         $("#proLicenseExpiryDate").parsley().reset();
     });
@@ -330,7 +330,7 @@ $(function () {
     $("#eligForm").parsley();
     $("#eligForm").on("submit", function (e) {
         e.preventDefault();
-        var eligTitleVal = $("#eligTitle").select2("val");
+        var eligTitleIdVal = $("#eligTitleId").select2("val");
         var eligYearTakenVal = $("#eligYearTaken").val().toUpperCase();
 
         switch ($(this).attr("data-action")) {
@@ -341,9 +341,9 @@ $(function () {
                     <td class="elig-checkbox">
                         <input type="checkbox" class="checkbox" id="eligCheckbox_` + eligIndex + `">
                     </td>
-                    <td class="elig-title">
-                        <span>` + $("#eligTitle").select2("data")[0].text + `</span>
-                        <input type="hidden" name="eligTitle" value="` + eligTitleVal + `">
+                    <td class="elig-title-id">
+                        <span>` + $("#eligTitleId").select2("data")[0].text + `</span>
+                        <input type="hidden" name="eligTitleId" value="` + eligTitleIdVal + `">
                     </td>
                     <td class="elig-year-taken">
                         <span>` + eligYearTakenVal + `</span>
@@ -359,8 +359,8 @@ $(function () {
                 break;
             case "edit":
                 var tr = $("#eligTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".elig-title").find("span").text($("#eligTitle").select2("data")[0].text);
-                tr.find(".elig-title").find('input[name="eligTitle"]').val(eligTitleVal);
+                tr.find(".elig-title-id").find("span").text($("#eligTitleId").select2("data")[0].text);
+                tr.find(".elig-title-id").find('input[name="eligTitleId"]').val(eligTitleIdVal);
                 tr.find(".elig-year-taken").find("span").text(eligYearTakenVal);
                 tr.find(".elig-year-taken").find('input[name="eligYearTaken"]').val(eligYearTakenVal);
                 $(this).removeAttr("data-edit-index");
@@ -385,10 +385,10 @@ $(function () {
 
         $(".elig-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var eligTitleVal = tr.find(".elig-title").find('input[name="eligTitle"]').val();
+            var eligTitleIdVal = tr.find(".elig-title-id").find('input[name="eligTitleId"]').val();
             var eligYearTakenVal = tr.find(".elig-year-taken").find('input[name="eligYearTaken"]').val().toUpperCase();
 
-            $("#eligTitle").val(eligTitleVal).trigger("change");
+            $("#eligTitleId").val(eligTitleIdVal).trigger("change");
             $("#eligYearTaken").val(eligYearTakenVal).trigger("change");
             $("#eligForm").attr("data-edit-index", tr.data("index"));
             $("#eligForm").attr("data-action", "edit");
@@ -420,9 +420,9 @@ $(function () {
 
     $("#eligModal").on("hidden.bs.modal", function () {
         $("#eligForm").removeAttr("data-action");
-        $("#eligTitle").removeAttr("data-parsley-required");
-        $("#eligTitle").val(null).trigger("change");
-        $("#eligTitle").attr("data-parsley-required", true);
+        $("#eligTitleId").removeAttr("data-parsley-required");
+        $("#eligTitleId").val(null).trigger("change");
+        $("#eligTitleId").attr("data-parsley-required", true);
         $("#eligYearTaken").val("");
         $("#eligYearTaken").parsley().reset();
     });
@@ -584,7 +584,7 @@ $(function () {
     $("#certForm").parsley();
     $("#certForm").on("submit", function (e) {
         e.preventDefault();
-        var certTitleVal = $("#certTitle").select2("val");
+        var certTitleIdVal = $("#certTitleId").select2("val");
         var certRatingVal = $("#certRating").val().toUpperCase();
         var certIssuedByVal = $("#certIssuedBy").val().toUpperCase();
         var certDateIssuedVal = $("#certDateIssued").val().toUpperCase();
@@ -597,9 +597,9 @@ $(function () {
                     <td class="certCheckbox_">
                         <input type="checkbox" class="checkbox" id="certCheckbox_` + certIndex + `">
                     </td>
-                    <td class="cert-title">
-                        <span>` + $("#certTitle").select2("data")[0].text + `</span>
-                        <input type="hidden" name="certTitle" value="` + certTitleVal + `">
+                    <td class="cert-title-id">
+                        <span>` + $("#certTitleId").select2("data")[0].text + `</span>
+                        <input type="hidden" name="certTitleId" value="` + certTitleIdVal + `">
                     </td>
                     <td class="cert-rating">
                         <span>` + certRatingVal + `</span>
@@ -623,8 +623,8 @@ $(function () {
                 break;
             case "edit":
                 var tr = $("#certTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".cert-title").find("span").text($("#certTitle").select2("data")[0].text);
-                tr.find(".cert-title").find('input[name="certTitle"]').val(certTitleVal);
+                tr.find(".cert-title-id").find("span").text($("#certTitleId").select2("data")[0].text);
+                tr.find(".cert-title-id").find('input[name="certTitleId"]').val(certTitleIdVal);
                 tr.find(".cert-rating").find("span").text(certRatingVal);
                 tr.find(".cert-rating").find('input[name="certRating"]').val(certRatingVal);
                 tr.find(".cert-issued-by").find("span").text(certIssuedByVal);
@@ -653,12 +653,12 @@ $(function () {
 
         $(".cert-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var certTitleVal = tr.find(".cert-title").find('input[name="certTitle"]').val();
+            var certTitleIdVal = tr.find(".cert-title-id").find('input[name="certTitleId"]').val();
             var certRatingVal = tr.find(".cert-rating").find('input[name="certRating"]').val().toUpperCase();
             var certIssuedByVal = tr.find(".cert-issued-by").find('input[name="certIssuedBy"]').val().toUpperCase();
             var certDateIssuedVal = tr.find(".cert-date-issued").find('input[name="certDateIssued"]').val().toUpperCase();
 
-            $("#certTitle").val(certTitleVal).trigger("change");
+            $("#certTitleId").val(certTitleIdVal).trigger("change");
             $("#certRating").val(certRatingVal).trigger("change");
             $("#certIssuedBy").val(certIssuedByVal).trigger("change");
             $("#certDateIssued").val(certDateIssuedVal).trigger("change");
@@ -692,9 +692,9 @@ $(function () {
 
     $("#certModal").on("hidden.bs.modal", function () {
         $("#certForm").removeAttr("data-action");
-        $("#certTitle").removeAttr("data-parsley-required");
-        $("#certTitle").val(null).trigger("change");
-        $("#certTitle").attr("data-parsley-required", true);
+        $("#certTitleId").removeAttr("data-parsley-required");
+        $("#certTitleId").val(null).trigger("change");
+        $("#certTitleId").attr("data-parsley-required", true);
         $("#certRating").val("");
         $("#certRating").parsley().reset();
         $("#certIssuedBy").val("");
@@ -735,10 +735,11 @@ $(function () {
         e.preventDefault();
         var workExpNameOfCompanyFirmVal = $("#workExpNameOfCompanyFirm").val().toUpperCase();
         var workExpAddressVal = $("#workExpAddress").val().toUpperCase();
-        var workExpPositionHeldVal = $("#workExpPositionHeld").select2("val");
+        var workExpPositionHeldIdVal = $("#workExpPositionHeldId").select2("val");
         var workExpFromVal = $("#workExpFrom").val().toUpperCase();
         var workExpToVal = $("#workExpTo").val().toUpperCase();
         var workExpIsRelatedToFormalEduVal = $("#workExpIsRelatedToFormalEdu").val();
+        var workExpIsRelatedToFormalEduText = $("#workExpIsRelatedToFormalEdu").val() == "true" ? "Yes" : "No";
 
         switch ($(this).attr("data-action")) {
             case "add":
@@ -756,9 +757,9 @@ $(function () {
                         <span>` + workExpAddressVal + `</span>
                         <input type="hidden" name="workExpAddress" value="` + workExpAddressVal + `">
                     </td>
-                    <td class="work-exp-position-held">
-                        <span>` + $("#workExpPositionHeld").select2("data")[0].text + `</span>
-                        <input type="hidden" name="workExpPositionHeld" value="` + workExpPositionHeldVal + `">
+                    <td class="work-exp-position-held-id">
+                        <span>` + $("#workExpPositionHeldId").select2("data")[0].text + `</span>
+                        <input type="hidden" name="workExpPositionHeldId" value="` + workExpPositionHeldIdVal + `">
                     </td>
                     <td class="work-exp-from">
                         <span>` + workExpFromVal + `</span>
@@ -769,7 +770,7 @@ $(function () {
                         <input type="hidden" name="workExpTo" value="` + workExpToVal + `">
                     </td>
                     <td class="work-exp-related-to-formal-edu">
-                        <span>` + workExpIsRelatedToFormalEduVal + `</span>
+                        <span>` + workExpIsRelatedToFormalEduText + `</span>
                         <input type="hidden" name="workExpIsRelatedToFormalEdu" value="` + workExpIsRelatedToFormalEduVal + `">
                     </td>
                     <td class="text-center">
@@ -786,8 +787,8 @@ $(function () {
                 tr.find(".work-exp-name-of-company-firm").find('input[name="workExpNameOfCompanyFirm"]').val(workExpNameOfCompanyFirmVal);
                 tr.find(".work-exp-address").find("span").text(workExpAddressVal);
                 tr.find(".work-exp-address").find('input[name="workExpAddress"]').val(workExpAddressVal);
-                tr.find(".work-exp-position-held").find("span").text($("#workExpPositionHeld").select2("data")[0].text);
-                tr.find(".work-exp-position-held").find('input[name="workExpPositionHeld"]').val(workExpPositionHeldVal);
+                tr.find(".work-exp-position-held-id").find("span").text($("#workExpPositionHeldId").select2("data")[0].text);
+                tr.find(".work-exp-position-held-id").find('input[name="workExpPositionHeldId"]').val(workExpPositionHeldIdVal);
                 tr.find(".work-exp-from").find("span").text(workExpFromVal);
                 tr.find(".work-exp-from").find('input[name="workExpFrom"]').val(workExpFromVal);
                 tr.find(".work-exp-to").find("span").text(workExpToVal);
@@ -818,14 +819,14 @@ $(function () {
             var tr = $(this).closest("tr");
             var workExpNameOfCompanyFirmVal = tr.find(".work-exp-name-of-company-firm").find('input[name="workExpNameOfCompanyFirm"]').val().toUpperCase();
             var workExpAddressVal = tr.find(".work-exp-address").find('input[name="workExpAddress"]').val().toUpperCase();
-            var workExpPositionHeldVal = tr.find(".work-exp-position-held").find('input[name="workExpPositionHeld"]').val();
+            var workExpPositionHeldIdVal = tr.find(".work-exp-position-held-id").find('input[name="workExpPositionHeldId"]').val();
             var workExpFromVal = tr.find(".work-exp-from").find('input[name="workExpFrom"]').val().toUpperCase();
             var workExpToVal = tr.find(".work-exp-to").find('input[name="workExpTo"]').val().toUpperCase();
             var workExpIsRelatedToFormalEduVal = tr.find(".work-exp-related-to-formal-edu").find('input[name="workExpIsRelatedToFormalEdu"]').val();
 
             $("#workExpNameOfCompanyFirm").val(workExpNameOfCompanyFirmVal).trigger("change");
             $("#workExpAddress").val(workExpAddressVal).trigger("change");
-            $("#workExpPositionHeld").val(workExpPositionHeldVal).trigger("change");
+            $("#workExpPositionHeldId").val(workExpPositionHeldIdVal).trigger("change");
             $("#workExpFrom").val(workExpFromVal).trigger("change");
             $("#workExpTo").val(workExpToVal).trigger("change");
             $("#workExpIsRelatedToFormalEdu").val(workExpIsRelatedToFormalEduVal).trigger("change");
@@ -863,9 +864,9 @@ $(function () {
         $("#workExpNameOfCompanyFirm").parsley().reset();
         $("#workExpAddress").val("");
         $("#workExpAddress").parsley().reset();
-        $("#workExpPositionHeld").removeAttr("data-parsley-required");
-        $("#workExpPositionHeld").val(null).trigger("change");
-        $("#workExpPositionHeld").attr("data-parsley-required", true);
+        $("#workExpPositionHeldId").removeAttr("data-parsley-required");
+        $("#workExpPositionHeldId").val(null).trigger("change");
+        $("#workExpPositionHeldId").attr("data-parsley-required", true);
         $("#workExpFrom").val("");
         $("#workExpFrom").parsley().reset();
         $("#workExpTo").val("");

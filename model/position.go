@@ -11,7 +11,7 @@ import (
 )
 
 func positionSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/positions.json")
+	data, err := ioutil.ReadFile("import/positions.json")
 
 	if err != nil {
 		panic(err)
@@ -25,7 +25,7 @@ func positionSeeder() {
 }
 
 type Position struct {
-	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 

@@ -10,7 +10,7 @@ import (
 )
 
 type Barangay struct {
-	Id          bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id          bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Code        string        `json:"code" bson:"code"`
 	Desc        string        `json:"desc" bson:"desc"`
 	RegCode     string        `json:"regCode" bson:"regCode"`
@@ -19,7 +19,7 @@ type Barangay struct {
 }
 
 func barangaySeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/barangays.json")
+	data, err := ioutil.ReadFile("import/barangays.json")
 
 	if err != nil {
 		panic(err)

@@ -12,12 +12,12 @@ import (
 )
 
 type UnEmpStat struct {
-	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
 func unEmpStatSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/unEmpStats.json")
+	data, err := ioutil.ReadFile("import/unEmpStats.json")
 
 	if err != nil {
 		panic(err)

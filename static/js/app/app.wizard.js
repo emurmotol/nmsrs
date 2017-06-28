@@ -3,9 +3,9 @@ $(function () {
 
     function navigateTo(index) {
         $(".form-nav .prev-tab").toggle(index > 0);
-        var at_the_end = index >= tabPane.length - 1;
-        $(".form-nav .next-tab").toggle(!at_the_end);
-        $(".form-nav [type=submit]").toggle(at_the_end);
+        var atTheEnd = index >= tabPane.length - 1;
+        $(".form-nav .next-tab").toggle(!atTheEnd);
+        $(".form-nav [type=submit]").toggle(atTheEnd);
     }
 
     function activeIndex() {
@@ -18,7 +18,7 @@ $(function () {
     });
 
     $(".form-nav .next-tab").on("click", function () {
-        if ($("#create_registrant_form").parsley("").validate("block-" + activeIndex())) {
+        if ($("#createRegistrantForm").parsley("").validate("block-" + activeIndex())) {
             navigateTo(activeIndex() + 1);
             var li = $(".wizard .nav-pills li.active");
             li.next().removeClass("disabled");

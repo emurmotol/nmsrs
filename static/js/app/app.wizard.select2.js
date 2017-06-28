@@ -1,5 +1,5 @@
 $(function () {
-    $("#workExpPositionHeld").select2({
+    $("#workExpPositionHeldId").select2({
         placeholder: "SELECT POSITION",
         ajax: {
             url: "/api/positions",
@@ -9,7 +9,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -19,7 +19,7 @@ $(function () {
         }
     });
 
-    $("#otherSkills").select2({
+    $("#otherSkillIds").select2({
         placeholder: "SELECT SKILL(S)",
         ajax: {
             url: "/api/otherskills",
@@ -29,7 +29,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -39,7 +39,7 @@ $(function () {
         }
     });
 
-    $("#certOfCompetenceTitle").select2({
+    $("#certTitleId").select2({
         placeholder: "SELECT CERTIFICATE TITLE",
         ajax: {
             url: "/api/certificates",
@@ -49,7 +49,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -59,7 +59,7 @@ $(function () {
         }
     });
 
-    $("#eligTitle").select2({
+    $("#eligTitleId").select2({
         placeholder: "SELECT ELIGIBILITY TITLE",
         ajax: {
             url: "/api/eligibilities",
@@ -69,7 +69,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -79,7 +79,7 @@ $(function () {
         }
     });
 
-    $("#proLicenseTitle").select2({
+    $("#proLicenseTitleId").select2({
         placeholder: "SELECT LICENSE TITLE",
         ajax: {
             url: "/api/licenses",
@@ -89,7 +89,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -99,7 +99,7 @@ $(function () {
         }
     });
 
-    $("#formalEduSchoolUniv").select2({
+    $("#formalEduSchoolUnivId").select2({
         placeholder: "SELECT SCHOOL/UNIVERSITY",
         ajax: {
             url: "/api/schools",
@@ -109,7 +109,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -119,7 +119,7 @@ $(function () {
         }
     });
 
-    $("#formalEduCourseDegree").select2({
+    $("#formalEduCourseDegreeId").select2({
         placeholder: "SELECT COURSE/DEGREE",
         ajax: {
             url: "/api/courses",
@@ -129,7 +129,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -139,7 +139,7 @@ $(function () {
         }
     });
 
-    $("#formalEduHighestGradeCompleted").select2({
+    $("#formalEduHighestGradeCompletedId").select2({
         placeholder: "SELECT HIGHEST GRADE COMPLETED",
         ajax: {
             url: "/api/edulevels",
@@ -149,7 +149,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -159,7 +159,7 @@ $(function () {
         }
     });
 
-    $("#empPrefOccs").select2({
+    $("#empPrefOccIds").select2({
         placeholder: "SELECT PREFERRED OCCUPATION(S)",
         ajax: {
             url: "/api/positions",
@@ -169,7 +169,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -179,7 +179,7 @@ $(function () {
         }
     });
 
-    $("#empPrefLocalLoc").select2({
+    $("#empPrefLocalLocId").select2({
         placeholder: "SELECT PREFERRED LOCAL LOCATION",
         ajax: {
             url: "/api/citymuns/provinces",
@@ -189,8 +189,8 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.cityMunId,
-                            text: data.cityMunDesc + ", " + data.provDesc
+                            id: data._id,
+                            text: data.desc + ", " + data.province[0].desc
                         };
                     })
                 };
@@ -199,7 +199,7 @@ $(function () {
         }
     });
 
-    $("#empPrefOverseasLoc").select2({
+    $("#empPrefOverseasLocId").select2({
         placeholder: "SELECT PREFERRED OVERSEAS LOCATION",
         ajax: {
             url: "/api/countries",
@@ -209,7 +209,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -219,7 +219,7 @@ $(function () {
         }
     });
 
-    $("#langs").select2({
+    $("#langIds").select2({
         placeholder: "SELECT LANGUAGE(S)",
         ajax: {
             url: "/api/languages",
@@ -229,7 +229,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -239,7 +239,7 @@ $(function () {
         }
     });
 
-    $("#basicInfoReligion").select2({
+    $("#basicInfoReligionId").select2({
         placeholder: "SELECT RELIGION",
         ajax: {
             url: "/api/religions",
@@ -249,7 +249,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -259,8 +259,8 @@ $(function () {
         }
     });
 
-    $("#basicInfoBarangay").select2({ placeholder: "SELECT BARANGAY" });
-    $("#basicInfoBarangay").on("change", function () {
+    $("#basicInfoBarangayId").select2({ placeholder: "SELECT BARANGAY" });
+    $("#basicInfoBarangayId").on("change", function () {
         $("#basicInfoPlaceOfBirth").focus();
     });
 
@@ -274,10 +274,10 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.cityMunId,
-                            text: data.cityMunDesc + ", " + data.provDesc,
-                            provId: data.provId,
-                            provDesc: data.provDesc
+                            id: data._id,
+                            text: data.desc + ", " + data.province[0].desc,
+                            provId: data.province[0]._id,
+                            provDesc: data.province[0].desc
                         };
                     })
                 };
@@ -288,13 +288,13 @@ $(function () {
 
     $("#basicInfoCityMunId").on("change", function () {
         var data = $(this).select2("data")[0];
-        $("input[name=basicInfoCityMun]").val(data.text);
+        $("#basicInfoProvince").attr("data-id", data.provId);
         $("#basicInfoProvince").val(data.provDesc);
 
-        $("#basicInfoBarangay").removeAttr("data-parsley-required");
-        $("#basicInfoBarangay").val(null).trigger("change");
-        $("#basicInfoBarangay").attr("data-parsley-required", true);
-        $("#basicInfoBarangay").select2({
+        $("#basicInfoBarangayId").removeAttr("data-parsley-required");
+        $("#basicInfoBarangayId").val(null).trigger("change");
+        $("#basicInfoBarangayId").attr("data-parsley-required", true);
+        $("#basicInfoBarangayId").select2({
             placeholder: "SELECT BARANGAY",
             ajax: {
                 url: "/api/citymuns/" + $("#basicInfoCityMunId").select2("val") + "/barangays",
@@ -313,11 +313,11 @@ $(function () {
                 cache: true
             }
         });
-        $("#basicInfoBarangay").prop("disabled", false);
-        $("#basicInfoBarangay").focus();
+        $("#basicInfoBarangayId").prop("disabled", false);
+        $("#basicInfoBarangayId").focus();
     });
 
-    $("#empTeminatedOverseasCountry").select2({
+    $("#empTeminatedOverseasCountryId").select2({
         placeholder: "SELECT COUNTRY GOT TERMINATED",
         ajax: {
             url: "/api/countries",
@@ -327,7 +327,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -337,7 +337,7 @@ $(function () {
         }
     });
 
-    $("#empUnEmpStat").select2({
+    $("#empUnEmpStatId").select2({
         placeholder: "SELECT UNEMPLOYED STATUS",
         ajax: {
             url: "/api/unempstats",
@@ -347,7 +347,7 @@ $(function () {
                 return {
                     results: $.map(r, function (data) {
                         return {
-                            id: data.id,
+                            id: data._id,
                             text: data.name
                         };
                     })
@@ -357,15 +357,17 @@ $(function () {
         }
     });
 
-    $("#empUnEmpStat").on("change", function () {
-        if ($(this).val() == "TERMINATED/LAID OFF, OVERSEAS") {
-            $("#empTeminatedOverseasCountry").attr("data-parsley-required", true);
-            $("#empTeminatedOverseasCountry").prop("disabled", false);
-            $("#empTeminatedOverseasCountry").focus();
+    $("#empUnEmpStatId").on("change", function () {
+        if ($(this).select2("data").length != 0) {
+            if ($(this).select2("data")[0].text == "TERMINATED/LAID OFF, OVERSEAS") {
+            $("#empTeminatedOverseasCountryId").attr("data-parsley-required", true);
+            $("#empTeminatedOverseasCountryId").prop("disabled", false);
+            $("#empTeminatedOverseasCountryId").focus();
         } else {
-            $("#empTeminatedOverseasCountry").removeAttr("data-parsley-required");
-            $("#empTeminatedOverseasCountry").val(null).trigger("change");
-            $("#empTeminatedOverseasCountry").prop("disabled", true);
+            $("#empTeminatedOverseasCountryId").removeAttr("data-parsley-required");
+            $("#empTeminatedOverseasCountryId").val(null).trigger("change");
+            $("#empTeminatedOverseasCountryId").prop("disabled", true);
+        }
         }
     });
 

@@ -12,12 +12,12 @@ import (
 )
 
 type Sex struct {
-	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
 func sexSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/sexes.json")
+	data, err := ioutil.ReadFile("import/sexes.json")
 
 	if err != nil {
 		panic(err)

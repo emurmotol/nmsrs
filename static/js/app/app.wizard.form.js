@@ -16,51 +16,51 @@ $(function () {
         $(this).parsley().validate();
     });
 
-    $("#empPassportNumber").datetimepicker({
+    $("#empPassportNumberExpiryDate").datetimepicker({
         format: "YYYY-MM"
     });
 
-    $("#empPassportNumber").on("dp.change", function() {
+    $("#empPassportNumberExpiryDate").on("dp.change", function() {
         $(this).parsley().validate();
     });
 
-    $("#civilStatRadios").find("input[type=radio]").on("change", function () {
-        var checked = $("input[name=civilStat]:checked");
+    $("#basicInfoCivilStatIdRadios").find("input[type=radio]").on("change", function () {
+        var checked = $("input[name=basicInfoCivilStatId]:checked");
 
-        if ($(checked).val() == "OTHER") {
-            $("#civilStatOther").attr("data-parsley-required", true);
-            $("#civilStatOther").prop("disabled", false);
-            $("#civilStatOther").focus();
+        if (checked[0].id == "basicInfoCivilStatId_4") {
+            $("#basicInfoCivilStatOther").attr("data-parsley-required", true);
+            $("#basicInfoCivilStatOther").prop("disabled", false);
+            $("#basicInfoCivilStatOther").focus();
         } else {
-            $("#civilStatOther").removeAttr("data-parsley-required");
-            $("#civilStatOther").val("");
-            $("#civilStatOther").parsley().reset();
-            $("#civilStatOther").prop("disabled", true);
+            $("#basicInfoCivilStatOther").removeAttr("data-parsley-required");
+            $("#basicInfoCivilStatOther").val("");
+            $("#basicInfoCivilStatOther").parsley().reset();
+            $("#basicInfoCivilStatOther").prop("disabled", true);
         }
     });
 
-    $("#empStatRadios").find("input[type=radio]").on("change", function () {
-        var checked = $("input[name=empStat]:checked");
+    $("#empStatIdRadios").find("input[type=radio]").on("change", function () {
+        var checked = $("input[name=empStatId]:checked");
 
-        if ($(checked).val() == "UNEMPLOYED") {
-            $("#empUnEmpStat").val(null).trigger("change");
-            $("#empUnEmpStat").attr("data-parsley-required", true);
-            $("#empUnEmpStat").prop("disabled", false);
-            $("#empUnEmpStat").focus();
+        if (checked[0].id == "empStatId_2") {
+            $("#empUnEmpStatId").val(null).trigger("change");
+            $("#empUnEmpStatId").attr("data-parsley-required", true);
+            $("#empUnEmpStatId").prop("disabled", false);
+            $("#empUnEmpStatId").focus();
         } else {
-            $("#empUnEmpStat").removeAttr("data-parsley-required");
-            $("#empUnEmpStat").val(null).trigger("change");
-            $("#empUnEmpStat").prop("disabled", true);
-            $("#empTeminatedOverseasCountry").removeAttr("data-parsley-required");
-            $("#empTeminatedOverseasCountry").val(null).trigger("change");
-            $("#empTeminatedOverseasCountry").prop("disabled", true);
+            $("#empUnEmpStatId").removeAttr("data-parsley-required");
+            $("#empUnEmpStatId").val(null).trigger("change");
+            $("#empUnEmpStatId").prop("disabled", true);
+            $("#empTeminatedOverseasCountryId").removeAttr("data-parsley-required");
+            $("#empTeminatedOverseasCountryId").val(null).trigger("change");
+            $("#empTeminatedOverseasCountryId").prop("disabled", true);
         }
     });
 
-    $("#disabilityRadios").find("input[type=radio]").on("change", function () {
-        var checked = $("input[name=disab]:checked");
+    $("#disabIdRadios").find("input[type=radio]").on("change", function () {
+        var checked = $("input[name=disabId]:checked");
 
-        if ($(checked).val() == "OTHER") {
+        if (checked[0].id == "disabId_4") {
             $("#disabOther").attr("data-parsley-required", true);
             $("#disabOther").prop("disabled", false);
             $("#disabOther").focus();
@@ -74,16 +74,16 @@ $(function () {
 
     $("#disabIsDisabled").on("change", function () {
         $(this).val($(this).prop("checked"));
-        $("#disab_0").parsley().reset();
+        $("#disabId_0").parsley().reset();
 
         if ($(this).prop("checked")) {
-            $("#disab_0").attr("data-parsley-required", true);
-            $("#disabilityRadios").find("input[type=radio]").each(function () {
+            $("#disabId_0").attr("data-parsley-required", true);
+            $("#disabIdRadios").find("input[type=radio]").each(function () {
                 $(this).prop("disabled", false);
             });
         } else {
-            $("#disab_0").removeAttr("data-parsley-required");
-            $("#disabilityRadios").find("input[type=radio]").each(function () {
+            $("#disabId_0").removeAttr("data-parsley-required");
+            $("#disabIdRadios").find("input[type=radio]").each(function () {
                 $(this).prop("disabled", true);
                 $(this).prop("checked", false);
             });
@@ -97,8 +97,8 @@ $(function () {
         $(this).val($(this).prop("checked"));
 
         if ($(this).prop("checked")) {
-            $("#otherSkills").val(null).trigger("change");
-            $("#otherSkills").prop("disabled", true);
+            $("#otherSkillIds").val(null).trigger("change");
+            $("#otherSkillIds").prop("disabled", true);
             $("#otherSkillOther").attr("data-parsley-required", true);
             $("#otherSkillOther").prop("disabled", false);
             $("#otherSkillOther").focus();
@@ -107,8 +107,8 @@ $(function () {
             $("#otherSkillOther").val("");
             $("#otherSkillOther").parsley().reset();
             $("#otherSkillOther").prop("disabled", true);
-            $("#otherSkills").prop("disabled", false);
-            $("#otherSkills").focus();
+            $("#otherSkillIds").prop("disabled", false);
+            $("#otherSkillIds").focus();
         }
     });
 

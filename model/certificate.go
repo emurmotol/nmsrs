@@ -12,7 +12,7 @@ import (
 )
 
 func certificateSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/certificates.json")
+	data, err := ioutil.ReadFile("import/certificates.json")
 
 	if err != nil {
 		panic(err)
@@ -26,7 +26,7 @@ func certificateSeeder() {
 }
 
 type Certificate struct {
-	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 

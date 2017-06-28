@@ -12,7 +12,7 @@ import (
 )
 
 func licenseSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/licenses.json")
+	data, err := ioutil.ReadFile("import/licenses.json")
 
 	if err != nil {
 		panic(err)
@@ -26,7 +26,7 @@ func licenseSeeder() {
 }
 
 type License struct {
-	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 

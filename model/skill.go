@@ -12,12 +12,12 @@ import (
 )
 
 type Skill struct {
-	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
 func skillSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/skills.json")
+	data, err := ioutil.ReadFile("import/skills.json")
 
 	if err != nil {
 		panic(err)

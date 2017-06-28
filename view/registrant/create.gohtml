@@ -55,8 +55,7 @@
                     <div class="form-group">
                         <label for="basicInfoCityMunId" class="col-lg-3 control-label">City/Municipality <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" id="basicInfoCityMunId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoCityMunIdErr"></select>
-                            <input type="hidden" name="basicInfoCityMun">
+                            <select class="form-control" id="basicInfoCityMunId" name="basicInfoCityMunId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoCityMunIdErr"></select>
                             <span id="basicInfoCityMunIdErr"></span>
                         </div>
                     </div>
@@ -67,10 +66,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="basicInfoBarangay" class="col-lg-3 control-label">Barangay <span class="asterisk text-danger">*</span></label>
+                        <label for="basicInfoBarangayId" class="col-lg-3 control-label">Barangay <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="basicInfoBarangay" id="basicInfoBarangay" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoBarangayErr" disabled></select>
-                            <span id="basicInfoBarangayErr"></span>
+                            <select class="form-control" name="basicInfoBarangayId" id="basicInfoBarangayId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoBarangayIdErr" disabled></select>
+                            <span id="basicInfoBarangayIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -80,23 +79,23 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="basicInfoReligion" class="col-lg-3 control-label">Religion <span class="asterisk text-danger">*</span></label>
+                        <label for="basicInfoReligionId" class="col-lg-3 control-label">Religion <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="basicInfoReligion" id="basicInfoReligion" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoReligionErr"></select>
-                            <span id="basicInfoReligionErr"></span>
+                            <select class="form-control" name="basicInfoReligionId" id="basicInfoReligionId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoReligionIdErr"></select>
+                            <span id="basicInfoReligionIdErr"></span>
                         </div>
                     </div>
-                    <div class="form-group" id="civilStatRadios">
-                        <label for="basicInfoCivilStat" class="col-lg-3 control-label">Civil Status <span class="asterisk text-danger">*</span></label>
+                    <div class="form-group" id="basicInfoCivilStatIdRadios">
+                        <label for="basicInfoCivilStatId" class="col-lg-3 control-label">Civil Status <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            {{range $i, $civilStat := .civilStats}}
+                            {{range $index, $civilStat := .civilStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="basicInfoCivilStat" id="basicInfoCivilStat_{{$i}}" value="{{$civilStat.Name}}"{{if eq $i 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoCivilStatErr"{{end}}> {{$civilStat.Name}}
+                                    <input type="radio" name="basicInfoCivilStatId" id="basicInfoCivilStatId_{{$index}}" value="{{$civilStat.Id.Hex}}"{{if eq $index 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoCivilStatIdErr"{{end}}> {{$civilStat.Name}}
                                 </label>
                             </div>
                             {{end}}
-                            <span id="basicInfoCivilStatErr"></span>
+                            <span id="basicInfoCivilStatIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -105,14 +104,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="basicInfoSex" class="col-lg-3 control-label">Sex <span class="asterisk text-danger">*</span></label>
+                        <label for="basicInfoSexId" class="col-lg-3 control-label">Sex <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            {{range $i, $sex := .sexes}}
+                            {{range $index, $sex := .sexes}}
                             <label class="radio-inline">
-                                <input type="radio" name="basicInfoSex" id="sex_{{$i}}" value="{{$sex.Name}}"{{if eq .Id 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoSexErr"{{end}}> {{$sex.Name}}
+                                <input type="radio" name="basicInfoSexId" id="sex_{{$index}}" value="{{$sex.Id.Hex}}"{{if eq $index 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoSexIdErr"{{end}}> {{$sex.Name}}
                             </label>
                             {{end}}
-                            <span id="basicInfoSexErr"></span>
+                            <span id="basicInfoSexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -157,29 +156,29 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Employment</div>
                 <div class="panel-body">
-                    <div class="form-group" id="empStatRadios">
-                        <label for="empStat" class="col-lg-3 control-label">Employment Status <span class="asterisk text-danger">*</span></label>
+                    <div class="form-group" id="empStatIdRadios">
+                        <label for="empStatId" class="col-lg-3 control-label">Employment Status <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            {{range $i, $empStat := .empStats}}
+                            {{range $index, $empStat := .empStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="empStat" id="empStat_{{$i}}" value="{{$empStat.Name}}"{{if eq $i 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#empStatErr"{{end}}> {{$empStat.Name}}
+                                    <input type="radio" name="empStatId" id="empStatId_{{$index}}" value="{{$empStat.Id.Hex}}"{{if eq $index 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#empStatIdErr"{{end}}> {{$empStat.Name}}
                                 </label>
                             </div>
                             {{end}}
-                            <span id="empStatErr"></span>
+                            <span id="empStatIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
-                            <select class="form-control" name="empUnEmpStat" id="empUnEmpStat" data-parsley-trigger="change" data-parsley-errors-container="#empUnEmpStatErr" disabled></select>
-                            <span id="empUnEmpStatErr"></span>
+                            <select class="form-control" name="empUnEmpStatId" id="empUnEmpStatId" data-parsley-trigger="change" data-parsley-errors-container="#empUnEmpStatIdErr" disabled></select>
+                            <span id="empUnEmpStatIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
-                            <select class="form-control" name="empTeminatedOverseasCountry" id="empTeminatedOverseasCountry" data-parsley-trigger="change" data-parsley-errors-container="#empTeminatedOverseasCountryErr" disabled></select>
-                            <span id="empTeminatedOverseasCountryErr"></span>
+                            <select class="form-control" name="empTeminatedOverseasCountryId" id="empTeminatedOverseasCountryId" data-parsley-trigger="change" data-parsley-errors-container="#empTeminatedOverseasCountryIdErr" disabled></select>
+                            <span id="empTeminatedOverseasCountryIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -192,24 +191,24 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="empPrefOccs" class="col-lg-3 control-label">Preferred Occupation <span class="asterisk text-danger">*</span></label>
+                        <label for="empPrefOccIds" class="col-lg-3 control-label">Preferred Occupation <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="empPrefOccs" id="empPrefOccs" multiple="multiple" data-parsley-validate-if-empty data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#empPrefOccsErr"></select>
-                            <span id="empPrefOccsErr"></span>
+                            <select class="form-control" name="empPrefOccIds" id="empPrefOccIds" multiple="multiple" data-parsley-validate-if-empty data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#empPrefOccIdsErr"></select>
+                            <span id="empPrefOccIdsErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="empPrefLocalLoc" class="col-lg-3 control-label">Local Location <span class="asterisk text-danger">*</span></label>
+                        <label for="empPrefLocalLocId" class="col-lg-3 control-label">Local Location <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="empPrefLocalLoc" id="empPrefLocalLoc" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#empPrefLocalLocErr"></select>
-                            <span id="empPrefLocalLocErr"></span>
+                            <select class="form-control" name="empPrefLocalLocId" id="empPrefLocalLocId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#empPrefLocalLocIdErr"></select>
+                            <span id="empPrefLocalLocIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="empPrefOverseasLoc" class="col-lg-3 control-label">Overseas Location <span class="asterisk text-danger">*</span></label>
+                        <label for="empPrefOverseasLocId" class="col-lg-3 control-label">Overseas Location <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="empPrefOverseasLoc" id="empPrefOverseasLoc" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#empPrefOverseasLocErr"></select>
-                            <span id="empPrefOverseasLocErr"></span>
+                            <select class="form-control" name="empPrefOverseasLocId" id="empPrefOverseasLocId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#empPrefOverseasLocIdErr"></select>
+                            <span id="empPrefOverseasLocIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -229,7 +228,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Disability</div>
                 <div class="panel-body">
-                    <div class="form-group" id="disabRadios">
+                    <div class="form-group" id="disabIdRadios">
                         <label for="disab" class="col-lg-3 control-label">Disability</label>
                         <div class="col-lg-8">
                             <div class="checkbox">
@@ -237,14 +236,14 @@
                                     <input type="checkbox" id="disabIsDisabled" name="disabIsDisabled" value="false"> Disabled?
                                 </label>
                             </div>
-                            {{range $i, $disab := .disabilities}}
+                            {{range $index, $disab := .disabilities}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="disab" id="disab_{{$i}}" value="{{$disab.Name}}"{{if eq $i 0}} data-parsley-trigger="change" data-parsley-errors-container="#disabErr"{{end}} disabled> {{$disab.Name}}
+                                    <input type="radio" name="disabId" id="disabId_{{$index}}" value="{{$disab.Name}}"{{if eq $index 0}} data-parsley-trigger="change" data-parsley-errors-container="#disabIdErr"{{end}} disabled> {{$disab.Name}}
                                 </label>
                             </div>
                             {{end}}
-                            <span id="disabErr"></span>
+                            <span id="disabIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -258,10 +257,10 @@
                 <div class="panel-heading">Language</div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="langs" class="col-lg-3 control-label">Language</label>
+                        <label for="langIds" class="col-lg-3 control-label">Language</label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="langs" id="langs" multiple="multiple" data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#langsErr"></select>
-                            <span id="langsErr"></span>
+                            <select class="form-control" name="langIds" id="langIds" multiple="multiple" data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#langIdsErr"></select>
+                            <span id="langIdsErr"></span>
                         </div>
                     </div>
                 </div>
@@ -369,7 +368,7 @@
                     </span>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover" id="TrainingTable">
+                    <table class="table table-striped table-hover" id="trainingTable">
                         <thead>
                             <tr>
                                 <th><input type="checkbox" id="selectAllTraining"></th>
@@ -430,7 +429,7 @@
                     </span>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover" id="WorkExpTable">
+                    <table class="table table-striped table-hover" id="workExpTable">
                         <thead>
                             <tr>
                                 <th><input type="checkbox" id="selectAllWorkExp"></th>
@@ -455,10 +454,10 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="otherSkills" class="col-lg-3 control-label">Skills </label>
+                        <label for="otherSkillIds" class="col-lg-3 control-label">Skills </label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="otherSkills" id="otherSkills" multiple="multiple" data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#otherSkillsErr"></select>
-                            <span id="otherSkillsErr"></span>
+                            <select class="form-control" name="otherSkillIds" id="otherSkillIds" multiple="multiple" data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#otherSkillIdsErr"></select>
+                            <span id="otherSkillIdsErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -525,24 +524,24 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="formalEduHighestGradeCompleted" class="col-lg-3 control-label">Highest Grade Completed <span class="asterisk text-danger">*</span></label>
+                        <label for="formalEduHighestGradeCompletedId" class="col-lg-3 control-label">Highest Grade Completed <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" id="formalEduHighestGradeCompleted" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formalEduHighestGradeCompletedErr"></select>
-                            <span id="formalEduHighestGradeCompletedErr"></span>
+                            <select class="form-control" id="formalEduHighestGradeCompletedId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formalEduHighestGradeCompletedIdErr"></select>
+                            <span id="formalEduHighestGradeCompletedIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="formalEduCourseDegree" class="col-lg-3 control-label">Course/Degree <span class="asterisk text-danger">*</span></label>
+                        <label for="formalEduCourseDegreeId" class="col-lg-3 control-label">Course/Degree <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" id="formalEduCourseDegree" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formalEduCourseDegreeErr"></select>
-                            <span id="formalEduCourseDegreeErr"></span>
+                            <select class="form-control" id="formalEduCourseDegreeId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formalEduCourseDegreeIdErr"></select>
+                            <span id="formalEduCourseDegreeIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="formalEduSchoolUniv" class="col-lg-3 control-label">School/University <span class="asterisk text-danger">*</span></label>
+                        <label for="formalEduSchoolUnivId" class="col-lg-3 control-label">School/University <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" id="formalEduSchoolUniv" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formalEduSchoolUnivErr"></select>
-                            <span id="formalEduSchoolUnivErr"></span>
+                            <select class="form-control" id="formalEduSchoolUnivId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formalEduSchoolUnivIdErr"></select>
+                            <span id="formalEduSchoolUnivIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -592,10 +591,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="proLicenseTitle" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
+                        <label for="proLicenseTitleId" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="proLicenseTitle" id="proLicenseTitle" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#proLicenseTitleErr"></select>
-                            <span id="proLicenseTitleErr"></span>
+                            <select class="form-control" name="proLicenseTitleId" id="proLicenseTitleId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#proLicenseTitleIdErr"></select>
+                            <span id="proLicenseTitleIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -625,10 +624,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="eligTitle" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
+                        <label for="eligTitleId" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="eligTitle" id="eligTitle" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#eligTitleErr"></select>
-                            <span id="eligTitleErr"></span>
+                            <select class="form-control" name="eligTitleId" id="eligTitleId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#eligTitleIdErr"></select>
+                            <span id="eligTitleIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -708,10 +707,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="certTitle" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
+                        <label for="certTitleId" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="certTitle" id="certTitle" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#certTitleErr"></select>
-                            <span id="certTitleErr"></span>
+                            <select class="form-control" name="certTitleId" id="certTitleId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#certTitleIdErr"></select>
+                            <span id="certTitleIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -765,10 +764,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="workExpPositionHeld" class="col-lg-4 control-label">Position Held <span class="asterisk text-danger">*</span></label>
+                        <label for="workExpPositionHeldId" class="col-lg-4 control-label">Position Held <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-7">
-                            <select class="form-control" name="workExpPositionHeld" id="workExpPositionHeld" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#workExpPositionHeldErr"></select>
-                            <span id="workExpPositionHeldErr"></span>
+                            <select class="form-control" name="workExpPositionHeldId" id="workExpPositionHeldId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#workExpPositionHeldIdErr"></select>
+                            <span id="workExpPositionHeldIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">

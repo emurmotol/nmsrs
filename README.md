@@ -4,6 +4,7 @@
 * 64-bit press key `F5`
 
 ### Todo
+* ~~ren empStatRadios regist create.gohtml~~
 * check row index if working
 * fix login redirect when web server is reset on loggedInOnly middleware
 * ~~set mongod --directoryperdb --config "C:\Program Files\MongoDB\Server\3.2\bin\mongod.cfg" --install~~

@@ -12,7 +12,7 @@ import (
 )
 
 func eduLevelSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/eduLevels.json")
+	data, err := ioutil.ReadFile("import/eduLevels.json")
 
 	if err != nil {
 		panic(err)
@@ -26,7 +26,7 @@ func eduLevelSeeder() {
 }
 
 type EduLevel struct {
-	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 

@@ -12,12 +12,12 @@ import (
 )
 
 type CivilStat struct {
-	Id   bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Name string        `json:"name" bson:"name"`
 }
 
 func civilStatSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/civilStats.json")
+	data, err := ioutil.ReadFile("import/civilStats.json")
 
 	if err != nil {
 		panic(err)

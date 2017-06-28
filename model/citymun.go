@@ -12,7 +12,7 @@ import (
 )
 
 type CityMun struct {
-	Id       bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+	Id       bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Code     string        `json:"code" bson:"code"`
 	Desc     string        `json:"desc" bson:"desc"`
 	PsgcCode string        `json:"psgcCode" bson:"psgcCode"`
@@ -23,7 +23,7 @@ type CityMun struct {
 type CityMunProv interface{}
 
 func cityMunSeeder() {
-	data, err := ioutil.ReadFile("import/no$oid/cityMuns.json")
+	data, err := ioutil.ReadFile("import/cityMuns.json")
 
 	if err != nil {
 		panic(err)
