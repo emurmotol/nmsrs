@@ -32,3 +32,15 @@ func EmpStats() []EmpStat {
 	defer db.Close()
 	return empStats
 }
+
+func EmpStatById(id bson.ObjectId) *EmpStat {
+	empStat := new(EmpStat)
+
+	if err := db.C("empStats").FindId(id).One(&empStat); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return empStat
+}

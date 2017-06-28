@@ -3,6 +3,9 @@ package controller
 import (
 	"html/template"
 	"net/http"
+	"strings"
+
+	"gopkg.in/mgo.v2/bson"
 
 	"github.com/emurmotol/nmsrs/helper"
 	"github.com/emurmotol/nmsrs/model"
@@ -77,77 +80,200 @@ func CreateRegistrant(w http.ResponseWriter, r *http.Request) {
 	rd.HTML(w, http.StatusOK, "registrant/create", data, render.HTMLOptions{Layout: "layouts/wizard"})
 }
 
-// func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
-// 	if err := r.ParseMultipartForm(0); err != nil {
-// 		panic(err)
-// 	}
-// 	photoFile, photoHeader, err := r.FormFile("photo")
+func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseMultipartForm(0); err != nil {
+		panic(err)
+	}
+	photoFile, photoHeader, err := r.FormFile("personalInfoPhoto")
 
-// 	if err != nil {
-// 		if err != http.ErrMissingFile {
-// 			panic(err)
-// 		}
-// 	}
-// 	delete(r.PostForm, "photo")
-// 	createRegistrantForm := model.CreateRegistrantForm{}
+	if err != nil {
+		if err != http.ErrMissingFile {
+			panic(err)
+		}
+	}
+	delete(r.PostForm, "personalInfoPhoto")
+	createRegistrantForm := model.CreateRegistrantForm{}
 
-// 	if err := decoder.Decode(&createRegistrantForm, r.PostForm); err != nil {
-// 		panic(err)
-// 	}
-// 	createRegistrantForm.PhotoFile = photoFile
-// 	createRegistrantForm.PhotoHeader = photoHeader
+	if err := decoder.Decode(&createRegistrantForm, r.PostForm); err != nil {
+		panic(err)
+	}
+	createRegistrantForm.PersonalInfoPhotoFile = photoFile
+	createRegistrantForm.PersonalInfoPhotoHeader = photoHeader
 
-// 	if !createRegistrantForm.IsValid() {
-// 		helper.SetFlash(w, r, "createRegistrantForm", createRegistrantForm)
-// 		CreateRegistrant(w, r)
-// 		return
-// 	}
-// 	registrant := model.Registrant{
-// 		RegisteredAt: createRegistrantForm.RegisteredAt,
-// 		IAccept:      createRegistrantForm.IAccept,
-// 	}
-// 	newRegistrant := registrant.Create()
-// 	hasPhoto := false
+	if !createRegistrantForm.IsValid() {
+		helper.SetFlash(w, r, "createRegistrantForm", createRegistrantForm)
+		CreateRegistrant(w, r)
+		return
+	}
+	hasPhoto := false
 
-// 	if createRegistrantForm.PhotoFile != nil {
-// 		hasPhoto = true
-// 	}
-// 	registInfo := model.RegistInfo{
-// 		RegistrantId:   newRegistrant.Id,
-// 		FamilyName:     createRegistrantForm.FamilyName,
-// 		GivenName:      createRegistrantForm.GivenName,
-// 		MiddleName:     createRegistrantForm.MiddleName,
-// 		Birthdate:      createRegistrantForm.Birthdate,
-// 		Password:       createRegistrantForm.Password,
-// 		HasPhoto:       hasPhoto,
-// 		StSub:          createRegistrantForm.StSub,
-// 		CityMunId:      createRegistrantForm.CityMunId,
-// 		ProvId:         createRegistrantForm.ProvId,
-// 		BrgyId:         createRegistrantForm.BrgyId,
-// 		CivilStatId:    createRegistrantForm.CivilStatId,
-// 		CivilStatOther: createRegistrantForm.CivilStatOther,
-// 		SexId:          createRegistrantForm.SexId,
-// 		Age:            createRegistrantForm.Age,
-// 		Height:         createRegistrantForm.Height,
-// 		Weight:         createRegistrantForm.Weight,
-// 		LandlineNo:     createRegistrantForm.LandlineNo,
-// 		MobileNo:       createRegistrantForm.MobileNo,
-// 		Email:          createRegistrantForm.Email,
-// 	}
-// 	registInfo.Create()
+	if createRegistrantForm.PersonalInfoPhotoFile != nil {
+		hasPhoto = true
+	}
+	prefOccs := []*model.Position{}
 
-// 	registEmp := model.RegistEmp{
-// 		RegistrantId: newRegistrant.Id,
-// 		EmpStatId:    createRegistrantForm.EmpStatId,
-// 		UnEmpStatId:  createRegistrantForm.UnEmpStatId,
-// 		TocId:        createRegistrantForm.TocId,
-// 		Alfw:         createRegistrantForm.Alfw,
-// 		PassportNo:   createRegistrantForm.PassportNo,
-// 		Pned:         createRegistrantForm.Pned,
-// 	}
-// 	registEmp.Create()
-// 	http.Redirect(w, r, "/registrants/create", http.StatusFound)
-// }
+	for _, empPrefOccId := range createRegistrantForm.EmpPrefOccIds {
+		prefOccs = append(prefOccs, model.PositionById(bson.ObjectIdHex(empPrefOccId)))
+	}
+	langs := []*model.Language{}
+
+	for _, langId := range createRegistrantForm.LangIds {
+		langs = append(langs, model.LanguageById(bson.ObjectIdHex(langId)))
+	}
+	// formalEduArr := []model.FormalEduArr{}
+
+	// if err := json.Unmarshal([]byte(createRegistrantForm.FormalEduJson), &formalEduArr); err != nil {
+	// 	panic(err)
+	// }
+	// formalEdus := []*model.FormalEdu{}
+
+	// for _, formalEduObj := range formalEduArr {
+	// 	formalEdus = append(formalEdus, &model.FormalEdu{
+	// 		HighestGradeCompleted: model.EduLevelById(bson.ObjectIdHex(formalEduObj.HighestGradeCompletedId)),
+	// 		CourseDegree:          model.CourseById(bson.ObjectIdHex(formalEduObj.CourseDegreeId)),
+	// 		SchoolUniv:            model.SchoolById(bson.ObjectIdHex(formalEduObj.SchoolUnivId)),
+	// 		SchoolUnivOther:       formalEduObj.SchoolUnivOther,
+	// 		YearGrad:              helper.YearMonth(formalEduObj.YearGrad),
+	// 		LastAttended:          helper.YearMonth(formalEduObj.LastAttended),
+	// 	})
+	// }
+	// proLicenseArr := []model.ProLicenseArr{}
+
+	// if err := json.Unmarshal([]byte(createRegistrantForm.ProLicenseJson), &proLicenseArr); err != nil {
+	// 	panic(err)
+	// }
+	// proLicenses := []*model.ProLicense{}
+
+	// for _, proLicenseObj := range proLicenseArr {
+	// 	proLicenses = append(proLicenses, &model.ProLicense{
+	// 		Title:      model.LicenseById(bson.ObjectIdHex(proLicenseObj.TitleId)),
+	// 		ExpiryDate: helper.YearMonth(proLicenseObj.ExpiryDate),
+	// 	})
+	// }
+	// eligArr := []model.EligArr{}
+
+	// if err := json.Unmarshal([]byte(createRegistrantForm.EligJson), &eligArr); err != nil {
+	// 	panic(err)
+	// }
+	// eligs := []*model.Elig{}
+
+	// for _, eligObj := range eligArr {
+	// 	eligs = append(eligs, &model.Elig{
+	// 		Title:     model.EligibilityById(bson.ObjectIdHex(eligObj.TitleId)),
+	// 		YearTaken: helper.YearMonth(eligObj.YearTaken),
+	// 	})
+	// }
+	// trainingArr := []model.TrainingArr{}
+
+	// if err := json.Unmarshal([]byte(createRegistrantForm.TrainingJson), &trainingArr); err != nil {
+	// 	panic(err)
+	// }
+	// trainings := []*model.Training{}
+
+	// for _, trainingObj := range trainingArr {
+	// 	trainings = append(trainings, &model.Training{
+	// 		Name:                trainingObj.Name,
+	// 		SkillsAcquired:      trainingObj.SkillsAcquired,
+	// 		PeriodOfTrainingExp: trainingObj.PeriodOfTrainingExp,
+	// 		CertReceived:        trainingObj.CertReceived,
+	// 		IssuingSchoolAgency: trainingObj.IssuingSchoolAgency,
+	// 	})
+	// }
+	// certArr := []model.CertArr{}
+
+	// if err := json.Unmarshal([]byte(createRegistrantForm.EligJson), &certArr); err != nil {
+	// 	panic(err)
+	// }
+	// certs := []*model.Cert{}
+
+	// for _, certObj := range certArr {
+	// 	certs = append(certs, &model.Cert{
+	// 		Title:      model.CertificateById(bson.ObjectIdHex(certObj.TitleId)),
+	// 		Rating:     certObj.Rating,
+	// 		IssuedBy:   certObj.IssuedBy,
+	// 		DateIssued: helper.YearMonth(certObj.DateIssued),
+	// 	})
+	// }
+	// workExpArr := []model.WorkExpArr{}
+
+	// if err := json.Unmarshal([]byte(createRegistrantForm.WorkExpJson), &workExpArr); err != nil {
+	// 	panic(err)
+	// }
+	// workExps := []*model.WorkExp{}
+
+	// for _, workExpObj := range workExpArr {
+	// 	workExps = append(workExps, &model.WorkExp{
+	// 		NameOfCompanyFirm:    workExpObj.NameOfCompanyFirm,
+	// 		Address:              workExpObj.Address,
+	// 		PositionHeld:         model.PositionById(bson.ObjectIdHex(workExpObj.PositionHeldId)),
+	// 		From:                 helper.YearMonth(workExpObj.From),
+	// 		To:                   helper.YearMonth(workExpObj.To),
+	// 		IsRelatedToFormalEdu: workExpObj.IsRelatedToFormalEdu,
+	// 	})
+	// }
+	otherSkills := []*model.OtherSkill{}
+
+	for _, otherSkillId := range createRegistrantForm.OtherSkillIds {
+		otherSkills = append(otherSkills, model.OtherSkillById(bson.ObjectIdHex(otherSkillId)))
+	}
+
+	registrant := model.Registrant{
+		RegisteredAt: helper.ShortDate(createRegistrantForm.RegisteredAt),
+		IAccept:      createRegistrantForm.IAccept,
+		PersonalInfo: &model.PersonalInfo{
+			HasPhoto:   hasPhoto,
+			FamilyName: createRegistrantForm.PersonalInfoFamilyName,
+			GivenName:  createRegistrantForm.PersonalInfoGivenName,
+			MiddleName: createRegistrantForm.PersonalInfoMiddleName,
+			Birthdate:  helper.ShortDate(createRegistrantForm.PersonalInfoBirthdate),
+			Password:   createRegistrantForm.PersonalInfoPassword,
+		},
+		BasicInfo: &model.BasicInfo{
+			StSub:   createRegistrantForm.BasicInfoStSub,
+			CityMun: model.CityMunById(bson.ObjectIdHex(createRegistrantForm.BasicInfoCityMunId)),
+			// Province:       model.ProvinceById(bson.ObjectIdHex(createRegistrantForm.BasicInfoProvinceId)),
+			// Barangay:       model.BarangayById(bson.ObjectIdHex(createRegistrantForm.BasicInfoBarangayId)),
+			PlaceOfBirth:   createRegistrantForm.BasicInfoPlaceOfBirth,
+			Religion:       model.ReligionById(bson.ObjectIdHex(createRegistrantForm.BasicInfoReligionId)),
+			CivilStat:      model.CivilStatById(bson.ObjectIdHex(createRegistrantForm.BasicInfoCivilStatId)),
+			CivilStatOther: createRegistrantForm.BasicInfoCivilStatOther,
+			Sex:            model.SexById(bson.ObjectIdHex(createRegistrantForm.BasicInfoSexId)),
+			Age:            createRegistrantForm.BasicInfoAge,
+			Height:         createRegistrantForm.BasicInfoHeight,
+			Weight:         createRegistrantForm.BasicInfoWeight,
+			LandlineNumber: createRegistrantForm.BasicInfoLandlineNumber,
+			MobileNumber:   createRegistrantForm.BasicInfoMobileNumber,
+			Email:          strings.ToLower(createRegistrantForm.BasicInfoEmail),
+		},
+		Employment: &model.Employment{
+			Stat: model.EmpStatById(bson.ObjectIdHex(createRegistrantForm.EmpStatId)),
+			// UnEmpStat:                model.UnEmpStatById(bson.ObjectIdHex(createRegistrantForm.EmpUnEmpStatId)),
+			// TeminatedOverseasCountry: model.CountryById(bson.ObjectIdHex(createRegistrantForm.EmpTeminatedOverseasCountryId)),
+			IsActivelyLookingForWork: createRegistrantForm.EmpIsActivelyLookingForWork,
+			PrefOccs:                 prefOccs,
+			PrefLocalLoc:             model.CityMunById(bson.ObjectIdHex(createRegistrantForm.EmpPrefLocalLocId)),
+			PrefOverseasLoc:          model.CountryById(bson.ObjectIdHex(createRegistrantForm.EmpPrefOverseasLocId)),
+			PassportNumber:           createRegistrantForm.EmpPassportNumber,
+			// PassportNumberExpiryDate: helper.YearMonth(createRegistrantForm.EmpPassportNumberExpiryDate),
+		},
+		Disab: &model.Disab{
+			IsDisabled: createRegistrantForm.DisabIsDisabled,
+			// Name:       model.DisabilityById(bson.ObjectIdHex(createRegistrantForm.DisabId)),
+			Other: createRegistrantForm.DisabOther,
+		},
+		Langs: langs,
+		// FormalEdus:      formalEdus,
+		// ProLicenses:     proLicenses,
+		// Eligs:           eligs,
+		// Trainings:       trainings,
+		// Certs:           certs,
+		// WorkExps:        workExps,
+		OtherSkills:     otherSkills,
+		OtherSkillOther: createRegistrantForm.OtherSkillOther,
+	}
+	registrant.Create()
+	http.Redirect(w, r, "/registrants/create", http.StatusFound)
+}
 
 // func RegistrantEmailTaken(w http.ResponseWriter, r *http.Request) {
 // 	if taken := model.RegistrantEmailTaken(r.URL.Query().Get("email")); taken {

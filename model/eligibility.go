@@ -34,3 +34,15 @@ func (eligibility Eligibility) Index(q string) []Eligibility {
 	defer db.Close()
 	return eligibilities
 }
+
+func EligibilityById(id bson.ObjectId) *Eligibility {
+	eligibility := new(Eligibility)
+
+	if err := db.C("eligibilities").FindId(id).One(&eligibility); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return eligibility
+}

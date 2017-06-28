@@ -33,3 +33,15 @@ func (position Position) Index(q string) []Position {
 	defer db.Close()
 	return positions
 }
+
+func PositionById(id bson.ObjectId) *Position {
+	position := new(Position)
+
+	if err := db.C("positions").FindId(id).One(&position); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return position
+}

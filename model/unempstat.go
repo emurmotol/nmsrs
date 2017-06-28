@@ -32,3 +32,15 @@ func UnEmpStats() []UnEmpStat {
 	defer db.Close()
 	return unEmpStats
 }
+
+func UnEmpStatById(id bson.ObjectId) *UnEmpStat {
+	unEmpStat := new(UnEmpStat)
+
+	if err := db.C("unEmpStats").FindId(id).One(&unEmpStat); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return unEmpStat
+}

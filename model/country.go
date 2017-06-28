@@ -34,3 +34,15 @@ func (country Country) Index(q string) []Country {
 	defer db.Close()
 	return countries
 }
+
+func CountryById(id bson.ObjectId) *Country {
+	country := new(Country)
+
+	if err := db.C("countries").FindId(id).One(&country); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return country
+}

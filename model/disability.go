@@ -32,3 +32,15 @@ func Disabilities() []Disability {
 	defer db.Close()
 	return disabilities
 }
+
+func DisabilityById(id bson.ObjectId) *Disability {
+	disability := new(Disability)
+
+	if err := db.C("disabilities").FindId(id).One(&disability); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return disability
+}

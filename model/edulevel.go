@@ -34,3 +34,15 @@ func (eduLevel EduLevel) Index(q string) []EduLevel {
 	defer db.Close()
 	return eduLevels
 }
+
+func EduLevelById(id bson.ObjectId) *EduLevel {
+	eduLevel := new(EduLevel)
+
+	if err := db.C("eduLevels").FindId(id).One(&eduLevel); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return eduLevel
+}

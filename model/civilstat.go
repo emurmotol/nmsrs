@@ -32,3 +32,15 @@ func CivilStats() []CivilStat {
 	defer db.Close()
 	return civilStats
 }
+
+func CivilStatById(id bson.ObjectId) *CivilStat {
+	civilStat := new(CivilStat)
+
+	if err := db.C("civilStats").FindId(id).One(&civilStat); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return civilStat
+}

@@ -3,6 +3,7 @@ package model
 import (
 	"github.com/emurmotol/nmsrs/db"
 
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -19,5 +20,17 @@ func (province *Province) Create() *Province {
 		panic(err)
 	}
 	defer db.Close()
+	return province
+}
+
+func ProvinceById(id bson.ObjectId) *Province {
+	province := new(Province)
+
+	if err := db.C("provinces").FindId(id).One(&province); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
 	return province
 }

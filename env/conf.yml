@@ -28,7 +28,7 @@ pkg:
         name: nmsrs
         host: localhost
         port: 27017
-        reset: true
+        reset: false
     render:
         dir: view
         layout: layouts/base
@@ -42,6 +42,7 @@ pkg:
 dir:
     static: static
     content: content
+    import: import
 default:
     photo:
         path: /assets/img/photo/default.jpg

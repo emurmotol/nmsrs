@@ -34,3 +34,15 @@ func (license License) Index(q string) []License {
 	defer db.Close()
 	return licenses
 }
+
+func LicenseById(id bson.ObjectId) *License {
+	license := new(License)
+
+	if err := db.C("licenses").FindId(id).One(&license); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return license
+}

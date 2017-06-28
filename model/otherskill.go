@@ -33,3 +33,15 @@ func (otherSkill OtherSkill) Index(q string) []OtherSkill {
 	defer db.Close()
 	return otherSkills
 }
+
+func OtherSkillById(id bson.ObjectId) *OtherSkill {
+	otherSkill := new(OtherSkill)
+
+	if err := db.C("otherSkills").FindId(id).One(&otherSkill); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return otherSkill
+}

@@ -34,3 +34,15 @@ func (religion Religion) Index(q string) []Religion {
 	defer db.Close()
 	return religions
 }
+
+func ReligionById(id bson.ObjectId) *Religion {
+	religion := new(Religion)
+
+	if err := db.C("religions").FindId(id).One(&religion); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return religion
+}

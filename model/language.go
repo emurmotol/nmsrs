@@ -33,3 +33,15 @@ func (language Language) Index(q string) []Language {
 	defer db.Close()
 	return languages
 }
+
+func LanguageById(id bson.ObjectId) *Language {
+	language := new(Language)
+
+	if err := db.C("languages").FindId(id).One(&language); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return language
+}

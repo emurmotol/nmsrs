@@ -63,11 +63,21 @@ func seed() {
 	go userSeeder()
 
 	go func() {
-		err := filepath.Walk("import", func(path string, info os.FileInfo, err error) error {
-			if !info.IsDir() {
-				cmd := exec.Command("mongoimport", "-d", db.Name, "-c", strings.TrimSuffix(info.Name(), filepath.Ext(path)), "--jsonArray", path)
+		importDir, _ := env.Conf.String("dir.import")
 
-				if err := cmd.Run(); err != nil {
+		err := filepath.Walk(importDir, func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+
+			if !info.IsDir() {
+				args := []string{
+					"-d", db.Name,
+					"-c", strings.TrimSuffix(info.Name(), filepath.Ext(path)),
+					"--jsonArray", path,
+				}
+
+				if err := exec.Command("mongoimport", args...).Run(); err != nil {
 					return err
 				}
 			}

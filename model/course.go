@@ -34,3 +34,15 @@ func (course Course) Index(q string) []Course {
 	defer db.Close()
 	return courses
 }
+
+func CourseById(id bson.ObjectId) *Course {
+	course := new(Course)
+
+	if err := db.C("courses").FindId(id).One(&course); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return course
+}

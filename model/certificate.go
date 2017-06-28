@@ -34,3 +34,15 @@ func (certificate Certificate) Index(q string) []Certificate {
 	defer db.Close()
 	return certificates
 }
+
+func CertificateById(id bson.ObjectId) *Certificate {
+	certificate := new(Certificate)
+
+	if err := db.C("certificates").FindId(id).One(&certificate); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return certificate
+}

@@ -30,7 +30,7 @@ func registrantRoutes() chi.Router {
 	r := chi.NewRouter()
 	r.Use(adminOnly)
 	// r.Get("/", controller.GetRegistrants)
-	// r.Post("/", controller.StoreRegistrant)
+	r.Post("/", controller.StoreRegistrant)
 	r.Get("/create", controller.CreateRegistrant)
 	// r.Post("/delete", controller.DeleteManyRegistrant)
 	// r.Get("/email/taken", controller.RegistrantEmailTaken)

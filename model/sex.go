@@ -32,3 +32,15 @@ func Sexes() []Sex {
 	defer db.Close()
 	return sexes
 }
+
+func SexById(id bson.ObjectId) *Sex {
+	sex := new(Sex)
+
+	if err := db.C("sexes").FindId(id).One(&sex); err != nil {
+		if err == mgo.ErrNotFound {
+			return nil
+		}
+		panic(err)
+	}
+	return sex
+}
