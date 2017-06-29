@@ -10,7 +10,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -30,7 +30,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -50,7 +50,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -70,7 +70,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -90,7 +90,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -110,7 +110,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -130,7 +130,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -150,7 +150,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -170,7 +170,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -210,7 +210,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -230,7 +230,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -250,7 +250,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -304,7 +304,7 @@ $(function () {
                     return {
                         results: $.map(r, function (data) {
                             return {
-                                id: data.desc,
+                                id: data._id,
                                 text: data.desc
                             };
                         })
@@ -328,7 +328,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -348,7 +348,7 @@ $(function () {
                     results: $.map(r, function (data) {
                         return {
                             id: data._id,
-                            text: data.name
+                            text: data.value
                         };
                     })
                 };
@@ -358,8 +358,7 @@ $(function () {
     });
 
     $("#empUnEmpStatId").on("change", function () {
-        if ($(this).select2("data").length != 0) {
-            if ($(this).select2("data")[0].text == "TERMINATED/LAID OFF, OVERSEAS") {
+        if ($(this).select2("val") == "594cb702472e11263c32c495") {
             $("#empTeminatedOverseasCountryId").attr("data-parsley-required", true);
             $("#empTeminatedOverseasCountryId").prop("disabled", false);
             $("#empTeminatedOverseasCountryId").focus();
@@ -367,7 +366,6 @@ $(function () {
             $("#empTeminatedOverseasCountryId").removeAttr("data-parsley-required");
             $("#empTeminatedOverseasCountryId").val(null).trigger("change");
             $("#empTeminatedOverseasCountryId").prop("disabled", true);
-        }
         }
     });
 

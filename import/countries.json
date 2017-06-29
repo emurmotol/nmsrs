@@ -1,786 +1,786 @@
 ﻿[
   {
     "_id": ObjectId("594cb60e472e11263c3291ab"),
-    "name": "AFGHANISTAN"
+    "value": "AFGHANISTAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291ac"),
-    "name": "ALBANIA"
+    "value": "ALBANIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291ad"),
-    "name": "ALGERIA"
+    "value": "ALGERIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291ae"),
-    "name": "ANDORRA"
+    "value": "ANDORRA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291af"),
-    "name": "ANGOLA"
+    "value": "ANGOLA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291b0"),
-    "name": "ANTIGUA AND DEPS"
+    "value": "ANTIGUA AND DEPS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291b1"),
-    "name": "ARGENTINA"
+    "value": "ARGENTINA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291b2"),
-    "name": "ARMENIA"
+    "value": "ARMENIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291b3"),
-    "name": "AUSTRALIA"
+    "value": "AUSTRALIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291b4"),
-    "name": "AUSTRIA"
+    "value": "AUSTRIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291b5"),
-    "name": "AZERBAIJAN"
+    "value": "AZERBAIJAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291b6"),
-    "name": "BAHAMAS"
+    "value": "BAHAMAS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291b7"),
-    "name": "BAHRAIN"
+    "value": "BAHRAIN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291b8"),
-    "name": "BANGLADESH"
+    "value": "BANGLADESH"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291b9"),
-    "name": "BARBADOS"
+    "value": "BARBADOS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291ba"),
-    "name": "BELARUS"
+    "value": "BELARUS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291bb"),
-    "name": "BELGIUM"
+    "value": "BELGIUM"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291bc"),
-    "name": "BELIZE"
+    "value": "BELIZE"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291bd"),
-    "name": "BENIN"
+    "value": "BENIN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291be"),
-    "name": "BHUTAN"
+    "value": "BHUTAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291bf"),
-    "name": "BOLIVIA"
+    "value": "BOLIVIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291c0"),
-    "name": "BOSNIA HERZEGOVINA"
+    "value": "BOSNIA HERZEGOVINA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291c1"),
-    "name": "BOTSWANA"
+    "value": "BOTSWANA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291c2"),
-    "name": "BRAZIL"
+    "value": "BRAZIL"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291c3"),
-    "name": "BRUNEI"
+    "value": "BRUNEI"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291c4"),
-    "name": "BULGARIA"
+    "value": "BULGARIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291c5"),
-    "name": "BURKINA"
+    "value": "BURKINA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291c6"),
-    "name": "BURUNDI"
+    "value": "BURUNDI"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291c7"),
-    "name": "CAMBODIA"
+    "value": "CAMBODIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291c8"),
-    "name": "CAMEROON"
+    "value": "CAMEROON"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291c9"),
-    "name": "CANADA"
+    "value": "CANADA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291ca"),
-    "name": "CAPE VERDE"
+    "value": "CAPE VERDE"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291cb"),
-    "name": "CENTRAL AFRICAN REP"
+    "value": "CENTRAL AFRICAN REP"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291cc"),
-    "name": "CHAD"
+    "value": "CHAD"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291cd"),
-    "name": "CHILE"
+    "value": "CHILE"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291ce"),
-    "name": "CHINA"
+    "value": "CHINA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291cf"),
-    "name": "COLOMBIA"
+    "value": "COLOMBIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291d0"),
-    "name": "COMOROS"
+    "value": "COMOROS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291d1"),
-    "name": "CONGO"
+    "value": "CONGO"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291d2"),
-    "name": "CONGO (DEMOCRATIC REP)"
+    "value": "CONGO (DEMOCRATIC REP)"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291d3"),
-    "name": "COSTA RICA"
+    "value": "COSTA RICA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291d4"),
-    "name": "CROATIA"
+    "value": "CROATIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291d5"),
-    "name": "CUBA"
+    "value": "CUBA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291d6"),
-    "name": "CYPRUS"
+    "value": "CYPRUS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291d7"),
-    "name": "CZECH REPUBLIC"
+    "value": "CZECH REPUBLIC"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291d8"),
-    "name": "DENMARK"
+    "value": "DENMARK"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291d9"),
-    "name": "DJIBOUTI"
+    "value": "DJIBOUTI"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291da"),
-    "name": "DOMINICA"
+    "value": "DOMINICA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291db"),
-    "name": "DOMINICAN REPUBLIC"
+    "value": "DOMINICAN REPUBLIC"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291dc"),
-    "name": "EAST TIMOR"
+    "value": "EAST TIMOR"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291dd"),
-    "name": "ECUADOR"
+    "value": "ECUADOR"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291de"),
-    "name": "EGYPT"
+    "value": "EGYPT"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291df"),
-    "name": "EL SALVADOR"
+    "value": "EL SALVADOR"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291e0"),
-    "name": "EQUATORIAL GUINEA"
+    "value": "EQUATORIAL GUINEA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291e1"),
-    "name": "ERITREA"
+    "value": "ERITREA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291e2"),
-    "name": "ESTONIA"
+    "value": "ESTONIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291e3"),
-    "name": "ETHIOPIA"
+    "value": "ETHIOPIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291e4"),
-    "name": "FIJI"
+    "value": "FIJI"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291e5"),
-    "name": "FINLAND"
+    "value": "FINLAND"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291e6"),
-    "name": "FRANCE"
+    "value": "FRANCE"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291e7"),
-    "name": "GABON"
+    "value": "GABON"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291e8"),
-    "name": "GAMBIA"
+    "value": "GAMBIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291e9"),
-    "name": "GEORGIA"
+    "value": "GEORGIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291ea"),
-    "name": "GERMANY"
+    "value": "GERMANY"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291eb"),
-    "name": "GHANA"
+    "value": "GHANA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291ec"),
-    "name": "GREECE"
+    "value": "GREECE"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291ed"),
-    "name": "GRENADA"
+    "value": "GRENADA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291ee"),
-    "name": "GUATEMALA"
+    "value": "GUATEMALA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291ef"),
-    "name": "GUINEA"
+    "value": "GUINEA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291f0"),
-    "name": "GUINEA - BISSAU"
+    "value": "GUINEA - BISSAU"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291f1"),
-    "name": "GUYANA"
+    "value": "GUYANA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291f2"),
-    "name": "HAITI"
+    "value": "HAITI"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291f3"),
-    "name": "HONDURAS"
+    "value": "HONDURAS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291f4"),
-    "name": "HUNGARY"
+    "value": "HUNGARY"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291f5"),
-    "name": "ICELAND"
+    "value": "ICELAND"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291f6"),
-    "name": "INDIA"
+    "value": "INDIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291f7"),
-    "name": "INDONESIA"
+    "value": "INDONESIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291f8"),
-    "name": "IRAN"
+    "value": "IRAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291f9"),
-    "name": "IRAQ"
+    "value": "IRAQ"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291fa"),
-    "name": "IRELAND (REPUBLIC)"
+    "value": "IRELAND (REPUBLIC)"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291fb"),
-    "name": "ISRAEL"
+    "value": "ISRAEL"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291fc"),
-    "name": "ITALY"
+    "value": "ITALY"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291fd"),
-    "name": "IVORY COAST"
+    "value": "IVORY COAST"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291fe"),
-    "name": "JAMAICA"
+    "value": "JAMAICA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c3291ff"),
-    "name": "JAPAN"
+    "value": "JAPAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329200"),
-    "name": "JORDAN"
+    "value": "JORDAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329201"),
-    "name": "KAZAKHSTAN"
+    "value": "KAZAKHSTAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329202"),
-    "name": "KENYA"
+    "value": "KENYA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329203"),
-    "name": "KIRIBATI"
+    "value": "KIRIBATI"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329204"),
-    "name": "KOREA NORTH"
+    "value": "KOREA NORTH"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329205"),
-    "name": "KOREA SOUTH"
+    "value": "KOREA SOUTH"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329206"),
-    "name": "KOSOVO"
+    "value": "KOSOVO"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329207"),
-    "name": "KUWAIT"
+    "value": "KUWAIT"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329208"),
-    "name": "KYRGYZSTAN"
+    "value": "KYRGYZSTAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329209"),
-    "name": "LAOS"
+    "value": "LAOS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32920a"),
-    "name": "LATVIA"
+    "value": "LATVIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32920b"),
-    "name": "LEBANON"
+    "value": "LEBANON"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32920c"),
-    "name": "LESOTHO"
+    "value": "LESOTHO"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32920d"),
-    "name": "LIBERIA"
+    "value": "LIBERIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32920e"),
-    "name": "LIBYA"
+    "value": "LIBYA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32920f"),
-    "name": "LIECHTENSTEIN"
+    "value": "LIECHTENSTEIN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329210"),
-    "name": "LITHUANIA"
+    "value": "LITHUANIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329211"),
-    "name": "LUXEMBOURG"
+    "value": "LUXEMBOURG"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329212"),
-    "name": "MACEDONIA"
+    "value": "MACEDONIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329213"),
-    "name": "MADAGASCAR"
+    "value": "MADAGASCAR"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329214"),
-    "name": "MALAWI"
+    "value": "MALAWI"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329215"),
-    "name": "MALAYSIA"
+    "value": "MALAYSIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329216"),
-    "name": "MALDIVES"
+    "value": "MALDIVES"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329217"),
-    "name": "MALI"
+    "value": "MALI"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329218"),
-    "name": "MALTA"
+    "value": "MALTA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329219"),
-    "name": "MARSHALL ISLANDS"
+    "value": "MARSHALL ISLANDS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32921a"),
-    "name": "MAURITANIA"
+    "value": "MAURITANIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32921b"),
-    "name": "MAURITIUS"
+    "value": "MAURITIUS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32921c"),
-    "name": "MEXICO"
+    "value": "MEXICO"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32921d"),
-    "name": "MICRONESIA"
+    "value": "MICRONESIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32921e"),
-    "name": "MOLDOVA"
+    "value": "MOLDOVA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32921f"),
-    "name": "MONACO"
+    "value": "MONACO"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329220"),
-    "name": "MONGOLIA"
+    "value": "MONGOLIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329221"),
-    "name": "MONTENEGRO"
+    "value": "MONTENEGRO"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329222"),
-    "name": "MOROCCO"
+    "value": "MOROCCO"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329223"),
-    "name": "MOZAMBIQUE"
+    "value": "MOZAMBIQUE"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329224"),
-    "name": "MYANMAR, (BURMA)"
+    "value": "MYANMAR, (BURMA)"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329225"),
-    "name": "NAMIBIA"
+    "value": "NAMIBIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329226"),
-    "name": "NAURU"
+    "value": "NAURU"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329227"),
-    "name": "NEPAL"
+    "value": "NEPAL"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329228"),
-    "name": "NETHERLANDS"
+    "value": "NETHERLANDS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329229"),
-    "name": "NEW ZEALAND"
+    "value": "NEW ZEALAND"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32922a"),
-    "name": "NICARAGUA"
+    "value": "NICARAGUA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32922b"),
-    "name": "NIGER"
+    "value": "NIGER"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32922c"),
-    "name": "NIGERIA"
+    "value": "NIGERIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32922d"),
-    "name": "NORWAY"
+    "value": "NORWAY"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32922e"),
-    "name": "OMAN"
+    "value": "OMAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32922f"),
-    "name": "PAKISTAN"
+    "value": "PAKISTAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329230"),
-    "name": "PALAU"
+    "value": "PALAU"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329231"),
-    "name": "PANAMA"
+    "value": "PANAMA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329232"),
-    "name": "PAPUA NEW GUINEA"
+    "value": "PAPUA NEW GUINEA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329233"),
-    "name": "PARAGUAY"
+    "value": "PARAGUAY"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329234"),
-    "name": "PERU"
+    "value": "PERU"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329235"),
-    "name": "PHILIPPINES"
+    "value": "PHILIPPINES"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329236"),
-    "name": "POLAND"
+    "value": "POLAND"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329237"),
-    "name": "PORTUGAL"
+    "value": "PORTUGAL"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329238"),
-    "name": "QATAR"
+    "value": "QATAR"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329239"),
-    "name": "ROMANIA"
+    "value": "ROMANIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32923a"),
-    "name": "RUSSIAN FEDERATION"
+    "value": "RUSSIAN FEDERATION"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32923b"),
-    "name": "RWANDA"
+    "value": "RWANDA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32923c"),
-    "name": "ST KITTS AND NEVIS"
+    "value": "ST KITTS AND NEVIS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32923d"),
-    "name": "ST LUCIA"
+    "value": "ST LUCIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32923e"),
-    "name": "SAINT VINCENT AND THE GRENADINES"
+    "value": "SAINT VINCENT AND THE GRENADINES"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32923f"),
-    "name": "SAMOA"
+    "value": "SAMOA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329240"),
-    "name": "SAN MARINO"
+    "value": "SAN MARINO"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329241"),
-    "name": "SAO TOME AND PRINCIPE"
+    "value": "SAO TOME AND PRINCIPE"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329242"),
-    "name": "SAUDI ARABIA"
+    "value": "SAUDI ARABIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329243"),
-    "name": "SENEGAL"
+    "value": "SENEGAL"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329244"),
-    "name": "SERBIA"
+    "value": "SERBIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329245"),
-    "name": "SEYCHELLES"
+    "value": "SEYCHELLES"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329246"),
-    "name": "SIERRA LEONE"
+    "value": "SIERRA LEONE"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329247"),
-    "name": "SINGAPORE"
+    "value": "SINGAPORE"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329248"),
-    "name": "SLOVAKIA"
+    "value": "SLOVAKIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329249"),
-    "name": "SLOVENIA"
+    "value": "SLOVENIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32924a"),
-    "name": "SOLOMON ISLANDS"
+    "value": "SOLOMON ISLANDS"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32924b"),
-    "name": "SOMALIA"
+    "value": "SOMALIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32924c"),
-    "name": "SOUTH AFRICA"
+    "value": "SOUTH AFRICA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32924d"),
-    "name": "SOUTH SUDAN"
+    "value": "SOUTH SUDAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32924e"),
-    "name": "SPAIN"
+    "value": "SPAIN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32924f"),
-    "name": "SRI LANKA"
+    "value": "SRI LANKA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329250"),
-    "name": "SUDAN"
+    "value": "SUDAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329251"),
-    "name": "SURINAME"
+    "value": "SURINAME"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329252"),
-    "name": "SWAZILAND"
+    "value": "SWAZILAND"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329253"),
-    "name": "SWEDEN"
+    "value": "SWEDEN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329254"),
-    "name": "SWITZERLAND"
+    "value": "SWITZERLAND"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329255"),
-    "name": "SYRIA"
+    "value": "SYRIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329256"),
-    "name": "TAIWAN"
+    "value": "TAIWAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329257"),
-    "name": "TAJIKISTAN"
+    "value": "TAJIKISTAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329258"),
-    "name": "TANZANIA"
+    "value": "TANZANIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329259"),
-    "name": "THAILAND"
+    "value": "THAILAND"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32925a"),
-    "name": "TOGO"
+    "value": "TOGO"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32925b"),
-    "name": "TONGA"
+    "value": "TONGA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32925c"),
-    "name": "TRINIDAD AND TOBAGO"
+    "value": "TRINIDAD AND TOBAGO"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32925d"),
-    "name": "TUNISIA"
+    "value": "TUNISIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32925e"),
-    "name": "TURKEY"
+    "value": "TURKEY"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32925f"),
-    "name": "TURKMENISTAN"
+    "value": "TURKMENISTAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329260"),
-    "name": "TUVALU"
+    "value": "TUVALU"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329261"),
-    "name": "UGANDA"
+    "value": "UGANDA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329262"),
-    "name": "UKRAINE"
+    "value": "UKRAINE"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329263"),
-    "name": "UNITED ARAB EMIRATES"
+    "value": "UNITED ARAB EMIRATES"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329264"),
-    "name": "UNITED KINGDOM"
+    "value": "UNITED KINGDOM"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329265"),
-    "name": "UNITED STATES"
+    "value": "UNITED STATES"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329266"),
-    "name": "URUGUAY"
+    "value": "URUGUAY"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329267"),
-    "name": "UZBEKISTAN"
+    "value": "UZBEKISTAN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329268"),
-    "name": "VANUATU"
+    "value": "VANUATU"
   },
   {
     "_id": ObjectId("594cb60e472e11263c329269"),
-    "name": "VATICAN CITY"
+    "value": "VATICAN CITY"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32926a"),
-    "name": "VENEZUELA"
+    "value": "VENEZUELA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32926b"),
-    "name": "VIETNAM"
+    "value": "VIETNAM"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32926c"),
-    "name": "YEMEN"
+    "value": "YEMEN"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32926d"),
-    "name": "ZAMBIA"
+    "value": "ZAMBIA"
   },
   {
     "_id": ObjectId("594cb60e472e11263c32926e"),
-    "name": "ZIMBABWE"
+    "value": "ZIMBABWE"
   }
 ]

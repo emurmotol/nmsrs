@@ -91,7 +91,7 @@
                             {{range $index, $civilStat := .civilStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="basicInfoCivilStatId" id="basicInfoCivilStatId_{{$index}}" value="{{$civilStat.Id.Hex}}"{{if eq $index 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoCivilStatIdErr"{{end}}> {{$civilStat.Name}}
+                                    <input type="radio" name="basicInfoCivilStatId" id="basicInfoCivilStatId_{{$index}}" value="{{$civilStat.Id.Hex}}"{{if eq $index 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoCivilStatIdErr"{{end}}> {{$civilStat.Value}}
                                 </label>
                             </div>
                             {{end}}
@@ -108,7 +108,7 @@
                         <div class="col-lg-8">
                             {{range $index, $sex := .sexes}}
                             <label class="radio-inline">
-                                <input type="radio" name="basicInfoSexId" id="sex_{{$index}}" value="{{$sex.Id.Hex}}"{{if eq $index 1}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoSexIdErr"{{end}}> {{$sex.Name}}
+                                <input type="radio" name="basicInfoSexId" id="sex_{{$index}}" value="{{$sex.Id.Hex}}"{{if eq $index 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoSexIdErr"{{end}}> {{$sex.Value}}
                             </label>
                             {{end}}
                             <span id="basicInfoSexIdErr"></span>
@@ -162,7 +162,7 @@
                             {{range $index, $empStat := .empStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="empStatId" id="empStatId_{{$index}}" value="{{$empStat.Id.Hex}}"{{if eq $index 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#empStatIdErr"{{end}}> {{$empStat.Name}}
+                                    <input type="radio" name="empStatId" id="empStatId_{{$index}}" value="{{$empStat.Id.Hex}}"{{if eq $index 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#empStatIdErr"{{end}}> {{$empStat.Value}}
                                 </label>
                             </div>
                             {{end}}
@@ -185,7 +185,7 @@
                         <div class="col-lg-8 col-lg-offset-3">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="empIsActivelyLookingForWork" name="empIsActivelyLookingForWork" value="false"> Actively looking for work?
+                                    <input type="checkbox" id="empIsActivelyLookingForWork" name="empIsActivelyLookingForWork" value="false"> ACTIVELY LOOKING FOR WORK?
                                 </label>
                             </div>
                         </div>
@@ -233,13 +233,13 @@
                         <div class="col-lg-8">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="disabIsDisabled" name="disabIsDisabled" value="false"> Disabled?
+                                    <input type="checkbox" id="disabIsDisabled" name="disabIsDisabled" value="false"> DISABLED?
                                 </label>
                             </div>
                             {{range $index, $disab := .disabilities}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="disabId" id="disabId_{{$index}}" value="{{$disab.Name}}"{{if eq $index 0}} data-parsley-trigger="change" data-parsley-errors-container="#disabIdErr"{{end}} disabled> {{$disab.Name}}
+                                    <input type="radio" name="disabId" id="disabId_{{$index}}" value="{{$disab.Id.Hex}}"{{if eq $index 0}} data-parsley-trigger="change" data-parsley-errors-container="#disabIdErr"{{end}} disabled> {{$disab.Value}}
                                 </label>
                             </div>
                             {{end}}
@@ -295,7 +295,7 @@
                         <tbody></tbody>
                     </table>
                 </div>
-                <input type="hidden">
+                <input type="hidden" id="formalEduJson" name="formalEduJson">
             </div>
         </div>
         <div class="tab-pane" role="tabpanel" id="step-3">
@@ -318,12 +318,13 @@
                                 <th><input type="checkbox" id="selectAllProLicense"></th>
                                 <th>Title</th>
                                 <th>Expiry Date</th>
+                                <th class="text-center">Edit</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
                 </div>
-                <input type="hidden">
+                <input type="hidden" id="proLicenseJson" name="proLicenseJson">
             </div>
         </div>
         <div class="tab-pane" role="tabpanel" id="step-4">
@@ -346,12 +347,13 @@
                                 <th><input type="checkbox" id="selectAllElig"></th>
                                 <th>Title</th>
                                 <th>Year Taken</th>
+                                <th class="text-center">Edit</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
                 </div>
-                <input type="hidden">
+                <input type="hidden" id="eligJson" name="eligJson">
             </div>
         </div>
         <div class="tab-pane" role="tabpanel" id="step-5">
@@ -377,12 +379,13 @@
                                 <th>Period Of Training/Experience</th>
                                 <th>Certificate Received</th>
                                 <th>Issuing School/Agency</th>
+                                <th class="text-center">Edit</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
                 </div>
-                <input type="hidden">
+                <input type="hidden" id="trainingJson" name="trainingJson">
             </div>
         </div>
         <div class="tab-pane" role="tabpanel" id="step-6">
@@ -407,12 +410,13 @@
                                 <th>Rating</th>
                                 <th>Issued By</th>
                                 <th>Date Issued</th>
+                                <th class="text-center">Edit</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
                 </div>
-                <input type="hidden">
+                <input type="hidden" id="certJson" name="certJson">
             </div>
         </div>
         <div class="tab-pane" role="tabpanel" id="step-7">
@@ -439,12 +443,13 @@
                                 <th>From</th>
                                 <th>To</th>
                                 <th>Related To Formal Education</th>
+                                <th class="text-center">Edit</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
                 </div>
-                <input type="hidden">
+                <input type="hidden" id="workExpJson" name="workExpJson">
             </div>
         </div>
         <div class="tab-pane" role="tabpanel" id="step-8">
@@ -464,7 +469,7 @@
                         <div class="col-lg-8 col-lg-offset-3">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="otherSkillNotListed" value="false"> Skill not listed?
+                                    <input type="checkbox" id="otherSkillNotListed" value="false"> SKILL NOT LISTED?
                                 </label>
                             </div>
                         </div>
@@ -475,7 +480,6 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden">
             </div>
         </div>
         <div class="tab-pane" role="tabpanel" id="step-9">
@@ -548,7 +552,7 @@
                         <div class="col-lg-8 col-lg-offset-3">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="formalEduSchoolUnivNotListed" value="false"> School/University not listed?
+                                    <input type="checkbox" id="formalEduSchoolUnivNotListed" value="false"> SCHOOL/UNIVERSITY NOT LISTED?
                                 </label>
                             </div>
                         </div>
@@ -559,15 +563,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="formalEduYearGrad" class="col-lg-3 control-label">Year Graduated</label>
+                        <label for="formalEduYearGrad" class="col-lg-3 control-label">Year Graduated <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="formalEduYearGrad" id="formalEduYearGrad" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="formalEduYearGrad" id="formalEduYearGrad" data-parsley-required="true" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="formalEduLastAttended" class="col-lg-3 control-label">Last Attended</label>
+                        <label for="formalEduLastAttended" class="col-lg-3 control-label">Last Attended <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="formalEduLastAttended" id="formalEduLastAttended" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="formalEduLastAttended" id="formalEduLastAttended" data-parsley-required="true" data-parsley-trigger="change">
                         </div>
                     </div>
                 </div>
@@ -786,7 +790,7 @@
                         <div class="col-lg-7 col-lg-offset-4">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="workExpIsRelatedToFormalEdu" value="false"> Related to formal education?
+                                    <input type="checkbox" id="workExpIsRelatedToFormalEdu" value="false"> RELATED TO FORMAL EDUCATION?
                                 </label>
                             </div>
                         </div>

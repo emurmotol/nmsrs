@@ -9,7 +9,7 @@ import (
 
 type CivilStat struct {
 	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
-	Name string        `json:"name" bson:"name"`
+	Value string        `json:"value" bson:"value"`
 }
 
 func (civilStat *CivilStat) Create() *CivilStat {
@@ -21,7 +21,7 @@ func (civilStat *CivilStat) Create() *CivilStat {
 }
 
 func CivilStats() []CivilStat {
-	civilStats := []CivilStat{}
+	var civilStats, civilStatsArranged []CivilStat
 
 	if err := db.C("civilStats").Find(nil).All(&civilStats); err != nil {
 		if err == mgo.ErrNotFound {
@@ -30,7 +30,17 @@ func CivilStats() []CivilStat {
 		panic(err)
 	}
 	defer db.Close()
-	return civilStats
+	var civilStatOther CivilStat
+
+	for _, civilStat := range civilStats {
+		if civilStat.Id.Hex() == "594cb5fd472e11263c3291aa" {
+			civilStatOther = civilStat
+			continue
+		}
+		civilStatsArranged = append(civilStatsArranged, civilStat)
+	}
+	civilStatsArranged = append(civilStatsArranged, civilStatOther)
+	return civilStatsArranged
 }
 
 func CivilStatById(id bson.ObjectId) *CivilStat {

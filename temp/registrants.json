@@ -1,0 +1,137 @@
+﻿{
+  "_id" : ObjectId("5954adc51fafb41cac5c5158"),
+  "createdAt" : ISODate("2017-06-29T07:35:33.254Z"),
+  "updatedAt" : ISODate("2017-06-29T07:35:33.254Z"),
+  "registeredAt" : ISODate("2017-06-29T00:00:00Z"),
+  "iAccept" : true,
+  "personalInfo" : {
+    "hasPhoto" : false,
+    "familyName" : "xfgxfdg",
+    "givenName" : "xfghxfdg",
+    "middleName" : "xfghxfgh",
+    "birthdate" : ISODate("2018-07-11T00:00:00Z"),
+    "password" : "$2a$10$I80K.ZdmOYMdPFB.1WxKmu2lHiDjRRByZZpt7Roj1k5sNxcaIbyo2"
+  },
+  "basicInfo" : {
+    "stSub" : "fghxfgh",
+    "cityMun" : {
+      "_id" : ObjectId("594cb5f0472e11263c328c11"),
+      "code" : "030801",
+      "desc" : "ABUCAY",
+      "psgcCode" : "030801000",
+      "regCode" : "03",
+      "provCode" : "0308"
+    },
+    "province" : {
+      "_id" : ObjectId("594cb6c0472e11263c32baca"),
+      "code" : "0308",
+      "desc" : "BATAAN",
+      "psgcCode" : "030800000",
+      "regCode" : "03"
+    },
+    "barangay" : {
+      "_id" : ObjectId("594cb5a3472e11263c31fa55"),
+      "code" : "030801007",
+      "desc" : "MABATANG",
+      "regCode" : "03",
+      "provCode" : "0308",
+      "cityMunCode" : "030801"
+    },
+    "placeOfBirth" : "fghhe",
+    "religion" : {
+      "_id" : ObjectId("594cb6d7472e11263c32bb2e"),
+      "name" : "BUDDIST"
+    },
+    "civilStat" : {
+      "_id" : ObjectId("594cb5fd472e11263c3291a6"),
+      "name" : "SINGLE"
+    },
+    "civilStatOther" : "",
+    "sex" : {
+      "_id" : ObjectId("594cb6ea472e11263c32c47f"),
+      "name" : "MALE"
+    },
+    "height" : 345344.0
+  },
+  "employment" : {
+    "stat" : {
+      "_id" : ObjectId("594cb674472e11263c32992e"),
+      "name" : "SELF EMPLOYED"
+    },
+    "unEmpStat" : null,
+    "teminatedOverseasCountry" : null,
+    "isActivelyLookingForWork" : false,
+    "prefOccs" : [{
+        "_id" : ObjectId("594cb6b7472e11263c329ad4"),
+        "name" : "ABRASIVES MAKER"
+      }],
+    "prefLocalLoc" : {
+      "_id" : ObjectId("594cb5f0472e11263c328bba"),
+      "code" : "021501",
+      "desc" : "ABULUG",
+      "psgcCode" : "021501000",
+      "regCode" : "02",
+      "provCode" : "0215"
+    },
+    "prefOverseasLoc" : {
+      "_id" : ObjectId("594cb60e472e11263c3291b1"),
+      "name" : "ARGENTINA"
+    }
+  },
+  "formalEdus" : [{
+      "highestGradeCompleted" : {
+        "_id" : ObjectId("594cb654472e11263c32990a"),
+        "name" : "2ND YEAR HIGH SCHOOL/GRADE VIII (FOR K TO 12)"
+      },
+      "courseDegree" : {
+        "_id" : ObjectId("594cb617472e11263c329273"),
+        "name" : "AGRICULTURAL ENGINEERING PROGRAMS"
+      },
+      "schoolUniv" : {
+        "_id" : ObjectId("594cb6e2472e11263c32bb57"),
+        "name" : "ABE INTERNATIONAL COLLEGE OF BUSINESS AND ACCOUNTANCY, URDANETA CITY"
+      },
+      "yearGrad" : ISODate("2017-01-01T00:00:00Z"),
+      "lastAttended" : ISODate("2017-07-01T00:00:00Z")
+    }],
+  "proLicenses" : [{
+      "title" : {
+        "_id" : ObjectId("594cb6a0472e11263c329a2e"),
+        "name" : "AIR TRAFFIC CONTROL LICENSE"
+      },
+      "expiryDate" : ISODate("2017-04-01T00:00:00Z")
+    }],
+  "eligs" : [{
+      "title" : {
+        "_id" : ObjectId("594cb664472e11263c329925"),
+        "name" : "CAREER SERVICE SUB - PROFESSIONAL"
+      },
+      "yearTaken" : ISODate("2017-06-01T00:00:00Z")
+    }, {
+      "title" : {
+        "_id" : ObjectId("594cb664472e11263c329924"),
+        "name" : "CAREER SERVICE PROFESSIONAL"
+      },
+      "yearTaken" : ISODate("2017-03-01T00:00:00Z")
+    }, {
+      "title" : {
+        "_id" : ObjectId("594cb664472e11263c329926"),
+        "name" : "DATA ENCODER"
+      },
+      "yearTaken" : ISODate("2017-07-01T00:00:00Z")
+    }],
+  "certs" : [{
+      "title" : null,
+      "issuedBy" : "",
+      "dateIssued" : ISODate("0001-01-01T00:00:00Z")
+    }, {
+      "title" : null,
+      "issuedBy" : "",
+      "dateIssued" : ISODate("0001-01-01T00:00:00Z")
+    }, {
+      "title" : null,
+      "issuedBy" : "",
+      "dateIssued" : ISODate("0001-01-01T00:00:00Z")
+    }],
+  "otherSkillOther" : "jhgfjhgkyj"
+}

@@ -12,7 +12,7 @@ $(function () {
         format: "YYYY-MM-DD"
     });
 
-    $("#personalInfoBirthdate").on("dp.change", function() {
+    $("#personalInfoBirthdate").on("dp.change", function () {
         $(this).parsley().validate();
     });
 
@@ -20,14 +20,12 @@ $(function () {
         format: "YYYY-MM"
     });
 
-    $("#empPassportNumberExpiryDate").on("dp.change", function() {
+    $("#empPassportNumberExpiryDate").on("dp.change", function () {
         $(this).parsley().validate();
     });
 
     $("#basicInfoCivilStatIdRadios").find("input[type=radio]").on("change", function () {
-        var checked = $("input[name=basicInfoCivilStatId]:checked");
-
-        if (checked[0].id == "basicInfoCivilStatId_4") {
+        if ($("input[name=basicInfoCivilStatId]:checked").val() == "594cb5fd472e11263c3291aa") {
             $("#basicInfoCivilStatOther").attr("data-parsley-required", true);
             $("#basicInfoCivilStatOther").prop("disabled", false);
             $("#basicInfoCivilStatOther").focus();
@@ -40,9 +38,7 @@ $(function () {
     });
 
     $("#empStatIdRadios").find("input[type=radio]").on("change", function () {
-        var checked = $("input[name=empStatId]:checked");
-
-        if (checked[0].id == "empStatId_2") {
+        if ($("input[name=empStatId]:checked").val() == "594cb674472e11263c32992f") {
             $("#empUnEmpStatId").val(null).trigger("change");
             $("#empUnEmpStatId").attr("data-parsley-required", true);
             $("#empUnEmpStatId").prop("disabled", false);
@@ -58,9 +54,7 @@ $(function () {
     });
 
     $("#disabIdRadios").find("input[type=radio]").on("change", function () {
-        var checked = $("input[name=disabId]:checked");
-
-        if (checked[0].id == "disabId_4") {
+        if ($("input[name=disabId]:checked").val() == "594cb622472e11263c329906") {
             $("#disabOther").attr("data-parsley-required", true);
             $("#disabOther").prop("disabled", false);
             $("#disabOther").focus();
@@ -117,7 +111,7 @@ $(function () {
         format: "YYYY-MM-DD"
     });
 
-    $("#registeredAt").on("dp.change", function() {
+    $("#registeredAt").on("dp.change", function () {
         $(this).parsley().validate();
     });
 
@@ -125,6 +119,74 @@ $(function () {
 
     $("#createRegistrantForm").parsley();
     $("#createRegistrantForm").on("submit", function () {
+        $("#BasicInfoProvinceId").val($("#BasicInfoProvinceId").data("id"));
+        var formalEduArr = [];
+
+        $("#formalEduTable tbody tr").each(function () {
+            formalEduArr.push({
+                "highestGradeCompletedId": $(this).find(".formal-edu-highest-grade-completed-id").data("highest-grade-completed-id"),
+                "courseDegreeId": $(this).find(".formal-edu-course-degree-id").data("course-degree-id"),
+                "schoolUnivId": $(this).find(".formal-edu-school-univ-id").data("school-univ-id"),
+                "schoolUnivOther": $(this).find(".formal-edu-school-univ-id").data("school-univ-other"),
+                "yearGrad": $(this).find(".formal-edu-year-grad").data("year-grad"),
+                "lastAttended": $(this).find(".formal-edu-last-attended").data("last-attended")
+            });
+        });
+        $("#formalEduJson").val(JSON.stringify(formalEduArr));
+        var proLicenseArr = [];
+
+        $("#proLicenseTable tbody tr").each(function () {
+            proLicenseArr.push({
+                "titleId": $(this).find(".pro-license-title-id").data("title-id"),
+                "expiryDate": $(this).find(".pro-license-expiry-date").data("expiry-date")
+            });
+        });
+        $("#proLicenseJson").val(JSON.stringify(proLicenseArr));
+        var eligArr = [];
+
+        $("#eligTable tbody tr").each(function () {
+            eligArr.push({
+                "titleId": $(this).find(".elig-title-id").data("title-id"),
+                "yearTaken": $(this).find(".elig-year-taken").data("year-taken")
+            });
+        });
+        $("#eligJson").val(JSON.stringify(eligArr));
+        var trainingArr = [];
+
+        $("#trainingTable tbody tr").each(function () {
+            trainingArr.push({
+                "nameOfTraining": $(this).find(".training-name-of-training").data("name-of-training"),
+                "skillsAcquired": $(this).find(".training-skills-acquired").data("skills-acquired"),
+                "periodOfTrainingExp": $(this).find(".training-period-of-training-exp").data("period-of-training-exp"),
+                "certReceived": $(this).find(".training-cert-received").data("cert-received"),
+                "issuingSchoolAgency": $(this).find(".training-issuing-school-agency").data("issuing-school-agency")
+            });
+        });
+        $("#trainingJson").val(JSON.stringify(trainingArr));
+        var certArr = [];
+
+        $("#certTable tbody tr").each(function () {
+            certArr.push({
+                "titleId": $(this).find(".cert-title-id").data("title-id"),
+                "rating": $(this).find(".cert-rating").data("rating"),
+                "issuedBy": $(this).find(".cert-issued-by").data("issued-by"),
+                "dateIssued": $(this).find(".cert-date-issued").data("date-issued")
+            });
+        });
+        $("#certJson").val(JSON.stringify(certArr));
+        var workExpArr = [];
+
+        $("#workExpTable tbody tr").each(function () {
+            workExpArr.push({
+                "nameOfCompanyFirm": $(this).find(".work-exp-name-of-company-firm").data("name-of-company-firm"),
+                "address": $(this).find(".work-exp-address").data("address"),
+                "positionHeldId": $(this).find(".work-exp-position-held-id").data("position-held-id"),
+                "from": $(this).find(".work-exp-from").data("from"),
+                "to": $(this).find(".work-exp-to").data("to"),
+                "isRelatedToFormalEdu": $(this).find(".work-exp-related-to-formal-edu").data("related-to-formal-edu")
+            });
+        });
+        $("#workExpJson").val(JSON.stringify(workExpArr));
         duringSubmitDo(this);
     });
 });

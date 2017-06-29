@@ -1,214 +1,214 @@
 ﻿[
   {
     "_id": ObjectId("594cb6ad472e11263c329a9b"),
-    "name": "ANALYZING"
+    "value": "ANALYZING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329a9c"),
-    "name": "ANTICIPATING"
+    "value": "ANTICIPATING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329a9d"),
-    "name": "ASSEMBLING"
+    "value": "ASSEMBLING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329a9e"),
-    "name": "BUILDING"
+    "value": "BUILDING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329a9f"),
-    "name": "CHECKING"
+    "value": "CHECKING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aa0"),
-    "name": "COMPARING"
+    "value": "COMPARING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aa1"),
-    "name": "COMPILING"
+    "value": "COMPILING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aa2"),
-    "name": "COMPUTING"
+    "value": "COMPUTING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aa3"),
-    "name": "COORDINATING"
+    "value": "COORDINATING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aa4"),
-    "name": "COPYING"
+    "value": "COPYING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aa5"),
-    "name": "CREATING/INVENTING"
+    "value": "CREATING/INVENTING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aa6"),
-    "name": "DISCOVERING"
+    "value": "DISCOVERING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aa7"),
-    "name": "DIVERTING"
+    "value": "DIVERTING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aa8"),
-    "name": "DRIVING/STEERING"
+    "value": "DRIVING/STEERING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aa9"),
-    "name": "ENCOURAGING"
+    "value": "ENCOURAGING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aaa"),
-    "name": "EXPRESSING"
+    "value": "EXPRESSING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aab"),
-    "name": "FEEDING/LOADING"
+    "value": "FEEDING/LOADING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aac"),
-    "name": "HELPING"
+    "value": "HELPING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aad"),
-    "name": "IMPLEMENTING"
+    "value": "IMPLEMENTING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aae"),
-    "name": "INNOVATING"
+    "value": "INNOVATING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aaf"),
-    "name": "INSPECTING"
+    "value": "INSPECTING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ab0"),
-    "name": "INSTRUCTING"
+    "value": "INSTRUCTING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ab1"),
-    "name": "INTERPRETING"
+    "value": "INTERPRETING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ab2"),
-    "name": "LEADING"
+    "value": "LEADING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ab3"),
-    "name": "MACHINE WORK"
+    "value": "MACHINE WORK"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ab4"),
-    "name": "MANIPULATING"
+    "value": "MANIPULATING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ab5"),
-    "name": "MATERIALS HANDLING"
+    "value": "MATERIALS HANDLING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ab6"),
-    "name": "MOTIVATING"
+    "value": "MOTIVATING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ab7"),
-    "name": "NEGOTIATING"
+    "value": "NEGOTIATING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ab8"),
-    "name": "OPERATING/CONTROLLING"
+    "value": "OPERATING/CONTROLLING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ab9"),
-    "name": "ORGANIZING"
+    "value": "ORGANIZING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aba"),
-    "name": "PERSUADING"
+    "value": "PERSUADING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329abb"),
-    "name": "PLANNING"
+    "value": "PLANNING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329abc"),
-    "name": "POSTING"
+    "value": "POSTING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329abd"),
-    "name": "PRECISION WORKING"
+    "value": "PRECISION WORKING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329abe"),
-    "name": "PREDICTING"
+    "value": "PREDICTING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329abf"),
-    "name": "PRODUCING"
+    "value": "PRODUCING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ac0"),
-    "name": "PROMOTING"
+    "value": "PROMOTING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ac1"),
-    "name": "RECORDING"
+    "value": "RECORDING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ac2"),
-    "name": "REPAIRING/ADJUSTING"
+    "value": "REPAIRING/ADJUSTING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ac3"),
-    "name": "RESEARCHING"
+    "value": "RESEARCHING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ac4"),
-    "name": "SELLING"
+    "value": "SELLING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ac5"),
-    "name": "SERVING"
+    "value": "SERVING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ac6"),
-    "name": "SETTING - UP"
+    "value": "SETTING - UP"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ac7"),
-    "name": "SETTING - UP/RESTORING"
+    "value": "SETTING - UP/RESTORING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ac8"),
-    "name": "SPEAKING"
+    "value": "SPEAKING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ac9"),
-    "name": "SPECULATING"
+    "value": "SPECULATING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329aca"),
-    "name": "SYNTHESIZING IDEA"
+    "value": "SYNTHESIZING IDEA"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329acb"),
-    "name": "TABULATING"
+    "value": "TABULATING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329acc"),
-    "name": "TEACHING"
+    "value": "TEACHING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329acd"),
-    "name": "TESTING"
+    "value": "TESTING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329ace"),
-    "name": "THEORIZING"
+    "value": "THEORIZING"
   },
   {
     "_id": ObjectId("594cb6ad472e11263c329acf"),
-    "name": "WAREHOUSING"
+    "value": "WAREHOUSING"
   }
 ]

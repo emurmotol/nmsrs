@@ -1,66 +1,66 @@
 ﻿[
   {
     "_id": ObjectId("594cb6f3472e11263c32c481"),
-    "name": "AUTO MECHANIC"
+    "value": "AUTO MECHANIC"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c482"),
-    "name": "BEAUTICIAN"
+    "value": "BEAUTICIAN"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c483"),
-    "name": "CARPENTRY WORK"
+    "value": "CARPENTRY WORK"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c484"),
-    "name": "COMPUTER LITERATE"
+    "value": "COMPUTER LITERATE"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c485"),
-    "name": "DOMESTIC CHORES"
+    "value": "DOMESTIC CHORES"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c486"),
-    "name": "DRIVER"
+    "value": "DRIVER"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c487"),
-    "name": "ELECTRICIAN"
+    "value": "ELECTRICIAN"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c488"),
-    "name": "EMBROIDERY"
+    "value": "EMBROIDERY"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c489"),
-    "name": "GARDENING"
+    "value": "GARDENING"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c48a"),
-    "name": "MASONRY"
+    "value": "MASONRY"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c48b"),
-    "name": "PAINTER/ARTIST"
+    "value": "PAINTER/ARTIST"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c48c"),
-    "name": "PAINTING JOBS"
+    "value": "PAINTING JOBS"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c48d"),
-    "name": "PHOTOGRAPHY"
+    "value": "PHOTOGRAPHY"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c48e"),
-    "name": "SEWING DRESSES"
+    "value": "SEWING DRESSES"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c48f"),
-    "name": "STENOGRAPHY"
+    "value": "STENOGRAPHY"
   },
   {
     "_id": ObjectId("594cb6f3472e11263c32c490"),
-    "name": "TAILORING"
+    "value": "TAILORING"
   }
 ]

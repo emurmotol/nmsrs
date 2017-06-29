@@ -8,8 +8,8 @@ import (
 )
 
 type Certificate struct {
-	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
-	Name string        `json:"name" bson:"name"`
+	Id    bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
+	Value string        `json:"value" bson:"value"`
 }
 
 func (certificate *Certificate) Create() *Certificate {

@@ -1,50 +1,50 @@
 ﻿[
   {
     "_id": ObjectId("594cb664472e11263c329921"),
-    "name": "CAREER EXECUTIVE OFFICER ELIGIBILITY"
+    "value": "CAREER EXECUTIVE OFFICER ELIGIBILITY"
   },
   {
     "_id": ObjectId("594cb664472e11263c329922"),
-    "name": "CAREER EXECUTIVE SERVICE OFFICER"
+    "value": "CAREER EXECUTIVE SERVICE OFFICER"
   },
   {
     "_id": ObjectId("594cb664472e11263c329923"),
-    "name": "CAREER SERVICE EXECUTIVE ELIGIBILITY"
+    "value": "CAREER SERVICE EXECUTIVE ELIGIBILITY"
   },
   {
     "_id": ObjectId("594cb664472e11263c329924"),
-    "name": "CAREER SERVICE PROFESSIONAL"
+    "value": "CAREER SERVICE PROFESSIONAL"
   },
   {
     "_id": ObjectId("594cb664472e11263c329925"),
-    "name": "CAREER SERVICE SUB - PROFESSIONAL"
+    "value": "CAREER SERVICE SUB - PROFESSIONAL"
   },
   {
     "_id": ObjectId("594cb664472e11263c329926"),
-    "name": "DATA ENCODER"
+    "value": "DATA ENCODER"
   },
   {
     "_id": ObjectId("594cb664472e11263c329927"),
-    "name": "FIRE OFFICER 2"
+    "value": "FIRE OFFICER 2"
   },
   {
     "_id": ObjectId("594cb664472e11263c329928"),
-    "name": "FORESTRY EXTENSION SERVICE"
+    "value": "FORESTRY EXTENSION SERVICE"
   },
   {
     "_id": ObjectId("594cb664472e11263c329929"),
-    "name": "POLICE OFFICER 1"
+    "value": "POLICE OFFICER 1"
   },
   {
     "_id": ObjectId("594cb664472e11263c32992a"),
-    "name": "R.A. 1080"
+    "value": "R.A. 1080"
   },
   {
     "_id": ObjectId("594cb664472e11263c32992b"),
-    "name": "SOIL TECHNOLOGIST"
+    "value": "SOIL TECHNOLOGIST"
   },
   {
     "_id": ObjectId("594cb664472e11263c32992c"),
-    "name": "STENOGRAPHER"
+    "value": "STENOGRAPHER"
   }
 ]

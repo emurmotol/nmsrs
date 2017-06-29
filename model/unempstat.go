@@ -9,7 +9,7 @@ import (
 
 type UnEmpStat struct {
 	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
-	Name string        `json:"name" bson:"name"`
+	Value string        `json:"value" bson:"value"`
 }
 
 func (unEmpStat *UnEmpStat) Create() *UnEmpStat {

@@ -1,158 +1,158 @@
 ﻿[
   {
     "_id": ObjectId("594cb6d7472e11263c32bb2a"),
-    "name": "AGLIPAYAN"
+    "value": "AGLIPAYAN"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb2b"),
-    "name": "ASSEMBLY OF GOD"
+    "value": "ASSEMBLY OF GOD"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb2c"),
-    "name": "BAPTIST"
+    "value": "BAPTIST"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb2d"),
-    "name": "BORN AGAIN CHRISTIAN"
+    "value": "BORN AGAIN CHRISTIAN"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb2e"),
-    "name": "BUDDIST"
+    "value": "BUDDIST"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb2f"),
-    "name": "CHRISTIAN"
+    "value": "CHRISTIAN"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb30"),
-    "name": "CHURCH OF CHRIST"
+    "value": "CHURCH OF CHRIST"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb31"),
-    "name": "CHURCH OF GOD THRU CHRIST JESUS"
+    "value": "CHURCH OF GOD THRU CHRIST JESUS"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb32"),
-    "name": "CHURCH OF GOD"
+    "value": "CHURCH OF GOD"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb33"),
-    "name": "CHURCH OF LATTER DAY SAINT"
+    "value": "CHURCH OF LATTER DAY SAINT"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb34"),
-    "name": "EPISCOPALIAN ANGELICAN"
+    "value": "EPISCOPALIAN ANGELICAN"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb35"),
-    "name": "ESPIRITISM"
+    "value": "ESPIRITISM"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb36"),
-    "name": "EVANGELICAL"
+    "value": "EVANGELICAL"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb37"),
-    "name": "FAITH TABERNACLE"
+    "value": "FAITH TABERNACLE"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb38"),
-    "name": "FOUR SQUARE GOSPEL CHURCH"
+    "value": "FOUR SQUARE GOSPEL CHURCH"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb39"),
-    "name": "FOURTH WATCH"
+    "value": "FOURTH WATCH"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb3a"),
-    "name": "HINDU"
+    "value": "HINDU"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb3b"),
-    "name": "IGLESIA NG DIYOS KAY CRISTO JESUS"
+    "value": "IGLESIA NG DIYOS KAY CRISTO JESUS"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb3c"),
-    "name": "IGLESIA NI CRISTO"
+    "value": "IGLESIA NI CRISTO"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb3d"),
-    "name": "IGLESIA SA DIYOS ESPIRITU SANTO"
+    "value": "IGLESIA SA DIYOS ESPIRITU SANTO"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb3e"),
-    "name": "ISLAM"
+    "value": "ISLAM"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb3f"),
-    "name": "JEHOVAH'S WITNESSES"
+    "value": "JEHOVAH'S WITNESSES"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb40"),
-    "name": "JESUS MIRACLE CRUSADE"
+    "value": "JESUS MIRACLE CRUSADE"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb41"),
-    "name": "LUTHERAN"
+    "value": "LUTHERAN"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb42"),
-    "name": "METHODIST"
+    "value": "METHODIST"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb43"),
-    "name": "NON - SECTORAL CHARISMATIC"
+    "value": "NON - SECTORAL CHARISMATIC"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb44"),
-    "name": "ORTHODOX"
+    "value": "ORTHODOX"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb45"),
-    "name": "PENTECOSTAL"
+    "value": "PENTECOSTAL"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb46"),
-    "name": "PHILIPPINE INDEPENDENT CHRISTIAN CHURCH (PICC/IFI)"
+    "value": "PHILIPPINE INDEPENDENT CHRISTIAN CHURCH (PICC/IFI)"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb47"),
-    "name": "PRESBYTERIAN"
+    "value": "PRESBYTERIAN"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb48"),
-    "name": "PROTESTANT"
+    "value": "PROTESTANT"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb49"),
-    "name": "RIZALIST"
+    "value": "RIZALIST"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb4a"),
-    "name": "ROMAN CATHOLIC"
+    "value": "ROMAN CATHOLIC"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb4b"),
-    "name": "SEVENTH DAY ADVENTIST"
+    "value": "SEVENTH DAY ADVENTIST"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb4c"),
-    "name": "TWELVE TRIBES OF ISRAEL"
+    "value": "TWELVE TRIBES OF ISRAEL"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb4d"),
-    "name": "UNION ESPIRITISTA CRISTIANA"
+    "value": "UNION ESPIRITISTA CRISTIANA"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb4e"),
-    "name": "UNITED CHURCH CHRISTIAN OF THE PHILIPPINES (UCCP)"
+    "value": "UNITED CHURCH CHRISTIAN OF THE PHILIPPINES (UCCP)"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb4f"),
-    "name": "WESLEYAN CHURCH"
+    "value": "WESLEYAN CHURCH"
   },
   {
     "_id": ObjectId("594cb6d7472e11263c32bb50"),
-    "name": "WORD OF HOPE"
+    "value": "WORD OF HOPE"
   }
 ]

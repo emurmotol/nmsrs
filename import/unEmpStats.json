@@ -1,22 +1,22 @@
 ﻿[
   {
     "_id": ObjectId("594cb702472e11263c32c491"),
-    "name": "NEW ENTRANT/FRESH GRADUATE"
+    "value": "NEW ENTRANT/FRESH GRADUATE"
   },
   {
     "_id": ObjectId("594cb702472e11263c32c492"),
-    "name": "FINISHED CONTRACT"
+    "value": "FINISHED CONTRACT"
   },
   {
     "_id": ObjectId("594cb702472e11263c32c493"),
-    "name": "RESIGNED"
+    "value": "RESIGNED"
   },
   {
     "_id": ObjectId("594cb702472e11263c32c494"),
-    "name": "TERMINATED/LAID OFF, LOCAL"
+    "value": "TERMINATED/LAID OFF, LOCAL"
   },
   {
     "_id": ObjectId("594cb702472e11263c32c495"),
-    "name": "TERMINATED/LAID OFF, OVERSEAS"
+    "value": "TERMINATED/LAID OFF, OVERSEAS"
   }
 ]

@@ -19,6 +19,15 @@ func YearMonth(str string) time.Time {
 	return t
 }
 
+func Year(str string) time.Time {
+	t, err := time.Parse("2006", str)
+
+	if err != nil {
+		panic(err)
+	}
+	return t
+}
+
 func ShortDate(str string) time.Time {
 	t, err := time.Parse("2006-01-02", str)
 

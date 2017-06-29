@@ -1,938 +1,938 @@
 ﻿[
   {
     "_id": ObjectId("594cb690472e11263c329941"),
-    "name": "AGTA"
+    "value": "AGTA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329942"),
-    "name": "AGUTAYNON"
+    "value": "AGUTAYNON"
   },
   {
     "_id": ObjectId("594cb690472e11263c329943"),
-    "name": "AKLANON"
+    "value": "AKLANON"
   },
   {
     "_id": ObjectId("594cb690472e11263c329944"),
-    "name": "ALANGAN"
+    "value": "ALANGAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329945"),
-    "name": "AMBALA"
+    "value": "AMBALA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329946"),
-    "name": "ATA"
+    "value": "ATA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329947"),
-    "name": "ATI"
+    "value": "ATI"
   },
   {
     "_id": ObjectId("594cb690472e11263c329948"),
-    "name": "ATTA"
+    "value": "ATTA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329949"),
-    "name": "AYTA"
+    "value": "AYTA"
   },
   {
     "_id": ObjectId("594cb690472e11263c32994a"),
-    "name": "BAGOBO"
+    "value": "BAGOBO"
   },
   {
     "_id": ObjectId("594cb690472e11263c32994b"),
-    "name": "BALANGAO"
+    "value": "BALANGAO"
   },
   {
     "_id": ObjectId("594cb690472e11263c32994c"),
-    "name": "BALOGA"
+    "value": "BALOGA"
   },
   {
     "_id": ObjectId("594cb690472e11263c32994d"),
-    "name": "BANTUANON"
+    "value": "BANTUANON"
   },
   {
     "_id": ObjectId("594cb690472e11263c32994e"),
-    "name": "BATAGNON"
+    "value": "BATAGNON"
   },
   {
     "_id": ObjectId("594cb690472e11263c32994f"),
-    "name": "BATAK"
+    "value": "BATAK"
   },
   {
     "_id": ObjectId("594cb690472e11263c329950"),
-    "name": "BIKOLANO"
+    "value": "BIKOLANO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329951"),
-    "name": "BINUKID"
+    "value": "BINUKID"
   },
   {
     "_id": ObjectId("594cb690472e11263c329952"),
-    "name": "BOHOLANO"
+    "value": "BOHOLANO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329953"),
-    "name": "BOLINAO"
+    "value": "BOLINAO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329954"),
-    "name": "BONTOC"
+    "value": "BONTOC"
   },
   {
     "_id": ObjectId("594cb690472e11263c329955"),
-    "name": "BUHID"
+    "value": "BUHID"
   },
   {
     "_id": ObjectId("594cb690472e11263c329956"),
-    "name": "CALUYANUN"
+    "value": "CALUYANUN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329957"),
-    "name": "CAPIZNON"
+    "value": "CAPIZNON"
   },
   {
     "_id": ObjectId("594cb690472e11263c329958"),
-    "name": "CEBUANO"
+    "value": "CEBUANO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329959"),
-    "name": "CHAVACANO"
+    "value": "CHAVACANO"
   },
   {
     "_id": ObjectId("594cb690472e11263c32995a"),
-    "name": "CUYONON"
+    "value": "CUYONON"
   },
   {
     "_id": ObjectId("594cb690472e11263c32995b"),
-    "name": "DAVAWENO"
+    "value": "DAVAWENO"
   },
   {
     "_id": ObjectId("594cb690472e11263c32995c"),
-    "name": "DAVAWENO ZAMBOANGENO"
+    "value": "DAVAWENO ZAMBOANGENO"
   },
   {
     "_id": ObjectId("594cb690472e11263c32995d"),
-    "name": "DUMAGAT"
+    "value": "DUMAGAT"
   },
   {
     "_id": ObjectId("594cb690472e11263c32995e"),
-    "name": "GA'DANG"
+    "value": "GA'DANG"
   },
   {
     "_id": ObjectId("594cb690472e11263c32995f"),
-    "name": "HANONOO"
+    "value": "HANONOO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329960"),
-    "name": "HILIGAYNON"
+    "value": "HILIGAYNON"
   },
   {
     "_id": ObjectId("594cb690472e11263c329961"),
-    "name": "IBALOI"
+    "value": "IBALOI"
   },
   {
     "_id": ObjectId("594cb690472e11263c329962"),
-    "name": "IBANAG"
+    "value": "IBANAG"
   },
   {
     "_id": ObjectId("594cb690472e11263c329963"),
-    "name": "IBATAAN"
+    "value": "IBATAAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329964"),
-    "name": "IFUGAO"
+    "value": "IFUGAO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329965"),
-    "name": "ILOCANO"
+    "value": "ILOCANO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329966"),
-    "name": "ILONGGO"
+    "value": "ILONGGO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329967"),
-    "name": "ILONGOT"
+    "value": "ILONGOT"
   },
   {
     "_id": ObjectId("594cb690472e11263c329968"),
-    "name": "IRAYA"
+    "value": "IRAYA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329969"),
-    "name": "ISINAI"
+    "value": "ISINAI"
   },
   {
     "_id": ObjectId("594cb690472e11263c32996a"),
-    "name": "ISNAG"
+    "value": "ISNAG"
   },
   {
     "_id": ObjectId("594cb690472e11263c32996b"),
-    "name": "ITAWES"
+    "value": "ITAWES"
   },
   {
     "_id": ObjectId("594cb690472e11263c32996c"),
-    "name": "ITNEG"
+    "value": "ITNEG"
   },
   {
     "_id": ObjectId("594cb690472e11263c32996d"),
-    "name": "IVATAN"
+    "value": "IVATAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c32996e"),
-    "name": "IWANK"
+    "value": "IWANK"
   },
   {
     "_id": ObjectId("594cb690472e11263c32996f"),
-    "name": "KAGAYANEN"
+    "value": "KAGAYANEN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329970"),
-    "name": "KALAGAN"
+    "value": "KALAGAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329971"),
-    "name": "KALINGA"
+    "value": "KALINGA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329972"),
-    "name": "KALLAHAN"
+    "value": "KALLAHAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329973"),
-    "name": "KAMAYO"
+    "value": "KAMAYO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329974"),
-    "name": "KANKANAEY"
+    "value": "KANKANAEY"
   },
   {
     "_id": ObjectId("594cb690472e11263c329975"),
-    "name": "KAPAMPANGAN"
+    "value": "KAPAMPANGAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329976"),
-    "name": "KARAO"
+    "value": "KARAO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329977"),
-    "name": "KAROLANOS"
+    "value": "KAROLANOS"
   },
   {
     "_id": ObjectId("594cb690472e11263c329978"),
-    "name": "KASIGURAN"
+    "value": "KASIGURAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329979"),
-    "name": "K'BLAAN"
+    "value": "K'BLAAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c32997a"),
-    "name": "KINARAY - A"
+    "value": "KINARAY - A"
   },
   {
     "_id": ObjectId("594cb690472e11263c32997b"),
-    "name": "LOOCNON"
+    "value": "LOOCNON"
   },
   {
     "_id": ObjectId("594cb690472e11263c32997c"),
-    "name": "MAGAHAT"
+    "value": "MAGAHAT"
   },
   {
     "_id": ObjectId("594cb690472e11263c32997d"),
-    "name": "MAGINDANAON"
+    "value": "MAGINDANAON"
   },
   {
     "_id": ObjectId("594cb690472e11263c32997e"),
-    "name": "MALAYNON"
+    "value": "MALAYNON"
   },
   {
     "_id": ObjectId("594cb690472e11263c32997f"),
-    "name": "MAMANWA"
+    "value": "MAMANWA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329980"),
-    "name": "MANDAYA"
+    "value": "MANDAYA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329981"),
-    "name": "MANOBO"
+    "value": "MANOBO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329982"),
-    "name": "MARANAO"
+    "value": "MARANAO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329983"),
-    "name": "MASBATE??O"
+    "value": "MASBATE??O"
   },
   {
     "_id": ObjectId("594cb690472e11263c329984"),
-    "name": "MOLBOG"
+    "value": "MOLBOG"
   },
   {
     "_id": ObjectId("594cb690472e11263c329985"),
-    "name": "PALAWANO"
+    "value": "PALAWANO"
   },
   {
     "_id": ObjectId("594cb690472e11263c329986"),
-    "name": "PANGALATOK"
+    "value": "PANGALATOK"
   },
   {
     "_id": ObjectId("594cb690472e11263c329987"),
-    "name": "PANGASINENSE"
+    "value": "PANGASINENSE"
   },
   {
     "_id": ObjectId("594cb690472e11263c329988"),
-    "name": "PARANAN"
+    "value": "PARANAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329989"),
-    "name": "POROHANON"
+    "value": "POROHANON"
   },
   {
     "_id": ObjectId("594cb690472e11263c32998a"),
-    "name": "ROMBLOMANON"
+    "value": "ROMBLOMANON"
   },
   {
     "_id": ObjectId("594cb690472e11263c32998b"),
-    "name": "SAMA"
+    "value": "SAMA"
   },
   {
     "_id": ObjectId("594cb690472e11263c32998c"),
-    "name": "SANGIHE"
+    "value": "SANGIHE"
   },
   {
     "_id": ObjectId("594cb690472e11263c32998d"),
-    "name": "SORSOGON"
+    "value": "SORSOGON"
   },
   {
     "_id": ObjectId("594cb690472e11263c32998e"),
-    "name": "SUBANON"
+    "value": "SUBANON"
   },
   {
     "_id": ObjectId("594cb690472e11263c32998f"),
-    "name": "SULOD"
+    "value": "SULOD"
   },
   {
     "_id": ObjectId("594cb690472e11263c329990"),
-    "name": "SURIGAONON"
+    "value": "SURIGAONON"
   },
   {
     "_id": ObjectId("594cb690472e11263c329991"),
-    "name": "TADYAWAN"
+    "value": "TADYAWAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329992"),
-    "name": "TAGBANWA"
+    "value": "TAGBANWA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329993"),
-    "name": "TAUSUG"
+    "value": "TAUSUG"
   },
   {
     "_id": ObjectId("594cb690472e11263c329994"),
-    "name": "TAWBUID"
+    "value": "TAWBUID"
   },
   {
     "_id": ObjectId("594cb690472e11263c329995"),
-    "name": "T'BOLI"
+    "value": "T'BOLI"
   },
   {
     "_id": ObjectId("594cb690472e11263c329996"),
-    "name": "TIRURAY"
+    "value": "TIRURAY"
   },
   {
     "_id": ObjectId("594cb690472e11263c329997"),
-    "name": "WARAY - WARAY"
+    "value": "WARAY - WARAY"
   },
   {
     "_id": ObjectId("594cb690472e11263c329998"),
-    "name": "YAKAN"
+    "value": "YAKAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329999"),
-    "name": "YOGAD"
+    "value": "YOGAD"
   },
   {
     "_id": ObjectId("594cb690472e11263c32999a"),
-    "name": "ZAMBAL"
+    "value": "ZAMBAL"
   },
   {
     "_id": ObjectId("594cb690472e11263c32999b"),
-    "name": "AFRIKAANS"
+    "value": "AFRIKAANS"
   },
   {
     "_id": ObjectId("594cb690472e11263c32999c"),
-    "name": "AINU"
+    "value": "AINU"
   },
   {
     "_id": ObjectId("594cb690472e11263c32999d"),
-    "name": "AKKADIAN"
+    "value": "AKKADIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c32999e"),
-    "name": "ALBANIAN"
+    "value": "ALBANIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c32999f"),
-    "name": "AMHARIC"
+    "value": "AMHARIC"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299a0"),
-    "name": "ANCIENT GREEK"
+    "value": "ANCIENT GREEK"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299a1"),
-    "name": "ANGLOROMANI"
+    "value": "ANGLOROMANI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299a2"),
-    "name": "ARABIC"
+    "value": "ARABIC"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299a3"),
-    "name": "ARMENIAN"
+    "value": "ARMENIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299a4"),
-    "name": "ASTURIAN"
+    "value": "ASTURIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299a5"),
-    "name": "AYMARA"
+    "value": "AYMARA"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299a6"),
-    "name": "BAHASA INDONESIA"
+    "value": "BAHASA INDONESIA"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299a7"),
-    "name": "BASQUE"
+    "value": "BASQUE"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299a8"),
-    "name": "BAVARIAN"
+    "value": "BAVARIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299a9"),
-    "name": "BELORUSSIAN"
+    "value": "BELORUSSIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299aa"),
-    "name": "BENGALI"
+    "value": "BENGALI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ab"),
-    "name": "BRETON"
+    "value": "BRETON"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ac"),
-    "name": "BULGARIAN"
+    "value": "BULGARIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ad"),
-    "name": "BURMESE"
+    "value": "BURMESE"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ae"),
-    "name": "CAMBODIAN"
+    "value": "CAMBODIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299af"),
-    "name": "CANTONESE"
+    "value": "CANTONESE"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299b0"),
-    "name": "CATALAN"
+    "value": "CATALAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299b1"),
-    "name": "CHICHEWA"
+    "value": "CHICHEWA"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299b2"),
-    "name": "CHINESE"
+    "value": "CHINESE"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299b3"),
-    "name": "CHURCH SLAVONIC"
+    "value": "CHURCH SLAVONIC"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299b4"),
-    "name": "CIMBRIAN"
+    "value": "CIMBRIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299b5"),
-    "name": "CORNISH"
+    "value": "CORNISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299b6"),
-    "name": "CORSICAN"
+    "value": "CORSICAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299b7"),
-    "name": "CROATIAN"
+    "value": "CROATIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299b8"),
-    "name": "CZECH"
+    "value": "CZECH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299b9"),
-    "name": "DAKOTA"
+    "value": "DAKOTA"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ba"),
-    "name": "DANISH"
+    "value": "DANISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299bb"),
-    "name": "DOMARI"
+    "value": "DOMARI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299bc"),
-    "name": "DONGXIANG"
+    "value": "DONGXIANG"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299bd"),
-    "name": "DRAVIDIAN"
+    "value": "DRAVIDIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299be"),
-    "name": "DUTCH"
+    "value": "DUTCH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299bf"),
-    "name": "ENGLISH"
+    "value": "ENGLISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299c0"),
-    "name": "ESTONIAN"
+    "value": "ESTONIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299c1"),
-    "name": "FAROESE"
+    "value": "FAROESE"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299c2"),
-    "name": "FARSI"
+    "value": "FARSI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299c3"),
-    "name": "FINNISH"
+    "value": "FINNISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299c4"),
-    "name": "FRANKISH"
+    "value": "FRANKISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299c5"),
-    "name": "FRENCH"
+    "value": "FRENCH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299c6"),
-    "name": "FRISIAN"
+    "value": "FRISIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299c7"),
-    "name": "FRIULIAN"
+    "value": "FRIULIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299c8"),
-    "name": "GAELIC"
+    "value": "GAELIC"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299c9"),
-    "name": "GALICIAN"
+    "value": "GALICIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ca"),
-    "name": "GEORGIAN"
+    "value": "GEORGIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299cb"),
-    "name": "GERMAN"
+    "value": "GERMAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299cc"),
-    "name": "GOTHIC"
+    "value": "GOTHIC"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299cd"),
-    "name": "GREEK"
+    "value": "GREEK"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ce"),
-    "name": "GREENLANDIC"
+    "value": "GREENLANDIC"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299cf"),
-    "name": "GUARANI"
+    "value": "GUARANI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299d0"),
-    "name": "GUJARATI"
+    "value": "GUJARATI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299d1"),
-    "name": "HAUSA"
+    "value": "HAUSA"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299d2"),
-    "name": "HAWAIIAN"
+    "value": "HAWAIIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299d3"),
-    "name": "HEBREW"
+    "value": "HEBREW"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299d4"),
-    "name": "HINDI"
+    "value": "HINDI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299d5"),
-    "name": "HITTITE"
+    "value": "HITTITE"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299d6"),
-    "name": "HMONG"
+    "value": "HMONG"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299d7"),
-    "name": "HUNGARIAN"
+    "value": "HUNGARIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299d8"),
-    "name": "ICELANDIC"
+    "value": "ICELANDIC"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299d9"),
-    "name": "INDIC LANGUAGE"
+    "value": "INDIC LANGUAGE"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299da"),
-    "name": "INDONESIAN"
+    "value": "INDONESIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299db"),
-    "name": "INGUSH"
+    "value": "INGUSH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299dc"),
-    "name": "INUIT"
+    "value": "INUIT"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299dd"),
-    "name": "IRISH"
+    "value": "IRISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299de"),
-    "name": "ITALIAN"
+    "value": "ITALIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299df"),
-    "name": "JAPANESE"
+    "value": "JAPANESE"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299e0"),
-    "name": "JUDEO"
+    "value": "JUDEO"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299e1"),
-    "name": "JUTISH"
+    "value": "JUTISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299e2"),
-    "name": "KAYORT"
+    "value": "KAYORT"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299e3"),
-    "name": "KOLI"
+    "value": "KOLI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299e4"),
-    "name": "KONKANI"
+    "value": "KONKANI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299e5"),
-    "name": "KOREAN"
+    "value": "KOREAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299e6"),
-    "name": "KURDISH"
+    "value": "KURDISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299e7"),
-    "name": "LADIN"
+    "value": "LADIN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299e8"),
-    "name": "LADINO"
+    "value": "LADINO"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299e9"),
-    "name": "LAKHOTA"
+    "value": "LAKHOTA"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ea"),
-    "name": "LATIN"
+    "value": "LATIN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299eb"),
-    "name": "LATVIAN"
+    "value": "LATVIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ec"),
-    "name": "LITHUANIAN"
+    "value": "LITHUANIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ed"),
-    "name": "MACEDONIAN"
+    "value": "MACEDONIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ee"),
-    "name": "MALAY"
+    "value": "MALAY"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ef"),
-    "name": "MANDARIN"
+    "value": "MANDARIN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299f0"),
-    "name": "MANX GAELIC"
+    "value": "MANX GAELIC"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299f1"),
-    "name": "MAORI"
+    "value": "MAORI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299f2"),
-    "name": "MARATHI"
+    "value": "MARATHI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299f3"),
-    "name": "MONGOLIAN"
+    "value": "MONGOLIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299f4"),
-    "name": "NEPALI"
+    "value": "NEPALI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299f5"),
-    "name": "NORWEGIAN"
+    "value": "NORWEGIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299f6"),
-    "name": "OJIBWE"
+    "value": "OJIBWE"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299f7"),
-    "name": "OSETIN"
+    "value": "OSETIN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299f8"),
-    "name": "PALI"
+    "value": "PALI"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299f9"),
-    "name": "PASHTO"
+    "value": "PASHTO"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299fa"),
-    "name": "PERSIAN"
+    "value": "PERSIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299fb"),
-    "name": "PIDGIN"
+    "value": "PIDGIN"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299fc"),
-    "name": "POLISH"
+    "value": "POLISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299fd"),
-    "name": "PONTIC"
+    "value": "PONTIC"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299fe"),
-    "name": "PORTUGUESE"
+    "value": "PORTUGUESE"
   },
   {
     "_id": ObjectId("594cb690472e11263c3299ff"),
-    "name": "PUNJABI"
+    "value": "PUNJABI"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a00"),
-    "name": "QUECHUA"
+    "value": "QUECHUA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a01"),
-    "name": "RHAETO - ROMANCE"
+    "value": "RHAETO - ROMANCE"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a02"),
-    "name": "ROMANIAN"
+    "value": "ROMANIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a03"),
-    "name": "ROMANY"
+    "value": "ROMANY"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a04"),
-    "name": "RUSSIAN"
+    "value": "RUSSIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a05"),
-    "name": "SANSKRIT"
+    "value": "SANSKRIT"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a06"),
-    "name": "SARDINIAN"
+    "value": "SARDINIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a07"),
-    "name": "SAXON"
+    "value": "SAXON"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a08"),
-    "name": "SCOTS"
+    "value": "SCOTS"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a09"),
-    "name": "SERBIAN"
+    "value": "SERBIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a0a"),
-    "name": "SHELTA"
+    "value": "SHELTA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a0b"),
-    "name": "SHIYEYI"
+    "value": "SHIYEYI"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a0c"),
-    "name": "SICILIAN"
+    "value": "SICILIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a0d"),
-    "name": "SINDHI"
+    "value": "SINDHI"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a0e"),
-    "name": "SINHALA"
+    "value": "SINHALA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a0f"),
-    "name": "SINHALESE"
+    "value": "SINHALESE"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a10"),
-    "name": "SLOVAK"
+    "value": "SLOVAK"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a11"),
-    "name": "SLOVENE"
+    "value": "SLOVENE"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a12"),
-    "name": "SLOVENIAN"
+    "value": "SLOVENIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a13"),
-    "name": "SOMALI"
+    "value": "SOMALI"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a14"),
-    "name": "SPANISH"
+    "value": "SPANISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a15"),
-    "name": "SUMERIAN"
+    "value": "SUMERIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a16"),
-    "name": "SWABIAN"
+    "value": "SWABIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a17"),
-    "name": "SWAHILI"
+    "value": "SWAHILI"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a18"),
-    "name": "SWEDISH"
+    "value": "SWEDISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a19"),
-    "name": "TAGALOG"
+    "value": "TAGALOG"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a1a"),
-    "name": "TAGNOBI"
+    "value": "TAGNOBI"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a1b"),
-    "name": "TAMAZIGHT"
+    "value": "TAMAZIGHT"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a1c"),
-    "name": "TAMIL"
+    "value": "TAMIL"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a1d"),
-    "name": "THAI"
+    "value": "THAI"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a1e"),
-    "name": "THARU"
+    "value": "THARU"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a1f"),
-    "name": "TIBETAN"
+    "value": "TIBETAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a20"),
-    "name": "TOK PISIN"
+    "value": "TOK PISIN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a21"),
-    "name": "TURKISH"
+    "value": "TURKISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a22"),
-    "name": "UKRAINIAN"
+    "value": "UKRAINIAN"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a23"),
-    "name": "URDU"
+    "value": "URDU"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a24"),
-    "name": "VIETNAMESE"
+    "value": "VIETNAMESE"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a25"),
-    "name": "WELSH"
+    "value": "WELSH"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a26"),
-    "name": "YENICHE"
+    "value": "YENICHE"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a27"),
-    "name": "YEVANIC"
+    "value": "YEVANIC"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a28"),
-    "name": "YIDDISH"
+    "value": "YIDDISH"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a29"),
-    "name": "YORUBA"
+    "value": "YORUBA"
   },
   {
     "_id": ObjectId("594cb690472e11263c329a2a"),
-    "name": "ZULU"
+    "value": "ZULU"
   }
 ]

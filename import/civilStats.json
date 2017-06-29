@@ -1,22 +1,22 @@
 ﻿[
   {
     "_id": ObjectId("594cb5fd472e11263c3291a6"),
-    "name": "SINGLE"
+    "value": "SINGLE"
   },
   {
     "_id": ObjectId("594cb5fd472e11263c3291a7"),
-    "name": "WIDOWED"
+    "value": "WIDOWED"
   },
   {
     "_id": ObjectId("594cb5fd472e11263c3291a8"),
-    "name": "MARRIED"
+    "value": "MARRIED"
   },
   {
     "_id": ObjectId("594cb5fd472e11263c3291a9"),
-    "name": "SEPARATED"
+    "value": "SEPARATED"
   },
   {
     "_id": ObjectId("594cb5fd472e11263c3291aa"),
-    "name": "OTHER"
+    "value": "OTHER"
   }
 ]

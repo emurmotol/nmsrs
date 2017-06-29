@@ -9,7 +9,7 @@ import (
 
 type Disability struct {
 	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
-	Name string        `json:"name" bson:"name"`
+	Value string        `json:"value" bson:"value"`
 }
 
 func (disability *Disability) Create() *Disability {
@@ -21,7 +21,7 @@ func (disability *Disability) Create() *Disability {
 }
 
 func Disabilities() []Disability {
-	disabilities := []Disability{}
+	var disabilities, disabilitiesArranged []Disability
 
 	if err := db.C("disabilities").Find(nil).All(&disabilities); err != nil {
 		if err == mgo.ErrNotFound {
@@ -30,7 +30,17 @@ func Disabilities() []Disability {
 		panic(err)
 	}
 	defer db.Close()
-	return disabilities
+	var disabilityOther Disability
+
+	for _, disability := range disabilities {
+		if disability.Id.Hex() == "594cb622472e11263c329906" {
+			disabilityOther = disability
+			continue
+		}
+		disabilitiesArranged = append(disabilitiesArranged, disability)
+	}
+	disabilitiesArranged = append(disabilitiesArranged, disabilityOther)
+	return disabilitiesArranged
 }
 
 func DisabilityById(id bson.ObjectId) *Disability {

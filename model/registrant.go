@@ -20,7 +20,7 @@ type PersonalInfo struct {
 	GivenName  string    `json:"givenName" bson:"givenName"`
 	MiddleName string    `json:"middleName" bson:"middleName"`
 	Birthdate  time.Time `json:"birthdate" bson:"birthdate"`
-	Password   string    `json:"password" bson:"password"`
+	Password   string    `json:"password,omitempty" bson:"password,omitempty"`
 }
 
 type BasicInfo struct {
@@ -33,12 +33,12 @@ type BasicInfo struct {
 	CivilStat      *CivilStat `json:"civilStat" bson:"civilStat"`
 	CivilStatOther string     `json:"civilStatOther" bson:"civilStatOther"`
 	Sex            *Sex       `json:"sex" bson:"sex"`
-	Age            int        `json:"age" bson:"age"`
+	Age            int        `json:"age,omitempty" bson:"age,omitempty"`
 	Height         float32    `json:"height" bson:"height"`
-	Weight         float32    `json:"weight" bson:"weight"`
-	LandlineNumber string     `json:"landlineNumber" bson:"landlineNumber"`
-	MobileNumber   string     `json:"mobileNumber" bson:"mobileNumber"`
-	Email          string     `json:"email" bson:"email"`
+	Weight         float32    `json:"weight,omitempty" bson:"weight,omitempty"`
+	LandlineNumber string     `json:"landlineNumber,omitempty" bson:"landlineNumber,omitempty"`
+	MobileNumber   string     `json:"mobileNumber,omitempty" bson:"mobileNumber,omitempty"`
+	Email          string     `json:"email,omitempty" bson:"email,omitempty"`
 }
 
 type Employment struct {
@@ -49,32 +49,32 @@ type Employment struct {
 	PrefOccs                 []*Position `json:"prefOccs" bson:"prefOccs"`
 	PrefLocalLoc             *CityMun    `json:"prefLocalLoc" bson:"prefLocalLoc"`
 	PrefOverseasLoc          *Country    `json:"prefOverseasLoc" bson:"prefOverseasLoc"`
-	PassportNumber           string      `json:"passportNumber" bson:"passportNumber"`
-	PassportNumberExpiryDate time.Time   `json:"passportNumberExpiryDate" bson:"passportNumberExpiryDate"`
+	PassportNumber           string      `json:"passportNumber,omitempty" bson:"passportNumber,omitempty"`
+	PassportNumberExpiryDate time.Time   `json:"passportNumberExpiryDate,omitempty" bson:"passportNumberExpiryDate,omitempty"`
 }
 
 type Disab struct {
 	IsDisabled bool        `json:"isDisabled" bson:"isDisabled"`
 	Name       *Disability `json:"name" bson:"name"`
-	Other      string      `json:"disab" bson:"Other"`
+	Other      string      `json:"other,omitempty" bson:"other,omitempty"`
 }
 
 type FormalEdu struct {
 	HighestGradeCompleted *EduLevel `json:"highestGradeCompleted" bson:"highestGradeCompleted"`
 	CourseDegree          *Course   `json:"courseDegree" bson:"courseDegree"`
 	SchoolUniv            *School   `json:"schoolUniv" bson:"schoolUniv"`
-	SchoolUnivOther       string    `json:"schoolUnivOther" bson:"schoolUnivOther"`
+	SchoolUnivOther       string    `json:"schoolUnivOther,omitempty" bson:"schoolUnivOther,omitempty"`
 	YearGrad              time.Time `json:"yearGrad" bson:"yearGrad"`
 	LastAttended          time.Time `json:"lastAttended" bson:"lastAttended"`
 }
 
 type FormalEduArr struct {
-	HighestGradeCompletedId string `json:"formalEduHighestGradeCompletedId"`
-	CourseDegreeId          string `json:"formalEduCourseDegreeId"`
-	SchoolUnivId            string `json:"formalEduSchoolUnivId"`
-	SchoolUnivOther         string `json:"formalEduSchoolUnivOther"`
-	YearGrad                string `json:"formalEduYearGrad"`
-	LastAttended            string `json:"formalEduLastAttended"`
+	HighestGradeCompletedId string `json:"highestGradeCompletedId"`
+	CourseDegreeId          string `json:"courseDegreeId"`
+	SchoolUnivId            string `json:"schoolUnivId"`
+	SchoolUnivOther         string `json:"schoolUnivOther"`
+	YearGrad                int    `json:"yearGrad"`
+	LastAttended            string `json:"lastAttended"`
 }
 
 type ProLicense struct {
@@ -83,8 +83,8 @@ type ProLicense struct {
 }
 
 type ProLicenseArr struct {
-	TitleId    string `json:"proLicenseTitleId"`
-	ExpiryDate string `json:"proLicenseExpiryDate"`
+	TitleId    string `json:"titleId"`
+	ExpiryDate string `json:"expiryDate"`
 }
 
 type Elig struct {
@@ -93,38 +93,38 @@ type Elig struct {
 }
 
 type EligArr struct {
-	TitleId   string `json:"eligTitleId"`
-	YearTaken string `json:"eligYearTaken"`
+	TitleId   string `json:"titleId"`
+	YearTaken string `json:"yearTaken"`
 }
 
 type Training struct {
 	Name                string `json:"name" bson:"name"`
-	SkillsAcquired      string `json:"skillsAcquired" bson:"skillsAcquired"`
+	SkillsAcquired      string `json:"skillsAcquired,omitempty" bson:"skillsAcquired,omitempty"`
 	PeriodOfTrainingExp string `json:"periodOfTrainingExp" bson:"periodOfTrainingExp"`
-	CertReceived        string `json:"certReceived" bson:"certReceived"`
+	CertReceived        string `json:"certReceived,omitempty" bson:"certReceived,omitempty"`
 	IssuingSchoolAgency string `json:"issuingSchoolAgency" bson:"issuingSchoolAgency"`
 }
 
 type TrainingArr struct {
-	Name                string `json:"trainingNameOfTraining"`
-	SkillsAcquired      string `json:"trainingSkillsAcquired"`
-	PeriodOfTrainingExp string `json:"trainingPeriodOfTrainingExp"`
-	CertReceived        string `json:"trainingCertReceived"`
-	IssuingSchoolAgency string `json:"trainingIssuingSchoolAgency"`
+	Name                string `json:"nameOfTraining"`
+	SkillsAcquired      string `json:"skillsAcquired"`
+	PeriodOfTrainingExp string `json:"periodOfTrainingExp"`
+	CertReceived        string `json:"certReceived"`
+	IssuingSchoolAgency string `json:"issuingSchoolAgency"`
 }
 
 type Cert struct {
 	Title      *Certificate `json:"title" bson:"title"`
-	Rating     string       `json:"rating" bson:"rating"`
+	Rating     string       `json:"rating,omitempty" bson:"rating,omitempty"`
 	IssuedBy   string       `json:"issuedBy" bson:"issuedBy"`
 	DateIssued time.Time    `json:"dateIssued" bson:"dateIssued"`
 }
 
 type CertArr struct {
-	TitleId    string `json:"certTitleId"`
-	Rating     string `json:"certRating"`
-	IssuedBy   string `json:"certIssuedBy"`
-	DateIssued string `json:"certDateIssued"`
+	TitleId    string `json:"titleId"`
+	Rating     string `json:"rating"`
+	IssuedBy   string `json:"issuedBy"`
+	DateIssued string `json:"dateIssued"`
 }
 
 type WorkExp struct {
@@ -137,12 +137,12 @@ type WorkExp struct {
 }
 
 type WorkExpArr struct {
-	NameOfCompanyFirm    string `json:"workExpNameOfCompanyFirm"`
-	Address              string `json:"workExpAddress"`
-	PositionHeldId       string `json:"workExpPositionHeldId"`
-	From                 string `json:"workExpFrom"`
-	To                   string `json:"workExpTo"`
-	IsRelatedToFormalEdu bool   `json:"workExpIsRelatedToFormalEdu"`
+	NameOfCompanyFirm    string `json:"nameOfCompanyFirm"`
+	Address              string `json:"address"`
+	PositionHeldId       string `json:"positionHeldId"`
+	From                 string `json:"from"`
+	To                   string `json:"to"`
+	IsRelatedToFormalEdu bool   `json:"isRelatedToFormalEdu"`
 }
 
 type Registrant struct {
@@ -151,19 +151,19 @@ type Registrant struct {
 	UpdatedAt       time.Time     `json:"updatedAt" bson:"updatedAt"`
 	RegisteredAt    time.Time     `json:"registeredAt" bson:"registeredAt"`
 	IAccept         bool          `json:"iAccept" bson:"iAccept"`
-	PersonalInfo    *PersonalInfo `json:"personalInfo" bson:"personalInfo"`
-	BasicInfo       *BasicInfo    `json:"basicInfo" bson:"basicInfo"`
-	Employment      *Employment   `json:"employment" bson:"employment"`
-	Disab           *Disab        `json:"disab" bson:"disab"`
-	Langs           []*Language   `json:"langs" bson:"langs"`
-	FormalEdus      []*FormalEdu  `json:"formalEdus" bson:"formalEdus"`
-	ProLicenses     []*ProLicense `json:"proLicenses" bson:"proLicenses"`
-	Eligs           []*Elig       `json:"eligs" bson:"eligs"`
-	Trainings       []*Training   `json:"trainings" bson:"trainings"`
-	Certs           []*Cert       `json:"certs" bson:"certs"`
-	WorkExps        []*WorkExp    `json:"workExps" bson:"workExps"`
-	OtherSkills     []*OtherSkill `json:"otherSkills" bson:"otherSkills"`
-	OtherSkillOther string        `json:"otherSkillOther" bson:"otherSkillOther"`
+	PersonalInfo    *PersonalInfo `json:"personalInfo,omitempty" bson:"personalInfo,omitempty"`
+	BasicInfo       *BasicInfo    `json:"basicInfo,omitempty" bson:"basicInfo,omitempty"`
+	Employment      *Employment   `json:"employment,omitempty" bson:"employment,omitempty"`
+	Disab           *Disab        `json:"disab,omitempty" bson:"disab,omitempty"`
+	Langs           []*Language   `json:"langs,omitempty" bson:"langs,omitempty"`
+	FormalEdus      []*FormalEdu  `json:"formalEdus,omitempty" bson:"formalEdus,omitempty"`
+	ProLicenses     []*ProLicense `json:"proLicenses,omitempty" bson:"proLicenses,omitempty"`
+	Eligs           []*Elig       `json:"eligs,omitempty" bson:"eligs,omitempty"`
+	Trainings       []*Training   `json:"trainings,omitempty" bson:"trainings,omitempty"`
+	Certs           []*Cert       `json:"certs,omitempty" bson:"certs,omitempty"`
+	WorkExps        []*WorkExp    `json:"workExps,omitempty" bson:"workExps,omitempty"`
+	OtherSkills     []*OtherSkill `json:"otherSkills,omitempty" bson:"otherSkills,omitempty"`
+	OtherSkillOther string        `json:"otherSkillOther,omitempty" bson:"otherSkillOther,omitempty"`
 }
 
 type CreateRegistrantForm struct {
@@ -258,12 +258,15 @@ func RegistrantEmailTaken(email string) bool {
 
 func (registrant *Registrant) Create() *Registrant {
 	registrant.Id = bson.NewObjectId()
-	hashed, err := bcrypt.GenerateFromPassword([]byte(registrant.PersonalInfo.Password), bcrypt.DefaultCost)
 
-	if err != nil {
-		panic(err)
+	if registrant.PersonalInfo.Password != "" {
+		hashed, err := bcrypt.GenerateFromPassword([]byte(registrant.PersonalInfo.Password), bcrypt.DefaultCost)
+
+		if err != nil {
+			panic(err)
+		}
+		registrant.PersonalInfo.Password = string(hashed)
 	}
-	registrant.PersonalInfo.Password = string(hashed)
 	registrant.CreatedAt = time.Now()
 	registrant.UpdatedAt = time.Now()
 
