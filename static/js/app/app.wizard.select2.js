@@ -288,8 +288,8 @@ $(function () {
 
     $("#basicInfoCityMunId").on("change", function () {
         var data = $(this).select2("data")[0];
-        $("#BasicInfoProvinceId").attr("data-id", data.provId);
-        $("#BasicInfoProvinceId").val(data.provDesc);
+        $("#basicInfoProvinceId").attr("data-id", data.provId);
+        $("#basicInfoProvinceId").val(data.provDesc);
 
         $("#basicInfoBarangayId").removeAttr("data-parsley-required");
         $("#basicInfoBarangayId").val(null).trigger("change");

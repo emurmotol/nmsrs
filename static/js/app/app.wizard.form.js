@@ -1,4 +1,6 @@
 $(function () {
+
+
     $("#empIsActivelyLookingForWork").on("change", function () {
         $(this).val($(this).prop("checked"));
     });
@@ -118,18 +120,26 @@ $(function () {
 
     previewImage("#personalInfoPhoto");
 
+    $("#personalInfoGivenName").on("keyup", function () {
+        $("#personalInfoPassword").val($(this).val().replace(/\s/g, "-") + "-" + $("#personalInfoFamilyName").val().replace(/\s/g, "-"));
+    });
+
+    $("#personalInfoFamilyName").on("keyup", function () {
+        $("#personalInfoPassword").val($("#personalInfoGivenName").val().replace(/\s/g, "-") + "-" + $(this).val().replace(/\s/g, "-"));
+    });
+
     $("#createRegistrantForm").parsley();
     $("#createRegistrantForm").on("submit", function () {
-        $("#personalInfoFamilyName").val($("#personalInfoFamilyName").toUpperCase());
-        $("#personalInfoGivenName").val($("#personalInfoGivenName").toUpperCase());
-        $("#personalInfoMiddleName").val($("#personalInfoMiddleName").toUpperCase());
-        $("#personalInfoPassword").val($("#personalInfoPassword").toUpperCase());
-        $("#basicInfoStSub").val($("#basicInfoStSub").toUpperCase());
+        $("#personalInfoFamilyName").val($("#personalInfoFamilyName").val().toUpperCase());
+        $("#personalInfoGivenName").val($("#personalInfoGivenName").val().toUpperCase());
+        $("#personalInfoMiddleName").val($("#personalInfoMiddleName").val().toUpperCase());
+        $("#personalInfoPassword").val($("#personalInfoPassword").val().toUpperCase());
+        $("#basicInfoStSub").val($("#basicInfoStSub").val().toUpperCase());
         $("#basicInfoProvinceId").val($("#basicInfoProvinceId").data("id"));
-        $("#basicInfoPlaceOfBirth").val($("#basicInfoPlaceOfBirth").toUpperCase());
-        $("#basicInfoCivilStatOther").val($("#basicInfoCivilStatOther").toUpperCase());
-        $("#basicInfoEmail").val($("#basicInfoEmail").toLowerCase());
-        $("#disabOther").val($("#disabOther").toUpperCase());
+        $("#basicInfoPlaceOfBirth").val($("#basicInfoPlaceOfBirth").val().toUpperCase());
+        $("#basicInfoCivilStatOther").val($("#basicInfoCivilStatOther").val().toUpperCase());
+        $("#basicInfoEmail").val($("#basicInfoEmail").val().toLowerCase());
+        $("#disabOther").val($("#disabOther").val().toUpperCase());
         var formalEduArr = [];
 
         $("#formalEduTable tbody tr").each(function () {
@@ -193,7 +203,7 @@ $(function () {
                 "positionHeldId": $(this).find(".work-exp-position-held-id").data("position-held-id"),
                 "from": $(this).find(".work-exp-from").data("from"),
                 "to": $(this).find(".work-exp-to").data("to"),
-                "isRelatedToFormalEdu": $(this).find(".work-exp-related-to-formal-edu").data("related-to-formal-edu")
+                "isRelatedToFormalEdu": $(this).find(".work-exp-is-related-to-formal-edu").data("is-related-to-formal-edu")
             });
         });
         $("#workExpJson").val(JSON.stringify(workExpArr));

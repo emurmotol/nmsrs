@@ -4,6 +4,7 @@
 * 64-bit press key `F5`
 
 ### Todo
+* fix basicInfoHeightInFeet responsive stack
 * select all not working
 * ~~ren empStatRadios regist create.gohtml~~
 * check row index if working

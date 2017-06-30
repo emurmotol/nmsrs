@@ -123,16 +123,16 @@
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Height</label>
                         <div class="col-lg-4">
-                            <input type="number" class="form-control" name="basicInfoHeightInFeet" id="basicInfoHeightInFeet" data-parsley-trigger="change" placeholder="FEET">
+                            <input type="number" class="form-control" name="basicInfoHeightInFeet" id="basicInfoHeightInFeet" data-parsley-min="1" data-parsley-trigger="change" placeholder="FEET">
                         </div>
                         <div class="col-lg-4">
-                            <input type="number" class="form-control" name="basicInfoHeightInInches" id="basicInfoHeightInInches" data-parsley-trigger="change" placeholder="INCHES">
+                            <input type="number" class="form-control" name="basicInfoHeightInInches" id="basicInfoHeightInInches" data-parsley-min="0" data-parsley-trigger="change" placeholder="INCHES">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="basicInfoWeight" class="col-lg-3 control-label">Weight (kg)</label>
                         <div class="col-lg-8">
-                            <input type="number" class="form-control" name="basicInfoWeight" id="basicInfoWeight" data-parsley-trigger="change">
+                            <input type="number" class="form-control" name="basicInfoWeight" id="basicInfoWeight" data-parsley-min="1" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">

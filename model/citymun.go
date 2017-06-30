@@ -40,43 +40,39 @@ func CityMunById(id bson.ObjectId) *CityMun {
 
 func (cityMun CityMun) ProvinceIndex(q string) []CityMunProv {
 	cityMunProv := []CityMunProv{}
+	lookup := bson.M{
+		"$lookup": bson.M{
+			"from":         "provinces",
+			"localField":   "provCode",
+			"foreignField": "code",
+			"as":           "province",
+		},
+	}
 	match := bson.M{
-		"$or": []bson.M{
-			bson.M{
-				"desc": bson.RegEx{
-					Pattern: q,
-					Options: "i",
+		"$match": bson.M{
+			"$or": []bson.M{
+				bson.M{
+					"desc": bson.RegEx{
+						Pattern: q,
+						Options: "i",
+					},
 				},
-			},
-			bson.M{
-				"province.desc": bson.RegEx{
-					Pattern: q,
-					Options: "i",
+				bson.M{
+					"province.desc": bson.RegEx{
+						Pattern: q,
+						Options: "i",
+					},
 				},
 			},
 		},
 	}
-
-	query := []bson.M{
-		bson.M{
-			"$lookup": bson.M{
-				"from":         "provinces",
-				"localField":   "provCode",
-				"foreignField": "code",
-				"as":           "province",
-			},
-		},
-		bson.M{
-			"$match": match,
-		},
-		bson.M{
-			"$sort": bson.M{
-				"desc": 1,
-			},
+	sort := bson.M{
+		"$sort": bson.M{
+			"desc": 1,
 		},
 	}
 
-	if err := db.C("cityMuns").Pipe(query).All(&cityMunProv); err != nil {
+	if err := db.C("cityMuns").Pipe([]bson.M{lookup, match, sort}).All(&cityMunProv); err != nil {
 		if err == mgo.ErrNotFound {
 			return nil
 		}

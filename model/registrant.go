@@ -24,14 +24,14 @@ type PersonalInfo struct {
 }
 
 type BasicInfo struct {
-	StSub          string     `json:"stSub" bson:"stSub"`
+	StSub          string     `json:"stSub,omitempty" bson:"stSub,omitempty"`
 	CityMun        *CityMun   `json:"cityMun,omitempty" bson:"cityMun,omitempty"`
 	Province       *Province  `json:"province" bson:"province"`
 	Barangay       *Barangay  `json:"barangay" bson:"barangay"`
 	PlaceOfBirth   string     `json:"placeOfBirth,omitempty" bson:"placeOfBirth,omitempty"`
 	Religion       *Religion  `json:"religion,omitempty" bson:"religion,omitempty"`
 	CivilStat      *CivilStat `json:"civilStat" bson:"civilStat"`
-	CivilStatOther string     `json:"civilStatOther" bson:"civilStatOther"`
+	CivilStatOther string     `json:"civilStatOther,omitempty" bson:"civilStatOther,omitempty"`
 	Sex            *Sex       `json:"sex" bson:"sex"`
 	Age            int        `json:"age,omitempty" bson:"age,omitempty"`
 	HeightInFeet   float32    `json:"heightInFeet,omitempty" bson:"heightInFeet,omitempty"`
@@ -177,7 +177,7 @@ type CreateRegistrantForm struct {
 	PersonalInfoPhotoHeader       *multipart.FileHeader `schema:"-"`
 	BasicInfoStSub                string                `schema:"basicInfoStSub"`
 	BasicInfoCityMunId            string                `schema:"basicInfoCityMunId" validate:"required"`
-	BasicInfoProvinceId           string                `schema:"BasicInfoProvinceId"`
+	BasicInfoProvinceId           string                `schema:"basicInfoProvinceId"`
 	BasicInfoBarangayId           string                `schema:"basicInfoBarangayId" validate:"required"`
 	BasicInfoPlaceOfBirth         string                `schema:"basicInfoPlaceOfBirth"`
 	BasicInfoReligionId           string                `schema:"basicInfoReligionId"`
@@ -238,8 +238,20 @@ func (createRegistrantForm *CreateRegistrantForm) IsValid() bool {
 
 func RegistrantByEmail(email string) *Registrant {
 	registrant := new(Registrant)
+	query := bson.M{
+		"$and": []bson.M{
+			bson.M{
+				"basicInfo.email": bson.M{
+					"$exists": true,
+				},
+			},
+			bson.M{
+				"basicInfo.email": email,
+			},
+		},
+	}
 
-	if err := db.C("registrant").Find(bson.M{"basicInfo.email": email}).One(registrant); err != nil {
+	if err := db.C("registrants").Find(query).One(registrant); err != nil {
 		if err == mgo.ErrNotFound {
 			return nil
 		}

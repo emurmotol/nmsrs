@@ -327,7 +327,7 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 }
 
 func RegistrantEmailTaken(w http.ResponseWriter, r *http.Request) {
-	if taken := model.RegistrantEmailTaken(r.URL.Query().Get("email")); taken {
+	if taken := model.RegistrantEmailTaken(r.URL.Query().Get("basicInfoEmail")); taken {
 		data := make(map[string]string)
 		data["error"] = lang.Get("emailTaken")
 		rd.JSON(w, http.StatusNotFound, data)

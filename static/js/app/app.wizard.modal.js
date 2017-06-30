@@ -751,7 +751,7 @@ $(function () {
                     <td class="work-exp-to" data-to="`+ workExpTo + `">
                         ` + workExpTo + `
                     </td>
-                    <td class="work-exp-related-to-formal-edu" data-related-to-formal-edu="`+ workExpIsRelatedToFormalEdu + `">
+                    <td class="work-exp-is-related-to-formal-edu" data-is-related-to-formal-edu="`+ workExpIsRelatedToFormalEdu + `">
                         ` + workExpIsRelatedToFormalEduText + `
                     </td>
                     <td class="text-center">
@@ -773,8 +773,8 @@ $(function () {
                 tr.find(".work-exp-from").data("from", workExpFrom);
                 tr.find(".work-exp-to").text(workExpTo);
                 tr.find(".work-exp-to").data("to", workExpTo);
-                tr.find(".work-exp-related-to-formal-edu").text(workExpIsRelatedToFormalEduText);
-                tr.find(".work-exp-related-to-formal-edu").data("related-to-formal-edu", workExpIsRelatedToFormalEdu);
+                tr.find(".work-exp-is-related-to-formal-edu").text(workExpIsRelatedToFormalEduText);
+                tr.find(".work-exp-is-related-to-formal-edu").data("is-related-to-formal-edu", workExpIsRelatedToFormalEdu);
                 $(this).removeAttr("data-edit-index");
                 break;
         }
@@ -802,7 +802,7 @@ $(function () {
             var workExpPositionHeldId = tr.find(".work-exp-position-held-id").data("position-held-id");
             var workExpFrom = tr.find(".work-exp-from").data("from");
             var workExpTo = tr.find(".work-exp-to").data("to");
-            var workExpIsRelatedToFormalEdu = tr.find(".work-exp-related-to-formal-edu").data("related-to-formal-edu");
+            var workExpIsRelatedToFormalEdu = tr.find(".work-exp-is-related-to-formal-edu").data("is-related-to-formal-edu");
 
             $("#workExpNameOfCompanyFirm").val(workExpNameOfCompanyFirm).trigger("change");
             $("#workExpAddress").val(workExpAddress).trigger("change");
@@ -856,8 +856,7 @@ $(function () {
         $("#workExpFrom").parsley().reset();
         $("#workExpTo").val("");
         $("#workExpTo").parsley().reset();
-        $("#workExpIsRelatedToFormalEdu").val(false).trigger("change");
-        $("#workExpIsRelatedToFormalEdu").prop("checked", false);
+        $("#workExpIsRelatedToFormalEdu").prop("checked", false).trigger("change");
     });
 
     $("#addWorkExpBtn").on("click", function () {
