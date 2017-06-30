@@ -8,7 +8,7 @@ import (
 )
 
 type Religion struct {
-	Id   bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
+	Id    bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
 	Value string        `json:"value" bson:"value"`
 }
 
@@ -23,7 +23,7 @@ func (religion *Religion) Create() *Religion {
 func (religion Religion) Index(q string) []Religion {
 	religions := []Religion{}
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
-	query := bson.M{"name": regex}
+	query := bson.M{"value": regex}
 
 	if err := db.C("religions").Find(query).All(&religions); err != nil {
 		if err == mgo.ErrNotFound {

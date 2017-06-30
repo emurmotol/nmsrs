@@ -22,7 +22,7 @@ func (language *Language) Create() *Language {
 func (language Language) Index(q string) []Language {
 	languages := []Language{}
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
-	query := bson.M{"name": regex}
+	query := bson.M{"value": regex}
 
 	if err := db.C("languages").Find(query).All(&languages); err != nil {
 		if err == mgo.ErrNotFound {

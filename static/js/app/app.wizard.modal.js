@@ -12,6 +12,7 @@ $(function () {
     });
 
     $("#formalEduLastAttended").datetimepicker({
+        viewMode: "years",
         format: "YYYY-MM"
     });
 
@@ -202,6 +203,7 @@ $(function () {
     var delProLicenseBtn = $("#delProLicenseBtn");
 
     $("#proLicenseExpiryDate").datetimepicker({
+        viewMode: "years",
         format: "YYYY-MM"
     });
 
@@ -561,6 +563,7 @@ $(function () {
     var delCertBtn = $("#delCertBtn");
 
     $("#certDateIssued").datetimepicker({
+        viewMode: "years",
         format: "YYYY-MM"
     });
 
@@ -693,6 +696,7 @@ $(function () {
     var delWorkExpBtn = $("#delWorkExpBtn");
 
     $("#workExpFrom").datetimepicker({
+        viewMode: "years",
         format: "YYYY-MM"
     });
 
@@ -701,6 +705,7 @@ $(function () {
     });
 
     $("#workExpTo").datetimepicker({
+        viewMode: "years",
         format: "YYYY-MM"
     });
 

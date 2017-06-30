@@ -23,7 +23,7 @@ func (eduLevel *EduLevel) Create() *EduLevel {
 func (eduLevel EduLevel) Index(q string) []EduLevel {
 	eduLevels := []EduLevel{}
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
-	query := bson.M{"name": regex}
+	query := bson.M{"value": regex}
 
 	if err := db.C("eduLevels").Find(query).All(&eduLevels); err != nil {
 		if err == mgo.ErrNotFound {

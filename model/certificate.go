@@ -23,7 +23,7 @@ func (certificate *Certificate) Create() *Certificate {
 func (certificate Certificate) Index(q string) []Certificate {
 	certificates := []Certificate{}
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
-	query := bson.M{"name": regex}
+	query := bson.M{"value": regex}
 
 	if err := db.C("certificates").Find(query).All(&certificates); err != nil {
 		if err == mgo.ErrNotFound {

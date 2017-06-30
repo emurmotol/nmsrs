@@ -22,7 +22,7 @@ func (school *School) Create() *School {
 func (school School) Index(q string) []School {
 	schools := []School{}
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
-	query := bson.M{"name": regex}
+	query := bson.M{"value": regex}
 
 	if err := db.C("schools").Find(query).All(&schools); err != nil {
 		if err == mgo.ErrNotFound {

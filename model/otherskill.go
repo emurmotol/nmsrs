@@ -22,7 +22,7 @@ func (otherSkill *OtherSkill) Create() *OtherSkill {
 func (otherSkill OtherSkill) Index(q string) []OtherSkill {
 	otherSkills := []OtherSkill{}
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
-	query := bson.M{"name": regex}
+	query := bson.M{"value": regex}
 
 	if err := db.C("otherSkills").Find(query).All(&otherSkills); err != nil {
 		if err == mgo.ErrNotFound {

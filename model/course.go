@@ -23,7 +23,7 @@ func (course *Course) Create() *Course {
 func (course Course) Index(q string) []Course {
 	courses := []Course{}
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
-	query := bson.M{"name": regex}
+	query := bson.M{"value": regex}
 
 	if err := db.C("courses").Find(query).All(&courses); err != nil {
 		if err == mgo.ErrNotFound {

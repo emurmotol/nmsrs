@@ -25,16 +25,17 @@ type PersonalInfo struct {
 
 type BasicInfo struct {
 	StSub          string     `json:"stSub" bson:"stSub"`
-	CityMun        *CityMun   `json:"cityMun" bson:"cityMun"`
+	CityMun        *CityMun   `json:"cityMun,omitempty" bson:"cityMun,omitempty"`
 	Province       *Province  `json:"province" bson:"province"`
 	Barangay       *Barangay  `json:"barangay" bson:"barangay"`
-	PlaceOfBirth   string     `json:"placeOfBirth" bson:"placeOfBirth"`
-	Religion       *Religion  `json:"religion" bson:"religion"`
+	PlaceOfBirth   string     `json:"placeOfBirth,omitempty" bson:"placeOfBirth,omitempty"`
+	Religion       *Religion  `json:"religion,omitempty" bson:"religion,omitempty"`
 	CivilStat      *CivilStat `json:"civilStat" bson:"civilStat"`
 	CivilStatOther string     `json:"civilStatOther" bson:"civilStatOther"`
 	Sex            *Sex       `json:"sex" bson:"sex"`
 	Age            int        `json:"age,omitempty" bson:"age,omitempty"`
-	Height         float32    `json:"height" bson:"height"`
+	HeightInFeet   float32    `json:"heightInFeet,omitempty" bson:"heightInFeet,omitempty"`
+	HeightInInches float32    `json:"heightInInches,omitempty" bson:"heightInInches,omitempty"`
 	Weight         float32    `json:"weight,omitempty" bson:"weight,omitempty"`
 	LandlineNumber string     `json:"landlineNumber,omitempty" bson:"landlineNumber,omitempty"`
 	MobileNumber   string     `json:"mobileNumber,omitempty" bson:"mobileNumber,omitempty"`
@@ -42,13 +43,13 @@ type BasicInfo struct {
 }
 
 type Employment struct {
-	Stat                     *EmpStat    `json:"stat" bson:"stat"`
-	UnEmpStat                *UnEmpStat  `json:"unEmpStatus" bson:"unEmpStat"`
-	TeminatedOverseasCountry *Country    `json:"teminatedOverseasCountry" bson:"teminatedOverseasCountry"`
+	Stat                     *EmpStat    `json:"stat,omitempty" bson:"stat,omitempty"`
+	UnEmpStat                *UnEmpStat  `json:"unEmpStatus,omitempty" bson:"unEmpStat,omitempty"`
+	TeminatedOverseasCountry *Country    `json:"teminatedOverseasCountry,omitempty" bson:"teminatedOverseasCountry,omitempty"`
 	IsActivelyLookingForWork bool        `json:"isActivelyLookingForWork" bson:"isActivelyLookingForWork"`
-	PrefOccs                 []*Position `json:"prefOccs" bson:"prefOccs"`
-	PrefLocalLoc             *CityMun    `json:"prefLocalLoc" bson:"prefLocalLoc"`
-	PrefOverseasLoc          *Country    `json:"prefOverseasLoc" bson:"prefOverseasLoc"`
+	PrefOccs                 []*Position `json:"prefOccs,omitempty" bson:"prefOccs,omitempty"`
+	PrefLocalLoc             *CityMun    `json:"prefLocalLoc,omitempty" bson:"prefLocalLoc,omitempty"`
+	PrefOverseasLoc          *Country    `json:"prefOverseasLoc,omitempty" bson:"prefOverseasLoc,omitempty"`
 	PassportNumber           string      `json:"passportNumber,omitempty" bson:"passportNumber,omitempty"`
 	PassportNumberExpiryDate time.Time   `json:"passportNumberExpiryDate,omitempty" bson:"passportNumberExpiryDate,omitempty"`
 }
@@ -174,28 +175,29 @@ type CreateRegistrantForm struct {
 	PersonalInfoPassword          string                `schema:"personalInfoPassword"`
 	PersonalInfoPhotoFile         multipart.File        `schema:"-"`
 	PersonalInfoPhotoHeader       *multipart.FileHeader `schema:"-"`
-	BasicInfoStSub                string                `schema:"basicInfoStSub" validate:"required"`
+	BasicInfoStSub                string                `schema:"basicInfoStSub"`
 	BasicInfoCityMunId            string                `schema:"basicInfoCityMunId" validate:"required"`
 	BasicInfoProvinceId           string                `schema:"BasicInfoProvinceId"`
 	BasicInfoBarangayId           string                `schema:"basicInfoBarangayId" validate:"required"`
-	BasicInfoPlaceOfBirth         string                `schema:"basicInfoPlaceOfBirth" validate:"required"`
-	BasicInfoReligionId           string                `schema:"basicInfoReligionId" validate:"required"`
+	BasicInfoPlaceOfBirth         string                `schema:"basicInfoPlaceOfBirth"`
+	BasicInfoReligionId           string                `schema:"basicInfoReligionId"`
 	BasicInfoCivilStatId          string                `schema:"basicInfoCivilStatId" validate:"required"`
 	BasicInfoCivilStatOther       string                `schema:"basicInfoCivilStatOther"`
 	BasicInfoSexId                string                `schema:"basicInfoSexId" validate:"required"`
 	BasicInfoAge                  int                   `schema:"basicInfoAge"`
-	BasicInfoHeight               float32               `schema:"basicInfoHeight" validate:"required"`
+	BasicInfoHeightInFeet         float32               `schema:"basicInfoHeightInFeet"`
+	BasicInfoHeightInInches       float32               `schema:"basicInfoHeightInInches"`
 	BasicInfoWeight               float32               `schema:"basicInfoWeight"`
 	BasicInfoLandlineNumber       string                `schema:"basicInfoLandlineNumber"`
 	BasicInfoMobileNumber         string                `schema:"basicInfoMobileNumber"`
 	BasicInfoEmail                string                `schema:"basicInfoEmail"`
-	EmpStatId                     string                `schema:"empStatId" validate:"required"`
+	EmpStatId                     string                `schema:"empStatId"`
 	EmpUnEmpStatId                string                `schema:"empUnEmpStatId"`
 	EmpTeminatedOverseasCountryId string                `schema:"empTeminatedOverseasCountryId"`
 	EmpIsActivelyLookingForWork   bool                  `schema:"empIsActivelyLookingForWork"`
-	EmpPrefOccIds                 []string              `schema:"empPrefOccIds" validate:"required"`
-	EmpPrefLocalLocId             string                `schema:"empPrefLocalLocId" validate:"required"`
-	EmpPrefOverseasLocId          string                `schema:"empPrefOverseasLocId" validate:"required"`
+	EmpPrefOccIds                 []string              `schema:"empPrefOccIds"`
+	EmpPrefLocalLocId             string                `schema:"empPrefLocalLocId"`
+	EmpPrefOverseasLocId          string                `schema:"empPrefOverseasLocId"`
 	EmpPassportNumber             string                `schema:"empPassportNumber"`
 	EmpPassportNumberExpiryDate   string                `schema:"empPassportNumberExpiryDate"`
 	DisabIsDisabled               bool                  `schema:"disabIsDisabled"`

@@ -4,6 +4,7 @@
 * 64-bit press key `F5`
 
 ### Todo
+* select all not working
 * ~~ren empStatRadios regist create.gohtml~~
 * check row index if working
 * fix login redirect when web server is reset on loggedInOnly middleware

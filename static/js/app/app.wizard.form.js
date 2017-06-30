@@ -17,6 +17,7 @@ $(function () {
     });
 
     $("#empPassportNumberExpiryDate").datetimepicker({
+        viewMode: "years",
         format: "YYYY-MM"
     });
 
@@ -119,7 +120,16 @@ $(function () {
 
     $("#createRegistrantForm").parsley();
     $("#createRegistrantForm").on("submit", function () {
-        $("#BasicInfoProvinceId").val($("#BasicInfoProvinceId").data("id"));
+        $("#personalInfoFamilyName").val($("#personalInfoFamilyName").toUpperCase());
+        $("#personalInfoGivenName").val($("#personalInfoGivenName").toUpperCase());
+        $("#personalInfoMiddleName").val($("#personalInfoMiddleName").toUpperCase());
+        $("#personalInfoPassword").val($("#personalInfoPassword").toUpperCase());
+        $("#basicInfoStSub").val($("#basicInfoStSub").toUpperCase());
+        $("#basicInfoProvinceId").val($("#basicInfoProvinceId").data("id"));
+        $("#basicInfoPlaceOfBirth").val($("#basicInfoPlaceOfBirth").toUpperCase());
+        $("#basicInfoCivilStatOther").val($("#basicInfoCivilStatOther").toUpperCase());
+        $("#basicInfoEmail").val($("#basicInfoEmail").toLowerCase());
+        $("#disabOther").val($("#disabOther").toUpperCase());
         var formalEduArr = [];
 
         $("#formalEduTable tbody tr").each(function () {

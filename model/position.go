@@ -22,7 +22,7 @@ func (position *Position) Create() *Position {
 func (position Position) Index(q string) []Position {
 	positions := []Position{}
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
-	query := bson.M{"name": regex}
+	query := bson.M{"value": regex}
 
 	if err := db.C("positions").Find(query).All(&positions); err != nil {
 		if err == mgo.ErrNotFound {

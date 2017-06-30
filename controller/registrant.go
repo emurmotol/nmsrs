@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"html/template"
 	"net/http"
-	"strings"
 
 	"gopkg.in/mgo.v2/bson"
 
 	"strconv"
+
+	"strings"
 
 	"github.com/emurmotol/nmsrs/helper"
 	"github.com/emurmotol/nmsrs/lang"
@@ -109,49 +110,60 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 		CreateRegistrant(w, r)
 		return
 	}
+	hasPhoto := false
+
+	if createRegistrantForm.PersonalInfoPhotoFile != nil {
+		hasPhoto = true
+	}
 
 	registrant := model.Registrant{
 		RegisteredAt: helper.ShortDate(createRegistrantForm.RegisteredAt),
 		IAccept:      createRegistrantForm.IAccept,
 		PersonalInfo: &model.PersonalInfo{
-			FamilyName: createRegistrantForm.PersonalInfoFamilyName,
-			GivenName:  createRegistrantForm.PersonalInfoGivenName,
-			MiddleName: createRegistrantForm.PersonalInfoMiddleName,
+			HasPhoto:   hasPhoto,
+			FamilyName: strings.ToUpper(createRegistrantForm.PersonalInfoFamilyName),
+			GivenName:  strings.ToUpper(createRegistrantForm.PersonalInfoGivenName),
+			MiddleName: strings.ToUpper(createRegistrantForm.PersonalInfoMiddleName),
 			Birthdate:  helper.ShortDate(createRegistrantForm.PersonalInfoBirthdate),
+			Password:   strings.ToUpper(createRegistrantForm.PersonalInfoPassword),
 		},
 		BasicInfo: &model.BasicInfo{
-			StSub:          createRegistrantForm.BasicInfoStSub,
-			CityMun:        model.CityMunById(bson.ObjectIdHex(createRegistrantForm.BasicInfoCityMunId)),
+			StSub:          strings.ToUpper(createRegistrantForm.BasicInfoStSub),
 			Province:       model.ProvinceById(bson.ObjectIdHex(createRegistrantForm.BasicInfoProvinceId)),
 			Barangay:       model.BarangayById(bson.ObjectIdHex(createRegistrantForm.BasicInfoBarangayId)),
-			PlaceOfBirth:   createRegistrantForm.BasicInfoPlaceOfBirth,
-			Religion:       model.ReligionById(bson.ObjectIdHex(createRegistrantForm.BasicInfoReligionId)),
+			PlaceOfBirth:   strings.ToUpper(createRegistrantForm.BasicInfoPlaceOfBirth),
 			CivilStat:      model.CivilStatById(bson.ObjectIdHex(createRegistrantForm.BasicInfoCivilStatId)),
-			CivilStatOther: createRegistrantForm.BasicInfoCivilStatOther,
+			CivilStatOther: strings.ToUpper(createRegistrantForm.BasicInfoCivilStatOther),
 			Sex:            model.SexById(bson.ObjectIdHex(createRegistrantForm.BasicInfoSexId)),
-			Height:         createRegistrantForm.BasicInfoHeight,
+			LandlineNumber: createRegistrantForm.BasicInfoLandlineNumber,
+			MobileNumber:   createRegistrantForm.BasicInfoMobileNumber,
+			Email:          strings.ToLower(createRegistrantForm.BasicInfoEmail),
 		},
 		Employment: &model.Employment{
-			Stat: model.EmpStatById(bson.ObjectIdHex(createRegistrantForm.EmpStatId)),
 			IsActivelyLookingForWork: createRegistrantForm.EmpIsActivelyLookingForWork,
-			PrefLocalLoc:             model.CityMunById(bson.ObjectIdHex(createRegistrantForm.EmpPrefLocalLocId)),
-			PrefOverseasLoc:          model.CountryById(bson.ObjectIdHex(createRegistrantForm.EmpPrefOverseasLocId)),
 			PassportNumber:           createRegistrantForm.EmpPassportNumber,
 		},
-		OtherSkillOther: createRegistrantForm.OtherSkillOther,
-	}
-	registrant.PersonalInfo.HasPhoto = false
-
-	if createRegistrantForm.BasicInfoLandlineNumber != "" {
-		registrant.BasicInfo.LandlineNumber = createRegistrantForm.BasicInfoLandlineNumber
+		OtherSkillOther: strings.ToUpper(createRegistrantForm.OtherSkillOther),
 	}
 
-	if createRegistrantForm.BasicInfoMobileNumber != "" {
-		registrant.BasicInfo.MobileNumber = createRegistrantForm.BasicInfoMobileNumber
+	if bson.IsObjectIdHex(createRegistrantForm.EmpStatId) {
+		registrant.Employment.Stat = model.EmpStatById(bson.ObjectIdHex(createRegistrantForm.EmpStatId))
 	}
 
-	if createRegistrantForm.BasicInfoEmail != "" {
-		registrant.BasicInfo.Email = strings.ToLower(createRegistrantForm.BasicInfoEmail)
+	if bson.IsObjectIdHex(createRegistrantForm.EmpPrefLocalLocId) {
+		registrant.Employment.PrefLocalLoc = model.CityMunById(bson.ObjectIdHex(createRegistrantForm.EmpPrefLocalLocId))
+	}
+
+	if bson.IsObjectIdHex(createRegistrantForm.EmpPrefOverseasLocId) {
+		registrant.Employment.PrefOverseasLoc = model.CountryById(bson.ObjectIdHex(createRegistrantForm.EmpPrefOverseasLocId))
+	}
+
+	if bson.IsObjectIdHex(createRegistrantForm.BasicInfoReligionId) {
+		registrant.BasicInfo.Religion = model.ReligionById(bson.ObjectIdHex(createRegistrantForm.BasicInfoReligionId))
+	}
+
+	if bson.IsObjectIdHex(createRegistrantForm.BasicInfoCityMunId) {
+		registrant.BasicInfo.CityMun = model.CityMunById(bson.ObjectIdHex(createRegistrantForm.BasicInfoCityMunId))
 	}
 
 	if createRegistrantForm.BasicInfoAge != 0 {
@@ -162,12 +174,12 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 		registrant.BasicInfo.Weight = createRegistrantForm.BasicInfoWeight
 	}
 
-	if createRegistrantForm.PersonalInfoPassword != "" {
-		registrant.PersonalInfo.Password = createRegistrantForm.PersonalInfoPassword
+	if createRegistrantForm.BasicInfoHeightInInches != 0 {
+		registrant.BasicInfo.HeightInInches = createRegistrantForm.BasicInfoHeightInInches
 	}
 
-	if createRegistrantForm.PersonalInfoPhotoFile != nil {
-		registrant.PersonalInfo.HasPhoto = true
+	if createRegistrantForm.BasicInfoHeightInFeet != 0 {
+		registrant.BasicInfo.HeightInFeet = createRegistrantForm.BasicInfoHeightInFeet
 	}
 
 	if bson.IsObjectIdHex(createRegistrantForm.EmpUnEmpStatId) {
@@ -178,10 +190,6 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 		registrant.Employment.TeminatedOverseasCountry = model.CountryById(bson.ObjectIdHex(createRegistrantForm.EmpTeminatedOverseasCountryId))
 	}
 
-	if createRegistrantForm.EmpPassportNumber != "" {
-		registrant.Employment.PassportNumber = createRegistrantForm.EmpPassportNumber
-	}
-
 	if createRegistrantForm.EmpPassportNumberExpiryDate != "" {
 		registrant.Employment.PassportNumberExpiryDate = helper.YearMonth(createRegistrantForm.EmpPassportNumberExpiryDate)
 	}
@@ -190,7 +198,7 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 		registrant.Disab = &model.Disab{
 			IsDisabled: createRegistrantForm.DisabIsDisabled,
 			Name:       model.DisabilityById(bson.ObjectIdHex(createRegistrantForm.DisabId)),
-			Other:      createRegistrantForm.DisabOther,
+			Other:      strings.ToUpper(createRegistrantForm.DisabOther),
 		}
 	}
 
@@ -222,16 +230,13 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 			formalEdu := &model.FormalEdu{
 				HighestGradeCompleted: model.EduLevelById(bson.ObjectIdHex(formalEduObj.HighestGradeCompletedId)),
 				CourseDegree:          model.CourseById(bson.ObjectIdHex(formalEduObj.CourseDegreeId)),
+				SchoolUnivOther:       strings.ToUpper(formalEduObj.SchoolUnivOther),
 				YearGrad:              helper.Year(strconv.Itoa(formalEduObj.YearGrad)),
 				LastAttended:          helper.YearMonth(formalEduObj.LastAttended),
 			}
 
 			if bson.IsObjectIdHex(formalEduObj.SchoolUnivId) {
 				formalEdu.SchoolUniv = model.SchoolById(bson.ObjectIdHex(formalEduObj.SchoolUnivId))
-			}
-
-			if formalEduObj.SchoolUnivOther != "" {
-				formalEdu.SchoolUnivOther = formalEduObj.SchoolUnivOther
 			}
 			registrant.FormalEdus = append(registrant.FormalEdus, formalEdu)
 		}
@@ -273,17 +278,11 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 	if len(trainingArr) != 0 {
 		for _, trainingObj := range trainingArr {
 			training := &model.Training{
-				Name:                trainingObj.Name,
-				PeriodOfTrainingExp: trainingObj.PeriodOfTrainingExp,
-				IssuingSchoolAgency: trainingObj.IssuingSchoolAgency,
-			}
-
-			if trainingObj.SkillsAcquired != "" {
-				training.SkillsAcquired = trainingObj.SkillsAcquired
-			}
-
-			if trainingObj.CertReceived != "" {
-				training.CertReceived = trainingObj.CertReceived
+				Name:                strings.ToUpper(trainingObj.Name),
+				SkillsAcquired:      strings.ToUpper(trainingObj.SkillsAcquired),
+				PeriodOfTrainingExp: strings.ToUpper(trainingObj.PeriodOfTrainingExp),
+				CertReceived:        strings.ToUpper(trainingObj.CertReceived),
+				IssuingSchoolAgency: strings.ToUpper(trainingObj.IssuingSchoolAgency),
 			}
 			registrant.Trainings = append(registrant.Trainings, training)
 		}
@@ -298,12 +297,9 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 		for _, certObj := range certArr {
 			cert := &model.Cert{
 				Title:      model.CertificateById(bson.ObjectIdHex(certObj.TitleId)),
-				IssuedBy:   certObj.IssuedBy,
+				Rating:     strings.ToUpper(certObj.Rating),
+				IssuedBy:   strings.ToUpper(certObj.IssuedBy),
 				DateIssued: helper.YearMonth(certObj.DateIssued),
-			}
-
-			if certObj.Rating != "" {
-				cert.Rating = certObj.Rating
 			}
 			registrant.Certs = append(registrant.Certs, cert)
 		}
@@ -317,8 +313,8 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 	if len(workExpArr) != 0 {
 		for _, workExpObj := range workExpArr {
 			registrant.WorkExps = append(registrant.WorkExps, &model.WorkExp{
-				NameOfCompanyFirm:    workExpObj.NameOfCompanyFirm,
-				Address:              workExpObj.Address,
+				NameOfCompanyFirm:    strings.ToUpper(workExpObj.NameOfCompanyFirm),
+				Address:              strings.ToUpper(workExpObj.Address),
 				PositionHeld:         model.PositionById(bson.ObjectIdHex(workExpObj.PositionHeldId)),
 				From:                 helper.YearMonth(workExpObj.From),
 				To:                   helper.YearMonth(workExpObj.To),

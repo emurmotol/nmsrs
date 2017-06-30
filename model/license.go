@@ -23,7 +23,7 @@ func (license *License) Create() *License {
 func (license License) Index(q string) []License {
 	licenses := []License{}
 	regex := bson.M{"$regex": bson.RegEx{Pattern: q, Options: "i"}}
-	query := bson.M{"name": regex}
+	query := bson.M{"value": regex}
 
 	if err := db.C("licenses").Find(query).All(&licenses); err != nil {
 		if err == mgo.ErrNotFound {
