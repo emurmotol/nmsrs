@@ -4,6 +4,7 @@
 * 64-bit press key `F5`
 
 ### Todo
+* add validations on modal wizard if already exists prevent adding
 * fix basicInfoHeightInFeet responsive stack
 * select all not working
 * ~~ren empStatRadios regist create.gohtml~~

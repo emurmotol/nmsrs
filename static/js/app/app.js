@@ -18,7 +18,7 @@ $(function () {
                             preview.attr("src", defaultPhoto);
                         });
                     }
-                    reader.readAsDataURL(photo.files[0]);
+                    reader.readAsDataURL(this.files[0]);
                 }
             } else {
                 preview.attr("src", defaultPhoto);

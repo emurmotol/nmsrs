@@ -1,6 +1,4 @@
 $(function () {
-
-
     $("#empIsActivelyLookingForWork").on("change", function () {
         $(this).val($(this).prop("checked"));
     });

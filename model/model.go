@@ -1,7 +1,6 @@
 package model
 
 import (
-	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -23,11 +22,9 @@ func init() {
 }
 
 func Load(reset bool) {
-	log.Println("Load: reset:", reset)
-
 	if reset {
-		drop()
-		clearContentDir()
+		go drop()
+		go clearContentDir()
 		seed()
 	}
 }
@@ -54,7 +51,6 @@ func clearContentDir() {
 		if err := os.RemoveAll(dir); err != nil {
 			panic(err)
 		}
-		log.Println("clearContentDir: cleared")
 	}
 }
 
@@ -71,14 +67,16 @@ func seed() {
 			}
 
 			if !info.IsDir() {
-				args := []string{
-					"-d", db.Name,
-					"-c", strings.TrimSuffix(info.Name(), filepath.Ext(path)),
-					"--jsonArray", path,
-				}
+				if filepath.Ext(path) == ".json" {
+					args := []string{
+						"-d", db.Name,
+						"-c", strings.TrimSuffix(info.Name(), filepath.Ext(path)),
+						"--jsonArray", path,
+					}
 
-				if err := exec.Command("mongoimport", args...).Run(); err != nil {
-					return err
+					if err := exec.Command("mongoimport", args...).Run(); err != nil {
+						return err
+					}
 				}
 			}
 			return nil

@@ -135,6 +135,12 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 			CivilStat:      model.CivilStatById(bson.ObjectIdHex(createRegistrantForm.BasicInfoCivilStatId)),
 			CivilStatOther: strings.ToUpper(createRegistrantForm.BasicInfoCivilStatOther),
 			Sex:            model.SexById(bson.ObjectIdHex(createRegistrantForm.BasicInfoSexId)),
+			Age:            createRegistrantForm.BasicInfoAge,
+			Height: &model.Height{
+				Feet:   createRegistrantForm.BasicInfoHeightInFeet,
+				Inches: createRegistrantForm.BasicInfoHeightInInches,
+			},
+			Weight:         createRegistrantForm.BasicInfoWeight,
 			LandlineNumber: createRegistrantForm.BasicInfoLandlineNumber,
 			MobileNumber:   createRegistrantForm.BasicInfoMobileNumber,
 			Email:          strings.ToLower(createRegistrantForm.BasicInfoEmail),
@@ -164,22 +170,6 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 
 	if bson.IsObjectIdHex(createRegistrantForm.BasicInfoCityMunId) {
 		registrant.BasicInfo.CityMun = model.CityMunById(bson.ObjectIdHex(createRegistrantForm.BasicInfoCityMunId))
-	}
-
-	if createRegistrantForm.BasicInfoAge != 0 {
-		registrant.BasicInfo.Age = createRegistrantForm.BasicInfoAge
-	}
-
-	if createRegistrantForm.BasicInfoWeight != 0 {
-		registrant.BasicInfo.Weight = createRegistrantForm.BasicInfoWeight
-	}
-
-	if createRegistrantForm.BasicInfoHeightInInches != 0 {
-		registrant.BasicInfo.HeightInInches = createRegistrantForm.BasicInfoHeightInInches
-	}
-
-	if createRegistrantForm.BasicInfoHeightInFeet != 0 {
-		registrant.BasicInfo.HeightInFeet = createRegistrantForm.BasicInfoHeightInFeet
 	}
 
 	if bson.IsObjectIdHex(createRegistrantForm.EmpUnEmpStatId) {

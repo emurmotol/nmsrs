@@ -23,6 +23,11 @@ type PersonalInfo struct {
 	Password   string    `json:"password,omitempty" bson:"password,omitempty"`
 }
 
+type Height struct {
+	Feet   float32 `json:"feet,omitempty" bson:"feet,omitempty"`
+	Inches float32 `json:"inches,omitempty" bson:"inches,omitempty"`
+}
+
 type BasicInfo struct {
 	StSub          string     `json:"stSub,omitempty" bson:"stSub,omitempty"`
 	CityMun        *CityMun   `json:"cityMun,omitempty" bson:"cityMun,omitempty"`
@@ -34,8 +39,7 @@ type BasicInfo struct {
 	CivilStatOther string     `json:"civilStatOther,omitempty" bson:"civilStatOther,omitempty"`
 	Sex            *Sex       `json:"sex" bson:"sex"`
 	Age            int        `json:"age,omitempty" bson:"age,omitempty"`
-	HeightInFeet   float32    `json:"heightInFeet,omitempty" bson:"heightInFeet,omitempty"`
-	HeightInInches float32    `json:"heightInInches,omitempty" bson:"heightInInches,omitempty"`
+	Height         *Height    `json:"height,omitempty" bson:"height,omitempty"`
 	Weight         float32    `json:"weight,omitempty" bson:"weight,omitempty"`
 	LandlineNumber string     `json:"landlineNumber,omitempty" bson:"landlineNumber,omitempty"`
 	MobileNumber   string     `json:"mobileNumber,omitempty" bson:"mobileNumber,omitempty"`
