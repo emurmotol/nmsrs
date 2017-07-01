@@ -57,23 +57,23 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="basicInfoCityMunId" class="col-lg-3 control-label">City/Municipality <span class="asterisk text-danger">*</span></label>
+                        <label for="basicInfoCityMunHexId" class="col-lg-3 control-label">City/Municipality <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" id="basicInfoCityMunId" name="basicInfoCityMunId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoCityMunIdErr"></select>
-                            <span id="basicInfoCityMunIdErr"></span>
+                            <select class="form-control" id="basicInfoCityMunHexId" name="basicInfoCityMunHexId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoCityMunHexIdErr"></select>
+                            <span id="basicInfoCityMunHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="basicInfoProvinceId" class="col-lg-3 control-label">Province</label>
+                        <label for="basicInfoProvinceHexId" class="col-lg-3 control-label">Province</label>
                         <div class="col-lg-8">
-                            <input type="text" class="form-control uppercase" name="basicInfoProvinceId" id="basicInfoProvinceId" data-parsley-minlength="2" data-parsley-trigger="change">
+                            <input type="text" class="form-control uppercase" name="basicInfoProvinceHexId" id="basicInfoProvinceHexId" data-parsley-minlength="2" data-parsley-trigger="change">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="basicInfoBarangayId" class="col-lg-3 control-label">Barangay <span class="asterisk text-danger">*</span></label>
+                        <label for="basicInfoBarangayHexId" class="col-lg-3 control-label">Barangay <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="basicInfoBarangayId" id="basicInfoBarangayId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoBarangayIdErr" disabled></select>
-                            <span id="basicInfoBarangayIdErr"></span>
+                            <select class="form-control" name="basicInfoBarangayHexId" id="basicInfoBarangayHexId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoBarangayHexIdErr" disabled></select>
+                            <span id="basicInfoBarangayHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -83,23 +83,23 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="basicInfoReligionId" class="col-lg-3 control-label">Religion</label>
+                        <label for="basicInfoReligionHexId" class="col-lg-3 control-label">Religion</label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="basicInfoReligionId" id="basicInfoReligionId" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoReligionIdErr"></select>
-                            <span id="basicInfoReligionIdErr"></span>
+                            <select class="form-control" name="basicInfoReligionHexId" id="basicInfoReligionHexId" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoReligionHexIdErr"></select>
+                            <span id="basicInfoReligionHexIdErr"></span>
                         </div>
                     </div>
-                    <div class="form-group" id="basicInfoCivilStatIdRadios">
-                        <label for="basicInfoCivilStatId" class="col-lg-3 control-label">Civil Status <span class="asterisk text-danger">*</span></label>
+                    <div class="form-group" id="basicInfoCivilStatHexIdRadios">
+                        <label for="basicInfoCivilStatHexId" class="col-lg-3 control-label">Civil Status <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
                             {{range $index, $civilStat := .civilStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="basicInfoCivilStatId" id="basicInfoCivilStatId_{{$index}}" value="{{$civilStat.Id.Hex}}"{{if eq $index 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoCivilStatIdErr"{{end}}> {{$civilStat.Value}}
+                                    <input type="radio" name="basicInfoCivilStatHexId" id="basicInfoCivilStatHexId_{{$index}}" value="{{$civilStat.Id.Hex}}"{{if eq $index 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoCivilStatHexIdErr"{{end}}> {{$civilStat.Value}}
                                 </label>
                             </div>
                             {{end}}
-                            <span id="basicInfoCivilStatIdErr"></span>
+                            <span id="basicInfoCivilStatHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -108,14 +108,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="basicInfoSexId" class="col-lg-3 control-label">Sex <span class="asterisk text-danger">*</span></label>
+                        <label for="basicInfoSexHexId" class="col-lg-3 control-label">Sex <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
                             {{range $index, $sex := .sexes}}
                             <label class="radio-inline">
-                                <input type="radio" name="basicInfoSexId" id="sex_{{$index}}" value="{{$sex.Id.Hex}}"{{if eq $index 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoSexIdErr"{{end}}> {{$sex.Value}}
+                                <input type="radio" name="basicInfoSexHexId" id="sex_{{$index}}" value="{{$sex.Id.Hex}}"{{if eq $index 0}} data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#basicInfoSexHexIdErr"{{end}}> {{$sex.Value}}
                             </label>
                             {{end}}
-                            <span id="basicInfoSexIdErr"></span>
+                            <span id="basicInfoSexHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -165,29 +165,29 @@
                     <i class="fa fa-briefcase"></i> Employment
                 </div>
                 <div class="panel-body">
-                    <div class="form-group" id="empStatIdRadios">
-                        <label for="empStatId" class="col-lg-3 control-label">Employment Status</label>
+                    <div class="form-group" id="empStatHexIdRadios">
+                        <label for="empStatHexId" class="col-lg-3 control-label">Employment Status</label>
                         <div class="col-lg-8">
                             {{range $index, $empStat := .empStats}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="empStatId" id="empStatId_{{$index}}" value="{{$empStat.Id.Hex}}"{{if eq $index 0}} data-parsley-trigger="change" data-parsley-errors-container="#empStatIdErr"{{end}}> {{$empStat.Value}}
+                                    <input type="radio" name="empStatHexId" id="empStatHexId_{{$index}}" value="{{$empStat.Id.Hex}}"{{if eq $index 0}} data-parsley-trigger="change" data-parsley-errors-container="#empStatHexIdErr"{{end}}> {{$empStat.Value}}
                                 </label>
                             </div>
                             {{end}}
-                            <span id="empStatIdErr"></span>
+                            <span id="empStatHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
-                            <select class="form-control" name="empUnEmpStatId" id="empUnEmpStatId" data-parsley-trigger="change" data-parsley-errors-container="#empUnEmpStatIdErr" disabled></select>
-                            <span id="empUnEmpStatIdErr"></span>
+                            <select class="form-control" name="empUnEmpStatHexId" id="empUnEmpStatHexId" data-parsley-trigger="change" data-parsley-errors-container="#empUnEmpStatHexIdErr" disabled></select>
+                            <span id="empUnEmpStatHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-lg-8 col-lg-offset-3">
-                            <select class="form-control" name="empTeminatedOverseasCountryId" id="empTeminatedOverseasCountryId" data-parsley-trigger="change" data-parsley-errors-container="#empTeminatedOverseasCountryIdErr" disabled></select>
-                            <span id="empTeminatedOverseasCountryIdErr"></span>
+                            <select class="form-control" name="empTeminatedOverseasCountryHexId" id="empTeminatedOverseasCountryHexId" data-parsley-trigger="change" data-parsley-errors-container="#empTeminatedOverseasCountryHexIdErr" disabled></select>
+                            <span id="empTeminatedOverseasCountryHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -200,24 +200,24 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="empPrefOccIds" class="col-lg-3 control-label">Preferred Occupation</label>
+                        <label for="empPrefOccHexIds" class="col-lg-3 control-label">Preferred Occupation</label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="empPrefOccIds" id="empPrefOccIds" multiple="multiple" data-parsley-trigger="change" data-parsley-errors-container="#empPrefOccIdsErr"></select>
-                            <span id="empPrefOccIdsErr"></span>
+                            <select class="form-control" name="empPrefOccHexIds" id="empPrefOccHexIds" multiple="multiple" data-parsley-trigger="change" data-parsley-errors-container="#empPrefOccHexIdsErr"></select>
+                            <span id="empPrefOccHexIdsErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="empPrefLocalLocId" class="col-lg-3 control-label">Local Location</label>
+                        <label for="empPrefLocalLocHexId" class="col-lg-3 control-label">Local Location</label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="empPrefLocalLocId" id="empPrefLocalLocId" data-parsley-trigger="change" data-parsley-errors-container="#empPrefLocalLocIdErr"></select>
-                            <span id="empPrefLocalLocIdErr"></span>
+                            <select class="form-control" name="empPrefLocalLocHexId" id="empPrefLocalLocHexId" data-parsley-trigger="change" data-parsley-errors-container="#empPrefLocalLocHexIdErr"></select>
+                            <span id="empPrefLocalLocHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="empPrefOverseasLocId" class="col-lg-3 control-label">Overseas Location</label>
+                        <label for="empPrefOverseasLocHexId" class="col-lg-3 control-label">Overseas Location</label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="empPrefOverseasLocId" id="empPrefOverseasLocId" data-parsley-trigger="change" data-parsley-errors-container="#empPrefOverseasLocIdErr"></select>
-                            <span id="empPrefOverseasLocIdErr"></span>
+                            <select class="form-control" name="empPrefOverseasLocHexId" id="empPrefOverseasLocHexId" data-parsley-trigger="change" data-parsley-errors-container="#empPrefOverseasLocHexIdErr"></select>
+                            <span id="empPrefOverseasLocHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -239,7 +239,7 @@
                     <i class="fa fa-wheelchair"></i> Disability
                 </div>
                 <div class="panel-body">
-                    <div class="form-group" id="disabIdRadios">
+                    <div class="form-group" id="disabHexIdRadios">
                         <label for="disab" class="col-lg-3 control-label">Disability</label>
                         <div class="col-lg-8">
                             <div class="checkbox">
@@ -250,11 +250,11 @@
                             {{range $index, $disab := .disabilities}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="disabId" id="disabId_{{$index}}" value="{{$disab.Id.Hex}}"{{if eq $index 0}} data-parsley-trigger="change" data-parsley-errors-container="#disabIdErr"{{end}} disabled> {{$disab.Value}}
+                                    <input type="radio" name="disabHexId" id="disabHexId_{{$index}}" value="{{$disab.Id.Hex}}"{{if eq $index 0}} data-parsley-trigger="change" data-parsley-errors-container="#disabHexIdErr"{{end}} disabled> {{$disab.Value}}
                                 </label>
                             </div>
                             {{end}}
-                            <span id="disabIdErr"></span>
+                            <span id="disabHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -270,10 +270,10 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="langIds" class="col-lg-3 control-label">Language</label>
+                        <label for="langHexIds" class="col-lg-3 control-label">Language</label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="langIds" id="langIds" multiple="multiple" data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#langIdsErr"></select>
-                            <span id="langIdsErr"></span>
+                            <select class="form-control" name="langHexIds" id="langHexIds" multiple="multiple" data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#langHexIdsErr"></select>
+                            <span id="langHexIdsErr"></span>
                         </div>
                     </div>
                 </div>
@@ -492,10 +492,10 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="otherSkillIds" class="col-lg-3 control-label">Skills </label>
+                        <label for="otherSkillHexIds" class="col-lg-3 control-label">Skills </label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="otherSkillIds" id="otherSkillIds" multiple="multiple" data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#otherSkillIdsErr"></select>
-                            <span id="otherSkillIdsErr"></span>
+                            <select class="form-control" name="otherSkillHexIds" id="otherSkillHexIds" multiple="multiple" data-parsley-mincheck="1" data-parsley-trigger="change" data-parsley-errors-container="#otherSkillHexIdsErr"></select>
+                            <span id="otherSkillHexIdsErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -563,24 +563,24 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="formalEduHighestGradeCompletedId" class="col-lg-3 control-label">Highest Grade Completed <span class="asterisk text-danger">*</span></label>
+                        <label for="formalEduHighestGradeCompletedHexId" class="col-lg-3 control-label">Highest Grade Completed <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" id="formalEduHighestGradeCompletedId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formalEduHighestGradeCompletedIdErr"></select>
-                            <span id="formalEduHighestGradeCompletedIdErr"></span>
+                            <select class="form-control" id="formalEduHighestGradeCompletedHexId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formalEduHighestGradeCompletedHexIdErr"></select>
+                            <span id="formalEduHighestGradeCompletedHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="formalEduCourseDegreeId" class="col-lg-3 control-label">Course/Degree <span class="asterisk text-danger">*</span></label>
+                        <label for="formalEduCourseDegreeHexId" class="col-lg-3 control-label">Course/Degree <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" id="formalEduCourseDegreeId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formalEduCourseDegreeIdErr"></select>
-                            <span id="formalEduCourseDegreeIdErr"></span>
+                            <select class="form-control" id="formalEduCourseDegreeHexId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formalEduCourseDegreeHexIdErr"></select>
+                            <span id="formalEduCourseDegreeHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="formalEduSchoolUnivId" class="col-lg-3 control-label">School/University <span class="asterisk text-danger">*</span></label>
+                        <label for="formalEduSchoolUnivHexId" class="col-lg-3 control-label">School/University <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" id="formalEduSchoolUnivId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formalEduSchoolUnivIdErr"></select>
-                            <span id="formalEduSchoolUnivIdErr"></span>
+                            <select class="form-control" id="formalEduSchoolUnivHexId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#formalEduSchoolUnivHexIdErr"></select>
+                            <span id="formalEduSchoolUnivHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -630,10 +630,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="proLicenseTitleId" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
+                        <label for="proLicenseTitleHexId" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="proLicenseTitleId" id="proLicenseTitleId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#proLicenseTitleIdErr"></select>
-                            <span id="proLicenseTitleIdErr"></span>
+                            <select class="form-control" name="proLicenseTitleHexId" id="proLicenseTitleHexId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#proLicenseTitleHexIdErr"></select>
+                            <span id="proLicenseTitleHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -663,10 +663,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="eligTitleId" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
+                        <label for="eligTitleHexId" class="col-lg-3 control-label">Title <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-8">
-                            <select class="form-control" name="eligTitleId" id="eligTitleId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#eligTitleIdErr"></select>
-                            <span id="eligTitleIdErr"></span>
+                            <select class="form-control" name="eligTitleHexId" id="eligTitleHexId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#eligTitleHexIdErr"></select>
+                            <span id="eligTitleHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -746,10 +746,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="certTitleId" class="col-lg-2 control-label">Title <span class="asterisk text-danger">*</span></label>
+                        <label for="certTitleHexId" class="col-lg-2 control-label">Title <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <select class="form-control" name="certTitleId" id="certTitleId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#certTitleIdErr"></select>
-                            <span id="certTitleIdErr"></span>
+                            <select class="form-control" name="certTitleHexId" id="certTitleHexId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#certTitleHexIdErr"></select>
+                            <span id="certTitleHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -803,10 +803,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="workExpPositionHeldId" class="col-lg-4 control-label">Position Held <span class="asterisk text-danger">*</span></label>
+                        <label for="workExpPositionHeldHexId" class="col-lg-4 control-label">Position Held <span class="asterisk text-danger">*</span></label>
                         <div class="col-lg-7">
-                            <select class="form-control" name="workExpPositionHeldId" id="workExpPositionHeldId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#workExpPositionHeldIdErr"></select>
-                            <span id="workExpPositionHeldIdErr"></span>
+                            <select class="form-control" name="workExpPositionHeldHexId" id="workExpPositionHeldHexId" data-parsley-required="true" data-parsley-trigger="change" data-parsley-errors-container="#workExpPositionHeldHexIdErr"></select>
+                            <span id="workExpPositionHeldHexIdErr"></span>
                         </div>
                     </div>
                     <div class="form-group">

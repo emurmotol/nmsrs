@@ -25,8 +25,8 @@ $(function () {
         $(this).parsley().validate();
     });
 
-    $("#basicInfoCivilStatIdRadios").find("input[type=radio]").on("change", function () {
-        if ($("input[name=basicInfoCivilStatId]:checked").val() == "594cb5fd472e11263c3291aa") {
+    $("#basicInfoCivilStatHexIdRadios").find("input[type=radio]").on("change", function () {
+        if ($("input[name=basicInfoCivilStatHexId]:checked").val() == "594cb5fd472e11263c3291aa") {
             $("#basicInfoCivilStatOther").attr("data-parsley-required", true);
             $("#basicInfoCivilStatOther").prop("disabled", false);
             $("#basicInfoCivilStatOther").focus();
@@ -38,24 +38,24 @@ $(function () {
         }
     });
 
-    $("#empStatIdRadios").find("input[type=radio]").on("change", function () {
-        if ($("input[name=empStatId]:checked").val() == "594cb674472e11263c32992f") {
-            $("#empUnEmpStatId").val(null).trigger("change");
-            $("#empUnEmpStatId").attr("data-parsley-required", true);
-            $("#empUnEmpStatId").prop("disabled", false);
-            $("#empUnEmpStatId").focus();
+    $("#empStatHexIdRadios").find("input[type=radio]").on("change", function () {
+        if ($("input[name=empStatHexId]:checked").val() == "594cb674472e11263c32992f") {
+            $("#empUnEmpStatHexId").val(null).trigger("change");
+            $("#empUnEmpStatHexId").attr("data-parsley-required", true);
+            $("#empUnEmpStatHexId").prop("disabled", false);
+            $("#empUnEmpStatHexId").focus();
         } else {
-            $("#empUnEmpStatId").removeAttr("data-parsley-required");
-            $("#empUnEmpStatId").val(null).trigger("change");
-            $("#empUnEmpStatId").prop("disabled", true);
-            $("#empTeminatedOverseasCountryId").removeAttr("data-parsley-required");
-            $("#empTeminatedOverseasCountryId").val(null).trigger("change");
-            $("#empTeminatedOverseasCountryId").prop("disabled", true);
+            $("#empUnEmpStatHexId").removeAttr("data-parsley-required");
+            $("#empUnEmpStatHexId").val(null).trigger("change");
+            $("#empUnEmpStatHexId").prop("disabled", true);
+            $("#empTeminatedOverseasCountryHexId").removeAttr("data-parsley-required");
+            $("#empTeminatedOverseasCountryHexId").val(null).trigger("change");
+            $("#empTeminatedOverseasCountryHexId").prop("disabled", true);
         }
     });
 
-    $("#disabIdRadios").find("input[type=radio]").on("change", function () {
-        if ($("input[name=disabId]:checked").val() == "594cb622472e11263c329906") {
+    $("#disabHexIdRadios").find("input[type=radio]").on("change", function () {
+        if ($("input[name=disabHexId]:checked").val() == "594cb622472e11263c329906") {
             $("#disabOther").attr("data-parsley-required", true);
             $("#disabOther").prop("disabled", false);
             $("#disabOther").focus();
@@ -69,16 +69,16 @@ $(function () {
 
     $("#disabIsDisabled").on("change", function () {
         $(this).val($(this).prop("checked"));
-        $("#disabId_0").parsley().reset();
+        $("#disabHexId_0").parsley().reset();
 
         if ($(this).prop("checked")) {
-            $("#disabId_0").attr("data-parsley-required", true);
-            $("#disabIdRadios").find("input[type=radio]").each(function () {
+            $("#disabHexId_0").attr("data-parsley-required", true);
+            $("#disabHexIdRadios").find("input[type=radio]").each(function () {
                 $(this).prop("disabled", false);
             });
         } else {
-            $("#disabId_0").removeAttr("data-parsley-required");
-            $("#disabIdRadios").find("input[type=radio]").each(function () {
+            $("#disabHexId_0").removeAttr("data-parsley-required");
+            $("#disabHexIdRadios").find("input[type=radio]").each(function () {
                 $(this).prop("disabled", true);
                 $(this).prop("checked", false);
             });
@@ -92,8 +92,8 @@ $(function () {
         $(this).val($(this).prop("checked"));
 
         if ($(this).prop("checked")) {
-            $("#otherSkillIds").val(null).trigger("change");
-            $("#otherSkillIds").prop("disabled", true);
+            $("#otherSkillHexIds").val(null).trigger("change");
+            $("#otherSkillHexIds").prop("disabled", true);
             $("#otherSkillOther").attr("data-parsley-required", true);
             $("#otherSkillOther").prop("disabled", false);
             $("#otherSkillOther").focus();
@@ -102,8 +102,8 @@ $(function () {
             $("#otherSkillOther").val("");
             $("#otherSkillOther").parsley().reset();
             $("#otherSkillOther").prop("disabled", true);
-            $("#otherSkillIds").prop("disabled", false);
-            $("#otherSkillIds").focus();
+            $("#otherSkillHexIds").prop("disabled", false);
+            $("#otherSkillHexIds").focus();
         }
     });
 
@@ -133,7 +133,7 @@ $(function () {
         $("#personalInfoMiddleName").val($("#personalInfoMiddleName").val().toUpperCase());
         $("#personalInfoPassword").val($("#personalInfoPassword").val().toUpperCase());
         $("#basicInfoStSub").val($("#basicInfoStSub").val().toUpperCase());
-        $("#basicInfoProvinceId").val($("#basicInfoProvinceId").data("id"));
+        $("#basicInfoProvinceHexId").val($("#basicInfoProvinceHexId").data("hex-id"));
         $("#basicInfoPlaceOfBirth").val($("#basicInfoPlaceOfBirth").val().toUpperCase());
         $("#basicInfoCivilStatOther").val($("#basicInfoCivilStatOther").val().toUpperCase());
         $("#basicInfoEmail").val($("#basicInfoEmail").val().toLowerCase());
@@ -142,10 +142,10 @@ $(function () {
 
         $("#formalEduTable tbody tr").each(function () {
             formalEduArr.push({
-                "highestGradeCompletedId": $(this).find(".formal-edu-highest-grade-completed-id").data("highest-grade-completed-id"),
-                "courseDegreeId": $(this).find(".formal-edu-course-degree-id").data("course-degree-id"),
-                "schoolUnivId": $(this).find(".formal-edu-school-univ-id").data("school-univ-id"),
-                "schoolUnivOther": $(this).find(".formal-edu-school-univ-id").data("school-univ-other"),
+                "highestGradeCompletedHexId": $(this).find(".formal-edu-highest-grade-completed-hex-id").data("highest-grade-completed-hex-id"),
+                "courseDegreeHexId": $(this).find(".formal-edu-course-degree-hex-id").data("course-degree-hex-id"),
+                "schoolUnivHexId": $(this).find(".formal-edu-school-univ-hex-id").data("school-univ-hex-id"),
+                "schoolUnivOther": $(this).find(".formal-edu-school-univ-hex-id").data("school-univ-other"),
                 "yearGrad": $(this).find(".formal-edu-year-grad").data("year-grad"),
                 "lastAttended": $(this).find(".formal-edu-last-attended").data("last-attended")
             });
@@ -155,7 +155,7 @@ $(function () {
 
         $("#proLicenseTable tbody tr").each(function () {
             proLicenseArr.push({
-                "titleId": $(this).find(".pro-license-title-id").data("title-id"),
+                "titleHexId": $(this).find(".pro-license-title-hex-id").data("title-hex-id"),
                 "expiryDate": $(this).find(".pro-license-expiry-date").data("expiry-date")
             });
         });
@@ -164,7 +164,7 @@ $(function () {
 
         $("#eligTable tbody tr").each(function () {
             eligArr.push({
-                "titleId": $(this).find(".elig-title-id").data("title-id"),
+                "titleHexId": $(this).find(".elig-title-hex-id").data("title-hex-id"),
                 "yearTaken": $(this).find(".elig-year-taken").data("year-taken")
             });
         });
@@ -185,7 +185,7 @@ $(function () {
 
         $("#certTable tbody tr").each(function () {
             certArr.push({
-                "titleId": $(this).find(".cert-title-id").data("title-id"),
+                "titleHexId": $(this).find(".cert-title-hex-id").data("title-hex-id"),
                 "rating": $(this).find(".cert-rating").data("rating"),
                 "issuedBy": $(this).find(".cert-issued-by").data("issued-by"),
                 "dateIssued": $(this).find(".cert-date-issued").data("date-issued")
@@ -198,7 +198,7 @@ $(function () {
             workExpArr.push({
                 "nameOfCompanyFirm": $(this).find(".work-exp-name-of-company-firm").data("name-of-company-firm"),
                 "address": $(this).find(".work-exp-address").data("address"),
-                "positionHeldId": $(this).find(".work-exp-position-held-id").data("position-held-id"),
+                "positionHeldHexId": $(this).find(".work-exp-position-held-hex-id").data("position-held-hex-id"),
                 "from": $(this).find(".work-exp-from").data("from"),
                 "to": $(this).find(".work-exp-to").data("to"),
                 "isRelatedToFormalEdu": $(this).find(".work-exp-is-related-to-formal-edu").data("is-related-to-formal-edu")

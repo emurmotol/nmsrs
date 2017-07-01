@@ -30,13 +30,13 @@ func strictSlash(str string) {
 	}
 }
 
-func PhotoPath(id uint64, typ string) string {
+func PhotoPath(id, typ string) string {
 	switch typ {
 	case "User":
-		return fmt.Sprintf("/users/%d/photo", id)
+		return fmt.Sprintf("/users/%s/photo", id)
 	case "Registrant":
-		return fmt.Sprintf("/registrants/%d/photo", id)
+		return fmt.Sprintf("/registrants/%s/photo", id)
 	default:
-		return fmt.Sprintf("/%s/%d/photo", strings.ToLower(typ), id)
+		return fmt.Sprintf("/%s/%s/photo", strings.ToLower(typ), id)
 	}
 }

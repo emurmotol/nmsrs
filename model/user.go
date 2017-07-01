@@ -89,7 +89,7 @@ func (createUserForm *CreateUserForm) IsValid() bool {
 }
 
 type EditProfileForm struct {
-	IdHex       string                `schema:"-"`
+	HexId       string                `schema:"-"`
 	Name        string                `schema:"name" validate:"required"`
 	Email       string                `schema:"email" validate:"required,email"`
 	IsAdmin     bool                  `schema:"isAdmin"`
@@ -105,7 +105,7 @@ func (editProfileForm *EditProfileForm) IsValid() bool {
 		editProfileForm.Errors = errs
 	}
 
-	if same := UserEmailSameAsOld(bson.ObjectIdHex(editProfileForm.IdHex), editProfileForm.Email); !same {
+	if same := UserEmailSameAsOld(bson.ObjectIdHex(editProfileForm.HexId), editProfileForm.Email); !same {
 		if taken := UserEmailTaken(editProfileForm.Email); taken {
 			editProfileForm.Errors["Email"] = lang.Get("emailTaken")
 		}

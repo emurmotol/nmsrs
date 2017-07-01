@@ -24,7 +24,12 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if val, ok := r.URL.Query()["isAdmin"]; ok {
-		query = append(query, bson.M{"isAdmin": val[0]})
+		isAdmin, err := strconv.ParseBool(val[0])
+
+		if err != nil {
+			panic(err)
+		}
+		query = append(query, bson.M{"isAdmin": isAdmin})
 	}
 
 	if val, ok := r.URL.Query()["q"]; ok {
@@ -56,7 +61,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		pagination.Page = 1
 	}
 	users := []model.User{}
-	db.C("users").Find(bson.M{"$and": query}).Skip(pagination.Offset()).Limit(limit).All(&users)
+	db.C("users").Find(bson.M{"$and": query}).Sort("-createdAt").Skip(pagination.Offset()).Limit(limit).All(&users)
 
 	data := make(map[string]interface{})
 	data["title"] = "Users"
@@ -122,9 +127,9 @@ func StoreUser(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	delete(r.PostForm, "photo")
-	createUserForm := model.CreateUserForm{}
+	createUserForm := new(model.CreateUserForm)
 
-	if err := decoder.Decode(&createUserForm, r.PostForm); err != nil {
+	if err := decoder.Decode(createUserForm, r.PostForm); err != nil {
 		panic(err)
 	}
 	createUserForm.PhotoFile = photoFile
@@ -135,7 +140,7 @@ func StoreUser(w http.ResponseWriter, r *http.Request) {
 		CreateUser(w, r)
 		return
 	}
-	user := model.User{
+	user := &model.User{
 		Name:     createUserForm.Name,
 		Email:    createUserForm.Email,
 		Password: createUserForm.Password,
@@ -195,12 +200,12 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		delete(r.PostForm, "photo")
-		editProfileForm := model.EditProfileForm{}
+		editProfileForm := new(model.EditProfileForm)
 
-		if err := decoder.Decode(&editProfileForm, r.PostForm); err != nil {
+		if err := decoder.Decode(editProfileForm, r.PostForm); err != nil {
 			panic(err)
 		}
-		editProfileForm.IdHex = userCtx.Id.Hex()
+		editProfileForm.HexId = userCtx.Id.Hex()
 		editProfileForm.PhotoFile = photoFile
 		editProfileForm.PhotoHeader = photoHeader
 
@@ -209,8 +214,8 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 			EditUser(w, r)
 			return
 		}
-		user := model.User{
-			Id:      bson.ObjectIdHex(editProfileForm.IdHex),
+		user := &model.User{
+			Id:      bson.ObjectIdHex(editProfileForm.HexId),
 			Name:    editProfileForm.Name,
 			Email:   editProfileForm.Email,
 			IsAdmin: editProfileForm.IsAdmin,
@@ -226,14 +231,14 @@ func UpdateProfile(w http.ResponseWriter, r *http.Request) {
 			Type:    "success",
 			Content: fmt.Sprintf(lang.Get("userSuccessUpdate"), user.Name),
 		})
-		http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", user.Id), http.StatusFound)
+		http.Redirect(w, r, fmt.Sprintf("/users/%s/edit", user.Id.Hex()), http.StatusFound)
 		return
 	}
 	helper.SetFlash(w, r, "alert", helper.Alert{
 		Type:    "danger",
 		Content: lang.Get("methodInvalid"),
 	})
-	http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", userCtx.Id), http.StatusFound)
+	http.Redirect(w, r, fmt.Sprintf("/users/%s/edit", userCtx.Id.Hex()), http.StatusFound)
 }
 
 func UserPasswordReset(w http.ResponseWriter, r *http.Request) {
@@ -244,9 +249,9 @@ func UserPasswordReset(w http.ResponseWriter, r *http.Request) {
 
 	if r.PostFormValue("_method") == "PUT" {
 		delete(r.PostForm, "_method")
-		passwordResetForm := model.PasswordResetForm{}
+		passwordResetForm := new(model.PasswordResetForm)
 
-		if err := decoder.Decode(&passwordResetForm, r.PostForm); err != nil {
+		if err := decoder.Decode(passwordResetForm, r.PostForm); err != nil {
 			panic(err)
 		}
 
@@ -255,7 +260,7 @@ func UserPasswordReset(w http.ResponseWriter, r *http.Request) {
 			EditUser(w, r)
 			return
 		}
-		user := model.User{
+		user := &model.User{
 			Id:       userCtx.Id,
 			Password: passwordResetForm.NewPassword,
 		}
@@ -264,14 +269,14 @@ func UserPasswordReset(w http.ResponseWriter, r *http.Request) {
 			Type:    "success",
 			Content: fmt.Sprintf(lang.Get("passwordSuccessUpdate")),
 		})
-		http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", user.Id), http.StatusFound)
+		http.Redirect(w, r, fmt.Sprintf("/users/%s/edit", user.Id.Hex()), http.StatusFound)
 		return
 	}
 	helper.SetFlash(w, r, "alert", helper.Alert{
 		Type:    "danger",
 		Content: lang.Get("methodInvalid"),
 	})
-	http.Redirect(w, r, fmt.Sprintf("/users/%d/edit", userCtx.Id), http.StatusFound)
+	http.Redirect(w, r, fmt.Sprintf("/users/%s/edit", userCtx.Id.Hex()), http.StatusFound)
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
@@ -304,7 +309,7 @@ func DeleteManyUser(w http.ResponseWriter, r *http.Request) {
 	if r.PostFormValue("_method") == "DELETE" {
 		var hexIds []string
 
-		if err := json.Unmarshal([]byte(r.PostFormValue("user_ids")), &hexIds); err != nil {
+		if err := json.Unmarshal([]byte(r.PostFormValue("userHexIds")), &hexIds); err != nil {
 			panic(err)
 		}
 		model.DeleteManyUser(hexIds)

@@ -1,5 +1,5 @@
 $(function () {
-    $("#workExpPositionHeldId").select2({
+    $("#workExpPositionHeldHexId").select2({
         placeholder: "SELECT POSITION",
         ajax: {
             url: "/api/positions",
@@ -19,7 +19,7 @@ $(function () {
         }
     });
 
-    $("#otherSkillIds").select2({
+    $("#otherSkillHexIds").select2({
         placeholder: "SELECT SKILL(S)",
         ajax: {
             url: "/api/otherskills",
@@ -39,7 +39,7 @@ $(function () {
         }
     });
 
-    $("#certTitleId").select2({
+    $("#certTitleHexId").select2({
         placeholder: "SELECT CERTIFICATE TITLE",
         ajax: {
             url: "/api/certificates",
@@ -59,7 +59,7 @@ $(function () {
         }
     });
 
-    $("#eligTitleId").select2({
+    $("#eligTitleHexId").select2({
         placeholder: "SELECT ELIGIBILITY TITLE",
         ajax: {
             url: "/api/eligibilities",
@@ -79,7 +79,7 @@ $(function () {
         }
     });
 
-    $("#proLicenseTitleId").select2({
+    $("#proLicenseTitleHexId").select2({
         placeholder: "SELECT LICENSE TITLE",
         ajax: {
             url: "/api/licenses",
@@ -99,7 +99,7 @@ $(function () {
         }
     });
 
-    $("#formalEduSchoolUnivId").select2({
+    $("#formalEduSchoolUnivHexId").select2({
         placeholder: "SELECT SCHOOL/UNIVERSITY",
         ajax: {
             url: "/api/schools",
@@ -119,7 +119,7 @@ $(function () {
         }
     });
 
-    $("#formalEduCourseDegreeId").select2({
+    $("#formalEduCourseDegreeHexId").select2({
         placeholder: "SELECT COURSE/DEGREE",
         ajax: {
             url: "/api/courses",
@@ -139,7 +139,7 @@ $(function () {
         }
     });
 
-    $("#formalEduHighestGradeCompletedId").select2({
+    $("#formalEduHighestGradeCompletedHexId").select2({
         placeholder: "SELECT HIGHEST GRADE COMPLETED",
         ajax: {
             url: "/api/edulevels",
@@ -159,7 +159,7 @@ $(function () {
         }
     });
 
-    $("#empPrefOccIds").select2({
+    $("#empPrefOccHexIds").select2({
         placeholder: "SELECT PREFERRED OCCUPATION(S)",
         ajax: {
             url: "/api/positions",
@@ -179,7 +179,7 @@ $(function () {
         }
     });
 
-    $("#empPrefLocalLocId").select2({
+    $("#empPrefLocalLocHexId").select2({
         placeholder: "SELECT PREFERRED LOCAL LOCATION",
         ajax: {
             url: "/api/citymuns/provinces",
@@ -199,7 +199,7 @@ $(function () {
         }
     });
 
-    $("#empPrefOverseasLocId").select2({
+    $("#empPrefOverseasLocHexId").select2({
         placeholder: "SELECT PREFERRED OVERSEAS LOCATION",
         ajax: {
             url: "/api/countries",
@@ -219,7 +219,7 @@ $(function () {
         }
     });
 
-    $("#langIds").select2({
+    $("#langHexIds").select2({
         placeholder: "SELECT LANGUAGE(S)",
         ajax: {
             url: "/api/languages",
@@ -239,7 +239,7 @@ $(function () {
         }
     });
 
-    $("#basicInfoReligionId").select2({
+    $("#basicInfoReligionHexId").select2({
         placeholder: "SELECT RELIGION",
         ajax: {
             url: "/api/religions",
@@ -259,12 +259,12 @@ $(function () {
         }
     });
 
-    $("#basicInfoBarangayId").select2({ placeholder: "SELECT BARANGAY" });
-    $("#basicInfoBarangayId").on("change", function () {
+    $("#basicInfoBarangayHexId").select2({ placeholder: "SELECT BARANGAY" });
+    $("#basicInfoBarangayHexId").on("change", function () {
         $("#basicInfoPlaceOfBirth").focus();
     });
 
-    $("#basicInfoCityMunId").select2({
+    $("#basicInfoCityMunHexId").select2({
         placeholder: "SELECT CITY/MUNICIPALITY",
         ajax: {
             url: "/api/citymuns/provinces",
@@ -286,18 +286,18 @@ $(function () {
         }
     });
 
-    $("#basicInfoCityMunId").on("change", function () {
+    $("#basicInfoCityMunHexId").on("change", function () {
         var data = $(this).select2("data")[0];
-        $("#basicInfoProvinceId").attr("data-id", data.provId);
-        $("#basicInfoProvinceId").val(data.provDesc);
+        $("#basicInfoProvinceHexId").attr("data-hex-id", data.provId);
+        $("#basicInfoProvinceHexId").val(data.provDesc);
 
-        $("#basicInfoBarangayId").removeAttr("data-parsley-required");
-        $("#basicInfoBarangayId").val(null).trigger("change");
-        $("#basicInfoBarangayId").attr("data-parsley-required", true);
-        $("#basicInfoBarangayId").select2({
+        $("#basicInfoBarangayHexId").removeAttr("data-parsley-required");
+        $("#basicInfoBarangayHexId").val(null).trigger("change");
+        $("#basicInfoBarangayHexId").attr("data-parsley-required", true);
+        $("#basicInfoBarangayHexId").select2({
             placeholder: "SELECT BARANGAY",
             ajax: {
-                url: "/api/citymuns/" + $("#basicInfoCityMunId").select2("val") + "/barangays",
+                url: "/api/citymuns/" + $("#basicInfoCityMunHexId").select2("val") + "/barangays",
                 delay: 250,
                 dataType: "json",
                 processResults: function (r) {
@@ -313,11 +313,11 @@ $(function () {
                 cache: true
             }
         });
-        $("#basicInfoBarangayId").prop("disabled", false);
-        $("#basicInfoBarangayId").focus();
+        $("#basicInfoBarangayHexId").prop("disabled", false);
+        $("#basicInfoBarangayHexId").focus();
     });
 
-    $("#empTeminatedOverseasCountryId").select2({
+    $("#empTeminatedOverseasCountryHexId").select2({
         placeholder: "SELECT COUNTRY GOT TERMINATED",
         ajax: {
             url: "/api/countries",
@@ -337,7 +337,7 @@ $(function () {
         }
     });
 
-    $("#empUnEmpStatId").select2({
+    $("#empUnEmpStatHexId").select2({
         placeholder: "SELECT UNEMPLOYED STATUS",
         ajax: {
             url: "/api/unempstats",
@@ -357,15 +357,15 @@ $(function () {
         }
     });
 
-    $("#empUnEmpStatId").on("change", function () {
+    $("#empUnEmpStatHexId").on("change", function () {
         if ($(this).select2("val") == "594cb702472e11263c32c495") {
-            $("#empTeminatedOverseasCountryId").attr("data-parsley-required", true);
-            $("#empTeminatedOverseasCountryId").prop("disabled", false);
-            $("#empTeminatedOverseasCountryId").focus();
+            $("#empTeminatedOverseasCountryHexId").attr("data-parsley-required", true);
+            $("#empTeminatedOverseasCountryHexId").prop("disabled", false);
+            $("#empTeminatedOverseasCountryHexId").focus();
         } else {
-            $("#empTeminatedOverseasCountryId").removeAttr("data-parsley-required");
-            $("#empTeminatedOverseasCountryId").val(null).trigger("change");
-            $("#empTeminatedOverseasCountryId").prop("disabled", true);
+            $("#empTeminatedOverseasCountryHexId").removeAttr("data-parsley-required");
+            $("#empTeminatedOverseasCountryHexId").val(null).trigger("change");
+            $("#empTeminatedOverseasCountryHexId").prop("disabled", true);
         }
     });
 

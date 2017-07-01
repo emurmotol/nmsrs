@@ -37,7 +37,7 @@
                     </thead>
                     <tbody>
                         {{range .users}}
-                        <tr data-id="{{.Id.Hex}}">
+                        <tr data-hex-id="{{.Id.Hex}}">
                             <td>
                                 <input type="checkbox" class="checkbox user-checkbox" value="{{.Id.Hex}}">
                             </td>
@@ -79,10 +79,10 @@
                 <label>Administrator?</label>
                 <div class="btn-group" data-toggle="buttons">
                     <label class="btn btn-default btn-xs">
-                        <input type="radio" name="isAdmin" value="1" autocomplete="off"> Yes
+                        <input type="radio" name="isAdmin" value="true" autocomplete="off"> Yes
                     </label>
                     <label class="btn btn-default btn-xs">
-                        <input type="radio" name="isAdmin" value="0" autocomplete="off"> No
+                        <input type="radio" name="isAdmin" value="false" autocomplete="off"> No
                     </label>
                 </div>
             </div>
@@ -104,7 +104,7 @@
             <div class="modal-footer">
                 <form action="/users/delete" method="POST" id="delUserForm">
                     <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="userIds">
+                    <input type="hidden" name="userHexIds" id="userHexIds">
                     <button type="button" class="btn btn-default" data-dismiss="modal" role="button">No</button>
                     <button type="submit" class="btn btn-danger" data-loading-text="Deleting user/s..." role="button">Yes, proceed</button>
                 </form>
@@ -120,16 +120,16 @@
         $(".pagination").rPage();
         
         if ($.url("?isAdmin") != null) {
-            if ($.url("?isAdmin") == 1) {
-                $("input[name=isAdmin][value=1]").parent("label").removeClass("btn-default");
-                $("input[name=isAdmin][value=1]").parent("label").addClass("btn-info");
-                $("input[name=isAdmin][value=1]").parent("label").addClass("active");
-                $("input[name=isAdmin][value=1]").prop("checked", true);
-            } else if ($.url("?isAdmin") == 0) {
-                $("input[name=isAdmin][value=0]").parent("label").removeClass("btn-default");
-                $("input[name=isAdmin][value=0]").parent("label").addClass("btn-info");
-                $("input[name=isAdmin][value=0]").parent("label").addClass("active");
-                $("input[name=isAdmin][value=0]").prop("checked", false);
+            if ($.url("?isAdmin") == "true") {
+                $("input[name=isAdmin][value=true]").parent("label").removeClass("btn-default");
+                $("input[name=isAdmin][value=true]").parent("label").addClass("btn-info");
+                $("input[name=isAdmin][value=true]").parent("label").addClass("active");
+                $("input[name=isAdmin][value=true]").prop("checked", true);
+            } else if ($.url("?isAdmin") == "false") {
+                $("input[name=isAdmin][value=false]").parent("label").removeClass("btn-default");
+                $("input[name=isAdmin][value=false]").parent("label").addClass("btn-info");
+                $("input[name=isAdmin][value=false]").parent("label").addClass("active");
+                $("input[name=isAdmin][value=false]").prop("checked", false);
             }
         }
 
@@ -172,14 +172,14 @@
         });
 
         $("#delUserForm").on("submit", function () {
-            var userIds = [];
+            var userHexIds = [];
 
             $(".user-checkbox").each(function () {
                 if ($(this).prop("checked")) {
-                    userIds.push(parseInt($(this).val()));
+                    userHexIds.push($(this).val());
                 }
             });
-            $(this).find("input[type=hidden][name=userIds]").val(JSON.stringify(userIds));
+            $(this).find("#userHexIds").val(JSON.stringify(userHexIds));
             duringSubmitDo(this);
         });
 

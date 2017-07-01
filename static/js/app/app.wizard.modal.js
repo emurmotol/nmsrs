@@ -23,16 +23,16 @@ $(function () {
     $("#formalEduForm").parsley();
     $("#formalEduForm").on("submit", function (e) {
         e.preventDefault();
-        var formalEduHighestGradeCompletedId = $("#formalEduHighestGradeCompletedId").select2("val");
-        var formalEduCourseDegreeId = $("#formalEduCourseDegreeId").select2("val");
-        var formalEduSchoolUnivId = $("#formalEduSchoolUnivId").select2("val") != null ? $("#formalEduSchoolUnivId").select2("val") : "";
+        var formalEduHighestGradeCompletedHexId = $("#formalEduHighestGradeCompletedHexId").select2("val");
+        var formalEduCourseDegreeHexId = $("#formalEduCourseDegreeHexId").select2("val");
+        var formalEduSchoolUnivHexId = $("#formalEduSchoolUnivHexId").select2("val") != null ? $("#formalEduSchoolUnivHexId").select2("val") : "";
         var formalEduSchoolUnivOther = $("#formalEduSchoolUnivOther").val().toUpperCase();
         var formalEduSchoolUnivText = formalEduSchoolUnivOther;
         var formalEduYearGrad = $("#formalEduYearGrad").val();
         var formalEduLastAttended = $("#formalEduLastAttended").val();
 
         if (!$("#formalEduSchoolUnivNotListed").prop("checked")) {
-            formalEduSchoolUnivText = $("#formalEduSchoolUnivId").select2("data")[0].text;
+            formalEduSchoolUnivText = $("#formalEduSchoolUnivHexId").select2("data")[0].text;
         }
 
         switch ($(this).attr("data-action")) {
@@ -43,13 +43,13 @@ $(function () {
                     <td class="formal-edu-checkbox">
                         <input type="checkbox" class="checkbox" id="formalEduCheckbox_` + formalEduIndex + `">
                     </td>
-                    <td class="formal-edu-highest-grade-completed-id" data-highest-grade-completed-id="`+ formalEduHighestGradeCompletedId + `">
-                        ` + $("#formalEduHighestGradeCompletedId").select2("data")[0].text + `
+                    <td class="formal-edu-highest-grade-completed-hex-id" data-highest-grade-completed-hex-id="`+ formalEduHighestGradeCompletedHexId + `">
+                        ` + $("#formalEduHighestGradeCompletedHexId").select2("data")[0].text + `
                     </td>
-                    <td class="formal-edu-course-degree-id" data-course-degree-id="`+ formalEduCourseDegreeId + `">
-                        ` + $("#formalEduCourseDegreeId").select2("data")[0].text + `
+                    <td class="formal-edu-course-degree-hex-id" data-course-degree-hex-id="`+ formalEduCourseDegreeHexId + `">
+                        ` + $("#formalEduCourseDegreeHexId").select2("data")[0].text + `
                     </td>
-                    <td class="formal-edu-school-univ-id" data-school-univ-id="`+ formalEduSchoolUnivId + `" data-school-univ-other="` + formalEduSchoolUnivOther + `">
+                    <td class="formal-edu-school-univ-hex-id" data-school-univ-hex-id="`+ formalEduSchoolUnivHexId + `" data-school-univ-other="` + formalEduSchoolUnivOther + `">
                         ` + formalEduSchoolUnivText + `
                     </td>
                     <td class="formal-edu-year-grad" data-year-grad="`+ formalEduYearGrad + `">
@@ -67,13 +67,13 @@ $(function () {
                 break;
             case "edit":
                 var tr = $("#formalEduTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".formal-edu-highest-grade-completed-id").text($("#formalEduHighestGradeCompletedId").select2("data")[0].text);
-                tr.find(".formal-edu-highest-grade-completed-id").data("highest-grade-completed-id", formalEduHighestGradeCompletedId);
-                tr.find(".formal-edu-course-degree-id").text($("#formalEduCourseDegreeId").select2("data")[0].text);
-                tr.find(".formal-edu-course-degree-id").data("course-degree-id", formalEduCourseDegreeId);
-                tr.find(".formal-edu-school-univ-id").text(formalEduSchoolUnivText);
-                tr.find(".formal-edu-school-univ-id").data("school-univ-id", formalEduSchoolUnivId);
-                tr.find(".formal-edu-school-univ-id").data("school-univ-other", formalEduSchoolUnivOther);
+                tr.find(".formal-edu-highest-grade-completed-hex-id").text($("#formalEduHighestGradeCompletedHexId").select2("data")[0].text);
+                tr.find(".formal-edu-highest-grade-completed-hex-id").data("highest-grade-completed-hex-id", formalEduHighestGradeCompletedHexId);
+                tr.find(".formal-edu-course-degree-hex-id").text($("#formalEduCourseDegreeHexId").select2("data")[0].text);
+                tr.find(".formal-edu-course-degree-hex-id").data("course-degree-hex-id", formalEduCourseDegreeHexId);
+                tr.find(".formal-edu-school-univ-hex-id").text(formalEduSchoolUnivText);
+                tr.find(".formal-edu-school-univ-hex-id").data("school-univ-hex-id", formalEduSchoolUnivHexId);
+                tr.find(".formal-edu-school-univ-hex-id").data("school-univ-other", formalEduSchoolUnivOther);
                 tr.find(".formal-edu-year-grad").text(formalEduYearGrad);
                 tr.find(".formal-edu-year-grad").data("year-grad", formalEduYearGrad);
                 tr.find(".formal-edu-last-attended").text(formalEduLastAttended);
@@ -100,25 +100,25 @@ $(function () {
 
         $(".formal-edu-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var formalEduHighestGradeCompletedId = tr.find(".formal-edu-highest-grade-completed-id").data("highest-grade-completed-id");
-            var formalEduCourseDegreeId = tr.find(".formal-edu-course-degree-id").data("course-degree-id");
-            var formalEduSchoolUnivId = tr.find(".formal-edu-school-univ-id").data("school-univ-id");
+            var formalEduHighestGradeCompletedHexId = tr.find(".formal-edu-highest-grade-completed-hex-id").data("highest-grade-completed-hex-id");
+            var formalEduCourseDegreeHexId = tr.find(".formal-edu-course-degree-hex-id").data("course-degree-hex-id");
+            var formalEduSchoolUnivHexId = tr.find(".formal-edu-school-univ-hex-id").data("school-univ-hex-id");
             var formalEduYearGrad = tr.find(".formal-edu-year-grad").data("year-grad");
             var formalEduLastAttended = tr.find(".formal-edu-last-attended").data("last-attended");
             var formalEduSchoolUnivNotListed = $("#formalEduSchoolUnivNotListed").val();
 
-            $("#formalEduHighestGradeCompletedId").val(formalEduHighestGradeCompletedId).trigger("change");
-            $("#formalEduCourseDegreeId").val(formalEduCourseDegreeId).trigger("change");
+            $("#formalEduHighestGradeCompletedHexId").val(formalEduHighestGradeCompletedHexId).trigger("change");
+            $("#formalEduCourseDegreeHexId").val(formalEduCourseDegreeHexId).trigger("change");
 
-            if (formalEduSchoolUnivId == "") {
-                var formalEduSchoolUnivOther = tr.find(".formal-edu-school-univ-id").data("school-univ-other");
+            if (formalEduSchoolUnivHexId == "") {
+                var formalEduSchoolUnivOther = tr.find(".formal-edu-school-univ-hex-id").data("school-univ-other");
                 $("#formalEduSchoolUnivOther").val(formalEduSchoolUnivOther).trigger("change");
             }
 
             if (formalEduSchoolUnivNotListed == "true") {
                 $("#formalEduSchoolUnivNotListed").prop("checked", true).trigger("change");
             } else {
-                $("#formalEduSchoolUnivId").val(formalEduSchoolUnivId).trigger("change");
+                $("#formalEduSchoolUnivHexId").val(formalEduSchoolUnivHexId).trigger("change");
                 $("#formalEduSchoolUnivNotListed").prop("checked", false).trigger("change");
             }
             $("#formalEduYearGrad").val(formalEduYearGrad).trigger("change");
@@ -153,20 +153,20 @@ $(function () {
 
     $("#formalEduModal").on("hidden.bs.modal", function () {
         $("#formalEduForm").removeAttr("data-action");
-        $("#formalEduSchoolUnivId").removeAttr("data-parsley-required");
-        $("#formalEduSchoolUnivId").val(null).trigger("change");
-        $("#formalEduSchoolUnivId").attr("data-parsley-required", true);
+        $("#formalEduSchoolUnivHexId").removeAttr("data-parsley-required");
+        $("#formalEduSchoolUnivHexId").val(null).trigger("change");
+        $("#formalEduSchoolUnivHexId").attr("data-parsley-required", true);
 
-        if ($("#formalEduSchoolUnivId").prop("disabled")) {
-            $("#formalEduSchoolUnivId").prop("disabled", false);
+        if ($("#formalEduSchoolUnivHexId").prop("disabled")) {
+            $("#formalEduSchoolUnivHexId").prop("disabled", false);
             $("#formalEduSchoolUnivOther").prop("disabled", true);
         }
-        $("#formalEduHighestGradeCompletedId").removeAttr("data-parsley-required");
-        $("#formalEduHighestGradeCompletedId").val(null).trigger("change");
-        $("#formalEduHighestGradeCompletedId").attr("data-parsley-required", true);
-        $("#formalEduCourseDegreeId").removeAttr("data-parsley-required");
-        $("#formalEduCourseDegreeId").val(null).trigger("change");
-        $("#formalEduCourseDegreeId").attr("data-parsley-required", true);
+        $("#formalEduHighestGradeCompletedHexId").removeAttr("data-parsley-required");
+        $("#formalEduHighestGradeCompletedHexId").val(null).trigger("change");
+        $("#formalEduHighestGradeCompletedHexId").attr("data-parsley-required", true);
+        $("#formalEduCourseDegreeHexId").removeAttr("data-parsley-required");
+        $("#formalEduCourseDegreeHexId").val(null).trigger("change");
+        $("#formalEduCourseDegreeHexId").attr("data-parsley-required", true);
         $("#formalEduSchoolUnivNotListed").prop("checked", false).trigger("change");
         $("#formalEduYearGrad").val("");
         $("#formalEduYearGrad").parsley().reset();
@@ -183,9 +183,9 @@ $(function () {
         $(this).val($(this).prop("checked"));
 
         if ($(this).prop("checked")) {
-            $("#formalEduSchoolUnivId").removeAttr("data-parsley-required");
-            $("#formalEduSchoolUnivId").val(null).trigger("change");
-            $("#formalEduSchoolUnivId").prop("disabled", true);
+            $("#formalEduSchoolUnivHexId").removeAttr("data-parsley-required");
+            $("#formalEduSchoolUnivHexId").val(null).trigger("change");
+            $("#formalEduSchoolUnivHexId").prop("disabled", true);
             $("#formalEduSchoolUnivOther").attr("data-parsley-required", true);
             $("#formalEduSchoolUnivOther").prop("disabled", false);
             $("#formalEduSchoolUnivOther").focus();
@@ -194,9 +194,9 @@ $(function () {
             $("#formalEduSchoolUnivOther").val("");
             $("#formalEduSchoolUnivOther").parsley().reset();
             $("#formalEduSchoolUnivOther").prop("disabled", true);
-            $("#formalEduSchoolUnivId").attr("data-parsley-required", true);
-            $("#formalEduSchoolUnivId").prop("disabled", false);
-            $("#formalEduSchoolUnivId").focus();
+            $("#formalEduSchoolUnivHexId").attr("data-parsley-required", true);
+            $("#formalEduSchoolUnivHexId").prop("disabled", false);
+            $("#formalEduSchoolUnivHexId").focus();
         }
     });
     var selectAllProLicense = $("#selectAllProLicense");
@@ -214,7 +214,7 @@ $(function () {
     $("#proLicenseForm").parsley();
     $("#proLicenseForm").on("submit", function (e) {
         e.preventDefault();
-        var proLicenseTitleId = $("#proLicenseTitleId").select2("val");
+        var proLicenseTitleHexId = $("#proLicenseTitleHexId").select2("val");
         var proLicenseExpiryDate = $("#proLicenseExpiryDate").val();
 
         switch ($(this).attr("data-action")) {
@@ -225,8 +225,8 @@ $(function () {
                     <td class="pro-license-checkbox">
                         <input type="checkbox" class="checkbox" id="proLicenseCheckbox_` + proLicenseIndex + `">
                     </td>
-                    <td class="pro-license-title-id" data-title-id="`+ proLicenseTitleId + `">
-                        ` + $("#proLicenseTitleId").select2("data")[0].text + `
+                    <td class="pro-license-title-hex-id" data-title-hex-id="`+ proLicenseTitleHexId + `">
+                        ` + $("#proLicenseTitleHexId").select2("data")[0].text + `
                     </td>
                     <td class="pro-license-expiry-date" data-expiry-date="`+ proLicenseExpiryDate + `">
                         ` + proLicenseExpiryDate + `
@@ -240,8 +240,8 @@ $(function () {
                 break;
             case "edit":
                 var tr = $("#proLicenseTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".pro-license-title-id").text($("#proLicenseTitleId").select2("data")[0].text);
-                tr.find(".pro-license-title-id").data("title-id", proLicenseTitleId);
+                tr.find(".pro-license-title-hex-id").text($("#proLicenseTitleHexId").select2("data")[0].text);
+                tr.find(".pro-license-title-hex-id").data("title-hex-id", proLicenseTitleHexId);
                 tr.find(".pro-license-expiry-date").text(proLicenseExpiryDate);
                 tr.find(".pro-license-expiry-date").data("expiry-date", proLicenseExpiryDate);
                 $(this).removeAttr("data-edit-index");
@@ -266,10 +266,10 @@ $(function () {
 
         $(".pro-license-expiry-date-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var proLicenseTitleId = tr.find(".pro-license-title-id").data("title-id");
+            var proLicenseTitleHexId = tr.find(".pro-license-title-hex-id").data("title-hex-id");
             var proLicenseExpiryDate = tr.find(".pro-license-expiry-date").data("expiry-date");
 
-            $("#proLicenseTitleId").val(proLicenseTitleId).trigger("change");
+            $("#proLicenseTitleHexId").val(proLicenseTitleHexId).trigger("change");
             $("#proLicenseExpiryDate").val(proLicenseExpiryDate).trigger("change");
             $("#proLicenseForm").attr("data-edit-index", tr.data("index"));
             $("#proLicenseForm").attr("data-action", "edit");
@@ -301,9 +301,9 @@ $(function () {
 
     $("#proLicenseModal").on("hidden.bs.modal", function () {
         $("#proLicenseForm").removeAttr("data-action");
-        $("#proLicenseTitleId").removeAttr("data-parsley-required");
-        $("#proLicenseTitleId").val(null).trigger("change");
-        $("#proLicenseTitleId").attr("data-parsley-required", true);
+        $("#proLicenseTitleHexId").removeAttr("data-parsley-required");
+        $("#proLicenseTitleHexId").val(null).trigger("change");
+        $("#proLicenseTitleHexId").attr("data-parsley-required", true);
         $("#proLicenseExpiryDate").val("");
         $("#proLicenseExpiryDate").parsley().reset();
     });
@@ -327,7 +327,7 @@ $(function () {
     $("#eligForm").parsley();
     $("#eligForm").on("submit", function (e) {
         e.preventDefault();
-        var eligTitleId = $("#eligTitleId").select2("val");
+        var eligTitleHexId = $("#eligTitleHexId").select2("val");
         var eligYearTaken = $("#eligYearTaken").val();
 
         switch ($(this).attr("data-action")) {
@@ -338,8 +338,8 @@ $(function () {
                     <td class="elig-checkbox">
                         <input type="checkbox" class="checkbox" id="eligCheckbox_` + eligIndex + `">
                     </td>
-                    <td class="elig-title-id" data-title-id="`+ eligTitleId + `">
-                        ` + $("#eligTitleId").select2("data")[0].text + `
+                    <td class="elig-title-hex-id" data-title-hex-id="`+ eligTitleHexId + `">
+                        ` + $("#eligTitleHexId").select2("data")[0].text + `
                     </td>
                     <td class="elig-year-taken" data-year-taken="`+ eligYearTaken + `">
                         ` + eligYearTaken + `
@@ -353,8 +353,8 @@ $(function () {
                 break;
             case "edit":
                 var tr = $("#eligTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".elig-title-id").text($("#eligTitleId").select2("data")[0].text);
-                tr.find(".elig-title-id").data("title-id", eligTitleId);
+                tr.find(".elig-title-hex-id").text($("#eligTitleHexId").select2("data")[0].text);
+                tr.find(".elig-title-hex-id").data("title-hex-id", eligTitleHexId);
                 tr.find(".elig-year-taken").text(eligYearTaken);
                 tr.find(".elig-year-taken").data("year-taken", eligYearTaken);
                 $(this).removeAttr("data-edit-index");
@@ -379,10 +379,10 @@ $(function () {
 
         $(".elig-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var eligTitleId = tr.find(".elig-title-id").data("title-id");
+            var eligTitleHexId = tr.find(".elig-title-hex-id").data("title-hex-id");
             var eligYearTaken = tr.find(".elig-year-taken").data("year-taken");
 
-            $("#eligTitleId").val(eligTitleId).trigger("change");
+            $("#eligTitleHexId").val(eligTitleHexId).trigger("change");
             $("#eligYearTaken").val(eligYearTaken).trigger("change");
             $("#eligForm").attr("data-edit-index", tr.data("index"));
             $("#eligForm").attr("data-action", "edit");
@@ -414,9 +414,9 @@ $(function () {
 
     $("#eligModal").on("hidden.bs.modal", function () {
         $("#eligForm").removeAttr("data-action");
-        $("#eligTitleId").removeAttr("data-parsley-required");
-        $("#eligTitleId").val(null).trigger("change");
-        $("#eligTitleId").attr("data-parsley-required", true);
+        $("#eligTitleHexId").removeAttr("data-parsley-required");
+        $("#eligTitleHexId").val(null).trigger("change");
+        $("#eligTitleHexId").attr("data-parsley-required", true);
         $("#eligYearTaken").val("");
         $("#eligYearTaken").parsley().reset();
     });
@@ -574,7 +574,7 @@ $(function () {
     $("#certForm").parsley();
     $("#certForm").on("submit", function (e) {
         e.preventDefault();
-        var certTitleId = $("#certTitleId").select2("val");
+        var certTitleHexId = $("#certTitleHexId").select2("val");
         var certRating = $("#certRating").val().toUpperCase();
         var certIssuedBy = $("#certIssuedBy").val().toUpperCase();
         var certDateIssued = $("#certDateIssued").val();
@@ -587,8 +587,8 @@ $(function () {
                     <td class="certCheckbox_">
                         <input type="checkbox" class="checkbox" id="certCheckbox_` + certIndex + `">
                     </td>
-                    <td class="cert-title-id" data-title-id="`+ certTitleId + `">
-                        ` + $("#certTitleId").select2("data")[0].text + `
+                    <td class="cert-title-hex-id" data-title-hex-id="`+ certTitleHexId + `">
+                        ` + $("#certTitleHexId").select2("data")[0].text + `
                     </td>
                     <td class="cert-rating" data-rating="`+ certRating + `">
                         ` + certRating + `
@@ -608,8 +608,8 @@ $(function () {
                 break;
             case "edit":
                 var tr = $("#certTable tbody").find(`tr[data-index="` + $(this).attr("data-edit-index") + `"]`);
-                tr.find(".cert-title-id").text($("#certTitleId").select2("data")[0].text);
-                tr.find(".cert-title-id").data("title-id", certTitleId);
+                tr.find(".cert-title-hex-id").text($("#certTitleHexId").select2("data")[0].text);
+                tr.find(".cert-title-hex-id").data("title-hex-id", certTitleHexId);
                 tr.find(".cert-rating").text(certRating);
                 tr.find(".cert-rating").data("rating", certRating);
                 tr.find(".cert-issued-by").text(certIssuedBy);
@@ -638,12 +638,12 @@ $(function () {
 
         $(".cert-edit-link").on("click", function () {
             var tr = $(this).closest("tr");
-            var certTitleId = tr.find(".cert-title-id").data("title-id");
+            var certTitleHexId = tr.find(".cert-title-hex-id").data("title-hex-id");
             var certRating = tr.find(".cert-rating").data("rating");
             var certIssuedBy = tr.find(".cert-issued-by").data("issued-by");
             var certDateIssued = tr.find(".cert-date-issued").data("date-issued");
 
-            $("#certTitleId").val(certTitleId).trigger("change");
+            $("#certTitleHexId").val(certTitleHexId).trigger("change");
             $("#certRating").val(certRating).trigger("change");
             $("#certIssuedBy").val(certIssuedBy).trigger("change");
             $("#certDateIssued").val(certDateIssued).trigger("change");
@@ -677,9 +677,9 @@ $(function () {
 
     $("#certModal").on("hidden.bs.modal", function () {
         $("#certForm").removeAttr("data-action");
-        $("#certTitleId").removeAttr("data-parsley-required");
-        $("#certTitleId").val(null).trigger("change");
-        $("#certTitleId").attr("data-parsley-required", true);
+        $("#certTitleHexId").removeAttr("data-parsley-required");
+        $("#certTitleHexId").val(null).trigger("change");
+        $("#certTitleHexId").attr("data-parsley-required", true);
         $("#certRating").val("");
         $("#certRating").parsley().reset();
         $("#certIssuedBy").val("");
@@ -722,7 +722,7 @@ $(function () {
         e.preventDefault();
         var workExpNameOfCompanyFirm = $("#workExpNameOfCompanyFirm").val().toUpperCase();
         var workExpAddress = $("#workExpAddress").val().toUpperCase();
-        var workExpPositionHeldId = $("#workExpPositionHeldId").select2("val");
+        var workExpPositionHeldHexId = $("#workExpPositionHeldHexId").select2("val");
         var workExpFrom = $("#workExpFrom").val();
         var workExpTo = $("#workExpTo").val();
         var workExpIsRelatedToFormalEdu = $("#workExpIsRelatedToFormalEdu").val();
@@ -742,8 +742,8 @@ $(function () {
                     <td class="work-exp-address" data-address="`+ workExpAddress + `">
                         ` + workExpAddress + `
                     </td>
-                    <td class="work-exp-position-held-id" data-position-held-id="`+ workExpPositionHeldId + `">
-                        ` + $("#workExpPositionHeldId").select2("data")[0].text + `
+                    <td class="work-exp-position-held-hex-id" data-position-held-hex-id="`+ workExpPositionHeldHexId + `">
+                        ` + $("#workExpPositionHeldHexId").select2("data")[0].text + `
                     </td>
                     <td class="work-exp-from" data-from="`+ workExpFrom + `">
                         ` + workExpFrom + `
@@ -767,8 +767,8 @@ $(function () {
                 tr.find(".work-exp-name-of-company-firm").data("name-of-company-firm", workExpNameOfCompanyFirm);
                 tr.find(".work-exp-address").text(workExpAddress);
                 tr.find(".work-exp-address").data("address", workExpAddress);
-                tr.find(".work-exp-position-held-id").text($("#workExpPositionHeldId").select2("data")[0].text);
-                tr.find(".work-exp-position-held-id").data("position-held-id", workExpPositionHeldId);
+                tr.find(".work-exp-position-held-hex-id").text($("#workExpPositionHeldHexId").select2("data")[0].text);
+                tr.find(".work-exp-position-held-hex-id").data("position-held-hex-id", workExpPositionHeldHexId);
                 tr.find(".work-exp-from").text(workExpFrom);
                 tr.find(".work-exp-from").data("from", workExpFrom);
                 tr.find(".work-exp-to").text(workExpTo);
@@ -799,14 +799,14 @@ $(function () {
             var tr = $(this).closest("tr");
             var workExpNameOfCompanyFirm = tr.find(".work-exp-name-of-company-firm").data("name-of-company-firm");
             var workExpAddress = tr.find(".work-exp-address").data("address");
-            var workExpPositionHeldId = tr.find(".work-exp-position-held-id").data("position-held-id");
+            var workExpPositionHeldHexId = tr.find(".work-exp-position-held-hex-id").data("position-held-hex-id");
             var workExpFrom = tr.find(".work-exp-from").data("from");
             var workExpTo = tr.find(".work-exp-to").data("to");
             var workExpIsRelatedToFormalEdu = tr.find(".work-exp-is-related-to-formal-edu").data("is-related-to-formal-edu");
 
             $("#workExpNameOfCompanyFirm").val(workExpNameOfCompanyFirm).trigger("change");
             $("#workExpAddress").val(workExpAddress).trigger("change");
-            $("#workExpPositionHeldId").val(workExpPositionHeldId).trigger("change");
+            $("#workExpPositionHeldHexId").val(workExpPositionHeldHexId).trigger("change");
             $("#workExpFrom").val(workExpFrom).trigger("change");
             $("#workExpTo").val(workExpTo).trigger("change");
 
@@ -849,9 +849,9 @@ $(function () {
         $("#workExpNameOfCompanyFirm").parsley().reset();
         $("#workExpAddress").val("");
         $("#workExpAddress").parsley().reset();
-        $("#workExpPositionHeldId").removeAttr("data-parsley-required");
-        $("#workExpPositionHeldId").val(null).trigger("change");
-        $("#workExpPositionHeldId").attr("data-parsley-required", true);
+        $("#workExpPositionHeldHexId").removeAttr("data-parsley-required");
+        $("#workExpPositionHeldHexId").val(null).trigger("change");
+        $("#workExpPositionHeldHexId").attr("data-parsley-required", true);
         $("#workExpFrom").val("");
         $("#workExpFrom").parsley().reset();
         $("#workExpTo").val("");

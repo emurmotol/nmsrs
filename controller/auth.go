@@ -35,9 +35,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		panic(err)
 	}
-	loginForm := model.LoginForm{}
+	loginForm := new(model.LoginForm)
 
-	if err := decoder.Decode(&loginForm, r.PostForm); err != nil {
+	if err := decoder.Decode(loginForm, r.PostForm); err != nil {
 		panic(err)
 	}
 

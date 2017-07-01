@@ -74,12 +74,12 @@ type FormalEdu struct {
 }
 
 type FormalEduArr struct {
-	HighestGradeCompletedId string `json:"highestGradeCompletedId"`
-	CourseDegreeId          string `json:"courseDegreeId"`
-	SchoolUnivId            string `json:"schoolUnivId"`
-	SchoolUnivOther         string `json:"schoolUnivOther"`
-	YearGrad                int    `json:"yearGrad"`
-	LastAttended            string `json:"lastAttended"`
+	HighestGradeCompletedHexId string `json:"highestGradeCompletedHexId"`
+	CourseDegreeHexId          string `json:"courseDegreeHexId"`
+	SchoolUnivHexId            string `json:"schoolUnivHexId"`
+	SchoolUnivOther            string `json:"schoolUnivOther"`
+	YearGrad                   int    `json:"yearGrad"`
+	LastAttended               string `json:"lastAttended"`
 }
 
 type ProLicense struct {
@@ -88,7 +88,7 @@ type ProLicense struct {
 }
 
 type ProLicenseArr struct {
-	TitleId    string `json:"titleId"`
+	TitleHexId string `json:"titleHexId"`
 	ExpiryDate string `json:"expiryDate"`
 }
 
@@ -98,8 +98,8 @@ type Elig struct {
 }
 
 type EligArr struct {
-	TitleId   string `json:"titleId"`
-	YearTaken string `json:"yearTaken"`
+	TitleHexId string `json:"titleHexId"`
+	YearTaken  string `json:"yearTaken"`
 }
 
 type Training struct {
@@ -126,7 +126,7 @@ type Cert struct {
 }
 
 type CertArr struct {
-	TitleId    string `json:"titleId"`
+	TitleHexId string `json:"titleHexId"`
 	Rating     string `json:"rating"`
 	IssuedBy   string `json:"issuedBy"`
 	DateIssued string `json:"dateIssued"`
@@ -144,7 +144,7 @@ type WorkExp struct {
 type WorkExpArr struct {
 	NameOfCompanyFirm    string `json:"nameOfCompanyFirm"`
 	Address              string `json:"address"`
-	PositionHeldId       string `json:"positionHeldId"`
+	PositionHeldHexId    string `json:"positionHeldHexId"`
 	From                 string `json:"from"`
 	To                   string `json:"to"`
 	IsRelatedToFormalEdu bool   `json:"isRelatedToFormalEdu"`
@@ -172,53 +172,53 @@ type Registrant struct {
 }
 
 type CreateRegistrantForm struct {
-	PersonalInfoFamilyName        string                `schema:"personalInfoFamilyName" validate:"required"`
-	PersonalInfoGivenName         string                `schema:"personalInfoGivenName" validate:"required"`
-	PersonalInfoMiddleName        string                `schema:"personalInfoMiddleName" validate:"required"`
-	PersonalInfoBirthdate         string                `schema:"personalInfoBirthdate" validate:"required"`
-	PersonalInfoPassword          string                `schema:"personalInfoPassword"`
-	PersonalInfoPhotoFile         multipart.File        `schema:"-"`
-	PersonalInfoPhotoHeader       *multipart.FileHeader `schema:"-"`
-	BasicInfoStSub                string                `schema:"basicInfoStSub"`
-	BasicInfoCityMunId            string                `schema:"basicInfoCityMunId" validate:"required"`
-	BasicInfoProvinceId           string                `schema:"basicInfoProvinceId"`
-	BasicInfoBarangayId           string                `schema:"basicInfoBarangayId" validate:"required"`
-	BasicInfoPlaceOfBirth         string                `schema:"basicInfoPlaceOfBirth"`
-	BasicInfoReligionId           string                `schema:"basicInfoReligionId"`
-	BasicInfoCivilStatId          string                `schema:"basicInfoCivilStatId" validate:"required"`
-	BasicInfoCivilStatOther       string                `schema:"basicInfoCivilStatOther"`
-	BasicInfoSexId                string                `schema:"basicInfoSexId" validate:"required"`
-	BasicInfoAge                  int                   `schema:"basicInfoAge"`
-	BasicInfoHeightInFeet         float32               `schema:"basicInfoHeightInFeet"`
-	BasicInfoHeightInInches       float32               `schema:"basicInfoHeightInInches"`
-	BasicInfoWeight               float32               `schema:"basicInfoWeight"`
-	BasicInfoLandlineNumber       string                `schema:"basicInfoLandlineNumber"`
-	BasicInfoMobileNumber         string                `schema:"basicInfoMobileNumber"`
-	BasicInfoEmail                string                `schema:"basicInfoEmail"`
-	EmpStatId                     string                `schema:"empStatId"`
-	EmpUnEmpStatId                string                `schema:"empUnEmpStatId"`
-	EmpTeminatedOverseasCountryId string                `schema:"empTeminatedOverseasCountryId"`
-	EmpIsActivelyLookingForWork   bool                  `schema:"empIsActivelyLookingForWork"`
-	EmpPrefOccIds                 []string              `schema:"empPrefOccIds"`
-	EmpPrefLocalLocId             string                `schema:"empPrefLocalLocId"`
-	EmpPrefOverseasLocId          string                `schema:"empPrefOverseasLocId"`
-	EmpPassportNumber             string                `schema:"empPassportNumber"`
-	EmpPassportNumberExpiryDate   string                `schema:"empPassportNumberExpiryDate"`
-	DisabIsDisabled               bool                  `schema:"disabIsDisabled"`
-	DisabId                       string                `schema:"disabId"`
-	DisabOther                    string                `schema:"disabOther"`
-	LangIds                       []string              `schema:"langIds"`
-	OtherSkillIds                 []string              `schema:"otherSkillIds"`
-	OtherSkillOther               string                `schema:"otherSkillOther"`
-	RegisteredAt                  string                `schema:"registeredAt"`
-	IAccept                       bool                  `schema:"iAccept"`
-	FormalEduJson                 string                `schema:"formalEduJson"`
-	ProLicenseJson                string                `schema:"proLicenseJson"`
-	EligJson                      string                `schema:"eligJson"`
-	TrainingJson                  string                `schema:"trainingJson"`
-	CertJson                      string                `schema:"certJson"`
-	WorkExpJson                   string                `schema:"workExpJson"`
-	Errors                        map[string]string     `schema:"-"`
+	PersonalInfoFamilyName           string                `schema:"personalInfoFamilyName" validate:"required"`
+	PersonalInfoGivenName            string                `schema:"personalInfoGivenName" validate:"required"`
+	PersonalInfoMiddleName           string                `schema:"personalInfoMiddleName" validate:"required"`
+	PersonalInfoBirthdate            string                `schema:"personalInfoBirthdate" validate:"required"`
+	PersonalInfoPassword             string                `schema:"personalInfoPassword"`
+	PersonalInfoPhotoFile            multipart.File        `schema:"-"`
+	PersonalInfoPhotoHeader          *multipart.FileHeader `schema:"-"`
+	BasicInfoStSub                   string                `schema:"basicInfoStSub"`
+	BasicInfoCityMunHexId            string                `schema:"basicInfoCityMunHexId" validate:"required"`
+	BasicInfoProvinceHexId           string                `schema:"basicInfoProvinceHexId"`
+	BasicInfoBarangayHexId           string                `schema:"basicInfoBarangayHexId" validate:"required"`
+	BasicInfoPlaceOfBirth            string                `schema:"basicInfoPlaceOfBirth"`
+	BasicInfoReligionHexId           string                `schema:"basicInfoReligionHexId"`
+	BasicInfoCivilStatHexId          string                `schema:"basicInfoCivilStatHexId" validate:"required"`
+	BasicInfoCivilStatOther          string                `schema:"basicInfoCivilStatOther"`
+	BasicInfoSexHexId                string                `schema:"basicInfoSexHexId" validate:"required"`
+	BasicInfoAge                     int                   `schema:"basicInfoAge"`
+	BasicInfoHeightInFeet            float32               `schema:"basicInfoHeightInFeet"`
+	BasicInfoHeightInInches          float32               `schema:"basicInfoHeightInInches"`
+	BasicInfoWeight                  float32               `schema:"basicInfoWeight"`
+	BasicInfoLandlineNumber          string                `schema:"basicInfoLandlineNumber"`
+	BasicInfoMobileNumber            string                `schema:"basicInfoMobileNumber"`
+	BasicInfoEmail                   string                `schema:"basicInfoEmail"`
+	EmpStatHexId                     string                `schema:"empStatHexId"`
+	EmpUnEmpStatHexId                string                `schema:"empUnEmpStatHexId"`
+	EmpTeminatedOverseasCountryHexId string                `schema:"empTeminatedOverseasCountryHexId"`
+	EmpIsActivelyLookingForWork      bool                  `schema:"empIsActivelyLookingForWork"`
+	EmpPrefOccHexIds                 []string              `schema:"empPrefOccHexIds"`
+	EmpPrefLocalLocHexId             string                `schema:"empPrefLocalLocHexId"`
+	EmpPrefOverseasLocHexId          string                `schema:"empPrefOverseasLocHexId"`
+	EmpPassportNumber                string                `schema:"empPassportNumber"`
+	EmpPassportNumberExpiryDate      string                `schema:"empPassportNumberExpiryDate"`
+	DisabIsDisabled                  bool                  `schema:"disabIsDisabled"`
+	DisabHexId                       string                `schema:"disabHexId"`
+	DisabOther                       string                `schema:"disabOther"`
+	LangHexIds                       []string              `schema:"langHexIds"`
+	OtherSkillHexIds                 []string              `schema:"otherSkillHexIds"`
+	OtherSkillOther                  string                `schema:"otherSkillOther"`
+	RegisteredAt                     string                `schema:"registeredAt"`
+	IAccept                          bool                  `schema:"iAccept"`
+	FormalEduJson                    string                `schema:"formalEduJson"`
+	ProLicenseJson                   string                `schema:"proLicenseJson"`
+	EligJson                         string                `schema:"eligJson"`
+	TrainingJson                     string                `schema:"trainingJson"`
+	CertJson                         string                `schema:"certJson"`
+	WorkExpJson                      string                `schema:"workExpJson"`
+	Errors                           map[string]string     `schema:"-"`
 }
 
 func (createRegistrantForm *CreateRegistrantForm) IsValid() bool {

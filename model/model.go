@@ -23,7 +23,7 @@ func init() {
 
 func Load(reset bool) {
 	if reset {
-		go drop()
+		drop()
 		go clearContentDir()
 		seed()
 	}
@@ -45,17 +45,15 @@ func drop() {
 }
 
 func clearContentDir() {
-	dir := filepath.Join(contentDir)
-
-	if _, err := os.Stat(dir); !os.IsNotExist(err) {
-		if err := os.RemoveAll(dir); err != nil {
+	if _, err := os.Stat(contentDir); !os.IsNotExist(err) {
+		if err := os.RemoveAll(contentDir); err != nil {
 			panic(err)
 		}
 	}
 }
 
 func seed() {
-	go createSuperUser()
+	createSuperUser()
 	go userSeeder()
 
 	go func() {
