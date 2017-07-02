@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/db"
+	
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -16,7 +16,6 @@ func (sex *Sex) Create() *Sex {
 	if err := db.C("sexes").Insert(sex); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return sex
 }
 
@@ -29,7 +28,6 @@ func Sexes() []Sex {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return sexes
 }
 

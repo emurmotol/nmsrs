@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/db"
+	
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -16,7 +16,6 @@ func (license *License) Create() *License {
 	if err := db.C("licenses").Insert(license); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return license
 }
 
@@ -31,7 +30,6 @@ func (license License) Index(q string) []License {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return licenses
 }
 

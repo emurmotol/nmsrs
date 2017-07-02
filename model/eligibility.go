@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/db"
+	
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -16,7 +16,6 @@ func (eligibility *Eligibility) Create() *Eligibility {
 	if err := db.C("eligibilities").Insert(eligibility); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return eligibility
 }
 
@@ -31,7 +30,6 @@ func (eligibility Eligibility) Index(q string) []Eligibility {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return eligibilities
 }
 

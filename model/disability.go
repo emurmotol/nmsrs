@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/db"
+	
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -16,7 +16,6 @@ func (disability *Disability) Create() *Disability {
 	if err := db.C("disabilities").Insert(disability); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return disability
 }
 
@@ -29,7 +28,6 @@ func Disabilities() []Disability {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	var disabilityOther Disability
 
 	for _, disability := range disabilities {

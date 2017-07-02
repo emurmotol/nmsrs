@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/db"
+	
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -15,7 +15,6 @@ func (school *School) Create() *School {
 	if err := db.C("schools").Insert(school); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return school
 }
 
@@ -30,7 +29,6 @@ func (school School) Index(q string) []School {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return schools
 }
 

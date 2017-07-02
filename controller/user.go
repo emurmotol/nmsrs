@@ -11,7 +11,7 @@ import (
 	"fmt"
 
 	"github.com/emurmotol/nmsrs/constant"
-	"github.com/emurmotol/nmsrs/db"
+	
 	"github.com/emurmotol/nmsrs/helper"
 	"github.com/emurmotol/nmsrs/lang"
 	"github.com/emurmotol/nmsrs/model"
@@ -42,7 +42,6 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 	count, _ := db.C("users").Find(bson.M{"$and": query}).Count()
-	defer db.Close()
 	page, err := strconv.Atoi(r.URL.Query().Get("page"))
 
 	if err != nil {

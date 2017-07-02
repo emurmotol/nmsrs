@@ -15,7 +15,7 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/emurmotol/nmsrs/constant"
-	"github.com/emurmotol/nmsrs/db"
+	
 	"github.com/emurmotol/nmsrs/env"
 	"github.com/emurmotol/nmsrs/helper"
 	"github.com/emurmotol/nmsrs/lang"
@@ -150,7 +150,6 @@ func (user User) Search(q string) []User {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return users
 }
 
@@ -162,7 +161,6 @@ func (user *User) Delete() {
 	if err := db.C("users").RemoveId(user.Id); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	dir := filepath.Join(contentDir, "users", user.Id.Hex())
 
 	if _, err := os.Stat(dir); !os.IsNotExist(err) {
@@ -194,7 +192,6 @@ func (user *User) Create() *User {
 	if err := db.C("users").Insert(user); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return user
 }
 
@@ -208,7 +205,6 @@ func (user *User) UpdateProfile() {
 	if err := db.C("users").UpdateId(user.Id, bson.M{"$set": user}); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 }
 
 func (user *User) ResetPassword() {
@@ -222,7 +218,6 @@ func (user *User) ResetPassword() {
 	if err := db.C("users").UpdateId(user.Id, bson.M{"$set": user}); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 }
 
 func UserById(id bson.ObjectId) *User {
@@ -234,7 +229,6 @@ func UserById(id bson.ObjectId) *User {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return user
 }
 
@@ -247,7 +241,6 @@ func UserByEmail(email string) *User {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return user
 }
 
@@ -329,7 +322,6 @@ func (user *User) SetPhoto(file multipart.File) error {
 	if err := db.C("users").UpdateId(user.Id, bson.M{"$set": user}); err != nil {
 		return err
 	}
-	defer db.Close()
 	return nil
 }
 

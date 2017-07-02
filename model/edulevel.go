@@ -4,7 +4,7 @@ import (
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 
-	"github.com/emurmotol/nmsrs/db"
+	
 )
 
 type EduLevel struct {
@@ -16,7 +16,6 @@ func (eduLevel *EduLevel) Create() *EduLevel {
 	if err := db.C("eduLevels").Insert(eduLevel); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return eduLevel
 }
 
@@ -31,7 +30,6 @@ func (eduLevel EduLevel) Index(q string) []EduLevel {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return eduLevels
 }
 

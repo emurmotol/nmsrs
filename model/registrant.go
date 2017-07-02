@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/emurmotol/nmsrs/db"
+	
 	"github.com/emurmotol/nmsrs/helper"
 	"github.com/emurmotol/nmsrs/lang"
 
@@ -261,7 +261,6 @@ func RegistrantByEmail(email string) *Registrant {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return registrant
 }
 
@@ -291,6 +290,5 @@ func (registrant *Registrant) Create() *Registrant {
 	if err := db.C("registrants").Insert(registrant); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return registrant
 }

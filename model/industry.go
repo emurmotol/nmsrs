@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/db"
+	
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -16,7 +16,6 @@ func (industry *Industry) Create() *Industry {
 	if err := db.C("industries").Insert(industry); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return industry
 }
 
@@ -31,6 +30,5 @@ func (industry Industry) Index(q string) []Industry {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return industries
 }

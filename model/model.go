@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/emurmotol/nmsrs/db"
+	"github.com/emurmotol/nmsrs/database"
 	"github.com/emurmotol/nmsrs/env"
 )
 
@@ -14,6 +14,7 @@ var (
 	count          int
 	contentDir     string
 	SuperUserEmail string
+	db             = database.Con()
 )
 
 func init() {
@@ -30,18 +31,17 @@ func Load(reset bool) {
 }
 
 func drop() {
-	cNames, _ := db.Session().DB(db.Name).CollectionNames()
+	cNames, _ := db.CollectionNames()
 
 	for _, cName := range cNames {
 		if cName == "system.indexes" {
 			continue
 		}
 
-		if err := db.Session().DB(db.Name).C(cName).DropCollection(); err != nil {
+		if err := db.C(cName).DropCollection(); err != nil {
 			panic(err)
 		}
 	}
-	defer db.Close()
 }
 
 func clearContentDir() {

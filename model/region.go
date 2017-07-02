@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/db"
+	
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -16,6 +16,5 @@ func (region *Region) Create() *Region {
 	if err := db.C("regions").Insert(region); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return region
 }

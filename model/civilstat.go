@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/db"
+	
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -16,7 +16,6 @@ func (civilStat *CivilStat) Create() *CivilStat {
 	if err := db.C("civilStats").Insert(civilStat); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return civilStat
 }
 
@@ -29,7 +28,6 @@ func CivilStats() []CivilStat {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	var civilStatOther CivilStat
 
 	for _, civilStat := range civilStats {

@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/db"
+	
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -16,7 +16,6 @@ func (certificate *Certificate) Create() *Certificate {
 	if err := db.C("certificates").Insert(certificate); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return certificate
 }
 
@@ -31,7 +30,6 @@ func (certificate Certificate) Index(q string) []Certificate {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return certificates
 }
 

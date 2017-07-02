@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/db"
+	
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -15,7 +15,6 @@ func (position *Position) Create() *Position {
 	if err := db.C("positions").Insert(position); err != nil {
 		panic(err)
 	}
-	defer db.Close()
 	return position
 }
 
@@ -30,7 +29,6 @@ func (position Position) Index(q string) []Position {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return positions
 }
 

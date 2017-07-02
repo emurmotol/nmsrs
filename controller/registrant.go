@@ -18,8 +18,7 @@ import (
 )
 
 // func GetRegistrants(w http.ResponseWriter, r *http.Request) {
-// 	db := database.Con()
-// 	defer db.Close()
+// 	
 
 // 	query := db.Model(&model.Registrant{})
 // 	query.Count(&count)
@@ -136,10 +135,6 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 			CivilStatOther: strings.ToUpper(createRegistrantForm.BasicInfoCivilStatOther),
 			Sex:            model.SexById(bson.ObjectIdHex(createRegistrantForm.BasicInfoSexHexId)),
 			Age:            createRegistrantForm.BasicInfoAge,
-			Height: &model.Height{
-				Feet:   createRegistrantForm.BasicInfoHeightInFeet,
-				Inches: createRegistrantForm.BasicInfoHeightInInches,
-			},
 			Weight:         createRegistrantForm.BasicInfoWeight,
 			LandlineNumber: createRegistrantForm.BasicInfoLandlineNumber,
 			MobileNumber:   createRegistrantForm.BasicInfoMobileNumber,
@@ -172,6 +167,13 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 		registrant.BasicInfo.CityMun = model.CityMunById(bson.ObjectIdHex(createRegistrantForm.BasicInfoCityMunHexId))
 	}
 
+	if createRegistrantForm.BasicInfoHeightInFeet != 0 && createRegistrantForm.BasicInfoHeightInInches != 0 {
+		registrant.BasicInfo.Height = &model.Height{
+			Feet:   createRegistrantForm.BasicInfoHeightInFeet,
+			Inches: createRegistrantForm.BasicInfoHeightInInches,
+		}
+	}
+
 	if bson.IsObjectIdHex(createRegistrantForm.EmpUnEmpStatHexId) {
 		registrant.Employment.UnEmpStat = model.UnEmpStatById(bson.ObjectIdHex(createRegistrantForm.EmpUnEmpStatHexId))
 	}
@@ -193,20 +195,20 @@ func StoreRegistrant(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(createRegistrantForm.LangHexIds) != 0 {
-		for _, langId := range createRegistrantForm.LangHexIds {
-			registrant.Langs = append(registrant.Langs, model.LanguageById(bson.ObjectIdHex(langId)))
+		for _, langHexId := range createRegistrantForm.LangHexIds {
+			registrant.Langs = append(registrant.Langs, model.LanguageById(bson.ObjectIdHex(langHexId)))
 		}
 	}
 
 	if len(createRegistrantForm.EmpPrefOccHexIds) != 0 {
-		for _, empPrefOccId := range createRegistrantForm.EmpPrefOccHexIds {
-			registrant.Employment.PrefOccs = append(registrant.Employment.PrefOccs, model.PositionById(bson.ObjectIdHex(empPrefOccId)))
+		for _, empPrefOccHexId := range createRegistrantForm.EmpPrefOccHexIds {
+			registrant.Employment.PrefOccs = append(registrant.Employment.PrefOccs, model.PositionById(bson.ObjectIdHex(empPrefOccHexId)))
 		}
 	}
 
 	if len(createRegistrantForm.OtherSkillHexIds) != 0 {
-		for _, otherSkillId := range createRegistrantForm.OtherSkillHexIds {
-			registrant.OtherSkills = append(registrant.OtherSkills, model.OtherSkillById(bson.ObjectIdHex(otherSkillId)))
+		for _, otherSkillHexId := range createRegistrantForm.OtherSkillHexIds {
+			registrant.OtherSkills = append(registrant.OtherSkills, model.OtherSkillById(bson.ObjectIdHex(otherSkillHexId)))
 		}
 	}
 	formalEduArr := []model.FormalEduArr{}

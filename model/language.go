@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/db"
+	
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -15,7 +15,7 @@ func (language *Language) Create() *Language {
 	if err := db.C("languages").Insert(language); err != nil {
 		panic(err)
 	}
-	defer db.Close()
+	
 	return language
 }
 
@@ -30,7 +30,6 @@ func (language Language) Index(q string) []Language {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return languages
 }
 

@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/emurmotol/nmsrs/db"
+	
 
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -22,7 +22,7 @@ func (cityMun *CityMun) Create() *CityMun {
 	if err := db.C("cityMuns").Insert(cityMun); err != nil {
 		panic(err)
 	}
-	defer db.Close()
+	
 	return cityMun
 }
 
@@ -78,7 +78,6 @@ func (cityMun CityMun) ProvinceIndex(q string) []CityMunProv {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return cityMunProv
 }
 
@@ -98,6 +97,5 @@ func (cityMun *CityMun) BarangayIndex(q string) []Barangay {
 		}
 		panic(err)
 	}
-	defer db.Close()
 	return barangays
 }

@@ -2,7 +2,8 @@ package controller
 
 import (
 	"html/template"
-
+	
+	"github.com/emurmotol/nmsrs/database"
 	"github.com/emurmotol/nmsrs/env"
 	"github.com/emurmotol/nmsrs/gohtml"
 	"github.com/gorilla/schema"
@@ -16,6 +17,7 @@ var (
 	interval int
 	// schema
 	decoder *schema.Decoder
+	db      = database.Con()
 )
 
 func init() {
